@@ -1,0 +1,58 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I reach a savings goal?",a:"Enter your goal amount, current savings, monthly contribution, and expected interest rate. The calculator shows how long it takes to reach your goal and whether you need to save more."},
+{q:"What interest rate should I use for savings?",a:"High-yield savings accounts typically offer 3–5% APY. For longer goals, investment accounts may average 6–8%. Use a conservative rate for planning."},
+{q:"How much should I save each month?",a:"A common guideline is 20% of income. For specific goals, divide the target by the months available. This calculator shows if your current pace is enough."}
+];
+const related=[
+{href:"/finance/compound-interest-calculator",icon:"📈",title:"Compound Interest",desc:"Watch savings grow"},
+{href:"/finance/investment-calculator",icon:"📊",title:"Investment Calculator",desc:"Project investments"},
+{href:"/finance/retirement-calculator",icon:"🏖️",title:"Retirement Calculator",desc:"Plan retirement"},
+{href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Home loan payments"},
+{href:"/finance/loan-calculator",icon:"💳",title:"Loan Calculator",desc:"Loan payments"},
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"}
+];
+---
+<CalculatorLayout title="Savings Calculator - Reach Your Savings Goal" h1="Savings Calculator" description="Free savings calculator. Find how long it takes to reach your savings goal or how much to save monthly. Includes interest. No sign-up." subtitle="Calculate how long it takes to reach your savings goal, or how much to save each month." category="Finance" categoryHref="/finance" appCategory="FinanceApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="sv-goal">Savings goal</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="sv-goal" value="20000" step="any" /></div></div>
+<div class="field"><label for="sv-current">Current savings</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="sv-current" value="2000" step="any" /></div></div>
+<div class="input-row">
+<div class="field"><label for="sv-monthly">Monthly deposit</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="sv-monthly" value="400" step="any" /></div></div>
+<div class="field"><label for="sv-rate">Interest rate</label><div class="input-affix has-suffix"><input type="number" id="sv-rate" value="4" step="any" /><span class="suffix">%</span></div></div>
+</div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Time to Goal</div><div class="result-value" id="sv-months">44 months</div><div class="result-sub" id="sv-sub">≈ 3 years, 8 months</div></div>
+<div class="result-rows" id="sv-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var goal=num('sv-goal'),cur=num('sv-current'),mo=num('sv-monthly'),rate=num('sv-rate');
+if(goal<=cur){document.getElementById('sv-months').textContent='Goal reached!';document.getElementById('sv-rows').innerHTML='';return;}
+var r=rate/100/12,bal=cur,months=0;
+while(bal<goal&&months<1200){bal=bal*(1+r)+mo;months++;}
+var yrs=Math.floor(months/12),mos=months%12;
+document.getElementById('sv-months').textContent=months+' months';
+document.getElementById('sv-sub').textContent='≈ '+yrs+' years, '+mos+' months';
+var totalContrib=cur+mo*months,interest=bal-totalContrib;
+document.getElementById('sv-rows').innerHTML=row('Total deposited',money(totalContrib))+row('Interest earned',money(interest))+row('Final balance',money(bal));
+}
+['sv-goal','sv-current','sv-monthly','sv-rate'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>How to Reach Your Savings Goal</h2>
+<p>Consistency beats intensity. Saving $400/month consistently for 3 years beats saving $1,200/month for 1 year, because compound interest has more time to work. Start as early as possible.</p>
+</section>
+</CalculatorLayout>

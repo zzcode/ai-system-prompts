@@ -1,0 +1,65 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"What is TDEE?",a:"TDEE (Total Daily Energy Expenditure) is the total calories you burn per day, combining your BMR with physical activity. It's the key number for weight management."},
+{q:"How is TDEE calculated?",a:"TDEE = BMR × activity factor. Sedentary=1.2, Light=1.375, Moderate=1.55, Very active=1.725, Extra active=1.9."},
+{q:"How many calories for weight loss?",a:"Eat 500 calories below your TDEE for ~1 lb/week loss. Never go below 1,200 (women) or 1,500 (men) without medical supervision."}
+];
+const related=[
+{href:"/health/bmr-calculator",icon:"⚡",title:"BMR Calculator",desc:"Calories at rest"},
+{href:"/health/calorie-calculator",icon:"🔥",title:"Calorie Calculator",desc:"Daily calorie needs"},
+{href:"/health/bmi-calculator",icon:"⚖️",title:"BMI Calculator",desc:"Body mass index"},
+{href:"/health/macro-calculator",icon:"🥗",title:"Macro Calculator",desc:"Protein, carbs & fat"},
+{href:"/health/body-fat-calculator",icon:"📏",title:"Body Fat Calculator",desc:"Estimate body fat %"},
+{href:"/health/ideal-weight-calculator",icon:"🎯",title:"Ideal Weight",desc:"Healthy weight range"}
+];
+---
+<CalculatorLayout title="TDEE Calculator - Total Daily Energy Expenditure" h1="TDEE Calculator" description="Free TDEE calculator. Calculate your Total Daily Energy Expenditure based on BMR and activity level. Find your maintenance calories. No sign-up." subtitle="Calculate your total daily calorie burn based on your body and activity level." category="Health" categoryHref="/health" appCategory="HealthApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="segmented" style="margin-bottom:24px;"><button class="td-unit active" data-unit="metric">Metric</button><button class="td-unit" data-unit="imperial">Imperial</button></div>
+<div class="calc-grid">
+<div>
+<div class="input-row"><div class="field"><label>Gender</label><div class="segmented" id="td-gender"><button data-g="male" class="active">Male</button><button data-g="female">Female</button></div></div><div class="field"><label for="td-age">Age</label><input type="number" id="td-age" value="30" /></div></div>
+<div id="td-metric"><div class="input-row"><div class="field"><label for="td-h-cm">Height</label><div class="input-affix has-suffix"><input type="number" id="td-h-cm" value="175" /><span class="suffix">cm</span></div></div><div class="field"><label for="td-w-kg">Weight</label><div class="input-affix has-suffix"><input type="number" id="td-w-kg" value="70" /><span class="suffix">kg</span></div></div></div></div>
+<div id="td-imperial" style="display:none;"><div class="input-row"><div class="field"><label for="td-h-ft">Height (ft)</label><input type="number" id="td-h-ft" value="5" /></div><div class="field"><label for="td-h-in">Height (in)</label><input type="number" id="td-h-in" value="9" /></div></div><div class="field"><label for="td-w-lb">Weight</label><div class="input-affix has-suffix"><input type="number" id="td-w-lb" value="154" /><span class="suffix">lb</span></div></div></div>
+<div class="field"><label for="td-act">Activity level</label><select id="td-act"><option value="1.2">Sedentary (little exercise)</option><option value="1.375">Light (1-3 days/week)</option><option value="1.55" selected>Moderate (3-5 days/week)</option><option value="1.725">Very active (6-7 days)</option><option value="1.9">Extra active (physical job)</option></select></div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">TDEE (Maintenance)</div><div class="result-value" id="td-val">2,600</div><div class="result-sub">calories/day</div></div>
+<div class="result-rows" id="td-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+var unit='metric',gender='male';
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var age=num('td-age'),act=parseFloat(document.getElementById('td-act').value),kg,cm;
+if(unit==='metric'){cm=num('td-h-cm');kg=num('td-w-kg');}
+else{cm=(num('td-h-ft')*12+num('td-h-in'))*2.54;kg=num('td-w-lb')*0.453592;}
+if(!age||!cm||!kg)return;
+var bmr=gender==='male'?(10*kg+6.25*cm-5*age+5):(10*kg+6.25*cm-5*age-161);
+var tdee=bmr*act;
+document.getElementById('td-val').textContent=Math.round(tdee).toLocaleString();
+document.getElementById('td-rows').innerHTML=row('BMR',Math.round(bmr).toLocaleString()+' cal')+row('Mild loss (−250)',Math.round(tdee-250).toLocaleString()+' cal')+row('Weight loss (−500)',Math.round(tdee-500).toLocaleString()+' cal')+row('Weight gain (+250)',Math.round(tdee+250).toLocaleString()+' cal');
+}
+document.querySelectorAll('.td-unit').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.td-unit').forEach(function(x){x.classList.remove('active');});b.classList.add('active');unit=b.getAttribute('data-unit');document.getElementById('td-metric').style.display=unit==='metric'?'':'none';document.getElementById('td-imperial').style.display=unit==='imperial'?'':'none';calc();});});
+document.querySelectorAll('#td-gender button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#td-gender button').forEach(function(x){x.classList.remove('active');});b.classList.add('active');gender=b.getAttribute('data-g');calc();});});
+document.querySelectorAll('#td-age,#td-h-cm,#td-w-kg,#td-h-ft,#td-h-in,#td-w-lb,#td-act').forEach(function(el){el.addEventListener('input',calc);el.addEventListener('change',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>Activity Level Guide</h2>
+<table class="ref-table"><thead><tr><th>Level</th><th>Factor</th><th>Description</th></tr></thead><tbody>
+<tr><td>Sedentary</td><td>1.2</td><td>Desk job, little exercise</td></tr>
+<tr><td>Light</td><td>1.375</td><td>Exercise 1–3 days/week</td></tr>
+<tr><td>Moderate</td><td>1.55</td><td>Exercise 3–5 days/week</td></tr>
+<tr><td>Very active</td><td>1.725</td><td>Exercise 6–7 days/week</td></tr>
+<tr><td>Extra active</td><td>1.9</td><td>Physical job + exercise</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: Estimates only, not medical advice.</em></p>
+</section>
+</CalculatorLayout>

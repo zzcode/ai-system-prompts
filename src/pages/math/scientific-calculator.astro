@@ -1,0 +1,114 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I use the scientific calculator?", a:"Type an expression or click the buttons. Supports +, −, ×, ÷, parentheses, exponents (^), square root (√), trigonometry (sin, cos, tan), logarithms (log, ln), π, and e."},
+{q:"What functions does this calculator support?",a:"Basic: +, −, ×, ÷. Scientific: sin, cos, tan, asin, acos, atan, log (base 10), ln (natural), √ (square root), x², x^y, π, e, !  (factorial), abs, and parentheses."},
+{q:"How do I calculate square root?",a:"Click √ then enter the number, or type sqrt(number). For example, sqrt(144) = 12."},
+{q:"Does this work on mobile?",a:"Yes. The calculator is fully responsive and works on any device — phone, tablet, or computer."},
+{q:"Is this calculator free?",a:"Yes. Completely free, no sign-up, and runs entirely in your browser."}
+];
+const related=[
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/math/fraction-calculator",icon:"½",title:"Fraction Calculator",desc:"Work with fractions"},
+{href:"/math/average-calculator",icon:"x̄",title:"Average Calculator",desc:"Mean of numbers"},
+{href:"/math/gpa-calculator",icon:"🎓",title:"GPA Calculator",desc:"Grade point average"},
+{href:"/math/ratio-calculator",icon:"⚖️",title:"Ratio Calculator",desc:"Simplify ratios"},
+{href:"/math/grade-calculator",icon:"📝",title:"Grade Calculator",desc:"Calculate grades"}
+];
+---
+<CalculatorLayout
+  title="Scientific Calculator - Free Online Calculator with Functions"
+  h1="Scientific Calculator"
+  description="Free scientific calculator online. Perform calculations with trigonometry, logarithms, exponents, square roots, factorials, π, and e. No sign-up, works in browser."
+  subtitle="A full-featured scientific calculator with trigonometry, logarithms, exponents, and more."
+  category="Math"
+  categoryHref="/math"
+  appCategory="UtilitiesApplication"
+  faqs={faqs}
+  relatedTools={related}
+>
+  <div slot="calculator">
+    <div style="max-width:420px;margin:0 auto;">
+      <div style="background:#0f172a;color:#5eead4;font-family:var(--font-mono);font-size:1.8rem;text-align:right;padding:16px 20px;border-radius:12px;margin-bottom:12px;min-height:64px;overflow-x:auto;word-break:break-all;" id="sc-display">0</div>
+      <div id="sc-expr" style="background:#1e293b;color:#94a3b8;font-family:var(--font-mono);font-size:0.85rem;text-align:right;padding:6px 20px;border-radius:8px;margin-bottom:12px;min-height:24px;overflow-x:auto;"></div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;">
+        <button class="btn btn-ghost sc-btn" data-val="sin(" >sin</button>
+        <button class="btn btn-ghost sc-btn" data-val="cos(">cos</button>
+        <button class="btn btn-ghost sc-btn" data-val="tan(">tan</button>
+        <button class="btn btn-ghost sc-btn" data-val="log(">log</button>
+        <button class="btn btn-ghost sc-btn" data-val="ln(">ln</button>
+        <button class="btn btn-ghost sc-btn" data-val="sqrt(">√</button>
+        <button class="btn btn-ghost sc-btn" data-val="^">x^y</button>
+        <button class="btn btn-ghost sc-btn" data-val="(">(</button>
+        <button class="btn btn-ghost sc-btn" data-val=")">)</button>
+        <button class="btn btn-ghost sc-btn" data-val="!" style="color:var(--primary);">n!</button>
+        <button class="btn btn-ghost sc-btn" data-val="7" style="font-weight:700;">7</button>
+        <button class="btn btn-ghost sc-btn" data-val="8" style="font-weight:700;">8</button>
+        <button class="btn btn-ghost sc-btn" data-val="9" style="font-weight:700;">9</button>
+        <button class="btn btn-ghost sc-btn" data-val="/" style="color:var(--accent);">÷</button>
+        <button class="btn btn-ghost sc-btn" data-val="C" style="color:#dc2626;">C</button>
+        <button class="btn btn-ghost sc-btn" data-val="4" style="font-weight:700;">4</button>
+        <button class="btn btn-ghost sc-btn" data-val="5" style="font-weight:700;">5</button>
+        <button class="btn btn-ghost sc-btn" data-val="6" style="font-weight:700;">6</button>
+        <button class="btn btn-ghost sc-btn" data-val="*" style="color:var(--accent);">×</button>
+        <button class="btn btn-ghost sc-btn" data-val="pi">π</button>
+        <button class="btn btn-ghost sc-btn" data-val="1" style="font-weight:700;">1</button>
+        <button class="btn btn-ghost sc-btn" data-val="2" style="font-weight:700;">2</button>
+        <button class="btn btn-ghost sc-btn" data-val="3" style="font-weight:700;">3</button>
+        <button class="btn btn-ghost sc-btn" data-val="-" style="color:var(--accent);">−</button>
+        <button class="btn btn-ghost sc-btn" data-val="e">e</button>
+        <button class="btn btn-ghost sc-btn" data-val="0" style="font-weight:700;">0</button>
+        <button class="btn btn-ghost sc-btn" data-val="." style="font-weight:700;">.</button>
+        <button class="btn btn-ghost sc-btn" data-val="=" style="background:var(--primary);color:#fff;font-weight:700;">=</button>
+        <button class="btn btn-ghost sc-btn" data-val="+" style="color:var(--accent);">+</button>
+        <button class="btn btn-ghost sc-btn" data-val="DEL" style="color:#dc2626;">⌫</button>
+      </div>
+    </div>
+  </div>
+  <script is:inline>
+    (function(){
+      var display=document.getElementById('sc-display');
+      var exprEl=document.getElementById('sc-expr');
+      var expr='';
+      function factorial(n){if(n<0)return NaN;if(n<=1)return 1;var r=1;for(var i=2;i<=n;i++)r*=i;return r;}
+      function evaluate(e){
+        e=e.replace(/pi/g,'Math.PI').replace(/(?<![a-zA-Z])e(?![a-zA-Z])/g,'Math.E')
+           .replace(/sin\(/g,'Math.sin(').replace(/cos\(/g,'Math.cos(').replace(/tan\(/g,'Math.tan(')
+           .replace(/log\(/g,'Math.log10(').replace(/ln\(/g,'Math.log(').replace(/sqrt\(/g,'Math.sqrt(')
+           .replace(/(\d+)!/g,'factorial($1)').replace(/\^/g,'**');
+        return Function('factorial','return '+e)(factorial);
+      }
+      function update(){exprEl.textContent=expr||'';display.textContent=expr||'0';}
+      document.querySelectorAll('.sc-btn').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          var v=btn.getAttribute('data-val');
+          if(v==='C'){expr='';update();return;}
+          if(v==='DEL'){expr=expr.slice(0,-1);update();return;}
+          if(v==='='){try{var r=evaluate(expr);display.textContent=isFinite(r)?+r.toFixed(10):'Error';exprEl.textContent=expr+' =';expr=String(r);}catch(e){display.textContent='Error';}return;}
+          expr+=v;update();
+        });
+      });
+    })();
+  </script>
+  <section class="content-section">
+    <h2>Supported Functions</h2>
+    <table class="ref-table">
+      <thead><tr><th>Function</th><th>Syntax</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Addition</td><td>a + b</td><td>5 + 3 = 8</td></tr>
+        <tr><td>Subtraction</td><td>a − b</td><td>10 − 4 = 6</td></tr>
+        <tr><td>Multiplication</td><td>a × b</td><td>6 × 7 = 42</td></tr>
+        <tr><td>Division</td><td>a ÷ b</td><td>20 ÷ 4 = 5</td></tr>
+        <tr><td>Exponent</td><td>a^b</td><td>2^10 = 1024</td></tr>
+        <tr><td>Square root</td><td>√(a)</td><td>√(144) = 12</td></tr>
+        <tr><td>Sine</td><td>sin(a)</td><td>sin(0) = 0</td></tr>
+        <tr><td>Cosine</td><td>cos(a)</td><td>cos(0) = 1</td></tr>
+        <tr><td>Logarithm</td><td>log(a)</td><td>log(100) = 2</td></tr>
+        <tr><td>Natural log</td><td>ln(a)</td><td>ln(e) = 1</td></tr>
+        <tr><td>Factorial</td><td>n!</td><td>5! = 120</td></tr>
+        <tr><td>Pi</td><td>π</td><td>π ≈ 3.14159</td></tr>
+        <tr><td>Euler's number</td><td>e</td><td>e ≈ 2.71828</td></tr>
+      </tbody>
+    </table>
+  </section>
+</CalculatorLayout>

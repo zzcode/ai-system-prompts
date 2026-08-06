@@ -1,0 +1,81 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I calculate hours between two times?",a:"Enter a start and end time. The calculator shows the difference in hours and minutes, plus decimal hours for timesheet use."},
+{q:"What if the end time is the next day?",a:"Check 'overnight' to add 24 hours when the end time is earlier than the start time (e.g., 10 PM to 6 AM = 8 hours)."},
+{q:"How do I convert hours to decimal?",a:"Divide minutes by 60 and add to hours. For example, 7 hours 30 minutes = 7.5 decimal hours. This calculator shows both formats."},
+{q:"Can I add multiple time durations?",a:"Enter durations in the add mode to sum multiple time periods, useful for timesheets and work hours."}
+];
+const related=[
+{href:"/date-time/age-calculator",icon:"🎂",title:"Age Calculator",desc:"Exact age in years & days"},
+{href:"/date-time/date-calculator",icon:"📅",title:"Date Calculator",desc:"Days between dates"},
+{href:"/date-time/days-from-today",icon:"🗓️",title:"Days From Today",desc:"Find a future or past date"},
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/health/bmi-calculator",icon:"⚖️",title:"BMI Calculator",desc:"Body mass index"},
+{href:"/finance/salary-calculator",icon:"💵",title:"Salary Calculator",desc:"Convert pay periods"}
+];
+---
+<CalculatorLayout title="Time Calculator - Hours Between Times & Duration" h1="Time Calculator" description="Free time calculator. Calculate hours and minutes between two times. Convert to decimal hours for timesheets. Add time durations. No sign-up." subtitle="Calculate the hours and minutes between two times, or add time durations together." category="Date & Time" categoryHref="/date-time" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="segmented" style="margin-bottom:24px;"><button class="tc-mode active" data-mode="diff">Time difference</button><button class="tc-mode" data-mode="add">Add durations</button></div>
+<div id="tc-diff">
+<div class="calc-grid">
+<div>
+<div class="input-row"><div class="field"><label for="tc-start">Start time</label><input type="time" id="tc-start" value="09:00" /></div><div class="field"><label for="tc-end">End time</label><input type="time" id="tc-end" value="17:30" /></div></div>
+<label style="display:flex;align-items:center;gap:8px;font-size:0.9rem;cursor:pointer;margin-top:8px;"><input type="checkbox" id="tc-overnight" /> Overnight (crosses midnight)</label>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Duration</div><div class="result-value" id="tc-dur">8h 30m</div><div class="result-sub" id="tc-sub">8.50 decimal hours</div></div>
+<div class="result-rows" id="tc-rows"></div>
+</div>
+</div></div>
+<div id="tc-add-pane" style="display:none;">
+<div class="field"><label for="tc-durations">Enter durations (e.g., 1:30, 2:15, 0:45)</label><textarea id="tc-durations" rows="3">1:30, 2:15, 0:45</textarea></div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Total Time</div><div class="result-value" id="tc-total">4h 30m</div><div class="result-sub" id="tc-total-sub">4.50 decimal hours</div></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+var mode='diff';
+document.querySelectorAll('.tc-mode').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tc-mode').forEach(function(x){x.classList.remove('active');});b.classList.add('active');mode=b.getAttribute('data-mode');document.getElementById('tc-diff').style.display=mode==='diff'?'':'none';document.getElementById('tc-add-pane').style.display=mode==='add'?'':'none';});});
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calcDiff(){
+var s=document.getElementById('tc-start').value,e=document.getElementById('tc-end').value;
+if(!s||!e)return;
+var sh=parseInt(s.split(':')[0],10),sm=parseInt(s.split(':')[1],10);
+var eh=parseInt(e.split(':')[0],10),em=parseInt(e.split(':')[1],10);
+var mins=(eh*60+em)-(sh*60+sm);
+if(document.getElementById('tc-overnight').checked&&mins<0)mins+=1440;
+if(mins<0)mins+=1440;
+var h=Math.floor(mins/60),m=mins%60;
+document.getElementById('tc-dur').textContent=h+'h '+m+'m';
+document.getElementById('tc-sub').textContent=(mins/60).toFixed(2)+' decimal hours';
+document.getElementById('tc-rows').innerHTML=row('Total minutes',mins)+row('Decimal hours',(mins/60).toFixed(2))+row('Work hours (−30min lunch)',Math.max(0,mins-30)/60).toFixed(2));
+}
+function calcAdd(){
+var durations=document.getElementById('tc-durations').value.split(/[,;\n]+/).map(function(s){return s.trim();}).filter(Boolean);
+var totalMin=0;
+durations.forEach(function(d){var parts=d.split(':');if(parts.length===2){totalMin+=parseInt(parts[0],10)*60+parseInt(parts[1],10);}else if(parts.length===1){totalMin+=parseFloat(parts[0])*60;}});
+var h=Math.floor(totalMin/60),m=totalMin%60;
+document.getElementById('tc-total').textContent=h+'h '+m+'m';
+document.getElementById('tc-total-sub').textContent=(totalMin/60).toFixed(2)+' decimal hours';
+}
+['tc-start','tc-end','tc-overnight'].forEach(function(id){document.getElementById(id).addEventListener('input',calcDiff);document.getElementById(id).addEventListener('change',calcDiff);});
+document.getElementById('tc-durations').addEventListener('input',calcAdd);
+calcDiff();calcAdd();
+})();
+</script>
+<section class="content-section">
+<h2>Time to Decimal Conversion</h2>
+<table class="ref-table"><thead><tr><th>Time</th><th>Decimal Hours</th></tr></thead><tbody>
+<tr><td>0:30</td><td>0.50</td></tr>
+<tr><td>1:15</td><td>1.25</td></tr>
+<tr><td>7:30</td><td>7.50</td></tr>
+<tr><td>8:00</td><td>8.00</td></tr>
+<tr><td>8:30</td><td>8.50</td></tr>
+<tr><td>40:00</td><td>40.00</td></tr>
+</tbody></table>
+</section>
+</CalculatorLayout>

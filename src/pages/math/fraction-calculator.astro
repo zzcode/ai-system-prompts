@@ -1,0 +1,67 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I add fractions?",a:"Find a common denominator, convert both fractions, add the numerators, then simplify. For 1/4 + 1/3: common denominator 12 → 3/12 + 4/12 = 7/12."},
+{q:"How do I multiply fractions?",a:"Multiply the numerators together and the denominators together. For 2/3 × 4/5: (2×4)/(3×5) = 8/15. Simplify if possible."},
+{q:"How do I divide fractions?",a:"Multiply by the reciprocal (flip) of the second fraction. For 2/3 ÷ 4/5: 2/3 × 5/4 = 10/12 = 5/6."},
+{q:"How do I simplify a fraction?",a:"Divide both numerator and denominator by their greatest common divisor (GCD). For 6/8: GCD is 2 → 3/4."}
+];
+const related=[
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/math/average-calculator",icon:"x̄",title:"Average Calculator",desc:"Mean of numbers"},
+{href:"/math/ratio-calculator",icon:"⚖️",title:"Ratio Calculator",desc:"Simplify ratios"},
+{href:"/math/gpa-calculator",icon:"🎓",title:"GPA Calculator",desc:"Grade point average"},
+{href:"/math/grade-calculator",icon:"📝",title:"Grade Calculator",desc:"Calculate final grades"},
+{href:"/finance/tip-calculator",icon:"💵",title:"Tip Calculator",desc:"Tip & split bill"}
+];
+---
+<CalculatorLayout title="Fraction Calculator - Add, Subtract, Multiply, Divide Fractions" h1="Fraction Calculator" description="Free fraction calculator. Add, subtract, multiply, and divide fractions with step-by-step results. Simplifies automatically. No sign-up." subtitle="Add, subtract, multiply, or divide fractions. Results simplified automatically." category="Math" categoryHref="/math" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="input-row">
+<div class="field"><label for="fr-n1">Numerator 1</label><input type="number" id="fr-n1" value="1" /></div>
+<div class="field"><label for="fr-d1">Denominator 1</label><input type="number" id="fr-d1" value="4" /></div>
+</div>
+<div class="field"><label for="fr-op">Operation</label><select id="fr-op"><option value="add">Add (+)</option><option value="sub">Subtract (−)</option><option value="mul">Multiply (×)</option><option value="div">Divide (÷)</option></select></div>
+<div class="input-row">
+<div class="field"><label for="fr-n2">Numerator 2</label><input type="number" id="fr-n2" value="1" /></div>
+<div class="field"><label for="fr-d2">Denominator 2</label><input type="number" id="fr-d2" value="3" /></div>
+</div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Result</div><div class="result-value" id="fr-result">7/12</div><div class="result-sub" id="fr-sub">≈ 0.5833</div></div>
+<div class="result-rows" id="fr-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseInt(document.getElementById(id).value,10);return isNaN(v)?0:v;}
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){var t=b;b=a%b;a=t;}return a||1;}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var n1=num('fr-n1'),d1=num('fr-d1')||1,n2=num('fr-n2'),d2=num('fr-d2')||1;
+var op=document.getElementById('fr-op').value;
+var n,d;
+if(op==='add'){d=d1*d2;n=n1*d2+n2*d1;}
+else if(op==='sub'){d=d1*d2;n=n1*d2-n2*d1;}
+else if(op==='mul'){n=n1*n2;d=d1*d2;}
+else{if(n2===0){document.getElementById('fr-result').textContent='Cannot divide by 0';return;}n=n1*d2;d=d1*n2;}
+var g=gcd(n,d);n=n/g;d=d/g;
+if(d<0){n=-n;d=-d;}
+var dec=n/d;
+var result=d===1?String(n):n+'/'+d;
+document.getElementById('fr-result').textContent=result;
+document.getElementById('fr-sub').textContent='≈ '+dec.toFixed(4);
+document.getElementById('fr-rows').innerHTML=row('Decimal',dec.toFixed(4))+row('Simplified',result)+row('GCD',g);
+}
+['fr-n1','fr-d1','fr-op','fr-n2','fr-d2'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);document.getElementById(id).addEventListener('change',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>Fraction Operations</h2>
+<div class="formula-box">Add: a/b + c/d = (a×d + c×b) / (b×d)<br>Subtract: a/b − c/d = (a×d − c×b) / (b×d)<br>Multiply: a/b × c/d = (a×c) / (b×d)<br>Divide: a/b ÷ c/d = (a×d) / (b×c)</div>
+</section>
+</CalculatorLayout>

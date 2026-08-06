@@ -1,0 +1,63 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"What is an amortization schedule?",a:"An amortization schedule shows each monthly payment broken into principal and interest over the life of a loan. Early payments are mostly interest; later payments are mostly principal."},
+{q:"How is each payment split between principal and interest?",a:"Interest = remaining balance × monthly rate. Principal = total payment − interest. Each month, the balance decreases, so less goes to interest and more to principal."},
+{q:"How can I pay off my loan faster?",a:"Make extra principal payments. Even $50/month extra can save thousands in interest and years off the term. This calculator shows the standard schedule; add extra payments to see the impact."}
+];
+const related=[
+{href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Home loan payments"},
+{href:"/finance/loan-calculator",icon:"💳",title:"Loan Calculator",desc:"General loan payments"},
+{href:"/finance/auto-loan-calculator",icon:"🚗",title:"Auto Loan",desc:"Car payment & cost"},
+{href:"/finance/compound-interest-calculator",icon:"📈",title:"Compound Interest",desc:"Grow savings"},
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/finance/salary-calculator",icon:"💵",title:"Salary Calculator",desc:"Convert pay periods"}
+];
+---
+<CalculatorLayout title="Amortization Calculator - Loan Payment Schedule" h1="Amortization Calculator" description="Free amortization calculator. See a full payment schedule showing principal vs interest for each month. Any loan amount, rate, and term. No sign-up." subtitle="View a complete month-by-month payment schedule showing principal and interest breakdown." category="Finance" categoryHref="/finance" appCategory="FinanceApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="am-amount">Loan amount</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="am-amount" value="200000" step="any" /></div></div>
+<div class="input-row">
+<div class="field"><label for="am-rate">Interest rate</label><div class="input-affix has-suffix"><input type="number" id="am-rate" value="6.5" step="any" /><span class="suffix">%</span></div></div>
+<div class="field"><label for="am-years">Term (years)</label><input type="number" id="am-years" value="30" step="1" /></div>
+</div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Monthly Payment</div><div class="result-value" id="am-payment">$1,264</div><div class="result-sub" id="am-sub">360 payments</div></div>
+<div class="result-rows" id="am-rows"></div>
+</div>
+</div>
+<div style="margin-top:20px;max-height:300px;overflow-y:auto;">
+<table class="ref-table"><thead><tr><th>Month</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead><tbody id="am-tbody"></tbody></table>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var P=num('am-amount'),rate=num('am-rate'),years=num('am-years');
+if(P<=0||rate<=0||years<=0)return;
+var r=rate/100/12,n=Math.round(years*12),pow=Math.pow(1+r,n),m=P*(r*pow)/(pow-1);
+var total=m*n,interest=total-P;
+document.getElementById('am-payment').textContent=money(m);
+document.getElementById('am-sub').textContent=n+' payments at '+rate+'%';
+document.getElementById('am-rows').innerHTML=row('Total payments',money(total))+row('Total interest',money(interest))+row('Total cost',money(total));
+var bal=P,rows='';
+var step=Math.max(1,Math.floor(n/120));
+for(var i=1;i<=n;i++){var intr=bal*r;var prin=m-intr;bal-=prin;if(i%step===0||i===n)rows+='<tr><td>'+i+'</td><td>'+money(prin)+'</td><td>'+money(intr)+'</td><td>'+money(Math.max(bal,0))+'</td></tr>';}
+document.getElementById('am-tbody').innerHTML=rows;
+}
+['am-amount','am-rate','am-years'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>How Amortization Works</h2>
+<p>Each monthly payment covers the interest on the remaining balance, with the remainder going to principal. As the balance shrinks, less interest accrues and more principal is paid — accelerating payoff over time.</p>
+<div class="formula-box">Interest = Balance × (Rate ÷ 12)<br>Principal = Payment − Interest<br>New Balance = Balance − Principal</div>
+</section>
+</CalculatorLayout>

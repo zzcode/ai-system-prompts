@@ -1,0 +1,64 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I calculate investment returns?",a:"Enter your initial investment, regular contributions, expected annual return, and time horizon. The calculator compounds returns monthly to project your future portfolio value."},
+{q:"What return rate should I use?",a:"Historically, the S&P 500 averages about 10% annually before inflation. A conservative inflation-adjusted estimate is 6–7%. Bonds average 4–5%. Diversified portfolios typically use 6–8%."},
+{q:"What's the difference between this and compound interest?",a:"They use the same math. This calculator is framed for investments (stocks, ETFs) while the compound interest calculator is framed for savings accounts and CDs."}
+];
+const related=[
+{href:"/finance/compound-interest-calculator",icon:"📈",title:"Compound Interest",desc:"Watch savings grow"},
+{href:"/finance/retirement-calculator",icon:"🏖️",title:"Retirement Calculator",desc:"Project retirement savings"},
+{href:"/finance/savings-calculator",icon:"🐖",title:"Savings Calculator",desc:"Plan savings goals"},
+{href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Home loan payments"},
+{href:"/finance/loan-calculator",icon:"💳",title:"Loan Calculator",desc:"Loan payments"},
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"}
+];
+---
+<CalculatorLayout title="Investment Calculator - Project Portfolio Growth" h1="Investment Calculator" description="Free investment calculator. Project your portfolio growth with initial investment, monthly contributions, and expected returns. See future value instantly." subtitle="Project how your investments grow over time with contributions and compounding returns." category="Finance" categoryHref="/finance" appCategory="FinanceApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="iv-initial">Initial investment</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="iv-initial" value="10000" step="any" /></div></div>
+<div class="field"><label for="iv-monthly">Monthly contribution</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="iv-monthly" value="300" step="any" /></div></div>
+<div class="input-row">
+<div class="field"><label for="iv-rate">Annual return</label><div class="input-affix has-suffix"><input type="number" id="iv-rate" value="8" step="any" /><span class="suffix">%</span></div></div>
+<div class="field"><label for="iv-years">Years</label><input type="number" id="iv-years" value="25" step="1" /></div>
+</div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Future Value</div><div class="result-value" id="iv-total">$367,000</div><div class="result-sub" id="iv-sub">in 25 years at 8%</div></div>
+<div class="result-rows" id="iv-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var init=num('iv-initial'),mo=num('iv-monthly'),rate=num('iv-rate'),years=Math.max(num('iv-years'),0);
+var r=rate/100/12,effMo=Math.pow(1+r,12)-1,bal=init;
+for(var y=1;y<=years;y++)bal=bal*(1+effMo)+mo*12;
+var contrib=init+mo*12*years,interest=bal-contrib;
+document.getElementById('iv-total').textContent=money(bal);
+document.getElementById('iv-sub').textContent='in '+years+' years at '+rate+'%';
+document.getElementById('iv-rows').innerHTML=row('Total invested',money(contrib))+row('Investment gains',money(interest))+row('Annual withdrawal (4%)',money(bal*0.04));
+}
+['iv-initial','iv-monthly','iv-rate','iv-years'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('input',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>Investment Growth Over Time</h2>
+<p>The power of investing comes from compounding: your returns earn returns. Starting early matters more than investing more. Compare $300/month for 25 years vs. $600/month for 12 years — the earlier start wins despite investing the same total.</p>
+<h2>Historical Average Returns</h2>
+<table class="ref-table"><thead><tr><th>Asset Class</th><th>Avg Annual Return*</th></tr></thead><tbody>
+<tr><td>S&P 500 (stocks)</td><td>~10%</td></tr>
+<tr><td>Bonds (aggregate)</td><td>~4–5%</td></tr>
+<tr><td>Real estate (REITs)</td><td>~8–9%</td></tr>
+<tr><td>Cash/savings</td><td>~1–4%</td></tr>
+</tbody></table>
+<p style="font-size:0.82rem;color:var(--text-muted);">*Historical averages, not guaranteed. Past performance doesn't predict future results.</p>
+</section>
+</CalculatorLayout>

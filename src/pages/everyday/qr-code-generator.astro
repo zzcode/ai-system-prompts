@@ -1,0 +1,86 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs = [
+  { q: "How do I generate a QR code?", a: "Enter any text or URL, choose a size, and the QR code appears instantly. Right-click to save the image, or click Download." },
+  { q: "What can I put in a QR code?", a: "Any text: website URLs, phone numbers, email addresses, Wi-Fi credentials, plain text messages, contact info (vCard), calendar events, and more." },
+  { q: "What size should I use?", a: "256×256 pixels works for most digital displays. For print, use 512 or 1024 pixels. Always test your QR code by scanning it before publishing." },
+  { q: "Are these QR codes free to use?", a: "Yes. All QR codes generated here are free for personal and commercial use. There are no watermarks or restrictions." },
+  { q: "Do QR codes expire?", a: "No. The QR codes generated here encode your data directly into the image. They do not expire and do not require any service to remain active." },
+  { q: "Can I use QR codes for business?", a: "Yes. QR codes are widely used for menus, business cards, product packaging, marketing materials, and payment links." }
+];
+const related = [
+  { href: "/everyday/password-generator", icon: "🔐", title: "Password Generator", desc: "Create strong passwords" },
+  { href: "/everyday/word-counter", icon: "📝", title: "Word Counter", desc: "Count words & characters" },
+  { href: "/everyday/random-number-generator", icon: "🎲", title: "Random Number", desc: "Pick random numbers" },
+  { href: "/converters/unit-converter", icon: "📏", title: "Unit Converter", desc: "Length, weight & temp" },
+  { href: "/math/percentage-calculator", icon: "%", title: "Percentage Calculator", desc: "Percent of a number" },
+  { href: "/finance/tip-calculator", icon: "💵", title: "Tip Calculator", desc: "Tip & split the bill" }
+];
+---
+<CalculatorLayout
+  title="QR Code Generator - Create Free QR Codes Online"
+  h1="QR Code Generator"
+  description="Free QR code generator. Create QR codes for URLs, text, phone numbers, and more. Download as PNG image. No sign-up, free for commercial use."
+  subtitle="Generate QR codes for URLs, text, contact info, and more. Download instantly, free for any use."
+  category="Everyday"
+  categoryHref="/everyday"
+  appCategory="UtilitiesApplication"
+  faqs={faqs}
+  relatedTools={related}
+>
+  <div slot="calculator">
+    <div class="calc-grid">
+      <div>
+        <div class="field"><label for="qr-text">Text or URL</label><textarea id="qr-text" rows="4" placeholder="Enter URL or text...">https://www.kodatools.com</textarea></div>
+        <div class="field"><label for="qr-size">Size</label>
+          <select id="qr-size">
+            <option value="128">128 × 128 px (small)</option>
+            <option value="256" selected>256 × 256 px (standard)</option>
+            <option value="512">512 × 512 px (high quality)</option>
+            <option value="1024">1024 × 1024 px (print)</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" id="qr-gen" type="button" style="width:100%;">Generate QR Code</button>
+      </div>
+      <div class="result-panel" style="text-align:center;">
+        <div id="qr-preview" style="display:flex;align-items:center;justify-content:center;min-height:200px;">
+          <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://www.kodatools.com" alt="QR Code" style="max-width:100%;border-radius:12px;background:#fff;padding:12px;" />
+        </div>
+        <a class="btn btn-ghost" id="qr-download" href="https://api.qrserver.com/v1/create-qr-code/?size=512x512&data=https://www.kodatools.com" download="qrcode.png" target="_blank" style="width:100%;margin-top:12px;">⬇ Download PNG</a>
+      </div>
+    </div>
+  </div>
+  <script is:inline>
+    (function(){
+      var textEl=document.getElementById('qr-text'),sizeEl=document.getElementById('qr-size');
+      var img=document.getElementById('qr-img'),dl=document.getElementById('qr-download');
+      function gen(){
+        var data=encodeURIComponent(textEl.value||' ');
+        var size=sizeEl.value;
+        img.src='https://api.qrserver.com/v1/create-qr-code/?size='+size+'x'+size+'&data='+data;
+        dl.href='https://api.qrserver.com/v1/create-qr-code/?size=1024x1024&data='+data;
+      }
+      document.getElementById('qr-gen').addEventListener('click',gen);
+      textEl.addEventListener('input',function(){clearTimeout(window._qrt);window._qrt=setTimeout(gen,500);});
+    })();
+  </script>
+  <section class="content-section">
+    <h2>How to Use the QR Code Generator</h2>
+    <p>Enter any text or URL, select a size, and click Generate. The QR code updates instantly. Click Download to save a high-resolution PNG image.</p>
+    <h2>QR Code Best Practices</h2>
+    <ul>
+      <li><strong>Test before publishing</strong> — Always scan your QR code with a phone to verify it works</li>
+      <li><strong>Use enough size</strong> — For print, use at least 2×2 cm (0.8 inches) at 300 DPI</li>
+      <li><strong>Keep URLs short</strong> — Shorter URLs create simpler, easier-to-scan codes</li>
+      <li><strong>Add quiet zone</strong> — Leave white space around the code for reliable scanning</li>
+    </ul>
+    <h2>Common QR Code Uses</h2>
+    <table class="ref-table"><thead><tr><th>Use Case</th><th>Example Content</th></tr></thead><tbody>
+      <tr><td>Website link</td><td>https://example.com</td></tr>
+      <tr><td>Phone number</td><td>tel:+1234567890</td></tr>
+      <tr><td>Email</td><td>mailto:hello@example.com</td></tr>
+      <tr><td>Plain text</td><td>Any message or code</td></tr>
+      <tr><td>Wi-Fi</td><td>WIFI:T:WPA;S:NetworkName;P:password;;</td></tr>
+    </tbody></table>
+  </section>
+</CalculatorLayout>

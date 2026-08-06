@@ -1,0 +1,101 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs = [
+  { q: "How does the random number generator work?", a: "It uses JavaScript's built-in random number generation to produce uniformly distributed numbers between your minimum and maximum values. Each result is independent and unpredictable." },
+  { q: "Can I generate multiple random numbers at once?", a: "Yes. Set the 'How many' field to generate up to 100 numbers in a single click. Results are unique by default, or allow duplicates if needed." },
+  { q: "Are these numbers truly random?", a: "JavaScript uses a pseudo-random number generator (PRNG). For games, simulations, and everyday use, it's more than sufficient. For cryptographic purposes, use a dedicated cryptographic library." },
+  { q: "Can I use negative numbers?", a: "Yes. Enter negative values for the minimum or maximum. The generator handles any range from -1,000,000 to 1,000,000." },
+  { q: "Can I pick a random item from a list?", a: "Enter your items separated by commas in the list picker mode, and the tool will randomly select one or more items for you." },
+  { q: "Is this tool free and private?", a: "Yes. Completely free, no sign-up, and all generation happens in your browser." }
+];
+const related = [
+  { href: "/everyday/password-generator", icon: "🔐", title: "Password Generator", desc: "Create strong passwords" },
+  { href: "/everyday/word-counter", icon: "📝", title: "Word Counter", desc: "Count words & characters" },
+  { href: "/everyday/case-converter", icon: "Aa", title: "Case Converter", desc: "Change text case" },
+  { href: "/math/percentage-calculator", icon: "%", title: "Percentage Calculator", desc: "Percent of a number" },
+  { href: "/math/average-calculator", icon: "x̄", title: "Average Calculator", desc: "Mean of numbers" },
+  { href: "/finance/tip-calculator", icon: "💵", title: "Tip Calculator", desc: "Tip & split the bill" }
+];
+---
+<CalculatorLayout
+  title="Random Number Generator - Pick Random Numbers Online"
+  h1="Random Number Generator"
+  description="Free random number generator. Pick random numbers between any range, generate unique or duplicate numbers, and draw random items from a list. No sign-up."
+  subtitle="Generate random numbers between any range, or pick random items from a list."
+  category="Everyday"
+  categoryHref="/everyday"
+  appCategory="UtilitiesApplication"
+  faqs={faqs}
+  relatedTools={related}
+>
+  <div slot="calculator">
+    <div class="segmented" style="margin-bottom:24px;">
+      <button class="rng-mode active" data-mode="numbers">Numbers</button>
+      <button class="rng-mode" data-mode="list">From a list</button>
+    </div>
+    <div id="rng-numbers">
+      <div class="calc-grid">
+        <div>
+          <div class="input-row">
+            <div class="field"><label for="rng-min">Minimum</label><input type="number" id="rng-min" value="1" /></div>
+            <div class="field"><label for="rng-max">Maximum</label><input type="number" id="rng-max" value="100" /></div>
+          </div>
+          <div class="input-row">
+            <div class="field"><label for="rng-count">How many</label><input type="number" id="rng-count" value="1" min="1" max="100" /></div>
+            <div class="field"><label style="display:flex;align-items:center;gap:8px;font-size:0.9rem;cursor:pointer;margin-top:24px;"><input type="checkbox" id="rng-unique" checked /> No duplicates</label></div>
+          </div>
+          <button class="btn btn-primary" id="rng-gen" type="button" style="width:100%;">🎲 Generate</button>
+        </div>
+        <div class="result-panel">
+          <div class="result-main"><div class="result-label">Result</div><div class="result-value" id="rng-result" style="font-size:2rem;">—</div></div>
+          <div class="result-rows" id="rng-rows"></div>
+        </div>
+      </div>
+    </div>
+    <div id="rng-list-pane" style="display:none;">
+      <div class="field"><label for="rng-items">Enter items (comma-separated)</label><textarea id="rng-items" rows="4" placeholder="apple, banana, cherry, date">apple, banana, cherry, date, elderberry</textarea></div>
+      <div class="field"><label for="rng-pick">How many to pick</label><input type="number" id="rng-pick" value="1" min="1" /></div>
+      <button class="btn btn-primary" id="rng-pick-btn" type="button">🎲 Pick Random</button>
+      <div class="result-panel" style="margin-top:16px;">
+        <div class="result-main"><div class="result-label">Picked</div><div class="result-value" id="rng-picked" style="font-size:1.5rem;">—</div></div>
+      </div>
+    </div>
+  </div>
+  <script is:inline>
+    (function(){
+      var mode='numbers';
+      var modes=document.querySelectorAll('.rng-mode');
+      var numPane=document.getElementById('rng-numbers');
+      var listPane=document.getElementById('rng-list-pane');
+      modes.forEach(function(b){b.addEventListener('click',function(){modes.forEach(function(x){x.classList.remove('active');});b.classList.add('active');mode=b.getAttribute('data-mode');numPane.style.display=mode==='numbers'?'':'none';listPane.style.display=mode==='list'?'':'none';});});
+      function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+      document.getElementById('rng-gen').addEventListener('click',function(){
+        var min=parseInt(document.getElementById('rng-min').value,10)||0;
+        var max=parseInt(document.getElementById('rng-max').value,10)||0;
+        var count=Math.min(parseInt(document.getElementById('rng-count').value,10)||1,100);
+        var unique=document.getElementById('rng-unique').checked;
+        if(min>max){var t=min;min=max;max=t;}
+        var range=max-min+1;
+        var resEl=document.getElementById('rng-result'),rowsEl=document.getElementById('rng-rows');
+        if(unique&&count>range){resEl.textContent='Range too small';rowsEl.innerHTML='';return;}
+        var results=[];
+        if(unique){var pool=[];for(var i=min;i<=max;i++)pool.push(i);shuffle(pool);results=pool.slice(0,count);}
+        else{for(var i=0;i<count;i++)results.push(min+Math.floor(Math.random()*range));}
+        resEl.textContent=count===1?results[0]:results.join(', ');
+        rowsEl.innerHTML='<div class="result-row"><span class="rr-label">Count</span><span class="rr-value">'+results.length+'</span></div><div class="result-row"><span class="rr-label">Range</span><span class="rr-value">'+min+' – '+max+'</span></div>';
+      });
+      document.getElementById('rng-pick-btn').addEventListener('click',function(){
+        var items=document.getElementById('rng-items').value.split(',').map(function(s){return s.trim();}).filter(Boolean);
+        var pick=Math.min(parseInt(document.getElementById('rng-pick').value,10)||1,items.length);
+        shuffle(items);
+        document.getElementById('rng-picked').textContent=items.slice(0,pick).join(', ');
+      });
+    })();
+  </script>
+  <section class="content-section">
+    <h2>How to Use the Random Number Generator</h2>
+    <p>Choose between number mode and list mode. In number mode, set a range and quantity. In list mode, enter items separated by commas and pick one or more at random.</p>
+    <h2>Common Uses</h2>
+    <ul><li>Lottery and raffle number selection</li><li>Random sampling for statistics</li><li>Games and decision-making</li><li>Assigning tasks or order randomly</li><li>Generating test data</li></ul>
+  </section>
+</CalculatorLayout>

@@ -1,0 +1,89 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I calculate days between two dates?",a:"Enter a start and end date. The calculator counts every day between them, accounting for leap years and varying month lengths."},
+{q:"Does this include or exclude the end date?",a:"The default count excludes the end date (like counting days remaining). Toggle 'include end date' to add one day if needed."},
+{q:"Can I add or subtract days from a date?",a:"Yes. Use the 'Add/subtract' mode to find a date a certain number of days, weeks, or months from any starting date."}
+];
+const related=[
+{href:"/date-time/age-calculator",icon:"🎂",title:"Age Calculator",desc:"Exact age in years & days"},
+{href:"/date-time/days-from-today",icon:"🗓️",title:"Days From Today",desc:"Find a future or past date"},
+{href:"/date-time/time-calculator",icon:"⏰",title:"Time Calculator",desc:"Hours between times"},
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/health/bmi-calculator",icon:"⚖️",title:"BMI Calculator",desc:"Body mass index"},
+{href:"/finance/tip-calculator",icon:"💵",title:"Tip Calculator",desc:"Tip & split bill"}
+];
+---
+<CalculatorLayout title="Date Calculator - Days Between Dates Calculator" h1="Date Calculator" description="Free date calculator. Find the number of days, weeks, and months between two dates. Add or subtract days from any date. No sign-up." subtitle="Calculate the number of days between two dates, or add/subtract days from a date." category="Date & Time" categoryHref="/date-time" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="segmented" style="margin-bottom:24px;"><button class="dc-mode active" data-mode="between">Days between</button><button class="dc-mode" data-mode="add">Add/subtract</button></div>
+<div id="dc-between">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="dc-start">Start date</label><input type="date" id="dc-start" /></div>
+<div class="field"><label for="dc-end">End date</label><input type="date" id="dc-end" /></div>
+<label style="display:flex;align-items:center;gap:8px;font-size:0.9rem;cursor:pointer;"><input type="checkbox" id="dc-incl" /> Include end date</label>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Days Between</div><div class="result-value" id="dc-days">—</div><div class="result-sub" id="dc-sub">Enter both dates</div></div>
+<div class="result-rows" id="dc-rows"></div>
+</div>
+</div></div>
+<div id="dc-add" style="display:none;">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="dc-base">Base date</label><input type="date" id="dc-base" /></div>
+<div class="input-row">
+<div class="field"><label for="dc-num">Amount</label><input type="number" id="dc-num" value="30" /></div>
+<div class="field"><label for="dc-unit">Unit</label><select id="dc-unit"><option value="days">Days</option><option value="weeks">Weeks</option><option value="months">Months</option><option value="years">Years</option></select></div>
+</div>
+<div class="segmented" style="margin-top:10px;"><button class="dc-dir active" data-dir="add">Add</button><button class="dc-dir" data-dir="sub">Subtract</button></div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Result Date</div><div class="result-value" id="dc-result-date" style="font-size:1.6rem;">—</div><div class="result-sub" id="dc-result-sub"></div></div>
+</div>
+</div></div>
+</div>
+<script is:inline>
+(function(){
+var mode='between',dir='add';
+function todayStr(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+document.getElementById('dc-start').value=todayStr();
+var e=new Date();e.setDate(e.getDate()+90);document.getElementById('dc-end').value=e.getFullYear()+'-'+String(e.getMonth()+1).padStart(2,'0')+'-'+String(e.getDate()).padStart(2,'0');
+document.getElementById('dc-base').value=todayStr();
+document.querySelectorAll('.dc-mode').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.dc-mode').forEach(function(x){x.classList.remove('active');});b.classList.add('active');mode=b.getAttribute('data-mode');document.getElementById('dc-between').style.display=mode==='between'?'':'none';document.getElementById('dc-add').style.display=mode==='add'?'':'none';});});
+document.querySelectorAll('.dc-dir').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.dc-dir').forEach(function(x){x.classList.remove('active');});b.classList.add('active');dir=b.getAttribute('data-dir');calcAdd();});});
+function calcBetween(){
+var s=document.getElementById('dc-start').value,e=document.getElementById('dc-end').value;
+if(!s||!e)return;
+var d1=new Date(s+'T00:00:00'),d2=new Date(e+'T00:00:00');
+var days=Math.round((d2-d1)/86400000);
+if(document.getElementById('dc-incl').checked)days++;
+if(days<0)days=-days;
+document.getElementById('dc-days').textContent=days.toLocaleString();
+document.getElementById('dc-sub').textContent=Math.floor(days/7)+' weeks, '+(days%7)+' days';
+document.getElementById('dc-rows').innerHTML=row('Weeks',Math.floor(days/7).toLocaleString())+row('Months',Math.floor(days/30.44).toLocaleString())+row('Years',Math.floor(days/365.25).toLocaleString())+row('Business days (est.)',Math.floor(days*5/7).toLocaleString());
+}
+function calcAdd(){
+var b=document.getElementById('dc-base').value,n=parseInt(document.getElementById('dc-num').value,10)||0,u=document.getElementById('dc-unit').value;
+if(!b)return;
+var d=new Date(b+'T00:00:00');
+var sign=dir==='add'?1:-1;
+if(u==='days')d.setDate(d.getDate()+sign*n);
+else if(u==='weeks')d.setDate(d.getDate()+sign*n*7);
+else if(u==='months')d.setMonth(d.getMonth()+sign*n);
+else if(u==='years')d.setFullYear(d.getFullYear()+sign*n);
+document.getElementById('dc-result-date').textContent=d.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+document.getElementById('dc-result-sub').textContent=dir==='add'?n+' '+u+' after':'n '+u+' before';
+}
+['dc-start','dc-end','dc-incl'].forEach(function(id){document.getElementById(id).addEventListener('input',calcBetween);document.getElementById(id).addEventListener('change',calcBetween);});
+['dc-base','dc-num','dc-unit'].forEach(function(id){document.getElementById(id).addEventListener('input',calcAdd);document.getElementById(id).addEventListener('change',calcAdd);});
+calcBetween();calcAdd();
+})();
+</script>
+<section class="content-section">
+<h2>How Date Calculation Works</h2>
+<p>Days between dates are calculated by counting every calendar day, including weekends and holidays, accounting for leap years (366 days) and varying month lengths (28–31 days).</p>
+</section>
+</CalculatorLayout>

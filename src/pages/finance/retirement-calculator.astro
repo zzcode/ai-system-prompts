@@ -1,0 +1,66 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How much should I save for retirement?",a:"A common guideline is to save 10–15% of your income starting in your 20s. By age 30, aim for 1× your salary saved; by 40, 3×; by 50, 6×; by 60, 8×. This calculator helps project your trajectory."},
+{q:"What return rate should I use?",a:"Historically, a diversified stock portfolio averages 7–10% annual returns before inflation. Using 6–7% is a conservative, inflation-adjusted estimate for planning."},
+{q:"What is the 4% rule?",a:"The 4% rule suggests you can withdraw 4% of your retirement savings annually with low risk of running out. So to replace $40,000/year of income, you'd need about $1,000,000 saved."},
+{q:"Should I include Social Security?",a:"This calculator shows your personal savings projection only. Social Security adds on top, typically $1,500–$3,000/month depending on your earnings history."}
+];
+const related=[
+{href:"/finance/compound-interest-calculator",icon:"📈",title:"Compound Interest",desc:"Watch savings grow"},
+{href:"/finance/investment-calculator",icon:"📊",title:"Investment Calculator",desc:"Project portfolio growth"},
+{href:"/finance/savings-calculator",icon:"🐖",title:"Savings Calculator",desc:"Plan savings goals"},
+{href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Home loan payments"},
+{href:"/finance/salary-calculator",icon:"💵",title:"Salary Calculator",desc:"Convert pay periods"},
+{href:"/finance/loan-calculator",icon:"💳",title:"Loan Calculator",desc:"Loan payments"}
+];
+---
+<CalculatorLayout title="Retirement Calculator - Project Your Retirement Savings" h1="Retirement Calculator" description="Free retirement calculator. Project your retirement savings based on current balance, contributions, and return rate. See if you're on track. No sign-up." subtitle="Project your retirement savings and see if you're on track for your goals." category="Finance" categoryHref="/finance" appCategory="FinanceApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="rt-current">Current savings</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="rt-current" value="50000" step="any" /></div></div>
+<div class="field"><label for="rt-monthly">Monthly contribution</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="rt-monthly" value="500" step="any" /></div></div>
+<div class="input-row">
+<div class="field"><label for="rt-rate">Expected return</label><div class="input-affix has-suffix"><input type="number" id="rt-rate" value="7" step="any" /><span class="suffix">%</span></div></div>
+<div class="field"><label for="rt-years">Years to retirement</label><input type="number" id="rt-years" value="30" step="1" /></div>
+</div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Retirement Balance</div><div class="result-value" id="rt-total">$805,000</div><div class="result-sub" id="rt-sub">in 30 years</div></div>
+<div class="result-rows" id="rt-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var cur=num('rt-current'),mo=num('rt-monthly'),rate=num('rt-rate'),years=Math.max(num('rt-years'),0);
+if(years<=0)return;
+var r=rate/100/12,effMo=Math.pow(1+r,12)-1;
+var bal=cur;
+for(var y=1;y<=years;y++){bal=bal*(1+effMo)+mo*12;}
+var contrib=cur+mo*12*years,interest=bal-contrib;
+document.getElementById('rt-total').textContent=money(bal);
+document.getElementById('rt-sub').textContent='in '+years+' years at '+rate+'%';
+document.getElementById('rt-rows').innerHTML=row('Total contributions',money(contrib))+row('Interest earned',money(interest))+row('Monthly withdrawal (4% rule)',money(bal*0.04/12));
+}
+['rt-current','rt-monthly','rt-rate','rt-years'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>Retirement Savings Milestones</h2>
+<table class="ref-table"><thead><tr><th>Age</th><th>Target (× salary)</th><th>Example ($60k salary)</th></tr></thead><tbody>
+<tr><td>30</td><td>1×</td><td>$60,000</td></tr>
+<tr><td>40</td><td>3×</td><td>$180,000</td></tr>
+<tr><td>50</td><td>6×</td><td>$360,000</td></tr>
+<tr><td>60</td><td>8×</td><td>$480,000</td></tr>
+<tr><td>67</td><td>10×</td><td>$600,000</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: Projections are hypothetical. Investment returns vary. Not financial advice.</em></p>
+</section>
+</CalculatorLayout>

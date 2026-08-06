@@ -1,0 +1,58 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How are macros calculated?",a:"Macros (macronutrients) are calculated from your daily calorie target. Protein: 4 cal/g, Carbs: 4 cal/g, Fat: 9 cal/g. Common splits: 40% carbs / 30% protein / 30% fat for balanced; 50/30/20 for endurance; 25/40/35 for keto-leaning."},
+{q:"How much protein should I eat?",a:"A general guideline is 0.8–1g per pound of body weight (1.6–2.2g/kg) for active individuals. Athletes may need up to 1g per lb. This calculator uses your TDEE and goal to set protein."},
+{q:"What macro split should I use?",a:"Balanced (40/30/30) works for most. Higher protein (30/40/30) for muscle gain. Lower carb (25/35/40) for fat loss. Choose based on your goals and preferences."}
+];
+const related=[
+{href:"/health/calorie-calculator",icon:"🔥",title:"Calorie Calculator",desc:"Daily calorie needs"},
+{href:"/health/bmi-calculator",icon:"⚖️",title:"BMI Calculator",desc:"Body mass index"},
+{href:"/health/bmr-calculator",icon:"⚡",title:"BMR Calculator",desc:"Calories at rest"},
+{href:"/health/tdee-calculator",icon:"⚡",title:"TDEE Calculator",desc:"Total daily burn"},
+{href:"/health/body-fat-calculator",icon:"📏",title:"Body Fat Calculator",desc:"Estimate body fat %"},
+{href:"/health/ideal-weight-calculator",icon:"🎯",title:"Ideal Weight",desc:"Healthy weight range"}
+];
+---
+<CalculatorLayout title="Macro Calculator - Protein, Carbs & Fat Calculator" h1="Macro Calculator" description="Free macro calculator. Calculate your daily protein, carbohydrate, and fat targets based on your calories and goals. No sign-up." subtitle="Calculate your daily macronutrient targets for protein, carbs, and fat." category="Health" categoryHref="/health" appCategory="HealthApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="mc-cal">Daily calories</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="mc-cal" value="2200" step="any" /></div></div>
+<div class="field"><label for="mc-goal">Goal</label><select id="mc-goal"><option value="maintain">Maintain weight</option><option value="lose">Lose weight</option><option value="gain">Gain muscle</option></select></div>
+<div class="field"><label for="mc-split">Macro split</label><select id="mc-split"><option value="balanced" selected>Balanced (40/30/30)</option><option value="highpro">High protein (35/35/30)</option><option value="lowcarb">Low carb (25/40/35)</option></select></div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Daily Macros</div><div class="result-value" id="mc-protein" style="font-size:1.6rem;">165g protein</div><div class="result-sub" id="mc-sub">220g carbs · 73g fat</div></div>
+<div class="result-rows" id="mc-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+var splits={balanced:{p:30,c:40,f:30},highpro:{p:35,c:35,f:30},lowcarb:{p:25,c:40,f:35}};
+function calc(){
+var cal=num('mc-cal'),goal=document.getElementById('mc-goal').value,split=splits[document.getElementById('mc-split').value];
+if(goal==='lose')cal=cal-500;if(goal==='gain')cal=cal+300;
+var p=Math.round(cal*split.p/100/4),c=Math.round(cal*split.c/100/4),f=Math.round(cal*split.f/100/9);
+document.getElementById('mc-protein').textContent=p+'g protein';
+document.getElementById('mc-sub').textContent=c+'g carbs · '+f+'g fat';
+document.getElementById('mc-rows').innerHTML=row('Protein ('+split.p+'%)',p+'g = '+Math.round(p*4)+' cal')+row('Carbs ('+split.c+'%)',c+'g = '+Math.round(c*4)+' cal')+row('Fat ('+split.f+'%)',f+'g = '+Math.round(f*9)+' cal')+row('Total calories',Math.round(p*4+c*4+f*9)+' cal');
+}
+['mc-cal','mc-goal','mc-split'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);document.getElementById(id).addEventListener('change',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>Macronutrient Calorie Values</h2>
+<table class="ref-table"><thead><tr><th>Macro</th><th>Calories per gram</th></tr></thead><tbody>
+<tr><td>Protein</td><td>4 cal/g</td></tr>
+<tr><td>Carbohydrates</td><td>4 cal/g</td></tr>
+<tr><td>Fat</td><td>9 cal/g</td></tr>
+<tr><td>Alcohol</td><td>7 cal/g</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: Estimates only, not medical or nutritional advice.</em></p>
+</section>
+</CalculatorLayout>

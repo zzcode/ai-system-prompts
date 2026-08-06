@@ -1,0 +1,60 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I convert hourly to salary?",a:"Multiply your hourly rate by hours per week, then by 52 weeks. For example, $25/hr × 40 hrs × 52 weeks = $52,000/year."},
+{q:"How many hours in a work year?",a:"A standard full-time year is 2,080 hours (40 × 52). After holidays and PTO, expect 1,920–2,000 actual working hours."},
+{q:"Does overtime affect annual salary?",a:"Yes. Overtime at 1.5× rate adds significantly. 5 hours/week of overtime at $25/hr adds $9,750/year ($25 × 1.5 × 5 × 52)."},
+{q:"Is this before or after taxes?",a:"This shows gross (pre-tax) income. Net take-home pay is lower after federal, state, and local taxes plus benefit deductions."}
+];
+const related=[
+{href:"/finance/salary-calculator",icon:"💵",title:"Salary Calculator",desc:"Convert all pay periods"},
+{href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Home loan payments"},
+{href:"/finance/tip-calculator",icon:"💵",title:"Tip Calculator",desc:"Tip & split bill"},
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/finance/loan-calculator",icon:"💳",title:"Loan Calculator",desc:"Loan payments"},
+{href:"/finance/discount-calculator",icon:"🏷️",title:"Discount Calculator",desc:"Sale price calculator"}
+];
+---
+<CalculatorLayout title="Hourly to Salary Calculator - Convert Hourly Wage to Annual" h1="Hourly to Salary Calculator" description="Free hourly to salary calculator. Convert your hourly wage to annual, monthly, weekly salary. Includes overtime. No sign-up." subtitle="Convert your hourly wage to annual salary, monthly pay, and more." category="Finance" categoryHref="/finance" appCategory="FinanceApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="hs-rate">Hourly rate</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="hs-rate" value="25" step="any" /></div></div>
+<div class="field"><label for="hs-hours">Hours per week</label><input type="number" id="hs-hours" value="40" step="any" /></div>
+<div class="field"><label for="hs-ot">Overtime hours/week (1.5×)</label><input type="number" id="hs-ot" value="0" step="any" /></div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Annual Salary</div><div class="result-value" id="hs-annual">$52,000</div><div class="result-sub" id="hs-sub">$1,000/week</div></div>
+<div class="result-rows" id="hs-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var rate=num('hs-rate'),hours=num('hs-hours'),ot=num('hs-ot');
+var weekly=rate*hours+rate*1.5*ot;
+var annual=weekly*52;
+document.getElementById('hs-annual').textContent=money(annual);
+document.getElementById('hs-sub').textContent=money(weekly)+'/week';
+document.getElementById('hs-rows').innerHTML=row('Monthly',money(annual/12))+row('Biweekly',money(annual/26))+row('Weekly',money(weekly))+row('Daily',money(weekly/5))+row('Overtime pay/week',money(rate*1.5*ot));
+}
+['hs-rate','hs-hours','hs-ot'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>Hourly to Salary Conversion Table</h2>
+<table class="ref-table"><thead><tr><th>Hourly</th><th>Weekly (40hr)</th><th>Annual</th><th>Monthly</th></tr></thead><tbody>
+<tr><td>$15</td><td>$600</td><td>$31,200</td><td>$2,600</td></tr>
+<tr><td>$20</td><td>$800</td><td>$41,600</td><td>$3,467</td></tr>
+<tr><td>$25</td><td>$1,000</td><td>$52,000</td><td>$4,333</td></tr>
+<tr><td>$30</td><td>$1,200</td><td>$62,400</td><td>$5,200</td></tr>
+<tr><td>$40</td><td>$1,600</td><td>$83,200</td><td>$6,933</td></tr>
+<tr><td>$50</td><td>$2,000</td><td>$104,000</td><td>$8,667</td></tr>
+</tbody></table>
+</section>
+</CalculatorLayout>

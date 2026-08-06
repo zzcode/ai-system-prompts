@@ -1,0 +1,66 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I convert hourly wage to annual salary?",a:"Multiply your hourly rate by the number of hours you work per week, then by 52 weeks. For example, $25/hour × 40 hours × 52 weeks = $52,000/year."},
+{q:"How do I convert annual salary to hourly?",a:"Divide your annual salary by 52 weeks, then by your weekly hours. For example, $52,000 ÷ 52 ÷ 40 = $25/hour."},
+{q:"How many working hours in a year?",a:"A full-time year is typically 2,080 hours (40 hours × 52 weeks). After holidays and PTO, the actual figure is closer to 1,920–2,000 hours."},
+{q:"Does this account for taxes?",a:"No. This calculator shows gross (pre-tax) amounts. For take-home pay, subtract federal, state, and local taxes, plus benefits deductions."},
+{q:"What is the difference between gross and net salary?",a:"Gross salary is your total pay before deductions. Net (take-home) salary is what you actually receive after taxes, insurance, retirement contributions, and other deductions."}
+];
+const related=[
+{href:"/finance/hourly-to-salary-calculator",icon:"⏰",title:"Hourly to Salary",desc:"Convert hourly wage to annual"},
+{href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Monthly payment & interest"},
+{href:"/finance/loan-calculator",icon:"💳",title:"Loan Calculator",desc:"Loan payment & total cost"},
+{href:"/finance/tip-calculator",icon:"💵",title:"Tip Calculator",desc:"Tip & split the bill"},
+{href:"/finance/compound-interest-calculator",icon:"📈",title:"Compound Interest",desc:"Watch savings grow"},
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"}
+];
+---
+<CalculatorLayout title="Salary Calculator - Convert Annual, Monthly, Hourly Pay" h1="Salary Calculator" description="Free salary calculator. Convert between annual, monthly, biweekly, weekly, and hourly pay. See your breakdown instantly. No sign-up." subtitle="Convert your salary between annual, monthly, biweekly, weekly, and hourly rates." category="Finance" categoryHref="/finance" appCategory="FinanceApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="sal-amount">Amount</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="sal-amount" value="60000" step="any" /></div></div>
+<div class="field"><label for="sal-period">Pay period</label><select id="sal-period"><option value="annual" selected>Annual</option><option value="monthly">Monthly</option><option value="biweekly">Biweekly</option><option value="weekly">Weekly</option><option value="hourly">Hourly</option></select></div>
+<div class="field"><label for="sal-hours">Hours per week</label><input type="number" id="sal-hours" value="40" step="any" /></div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Annual Salary</div><div class="result-value" id="sal-annual">$60,000</div><div class="result-sub" id="sal-sub">at $28.85/hour</div></div>
+<div class="result-rows" id="sal-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var amt=num('sal-amount'),period=document.getElementById('sal-period').value,hours=num('sal-hours')||40;
+var annual,hourly;
+switch(period){case 'annual':annual=amt;hourly=annual/(52*hours);break;case 'monthly':annual=amt*12;hourly=annual/(52*hours);break;case 'biweekly':annual=amt*26;hourly=annual/(52*hours);break;case 'weekly':annual=amt*52;hourly=annual/(52*hours);break;case 'hourly':hourly=amt;annual=hourly*52*hours;break;}
+document.getElementById('sal-annual').textContent=money(annual);
+document.getElementById('sal-sub').textContent='at '+money(hourly)+'/hour';
+document.getElementById('sal-rows').innerHTML=row('Monthly',money(annual/12))+row('Biweekly',money(annual/26))+row('Weekly',money(annual/52))+row('Daily (8hr)',money(hourly*8))+row('Hourly',money(hourly));
+}
+['sal-amount','sal-period','sal-hours'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);document.getElementById(id).addEventListener('change',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>How to Use the Salary Calculator</h2>
+<p>Enter your pay amount, select whether it's annual, monthly, biweekly, weekly, or hourly, and set your weekly hours. The calculator instantly shows your equivalent pay across all periods.</p>
+<h2>Salary Conversion Formulas</h2>
+<div class="formula-box">Annual = Hourly × Hours/Week × 52<br>Monthly = Annual ÷ 12<br>Biweekly = Annual ÷ 26<br>Weekly = Annual ÷ 52</div>
+<h2>Common Salary Conversions</h2>
+<table class="ref-table"><thead><tr><th>Hourly</th><th>Annual (40hr/wk)</th><th>Monthly</th></tr></thead><tbody>
+<tr><td>$15</td><td>$31,200</td><td>$2,600</td></tr>
+<tr><td>$20</td><td>$41,600</td><td>$3,467</td></tr>
+<tr><td>$25</td><td>$52,000</td><td>$4,333</td></tr>
+<tr><td>$30</td><td>$62,400</td><td>$5,200</td></tr>
+<tr><td>$40</td><td>$83,200</td><td>$6,933</td></tr>
+<tr><td>$50</td><td>$104,000</td><td>$8,667</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: Shows gross (pre-tax) amounts. Not financial advice.</em></p>
+</section>
+</CalculatorLayout>

@@ -1,0 +1,67 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How long will it take to pay off my credit card?",a:"Enter your balance, APR, and monthly payment. The calculator shows how many months until payoff and total interest paid. Paying more than the minimum dramatically reduces both."},
+{q:"What is the minimum payment on a credit card?",a:"Minimums are typically 1–3% of the balance or $25–35, whichever is higher. Making only minimum payments can take decades to pay off and cost thousands in interest."},
+{q:"How much should I pay to clear debt fast?",a:"Pay as much as you can afford above the minimum. Even $50–100 extra per month can cut years off your payoff and save hundreds in interest."},
+{q:"What is APR?",a:"APR (Annual Percentage Rate) is the yearly cost of borrowing on your credit card. Typical credit card APRs range from 18–29%. Lower is better."}
+];
+const related=[
+{href:"/finance/loan-calculator",icon:"💳",title:"Loan Calculator",desc:"General loan payments"},
+{href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Home loan payments"},
+{href:"/finance/amortization-calculator",icon:"📅",title:"Amortization",desc:"Payment schedule"},
+{href:"/finance/compound-interest-calculator",icon:"📈",title:"Compound Interest",desc:"Grow savings"},
+{href:"/finance/savings-calculator",icon:"🐖",title:"Savings Calculator",desc:"Plan savings goals"},
+{href:"/finance/salary-calculator",icon:"💵",title:"Salary Calculator",desc:"Convert pay periods"}
+];
+---
+<CalculatorLayout title="Credit Card Payoff Calculator - When Will I Be Debt Free?" h1="Credit Card Payoff Calculator" description="Free credit card payoff calculator. Find out how long it takes to pay off your credit card and total interest. See how extra payments help. No sign-up." subtitle="Calculate how long to pay off your credit card balance and how much interest you'll pay." category="Finance" categoryHref="/finance" appCategory="FinanceApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="cc-balance">Credit card balance</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="cc-balance" value="5000" step="any" /></div></div>
+<div class="input-row">
+<div class="field"><label for="cc-apr">APR</label><div class="input-affix has-suffix"><input type="number" id="cc-apr" value="22" step="any" /><span class="suffix">%</span></div></div>
+<div class="field"><label for="cc-pay">Monthly payment</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="cc-pay" value="200" step="any" /></div></div>
+</div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Time to Pay Off</div><div class="result-value" id="cc-months">32 months</div><div class="result-sub" id="cc-sub">Total interest: $1,340</div></div>
+<div class="result-rows" id="cc-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var bal=num('cc-balance'),apr=num('cc-apr'),pay=num('cc-pay');
+if(bal<=0||apr<=0||pay<=0){document.getElementById('cc-months').textContent='—';return;}
+var r=apr/100/12,months=0,totalInterest=0;
+var minInterest=bal*r;
+if(pay<=minInterest){document.getElementById('cc-months').textContent='Never';document.getElementById('cc-sub').textContent='Payment must exceed $'+money(minInterest)+'/mo interest';return;}
+while(bal>0&&months<1200){var intr=bal*r;totalInterest+=intr;bal=bal+intr-pay;if(bal<0)pay=pay+bal;months++;}
+var yrs=Math.floor(months/12),mos=months%12;
+document.getElementById('cc-months').textContent=months+' months';
+document.getElementById('cc-sub').textContent='Total interest: '+money(totalInterest);
+document.getElementById('cc-rows').innerHTML=row('Total paid',money(bal+0+totalInterest))+row('Total interest',money(totalInterest))+row('Time',yrs+' yrs '+mos+' mo')+row('Monthly payment',money(pay));
+}
+['cc-balance','cc-apr','cc-pay'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>The Cost of Minimum Payments</h2>
+<p>On a $5,000 balance at 22% APR, making only the minimum payment (~$100/month) takes over 30 years to pay off and costs over $8,000 in interest. Paying $200/month clears it in under 3 years for about $1,300 in interest — a $6,700+ difference.</p>
+<table class="ref-table"><thead><tr><th>Monthly Payment</th><th>$5,000 @ 22% APR</th><th>Total Interest</th></tr></thead><tbody>
+<tr><td>$100 (min)</td><td>~30+ years</td><td>~$8,000+</td></tr>
+<tr><td>$150</td><td>~4 years</td><td>~$2,200</td></tr>
+<tr><td>$200</td><td>~2.7 years</td><td>~$1,340</td></tr>
+<tr><td>$300</td><td>~1.6 years</td><td>~$780</td></tr>
+<tr><td>$500</td><td>~1 year</td><td>~$470</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: Estimates only. Not financial advice.</em></p>
+</section>
+</CalculatorLayout>

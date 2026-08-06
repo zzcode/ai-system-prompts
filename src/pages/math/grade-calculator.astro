@@ -1,0 +1,56 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I calculate my final grade?",a:"Enter your current grade, its weight, and the final exam grade and weight. The calculator computes your overall grade: (current × weight + final × final_weight) ÷ total weight."},
+{q:"What do I need on my final to pass?",a:"Rearrange the formula: needed = (target − current × current_weight) ÷ final_weight. Enter your target grade and current grade to see what you need on the final."}
+];
+const related=[
+{href:"/math/gpa-calculator",icon:"🎓",title:"GPA Calculator",desc:"Grade point average"},
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/math/fraction-calculator",icon:"½",title:"Fraction Calculator",desc:"Work with fractions"},
+{href:"/math/average-calculator",icon:"x̄",title:"Average Calculator",desc:"Mean of numbers"},
+{href:"/math/ratio-calculator",icon:"⚖️",title:"Ratio Calculator",desc:"Simplify ratios"},
+{href:"/finance/discount-calculator",icon:"🏷️",title:"Discount Calculator",desc:"Sale price"}
+];
+---
+<CalculatorLayout title="Grade Calculator - Final Grade & Target Score" h1="Grade Calculator" description="Free grade calculator. Calculate your final grade from current grade and exam weight. Find what score you need on the final to reach your target." subtitle="Calculate your final grade or find what you need on your final exam." category="Math" categoryHref="/math" appCategory="EducationApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="gr-current">Current grade</label><div class="input-affix has-suffix"><input type="number" id="gr-current" value="85" step="any" /><span class="suffix">%</span></div></div>
+<div class="field"><label for="gr-cw">Current grade weight</label><div class="input-affix has-suffix"><input type="number" id="gr-cw" value="60" step="any" /><span class="suffix">%</span></div></div>
+<div class="input-row">
+<div class="field"><label for="gr-final">Final exam score</label><div class="input-affix has-suffix"><input type="number" id="gr-final" value="90" step="any" /><span class="suffix">%</span></div></div>
+<div class="field"><label for="gr-fw">Final exam weight</label><div class="input-affix has-suffix"><input type="number" id="gr-fw" value="40" step="any" /><span class="suffix">%</span></div></div>
+</div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Final Grade</div><div class="result-value" id="gr-result">87%</div><div class="result-sub" id="gr-letter">B+</div></div>
+<div class="result-rows" id="gr-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function letter(p){if(p>=93)return'A';if(p>=90)return'A-';if(p>=87)return'B+';if(p>=83)return'B';if(p>=80)return'B-';if(p>=77)return'C+';if(p>=73)return'C';if(p>=70)return'C-';if(p>=60)return'D';return'F';}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var cur=num('gr-current'),cw=num('gr-cw'),fin=num('gr-final'),fw=num('gr-fw');
+var total=cw+fw;
+if(total===0)return;
+var grade=(cur*cw+fin*fw)/total;
+var target=90;var needed=(target-cur*cw)/fw;
+document.getElementById('gr-result').textContent=grade.toFixed(1)+'%';
+document.getElementById('gr-letter').textContent=letter(grade);
+document.getElementById('gr-rows').innerHTML=row('Letter grade',letter(grade))+row('For A (90%) need',needed>=0?Math.round(needed)+'% on final':'Already achieved!')+row('For B (80%) need',((80-cur*cw)/fw>=0?Math.round((80-cur*cw)/fw)+'%':'Already achieved!'));
+}
+['gr-current','gr-cw','gr-final','gr-fw'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>How Final Grades Work</h2>
+<div class="formula-box">Final Grade = (Current × Current Weight + Final × Final Weight) ÷ Total Weight</div>
+</section>
+</CalculatorLayout>

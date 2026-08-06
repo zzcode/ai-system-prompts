@@ -1,0 +1,55 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I simplify a ratio?",a:"Divide both parts by their greatest common divisor (GCD). For 12:8, GCD is 4, so the simplified ratio is 3:2."},
+{q:"How do I solve ratio problems?",a:"Set up a proportion: a/b = c/d. If you know three values, solve for the fourth. For example, if 3/4 = x/20, then x = 15."},
+{q:"What is a ratio?",a:"A ratio compares two quantities. 3:2 means for every 3 of the first, there are 2 of the second. Ratios can be written as 3:2, 3/2, or '3 to 2'."}
+];
+const related=[
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/math/fraction-calculator",icon:"½",title:"Fraction Calculator",desc:"Work with fractions"},
+{href:"/math/average-calculator",icon:"x̄",title:"Average Calculator",desc:"Mean of numbers"},
+{href:"/math/gpa-calculator",icon:"🎓",title:"GPA Calculator",desc:"Grade point average"},
+{href:"/math/grade-calculator",icon:"📝",title:"Grade Calculator",desc:"Calculate grades"},
+{href:"/finance/tip-calculator",icon:"💵",title:"Tip Calculator",desc:"Tip & split bill"}
+];
+---
+<CalculatorLayout title="Ratio Calculator - Simplify and Solve Ratios" h1="Ratio Calculator" description="Free ratio calculator. Simplify ratios, solve proportions, and scale ratios. Enter two or three values to find the missing one. No sign-up." subtitle="Simplify ratios, solve proportions, and scale values." category="Math" categoryHref="/math" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="segmented" style="margin-bottom:24px;"><button class="rt-mode active" data-mode="simplify">Simplify</button><button class="rt-mode" data-mode="solve">Solve proportion</button></div>
+<div id="rt-simplify">
+<div class="calc-grid">
+<div><div class="input-row"><div class="field"><label for="rt-a">First value</label><input type="number" id="rt-a" value="12" /></div><div class="field"><label for="rt-b">Second value</label><input type="number" id="rt-b" value="8" /></div></div></div>
+<div class="result-panel"><div class="result-main"><div class="result-label">Simplified Ratio</div><div class="result-value" id="rt-result">3:2</div></div><div class="result-rows" id="rt-rows"></div></div>
+</div></div>
+<div id="rt-solve" style="display:none;">
+<div class="calc-grid">
+<div><div style="display:flex;align-items:center;gap:10px;"><div class="field" style="flex:1;"><label for="rt-c">A</label><input type="number" id="rt-c" value="3" /></div><span style="font-size:1.5rem;">:</span><div class="field" style="flex:1;"><label for="rt-d">B</label><input type="number" id="rt-d" value="4" /></div><span style="font-size:1.5rem;">=</span><div class="field" style="flex:1;"><label for="rt-e">C</label><input type="number" id="rt-e" value="" placeholder="?" /></div><span style="font-size:1.5rem;">:</span><div class="field" style="flex:1;"><label for="rt-f">D</label><input type="number" id="rt-f" value="20" /></div></div></div>
+<div class="result-panel"><div class="result-main"><div class="result-label">Missing value</div><div class="result-value" id="rt-solve-result">15</div></div><div class="result-rows" id="rt-solve-rows"></div></div>
+</div></div>
+</div>
+<script is:inline>
+(function(){
+var mode='simplify';
+document.querySelectorAll('.rt-mode').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.rt-mode').forEach(function(x){x.classList.remove('active');});b.classList.add('active');mode=b.getAttribute('data-mode');document.getElementById('rt-simplify').style.display=mode==='simplify'?'':'none';document.getElementById('rt-solve').style.display=mode==='solve'?'':'none';});});
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){var t=b;b=a%b;a=t;}return a||1;}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function simplify(){var a=parseFloat(document.getElementById('rt-a').value)||0,b=parseFloat(document.getElementById('rt-b').value)||0;if(!a||!b)return;var g=gcd(a,b);document.getElementById('rt-result').textContent=(a/g)+':'+(b/g);document.getElementById('rt-rows').innerHTML=row('GCD',g)+row('Decimal',(a/b).toFixed(3))+row('Percentage',((a/(a+b))*100).toFixed(1)+'% : '+((b/(a+b))*100).toFixed(1)+'%');}
+function solve(){var a=parseFloat(document.getElementById('rt-c').value),b=parseFloat(document.getElementById('rt-d').value),c=parseFloat(document.getElementById('rt-e').value),d=parseFloat(document.getElementById('rt-f').value);var known=[a,b,c,d].filter(function(v){return !isNaN(v)&&v!==null;}).length;var result='—';if(isNaN(c)&&!isNaN(a)&&!isNaN(b)&&!isNaN(d))result=(a*d/b);else if(isNaN(d)&&!isNaN(a)&&!isNaN(b)&&!isNaN(c))result=(c*b/a);else if(isNaN(a)&&!isNaN(b)&&!isNaN(c)&&!isNaN(d))result=(c*b/d);else if(isNaN(b)&&!isNaN(a)&&!isNaN(c)&&!isNaN(d))result=(a*d/c);document.getElementById('rt-solve-result').textContent=isFinite(result)?result.toFixed(2):'—';}
+['rt-a','rt-b'].forEach(function(id){document.getElementById(id).addEventListener('input',simplify);});
+['rt-c','rt-d','rt-e','rt-f'].forEach(function(id){document.getElementById(id).addEventListener('input',solve);});
+simplify();solve();
+})();
+</script>
+<section class="content-section">
+<h2>How to Simplify Ratios</h2>
+<div class="formula-box">Simplified = (a ÷ GCD) : (b ÷ GCD)</div>
+<h2>Common Ratio Examples</h2>
+<table class="ref-table"><thead><tr><th>Original</th><th>GCD</th><th>Simplified</th></tr></thead><tbody>
+<tr><td>12:8</td><td>4</td><td>3:2</td></tr>
+<tr><td>15:25</td><td>5</td><td>3:5</td></tr>
+<tr><td>100:50</td><td>50</td><td>2:1</td></tr>
+<tr><td>6:9</td><td>3</td><td>2:3</td></tr>
+</tbody></table>
+</section>
+</CalculatorLayout>

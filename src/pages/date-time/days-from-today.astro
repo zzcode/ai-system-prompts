@@ -1,0 +1,75 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I find a date 30 days from today?",a:"Enter 30 in the days field and the calculator shows the exact date. You can also add weeks, months, or years."},
+{q:"Can I find a past date?",a:"Yes. Use negative numbers or select 'Subtract' to find a date in the past, like 90 days ago."},
+{q:"Does this account for leap years?",a:"Yes. All date calculations automatically account for leap years and varying month lengths."}
+];
+const related=[
+{href:"/date-time/age-calculator",icon:"🎂",title:"Age Calculator",desc:"Exact age in years & days"},
+{href:"/date-time/date-calculator",icon:"📅",title:"Date Calculator",desc:"Days between dates"},
+{href:"/date-time/time-calculator",icon:"⏰",title:"Time Calculator",desc:"Hours between times"},
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/health/bmi-calculator",icon:"⚖️",title:"BMI Calculator",desc:"Body mass index"},
+{href:"/finance/tip-calculator",icon:"💵",title:"Tip Calculator",desc:"Tip & split bill"}
+];
+---
+<CalculatorLayout title="Days From Today Calculator - Add or Subtract Days" h1="Days From Today Calculator" description="Free days from today calculator. Find a date 30, 60, 90, or any number of days from today. Add or subtract days, weeks, months. No sign-up." subtitle="Find a future or past date by adding or subtracting days from today." category="Date & Time" categoryHref="/date-time" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="df-amount">Number of days</label><input type="number" id="df-amount" value="30" /></div>
+<div class="field"><label for="df-unit">Unit</label><select id="df-unit"><option value="days" selected>Days</option><option value="weeks">Weeks</option><option value="months">Months</option><option value="years">Years</option></select></div>
+<div class="segmented" style="margin-top:10px;"><button class="df-dir active" data-dir="future">From today (future)</button><button class="df-dir" data-dir="past">Ago (past)</button></div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Result Date</div><div class="result-value" id="df-date" style="font-size:1.5rem;">—</div><div class="result-sub" id="df-sub"></div></div>
+<div class="result-rows" id="df-rows"></div>
+</div>
+</div>
+<div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;">
+<button class="btn btn-ghost df-quick" data-days="7">7 days</button>
+<button class="btn btn-ghost df-quick" data-days="14">14 days</button>
+<button class="btn btn-ghost df-quick" data-days="30">30 days</button>
+<button class="btn btn-ghost df-quick" data-days="60">60 days</button>
+<button class="btn btn-ghost df-quick" data-days="90">90 days</button>
+<button class="btn btn-ghost df-quick" data-days="180">180 days</button>
+<button class="btn btn-ghost df-quick" data-days="365">1 year</button>
+</div>
+</div>
+<script is:inline>
+(function(){
+var dir='future';
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var n=parseInt(document.getElementById('df-amount').value,10)||0;
+var u=document.getElementById('df-unit').value;
+var d=new Date();
+var sign=dir==='future'?1:-1;
+if(u==='days')d.setDate(d.getDate()+sign*n);
+else if(u==='weeks')d.setDate(d.getDate()+sign*n*7);
+else if(u==='months')d.setMonth(d.getMonth()+sign*n);
+else if(u==='years')d.setFullYear(d.getFullYear()+sign*n);
+var today=new Date();
+var diffDays=Math.round((d-today)/86400000);
+document.getElementById('df-date').textContent=d.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+document.getElementById('df-sub').textContent=dir==='future'?n+' '+u+' from today':n+' '+u+' ago';
+document.getElementById('df-rows').innerHTML=row('Day of week',d.toLocaleDateString('en-US',{weekday:'long'}))+row('Days from today',(diffDays>=0?'+':'')+diffDays)+row('Month',d.toLocaleDateString('en-US',{month:'long',year:'numeric'}));
+}
+document.querySelectorAll('.df-dir').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.df-dir').forEach(function(x){x.classList.remove('active');});b.classList.add('active');dir=b.getAttribute('data-dir');calc();});});
+document.querySelectorAll('.df-quick').forEach(function(b){b.addEventListener('click',function(){document.getElementById('df-amount').value=b.getAttribute('data-days');document.getElementById('df-unit').value='days';calc();});});
+['df-amount','df-unit'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);document.getElementById(id).addEventListener('change',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>Common Date Calculations</h2>
+<table class="ref-table"><thead><tr><th>From Today</th><th>Calculation</th></tr></thead><tbody>
+<tr><td>30 days</td><td>1 month</td></tr>
+<tr><td>60 days</td><td>2 months</td></tr>
+<tr><td>90 days</td><td>3 months / 1 quarter</td></tr>
+<tr><td>180 days</td><td>6 months / ½ year</td></tr>
+<tr><td>365 days</td><td>1 year</td></tr>
+</tbody></table>
+</section>
+</CalculatorLayout>

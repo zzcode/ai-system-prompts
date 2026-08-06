@@ -1,0 +1,50 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I calculate the average?",a:"Add all numbers together and divide by the count. For 10, 20, 30: (10+20+30) ÷ 3 = 20. This is also called the arithmetic mean or average."},
+{q:"What is the difference between mean, median, and mode?",a:"Mean is the arithmetic average. Median is the middle value when sorted. Mode is the most frequent value. Mean is most common but can be skewed by outliers."},
+{q:"What is a weighted average?",a:"A weighted average multiplies each value by its weight before summing, then divides by total weight. For example, grades where the final is worth 40% and homework 60%."}
+];
+const related=[
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/math/fraction-calculator",icon:"½",title:"Fraction Calculator",desc:"Work with fractions"},
+{href:"/math/gpa-calculator",icon:"🎓",title:"GPA Calculator",desc:"Grade point average"},
+{href:"/math/grade-calculator",icon:"📝",title:"Grade Calculator",desc:"Calculate final grades"},
+{href:"/math/ratio-calculator",icon:"⚖️",title:"Ratio Calculator",desc:"Simplify ratios"},
+{href:"/finance/tip-calculator",icon:"💵",title:"Tip Calculator",desc:"Tip & split bill"}
+];
+---
+<CalculatorLayout title="Average Calculator - Mean, Median, Mode of Numbers" h1="Average Calculator" description="Free average calculator. Find the mean, median, mode, and range of any set of numbers. Also shows sum and count. No sign-up." subtitle="Calculate the mean, median, mode, and range of any set of numbers instantly." category="Math" categoryHref="/math" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="field"><label for="av-input">Enter numbers (separated by commas)</label><textarea id="av-input" rows="3">10, 20, 30, 40, 50</textarea></div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Average (Mean)</div><div class="result-value" id="av-mean">30</div><div class="result-sub" id="av-sub">5 numbers</div></div>
+<div class="result-rows" id="av-rows"></div>
+</div>
+</div>
+<script is:inline>
+(function(){
+var el=document.getElementById('av-input');
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var nums=el.value.split(/[,;\s]+/).map(parseFloat).filter(function(n){return !isNaN(n);});
+if(!nums.length){document.getElementById('av-mean').textContent='—';document.getElementById('av-rows').innerHTML='';return;}
+var sum=nums.reduce(function(a,b){return a+b;},0);
+var mean=sum/nums.length;
+var sorted=nums.slice().sort(function(a,b){return a-b;});
+var median=sorted.length%2?sorted[Math.floor(sorted.length/2)]:(sorted[sorted.length/2-1]+sorted[sorted.length/2])/2;
+var range=sorted[sorted.length-1]-sorted[0];
+document.getElementById('av-mean').textContent=mean.toFixed(2);
+document.getElementById('av-sub').textContent=nums.length+' numbers';
+document.getElementById('av-rows').innerHTML=row('Sum',sum.toLocaleString())+row('Median',median.toFixed(2))+row('Count',nums.length)+row('Min',sorted[0])+row('Max',sorted[sorted.length-1])+row('Range',range);
+}
+el.addEventListener('input',calc);calc();
+})();
+</script>
+<section class="content-section">
+<h2>Average Formula</h2>
+<div class="formula-box">Average (Mean) = Sum of all values ÷ Count of values</div>
+<h2>Example</h2>
+<p>For the numbers 10, 20, 30, 40, 50: Sum = 150, Count = 5, Average = 150 ÷ 5 = 30.</p>
+</section>
+</CalculatorLayout>

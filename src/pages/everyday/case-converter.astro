@@ -1,0 +1,87 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs = [
+  { q: "How do I change text case?", a: "Paste your text and click any case button. UPPER CASE converts all letters to capitals, lower case to small letters, Title Case capitalizes each word, and Sentence case capitalizes only the first letter of each sentence." },
+  { q: "What is Title Case?", a: "Title Case capitalizes the first letter of every word: 'The Quick Brown Fox'. It's commonly used for headlines, book titles, and headings." },
+  { q: "What is camelCase?", a: "camelCase joins words without spaces, capitalizing each word except the first: 'theQuickBrownFox'. It's popular in programming for variable names." },
+  { q: "What is snake_case?", a: "snake_case joins words with underscores, all lowercase: 'the_quick_brown_fox'. Common in Python and database naming." },
+  { q: "Is my text stored?", a: "No. All conversion happens in your browser. Nothing is stored or transmitted." }
+];
+const related = [
+  { href: "/everyday/word-counter", icon: "📝", title: "Word Counter", desc: "Count words & characters" },
+  { href: "/everyday/password-generator", icon: "🔐", title: "Password Generator", desc: "Create strong passwords" },
+  { href: "/everyday/lorem-ipsum-generator", icon: "📜", title: "Lorem Ipsum", desc: "Placeholder text" },
+  { href: "/math/percentage-calculator", icon: "%", title: "Percentage Calculator", desc: "Percent of a number" },
+  { href: "/finance/tip-calculator", icon: "💵", title: "Tip Calculator", desc: "Tip & split the bill" },
+  { href: "/everyday/random-number-generator", icon: "🎲", title: "Random Number", desc: "Pick random numbers" }
+];
+---
+<CalculatorLayout
+  title="Case Converter - Change Text to UPPERCASE, lowercase, Title Case"
+  h1="Case Converter"
+  description="Free online case converter. Convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and more. Instant, no sign-up."
+  subtitle="Convert text between uppercase, lowercase, title case, sentence case, camelCase, and snake_case instantly."
+  category="Everyday"
+  categoryHref="/everyday"
+  appCategory="UtilitiesApplication"
+  faqs={faqs}
+  relatedTools={related}
+>
+  <div slot="calculator">
+    <div class="field">
+      <label for="cc-input">Enter your text</label>
+      <textarea id="cc-input" rows="5" placeholder="Type or paste text here...">The quick brown fox jumps over the lazy dog</textarea>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+      <button class="btn btn-ghost cc-btn" data-case="upper">UPPER CASE</button>
+      <button class="btn btn-ghost cc-btn" data-case="lower">lower case</button>
+      <button class="btn btn-ghost cc-btn" data-case="title">Title Case</button>
+      <button class="btn btn-ghost cc-btn" data-case="sentence">Sentence case</button>
+      <button class="btn btn-ghost cc-btn" data-case="camel">camelCase</button>
+      <button class="btn btn-ghost cc-btn" data-case="snake">snake_case</button>
+      <button class="btn btn-ghost cc-btn" data-case="kebab">kebab-case</button>
+    </div>
+    <div class="result-panel">
+      <div class="result-main">
+        <div class="result-label">Result</div>
+        <div id="cc-output" style="font-size:1.1rem;color:var(--primary-dark);word-break:break-word;padding:8px;min-height:40px;">The quick brown fox jumps over the lazy dog</div>
+      </div>
+      <button class="btn btn-ghost" id="cc-copy" type="button" style="width:100%;margin-top:12px;">📋 Copy result</button>
+    </div>
+  </div>
+  <script is:inline>
+    (function(){
+      var input=document.getElementById('cc-input'),output=document.getElementById('cc-output');
+      function convert(text,mode){
+        switch(mode){
+          case 'upper':return text.toUpperCase();
+          case 'lower':return text.toLowerCase();
+          case 'title':return text.replace(/\w\S*/g,function(t){return t.charAt(0).toUpperCase()+t.substr(1).toLowerCase();});
+          case 'sentence':return text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g,function(c){return c.toUpperCase();});
+          case 'camel':return text.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g,function(_,c){return c.toUpperCase();});
+          case 'snake':return text.toLowerCase().trim().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'');
+          case 'kebab':return text.toLowerCase().trim().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+        }return text;
+      }
+      document.querySelectorAll('.cc-btn').forEach(function(b){
+        b.addEventListener('click',function(){var r=convert(input.value,b.getAttribute('data-case'));output.textContent=r;input.value=r;});
+      });
+      document.getElementById('cc-copy').addEventListener('click',function(){
+        if(output.textContent){navigator.clipboard.writeText(output.textContent).then(function(){var b=document.getElementById('cc-copy');b.textContent='✅ Copied!';setTimeout(function(){b.textContent='📋 Copy result';},2000);});}
+      });
+      output.textContent=input.value;
+    })();
+  </script>
+  <section class="content-section">
+    <h2>Case Conversion Reference</h2>
+    <table class="ref-table"><thead><tr><th>Style</th><th>Example</th><th>Use Case</th></tr></thead><tbody>
+      <tr><td>UPPER CASE</td><td>THE QUICK BROWN FOX</td><td>Headlines, emphasis</td></tr>
+      <tr><td>lower case</td><td>the quick brown fox</td><td>General text</td></tr>
+      <tr><td>Title Case</td><td>The Quick Brown Fox</td><td>Titles, headings</td></tr>
+      <tr><td>Sentence case</td><td>The quick brown fox</td><td>Sentences, paragraphs</td></tr>
+      <tr><td>camelCase</td><td>theQuickBrownFox</td><td>Programming variables</td></tr>
+      <tr><td>snake_case</td><td>the_quick_brown_fox</td><td>Python, databases</td></tr>
+      <tr><td>kebab-case</td><td>the-quick-brown-fox</td><td>URLs, CSS classes</td></tr>
+    </tbody></table>
+  </section>
+</CalculatorLayout>

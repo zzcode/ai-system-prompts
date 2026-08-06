@@ -1,0 +1,73 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I calculate sales tax?",a:"Multiply the price by the tax rate (as a decimal) and add it to the original price. For example, 8% tax on $50: $50 × 0.08 = $4 tax, total = $54."},
+{q:"How do I find the price before tax?",a:"Divide the total (tax-inclusive) price by (1 + tax rate). For example, $54 total at 8% tax: $54 ÷ 1.08 = $50 original price."},
+{q:"What is the sales tax rate in my state?",a:"US sales tax varies by state, from 0% (Oregon, Montana, Delaware, New Hampshire) to over 9% (California, Tennessee). Some cities add local taxes on top of state rates."},
+{q:"What's the difference between tax-inclusive and tax-exclusive?",a:"Tax-exclusive means tax is added on top of the listed price (common in the US). Tax-inclusive means the tax is already included in the listed price (common in Europe and VAT countries)."}
+];
+const related=[
+{href:"/finance/discount-calculator",icon:"🏷️",title:"Discount Calculator",desc:"Sale price after discount"},
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/finance/tip-calculator",icon:"💵",title:"Tip Calculator",desc:"Tip & split bill"},
+{href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Home loan payments"},
+{href:"/finance/salary-calculator",icon:"💵",title:"Salary Calculator",desc:"Convert pay periods"},
+{href:"/finance/loan-calculator",icon:"💳",title:"Loan Calculator",desc:"Loan payments"}
+];
+---
+<CalculatorLayout title="Sales Tax Calculator - Add or Remove Tax from Price" h1="Sales Tax Calculator" description="Free sales tax calculator. Add tax to a price or find the original price before tax. Works with any tax rate. Instant results, no sign-up." subtitle="Add sales tax to a price or reverse-calculate the pre-tax amount." category="Finance" categoryHref="/finance" appCategory="FinanceApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="segmented" style="margin-bottom:24px;">
+<button class="st-mode active" data-mode="add">Add tax to price</button>
+<button class="st-mode" data-mode="remove">Remove tax from total</button>
+</div>
+<div class="calc-grid">
+<div>
+<div class="field"><label for="st-amount" id="st-amount-label">Price (before tax)</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="st-amount" value="50" step="any" /></div></div>
+<div class="field"><label for="st-rate">Tax rate</label><div class="input-affix has-suffix"><input type="number" id="st-rate" value="8" step="any" /><span class="suffix">%</span></div></div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label" id="st-main-label">Total (with tax)</div><div class="result-value" id="st-total">$54.00</div><div class="result-sub" id="st-sub">Tax: $4.00</div></div>
+<div class="result-rows" id="st-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+var mode='add';
+var modes=document.querySelectorAll('.st-mode');
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function money(n){return '$'+n.toFixed(2);}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var amt=num('st-amount'),rate=num('st-rate');
+var tax,total,before,after;
+if(mode==='add'){tax=amt*rate/100;total=amt+tax;before=amt;after=total;
+document.getElementById('st-main-label').textContent='Total (with tax)';
+document.getElementById('st-amount-label').textContent='Price (before tax)';}
+else{before=amt/(1+rate/100);tax=amt-before;total=amt;after=amt;
+document.getElementById('st-main-label').textContent='Price (before tax)';
+document.getElementById('st-amount-label').textContent='Total (tax included)';}
+document.getElementById('st-total').textContent=money(mode==='add'?after:before);
+document.getElementById('st-sub').textContent='Tax: '+money(tax);
+document.getElementById('st-rows').innerHTML=row('Before tax',money(before))+row('Tax ('+rate+'%)',money(tax))+row('Total',money(total));
+}
+modes.forEach(function(b){b.addEventListener('click',function(){modes.forEach(function(x){x.classList.remove('active');});b.classList.add('active');mode=b.getAttribute('data-mode');calc();});});
+['st-amount','st-rate'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>Sales Tax Formula</h2>
+<div class="formula-box">Add tax: Total = Price × (1 + Tax%)<br>Remove tax: Price = Total ÷ (1 + Tax%)</div>
+<h2>US State Sales Tax Rates (2025)</h2>
+<table class="ref-table"><thead><tr><th>State</th><th>State Rate</th><th>With Avg. Local</th></tr></thead><tbody>
+<tr><td>California</td><td>7.25%</td><td>~8.8%</td></tr>
+<tr><td>Texas</td><td>6.25%</td><td>~8.2%</td></tr>
+<tr><td>New York</td><td>4.0%</td><td>~8.5%</td></tr>
+<tr><td>Florida</td><td>6.0%</td><td>~7.1%</td></tr>
+<tr><td>Oregon</td><td>0%</td><td>0%</td></tr>
+</tbody></table>
+<p style="font-size:0.82rem;color:var(--text-muted);">Rates vary by locality. Verify current rates for your area.</p>
+</section>
+</CalculatorLayout>

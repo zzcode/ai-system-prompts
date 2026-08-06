@@ -1,0 +1,69 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How is an auto loan payment calculated?",a:"Auto loans use the same amortization formula as any fixed-rate loan: M = P × [r(1+r)ⁿ] ÷ [(1+r)ⁿ − 1], where P is the loan amount, r is the monthly rate, and n is the number of months."},
+{q:"What is a good interest rate for a car loan?",a:"Rates vary by credit score and term. In 2025, typical new car rates range from 5–9% for good credit, while used cars may be 1–3% higher. Excellent credit can get rates below 5%."},
+{q:"Should I put money down on a car?",a:"A down payment of 10–20% reduces your loan amount, monthly payment, and total interest. It also helps avoid being 'underwater' on the loan."},
+{q:"What loan term should I choose?",a:"Shorter terms (36–48 months) mean higher payments but far less interest. Longer terms (60–72 months) lower payments but cost significantly more over time. Avoid terms over 72 months."},
+{q:"Does this calculator include taxes and fees?",a:"No. This calculator shows principal and interest only. Add sales tax, registration, and dealer fees to your loan amount for a complete picture."}
+];
+const related=[
+{href:"/finance/loan-calculator",icon:"💳",title:"Loan Calculator",desc:"General loan payments"},
+{href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Home loan payments"},
+{href:"/finance/salary-calculator",icon:"💵",title:"Salary Calculator",desc:"Convert pay periods"},
+{href:"/finance/compound-interest-calculator",icon:"📈",title:"Compound Interest",desc:"Grow savings"},
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/finance/tip-calculator",icon:"💵",title:"Tip Calculator",desc:"Tip & split bill"}
+];
+---
+<CalculatorLayout title="Auto Loan Calculator - Car Payment & Total Cost" h1="Auto Loan Calculator" description="Free auto loan calculator. Estimate your monthly car payment, total interest, and total cost. Compare loan terms and rates instantly. No sign-up." subtitle="Calculate your monthly car payment and total cost for any auto loan." category="Finance" categoryHref="/finance" appCategory="FinanceApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="al-price">Car price</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="al-price" value="35000" step="any" /></div></div>
+<div class="field"><label for="al-down">Down payment</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="al-down" value="5000" step="any" /></div></div>
+<div class="input-row">
+<div class="field"><label for="al-rate">Interest rate (APR)</label><div class="input-affix has-suffix"><input type="number" id="al-rate" value="7" step="any" /><span class="suffix">%</span></div></div>
+<div class="field"><label for="al-term">Term</label><select id="al-term"><option value="36">36 months</option><option value="48">48 months</option><option value="60" selected>60 months</option><option value="72">72 months</option></select></div>
+</div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Monthly Payment</div><div class="result-value" id="al-payment">$594</div><div class="result-sub" id="al-sub">for 60 months at 7%</div></div>
+<div class="result-rows" id="al-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var price=num('al-price'),down=num('al-down'),rate=num('al-rate'),months=parseInt(document.getElementById('al-term').value,10);
+var P=Math.max(price-down,0);
+if(P<=0||rate<=0){document.getElementById('al-payment').textContent='—';return;}
+var r=rate/100/12,pow=Math.pow(1+r,months),m=P*(r*pow)/(pow-1);
+var total=m*months,interest=total-P;
+document.getElementById('al-payment').textContent=money(m);
+document.getElementById('al-sub').textContent='for '+months+' months at '+rate+'%';
+document.getElementById('al-rows').innerHTML=row('Loan amount',money(P))+row('Total interest',money(interest))+row('Total cost',money(total))+row('Down payment',money(down));
+}
+['al-price','al-down','al-rate','al-term'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);document.getElementById(id).addEventListener('change',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>How to Use the Auto Loan Calculator</h2>
+<p>Enter the car price, your down payment, the APR, and the loan term. The calculator shows your monthly payment, total interest, and total cost of the vehicle.</p>
+<h2>Auto Loan Formula</h2>
+<div class="formula-box">M = P × [r(1+r)ⁿ] ÷ [(1+r)ⁿ − 1]<br>P = price − down payment · r = APR ÷ 12 · n = months</div>
+<h2>Monthly Payment by Term ($30,000 loan at 7%)</h2>
+<table class="ref-table"><thead><tr><th>Term</th><th>Monthly</th><th>Total Interest</th></tr></thead><tbody>
+<tr><td>36 months</td><td>$927</td><td>$3,369</td></tr>
+<tr><td>48 months</td><td>$719</td><td>$4,498</td></tr>
+<tr><td>60 months</td><td>$594</td><td>$5,641</td></tr>
+<tr><td>72 months</td><td>$510</td><td>$6,796</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: Estimates only, not financial advice. Actual rates vary by lender and credit score.</em></p>
+</section>
+</CalculatorLayout>

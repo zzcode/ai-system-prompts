@@ -1,0 +1,69 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How is body fat percentage calculated?",a:"This calculator uses the U.S. Navy method, which estimates body fat from circumference measurements (neck, waist, and hip for women). It's a practical at-home method with reasonable accuracy."},
+{q:"What is a healthy body fat percentage?",a:"For men: 10–20% is healthy (athletes 6–13%). For women: 18–28% is healthy (athletes 14–20%). Essential fat minimums are 2–5% for men and 10–13% for women."},
+{q:"Is the Navy method accurate?",a:"It has a margin of error of ~3–4%, similar to skinfold calipers. DEXA scans are more accurate but expensive. The Navy method is the best free at-home option."},
+{q:"How does body fat differ from BMI?",a:"BMI doesn't distinguish muscle from fat. A muscular person can have 'overweight' BMI with low body fat. Body fat percentage is a more direct measure of composition."}
+];
+const related=[
+{href:"/health/bmi-calculator",icon:"⚖️",title:"BMI Calculator",desc:"Body mass index"},
+{href:"/health/calorie-calculator",icon:"🔥",title:"Calorie Calculator",desc:"Daily calorie needs"},
+{href:"/health/bmr-calculator",icon:"⚡",title:"BMR Calculator",desc:"Calories at rest"},
+{href:"/health/macro-calculator",icon:"🥗",title:"Macro Calculator",desc:"Protein, carbs & fat"},
+{href:"/health/ideal-weight-calculator",icon:"🎯",title:"Ideal Weight",desc:"Healthy weight range"},
+{href:"/health/tdee-calculator",icon:"⚡",title:"TDEE Calculator",desc:"Total daily burn"}
+];
+---
+<CalculatorLayout title="Body Fat Calculator - U.S. Navy Method" h1="Body Fat Calculator" description="Free body fat calculator using the U.S. Navy method. Estimate your body fat percentage from circumference measurements. No sign-up." subtitle="Estimate your body fat percentage using the U.S. Navy circumference method." category="Health" categoryHref="/health" appCategory="HealthApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="segmented" style="margin-bottom:24px;"><button class="bf-unit active" data-unit="metric">Metric</button><button class="bf-unit" data-unit="imperial">Imperial</button></div>
+<div class="calc-grid">
+<div>
+<div class="input-row"><div class="field"><label>Gender</label><div class="segmented" id="bf-gender"><button data-g="male" class="active">Male</button><button data-g="female">Female</button></div></div><div class="field"><label for="bf-h">Height</label><div class="input-affix has-suffix"><input type="number" id="bf-h" value="175" /><span class="suffix" id="bf-h-u">cm</span></div></div></div>
+<div class="field"><label for="bf-neck">Neck circumference</label><div class="input-affix has-suffix"><input type="number" id="bf-neck" value="38" /><span class="suffix" id="bf-neck-u">cm</span></div></div>
+<div class="field"><label for="bf-waist">Waist circumference</label><div class="input-affix has-suffix"><input type="number" id="bf-waist" value="85" /><span class="suffix" id="bf-waist-u">cm</span></div></div>
+<div class="field" id="bf-hip-field" style="display:none;"><label for="bf-hip">Hip circumference</label><div class="input-affix has-suffix"><input type="number" id="bf-hip" value="95" /><span class="suffix" id="bf-hip-u">cm</span></div></div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Body Fat</div><div class="result-value" id="bf-val">18.5%</div><div class="result-sub" id="bf-cat">Fitness</div></div>
+<div class="result-rows" id="bf-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+var unit='metric',gender='male';
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var h=num('bf-h'),neck=num('bf-neck'),waist=num('bf-waist'),hip=num('bf-hip');
+if(unit==='imperial'){h=h*2.54;neck=neck*2.54;waist=waist*2.54;hip=hip*2.54;}
+if(!h||!neck||!waist||(gender==='female'&&!hip))return;
+var bf;
+if(gender==='male'){bf=495/(1.0324-0.19077*Math.log10(waist-neck)+0.15456*Math.log10(h))-450;}
+else{bf=495/(1.29579-0.35004*Math.log10(waist+hip-neck)+0.22100*Math.log10(h))-450;}
+bf=Math.max(0,Math.min(60,bf));
+var cat=gender==='male'?(bf<6?'Essential':bf<14?'Athletic':bf<18?'Fitness':bf<25?'Average':'Obese'):(bf<14?'Essential':bf<21?'Athletic':bf<25?'Fitness':bf<32?'Average':'Obese');
+document.getElementById('bf-val').textContent=bf.toFixed(1)+'%';
+document.getElementById('bf-cat').textContent=cat;
+document.getElementById('bf-rows').innerHTML=row('Category',cat)+row('Fat mass',Math.round(num('bf-w-kg')||70*bf/100)+' kg est.')+row('Lean mass',Math.round((num('bf-w-kg')||70)*(1-bf/100))+' kg est.');
+}
+document.querySelectorAll('.bf-unit').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.bf-unit').forEach(function(x){x.classList.remove('active');});b.classList.add('active');unit=b.getAttribute('data-unit');var u=unit==='metric'?'cm':'in';['bf-h-u','bf-neck-u','bf-waist-u','bf-hip-u'].forEach(function(id){document.getElementById(id).textContent=u;});calc();});});
+document.querySelectorAll('#bf-gender button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#bf-gender button').forEach(function(x){x.classList.remove('active');});b.classList.add('active');gender=b.getAttribute('data-g');document.getElementById('bf-hip-field').style.display=gender==='female'?'':'none';calc();});});
+document.querySelectorAll('#bf-h,#bf-neck,#bf-waist,#bf-hip').forEach(function(el){el.addEventListener('input',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>Body Fat Categories</h2>
+<table class="ref-table"><thead><tr><th>Category</th><th>Men</th><th>Women</th></tr></thead><tbody>
+<tr><td>Essential fat</td><td>2–5%</td><td>10–13%</td></tr>
+<tr><td>Athletic</td><td>6–13%</td><td>14–20%</td></tr>
+<tr><td>Fitness</td><td>14–17%</td><td>21–24%</td></tr>
+<tr><td>Average</td><td>18–24%</td><td>25–31%</td></tr>
+<tr><td>Obese</td><td>25%+</td><td>32%+</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: Estimates only, not medical advice. Consult a healthcare professional.</em></p>
+</section>
+</CalculatorLayout>

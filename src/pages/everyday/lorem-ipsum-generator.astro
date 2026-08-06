@@ -1,0 +1,79 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs = [
+  { q: "What is Lorem Ipsum?", a: "Lorem Ipsum is dummy text used in printing, design, and web development as placeholder content. It's derived from a 1st-century BC Latin text by Cicero, scrambled to be nonsensical yet natural-looking." },
+  { q: "Why use Lorem Ipsum instead of real text?", a: "Lorem Ipsum looks like real text in layout and design, but doesn't distract viewers with meaningful content. It lets designers focus on visual elements without being influenced by the words." },
+  { q: "How much Lorem Ipsum can I generate?", a: "Generate anywhere from 1 to 100 paragraphs, or specify a number of words or sentences. The generator assembles random Latin-like passages from a word pool." },
+  { q: "Is Lorem Ipsum real Latin?", a: "It's based on Latin but has been altered over centuries. The standard passage starts with 'Lorem ipsum dolor sit amet' and continues with scrambled Latin words that form no coherent meaning." },
+  { q: "Can I use this for commercial projects?", a: "Yes. Lorem Ipsum is public domain placeholder text. Use it freely in any project." }
+];
+const related = [
+  { href: "/everyday/word-counter", icon: "📝", title: "Word Counter", desc: "Count words & characters" },
+  { href: "/everyday/case-converter", icon: "Aa", title: "Case Converter", desc: "Change text case" },
+  { href: "/everyday/password-generator", icon: "🔐", title: "Password Generator", desc: "Create strong passwords" },
+  { href: "/everyday/random-number-generator", icon: "🎲", title: "Random Number", desc: "Pick random numbers" },
+  { href: "/math/percentage-calculator", icon: "%", title: "Percentage Calculator", desc: "Percent of a number" },
+  { href: "/finance/tip-calculator", icon: "💵", title: "Tip Calculator", desc: "Tip & split the bill" }
+];
+---
+<CalculatorLayout
+  title="Lorem Ipsum Generator - Free Placeholder Text Generator"
+  h1="Lorem Ipsum Generator"
+  description="Free Lorem Ipsum generator. Create placeholder text by paragraphs, sentences, or words. Perfect for mockups, designs, and web development. No sign-up."
+  subtitle="Generate Lorem Ipsum placeholder text for mockups, designs, and development."
+  category="Everyday"
+  categoryHref="/everyday"
+  appCategory="UtilitiesApplication"
+  faqs={faqs}
+  relatedTools={related}
+>
+  <div slot="calculator">
+    <div class="calc-grid">
+      <div>
+        <div class="field"><label>Generate by</label>
+          <div class="segmented" id="li-unit">
+            <button class="active" data-unit="paragraphs">Paragraphs</button>
+            <button data-unit="sentences">Sentences</button>
+            <button data-unit="words">Words</button>
+          </div>
+        </div>
+        <div class="field"><label for="li-count">How many</label><input type="number" id="li-count" value="3" min="1" max="100" /></div>
+        <label style="display:flex;align-items:center;gap:8px;font-size:0.9rem;cursor:pointer;margin-bottom:16px;"><input type="checkbox" id="li-classic" checked /> Start with 'Lorem ipsum dolor sit amet...'</label>
+        <button class="btn btn-primary" id="li-gen" type="button" style="width:100%;">📜 Generate</button>
+      </div>
+      <div class="result-panel" style="max-height:400px;overflow-y:auto;">
+        <div class="result-main"><div class="result-label">Generated Text</div></div>
+        <div id="li-output" style="font-size:0.9rem;color:var(--text-secondary);line-height:1.7;"></div>
+        <button class="btn btn-ghost" id="li-copy" type="button" style="width:100%;margin-top:12px;">📋 Copy text</button>
+      </div>
+    </div>
+  </div>
+  <script is:inline>
+    (function(){
+      var words='lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo consequat duis aute irure in reprehenderit voluptate velit esse cillum eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt culpa qui officia deserunt mollit anim id est laborum'.split(' ');
+      var unit='paragraphs';
+      var unitBtns=document.querySelectorAll('#li-unit button');
+      unitBtns.forEach(function(b){b.addEventListener('click',function(){unitBtns.forEach(function(x){x.classList.remove('active');});b.classList.add('active');unit=b.getAttribute('data-unit');});});
+      function rw(){return words[Math.floor(Math.random()*words.length)];}
+      function rsent(){var n=8+Math.floor(Math.random()*12);var s=[];for(var i=0;i<n;i++)s.push(rw());return s.join(' ').charAt(0).toUpperCase()+s.join(' ').slice(1)+'.';}
+      function rpara(){var n=3+Math.floor(Math.random()*4);var s=[];for(var i=0;i<n;i++)s.push(rsent());return s.join(' ');}
+      function gen(){
+        var count=Math.min(parseInt(document.getElementById('li-count').value,10)||1,100);
+        var out=document.getElementById('li-output');var html='';
+        var classic=document.getElementById('li-classic').checked;
+        if(unit==='paragraphs'){for(var i=0;i<count;i++){var p=rpara();if(i===0&&classic)p='Lorem ipsum dolor sit amet, consectetur adipiscing elit. '+p;html+='<p style="margin-bottom:12px;">'+p+'</p>';}}
+        else if(unit==='sentences'){for(var i=0;i<count;i++){var s=rsent();if(i===0&&classic)s='Lorem ipsum dolor sit amet, consectetur adipiscing elit.';html+='<p style="margin-bottom:8px;">'+s+'</p>';}}
+        else{var arr=[];for(var i=0;i<count;i++)arr.push(rw());if(classic){arr[0]='Lorem';arr[1]='ipsum';}html='<p>'+arr.join(' ')+'</p>';}
+        out.innerHTML=html;
+      }
+      document.getElementById('li-gen').addEventListener('click',gen);
+      document.getElementById('li-copy').addEventListener('click',function(){var t=document.getElementById('li-output').innerText;if(t){navigator.clipboard.writeText(t).then(function(){var b=document.getElementById('li-copy');b.textContent='✅ Copied!';setTimeout(function(){b.textContent='📋 Copy text';},2000);});}});
+      gen();
+    })();
+  </script>
+  <section class="content-section">
+    <h2>What Is Lorem Ipsum?</h2>
+    <p>Lorem Ipsum has been the printing industry's standard dummy text since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived five centuries and remains the go-to placeholder text for designers and developers worldwide.</p>
+    <p>The standard passage begins: <em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</em></p>
+  </section>
+</CalculatorLayout>

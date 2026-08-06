@@ -1,0 +1,60 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"What is my ideal weight?",a:"Ideal weight is calculated using several formulas. This calculator uses the Devine formula (most common): Men: 50kg + 2.3kg per inch over 5ft. Women: 45.5kg + 2.3kg per inch over 5ft. A healthy BMI range (18.5–24.9) is also shown."},
+{q:"Is ideal weight accurate?",a:"It's a general estimate. Muscle mass, bone density, and body composition vary. Use it as a rough guide, not a strict target. BMI range gives a broader healthy weight window."},
+{q:"Should I aim for my ideal weight?",a:"Focus on healthy habits rather than a specific number. A weight where you feel energetic, have good blood work, and maintain comfortably is more important than any formula."}
+];
+const related=[
+{href:"/health/bmi-calculator",icon:"⚖️",title:"BMI Calculator",desc:"Body mass index"},
+{href:"/health/calorie-calculator",icon:"🔥",title:"Calorie Calculator",desc:"Daily calorie needs"},
+{href:"/health/body-fat-calculator",icon:"📏",title:"Body Fat Calculator",desc:"Estimate body fat %"},
+{href:"/health/bmr-calculator",icon:"⚡",title:"BMR Calculator",desc:"Calories at rest"},
+{href:"/health/macro-calculator",icon:"🥗",title:"Macro Calculator",desc:"Protein, carbs & fat"},
+{href:"/health/tdee-calculator",icon:"⚡",title:"TDEE Calculator",desc:"Total daily burn"}
+];
+---
+<CalculatorLayout title="Ideal Weight Calculator - Healthy Weight Range" h1="Ideal Weight Calculator" description="Free ideal weight calculator. Find your healthy weight range using the Devine formula and BMI. See your ideal body weight instantly. No sign-up." subtitle="Calculate your ideal body weight and healthy weight range based on height." category="Health" categoryHref="/health" appCategory="HealthApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="segmented" style="margin-bottom:24px;"><button class="iw-unit active" data-unit="metric">Metric</button><button class="iw-unit" data-unit="imperial">Imperial</button></div>
+<div class="calc-grid">
+<div>
+<div class="input-row"><div class="field"><label>Gender</label><div class="segmented" id="iw-gender"><button data-g="male" class="active">Male</button><button data-g="female">Female</button></div></div><div class="field"><label for="iw-h">Height</label><div class="input-affix has-suffix"><input type="number" id="iw-h" value="175" /><span class="suffix" id="iw-h-u">cm</span></div></div></div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Ideal Weight</div><div class="result-value" id="iw-val">70.3 kg</div><div class="result-sub" id="iw-sub">Healthy range: 56.7–76.3 kg</div></div>
+<div class="result-rows" id="iw-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+var unit='metric',gender='male';
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var h=num('iw-h');
+if(!h)return;
+var cm,inchesOver5ft;
+if(unit==='metric'){cm=h;inchesOver5ft=(cm-152.4)/2.54;}
+else{cm=h*2.54;inchesOver5ft=h-60;}
+var devine=gender==='male'?50+2.3*inchesOver5ft:45.5+2.3*inchesOver5ft;
+var m=cm/100;var bmiLow=18.5*m*m,bmiHigh=24.9*m*m;
+if(unit==='imperial'){devine=devine*2.20462;bmiLow=bmiLow*2.20462;bmiHigh=bmiHigh*2.20462;}
+var u=unit==='metric'?'kg':'lb';
+document.getElementById('iw-val').textContent=devine.toFixed(1)+' '+u;
+document.getElementById('iw-sub').textContent='Healthy range: '+bmiLow.toFixed(1)+'–'+bmiHigh.toFixed(1)+' '+u;
+document.getElementById('iw-rows').innerHTML=row('Devine formula',devine.toFixed(1)+' '+u)+row('Healthy BMI low (18.5)',bmiLow.toFixed(1)+' '+u)+row('Healthy BMI high (24.9)',bmiHigh.toFixed(1)+' '+u);
+}
+document.querySelectorAll('.iw-unit').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.iw-unit').forEach(function(x){x.classList.remove('active');});b.classList.add('active');unit=b.getAttribute('data-unit');document.getElementById('iw-h-u').textContent=unit==='metric'?'cm':'in';calc();});});
+document.querySelectorAll('#iw-gender button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#iw-gender button').forEach(function(x){x.classList.remove('active');});b.classList.add('active');gender=b.getAttribute('data-g');calc();});});
+document.getElementById('iw-h').addEventListener('input',calc);
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>Ideal Weight Formulas</h2>
+<p>The Devine formula is the most widely used. It gives a single target, while the BMI range (18.5–24.9) gives a broader healthy window.</p>
+<div class="formula-box">Devine (Men): 50 kg + 2.3 kg × (inches over 5 ft)<br>Devine (Women): 45.5 kg + 2.3 kg × (inches over 5 ft)</div>
+</section>
+</CalculatorLayout>

@@ -1,0 +1,59 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I calculate a discount?",a:"Multiply the original price by the discount percentage (as a decimal), then subtract from the original price. For example, 30% off $80: $80 × 0.30 = $24 discount, $80 − $24 = $56 sale price."},
+{q:"How do I find the original price from a sale price?",a:"Divide the sale price by (1 − discount percentage as a decimal). For example, if an item is $56 after 30% off: $56 ÷ 0.70 = $80 original price."},
+{q:"What is a discount calculator?",a:"A discount calculator finds the sale price and savings amount when a percentage discount is applied to an original price. It also works in reverse to find the original price from a discounted price."},
+{q:"How do I calculate multiple discounts?",a:"Apply them sequentially, not additively. A 20% discount followed by 10% is not 30% off — it's $80 × 0.80 × 0.90 = $57.60, which is 28% off total."}
+];
+const related=[
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/finance/sales-tax-calculator",icon:"🧾",title:"Sales Tax Calculator",desc:"Add or remove sales tax"},
+{href:"/finance/tip-calculator",icon:"💵",title:"Tip Calculator",desc:"Tip & split bill"},
+{href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Home loan payments"},
+{href:"/finance/loan-calculator",icon:"💳",title:"Loan Calculator",desc:"Loan payments"},
+{href:"/finance/salary-calculator",icon:"💵",title:"Salary Calculator",desc:"Convert pay periods"}
+];
+---
+<CalculatorLayout title="Discount Calculator - Sale Price & Savings Calculator" h1="Discount Calculator" description="Free discount calculator. Find the sale price after a percentage discount, calculate savings, and reverse-calculate original prices. No sign-up." subtitle="Calculate sale prices, discount amounts, and savings instantly." category="Finance" categoryHref="/finance" appCategory="FinanceApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="dc-price">Original price</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="dc-price" value="80" step="any" /></div></div>
+<div class="field"><label for="dc-pct">Discount percentage</label><div class="input-affix has-suffix"><input type="number" id="dc-pct" value="30" step="any" /><span class="suffix">%</span></div></div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Sale Price</div><div class="result-value" id="dc-sale">$56.00</div><div class="result-sub" id="dc-sub">You save $24.00</div></div>
+<div class="result-rows" id="dc-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function money(n){return '$'+n.toFixed(2);}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var price=num('dc-price'),pct=num('dc-pct');
+var discount=price*pct/100,sale=price-discount;
+document.getElementById('dc-sale').textContent=money(sale);
+document.getElementById('dc-sub').textContent='You save '+money(discount);
+document.getElementById('dc-rows').innerHTML=row('Original price',money(price))+row('Discount amount',money(discount))+row('Sale price',money(sale))+row('You pay',pct.toFixed(0)+'% of original');
+}
+['dc-price','dc-pct'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>How to Calculate a Discount</h2>
+<div class="formula-box">Discount = Price × (Discount% ÷ 100)<br>Sale Price = Price − Discount</div>
+<h2>Discount Reference Table</h2>
+<table class="ref-table"><thead><tr><th>Discount</th><th>$50 Item</th><th>$100 Item</th><th>$200 Item</th></tr></thead><tbody>
+<tr><td>10% off</td><td>$45.00</td><td>$90.00</td><td>$180.00</td></tr>
+<tr><td>20% off</td><td>$40.00</td><td>$80.00</td><td>$160.00</td></tr>
+<tr><td>25% off</td><td>$37.50</td><td>$75.00</td><td>$150.00</td></tr>
+<tr><td>30% off</td><td>$35.00</td><td>$70.00</td><td>$140.00</td></tr>
+<tr><td>50% off</td><td>$25.00</td><td>$50.00</td><td>$100.00</td></tr>
+</tbody></table>
+</section>
+</CalculatorLayout>

@@ -1,0 +1,65 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How much water should I drink per day?",a:"A common guideline is to drink 0.5–1 ounce of water per pound of body weight (35ml per kg). This calculator adjusts for weight, activity, and climate."},
+{q:"Does exercise increase water needs?",a:"Yes. Add 12 oz (350ml) for every 30 minutes of exercise. Hot climates and high altitude also increase needs."},
+{q:"Does coffee count toward water intake?",a:"Yes. Coffee and tea contribute to hydration despite being mild diuretics. Water-rich foods like fruits and vegetables also count."}
+];
+const related=[
+{href:"/health/bmi-calculator",icon:"⚖️",title:"BMI Calculator",desc:"Body mass index"},
+{href:"/health/calorie-calculator",icon:"🔥",title:"Calorie Calculator",desc:"Daily calorie needs"},
+{href:"/health/bmr-calculator",icon:"⚡",title:"BMR Calculator",desc:"Calories at rest"},
+{href:"/health/macro-calculator",icon:"🥗",title:"Macro Calculator",desc:"Protein, carbs & fat"},
+{href:"/health/tdee-calculator",icon:"⚡",title:"TDEE Calculator",desc:"Total daily burn"},
+{href:"/health/ideal-weight-calculator",icon:"🎯",title:"Ideal Weight",desc:"Healthy weight range"}
+];
+---
+<CalculatorLayout title="Water Intake Calculator - Daily Hydration Goal" h1="Water Intake Calculator" description="Free water intake calculator. Find your daily hydration goal based on weight, activity, and climate. Get your personalized water target. No sign-up." subtitle="Calculate how much water you should drink each day based on your body and lifestyle." category="Health" categoryHref="/health" appCategory="HealthApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="segmented" style="margin-bottom:24px;"><button class="wi-unit active" data-unit="metric">Metric</button><button class="wi-unit" data-unit="imperial">Imperial</button></div>
+<div class="calc-grid">
+<div>
+<div class="field"><label for="wi-w">Body weight</label><div class="input-affix has-suffix"><input type="number" id="wi-w" value="70" /><span class="suffix" id="wi-w-u">kg</span></div></div>
+<div class="field"><label for="wi-ex">Exercise (minutes/day)</label><input type="number" id="wi-ex" value="30" /></div>
+<div class="field"><label for="wi-cl">Climate</label><select id="wi-cl"><option value="0">Temperate</option><option value="0.1">Hot or humid</option><option value="0.15">Very hot / high altitude</option></select></div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Daily Water Intake</div><div class="result-value" id="wi-val">2.5 liters</div><div class="result-sub" id="wi-sub">≈ 10 cups · 84 oz</div></div>
+<div class="result-rows" id="wi-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+var unit='metric';
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var w=num('wi-w'),ex=num('wi-ex'),cl=parseFloat(document.getElementById('wi-cl').value);
+if(!w)return;
+var kg=unit==='metric'?w:w*0.453592;
+var base=kg*35;var extra=ex*12*0.0295735;var climate=base*cl;
+var ml=base+extra+climate;var liters=ml/1000;
+var cups=Math.round(ml/236.6);var oz=Math.round(ml/29.57);
+document.getElementById('wi-val').textContent=liters.toFixed(1)+' liters';
+document.getElementById('wi-sub').textContent='≈ '+cups+' cups · '+oz+' oz';
+document.getElementById('wi-rows').innerHTML=row('Base need',Math.round(base)+' ml')+row('Exercise bonus',Math.round(extra)+' ml')+row('Climate adjustment',Math.round(climate)+' ml')+row('Glasses (250ml)',Math.round(ml/250));
+}
+document.querySelectorAll('.wi-unit').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.wi-unit').forEach(function(x){x.classList.remove('active');});b.classList.add('active');unit=b.getAttribute('data-unit');document.getElementById('wi-w-u').textContent=unit==='metric'?'kg':'lb';calc();});});
+['wi-w','wi-ex','wi-cl'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);document.getElementById(id).addEventListener('change',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>Daily Water Intake Guide</h2>
+<table class="ref-table"><thead><tr><th>Body Weight</th><th>Sedentary</th><th>30 min exercise</th></tr></thead><tbody>
+<tr><td>50 kg (110 lb)</td><td>1.8 L</td><td>2.1 L</td></tr>
+<tr><td>60 kg (132 lb)</td><td>2.1 L</td><td>2.5 L</td></tr>
+<tr><td>70 kg (154 lb)</td><td>2.5 L</td><td>2.8 L</td></tr>
+<tr><td>80 kg (176 lb)</td><td>2.8 L</td><td>3.2 L</td></tr>
+<tr><td>90 kg (198 lb)</td><td>3.2 L</td><td>3.5 L</td></tr>
+<tr><td>100 kg (220 lb)</td><td>3.5 L</td><td>3.9 L</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: General guidance only. Individual needs vary. Consult a doctor for specific recommendations.</em></p>
+</section>
+</CalculatorLayout>
