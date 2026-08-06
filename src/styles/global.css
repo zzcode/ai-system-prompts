@@ -600,13 +600,18 @@ body {
   gap: 10px;
 }
 
-/* ---------- Ad Placeholder Slots ---------- */
-.ad-slot {
+/* ---------- AdSense Ad Containers ---------- */
+.ad-container {
   margin: 28px auto;
   text-align: center;
   min-height: 90px;
+  max-width: 100%;
+  overflow: hidden;
 }
-/* Real AdSense units get inserted into .ad-slot. Placeholder styling only shows in dev. */
+.ad-container ins.adsbygoogle {
+  display: block;
+  margin: 0 auto;
+}
 
 /* ---------- Category page grids ---------- */
 .tool-grid {
