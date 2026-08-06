@@ -1,0 +1,224 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqs = [
+  { q: "What is BMI and how is it calculated?", a: "BMI (Body Mass Index) is a measure of body fat based on height and weight. It is calculated by dividing weight in kilograms by height in meters squared: BMI = kg ÷ m². In imperial units: BMI = (lbs ÷ in²) × 703." },
+  { q: "What is a healthy BMI range?", a: "According to the World Health Organization, a healthy BMI for adults is 18.5 to 24.9. Below 18.5 is underweight, 25 to 29.9 is overweight, and 30 or above is obese." },
+  { q: "Is BMI accurate for everyone?", a: "BMI is a useful screening tool but has limitations. It does not distinguish between muscle and fat, so very muscular people may have a high BMI without excess fat. It also does not account for age, sex, bone density, or fat distribution." },
+  { q: "What BMI is considered obese?", a: "A BMI of 30 or higher is classified as obese. Obesity is further divided into Class 1 (30–34.9), Class 2 (35–39.9), and Class 3 (40 or higher, sometimes called severe obesity)." },
+  { q: "Does this calculator work for children?", a: "This calculator uses the adult BMI formula. For children and teens (ages 2–19), BMI is interpreted using age- and sex-specific percentile charts, so the standard adult categories do not apply." },
+  { q: "Is my data stored or shared?", a: "No. All calculations run entirely in your browser. Nothing you enter is stored, transmitted, or shared." },
+  { q: "Is this medical advice?", a: "No. This tool is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Consult a qualified healthcare provider about your health." }
+];
+
+const related = [
+  { href: "/health/calorie-calculator", icon: "🔥", title: "Calorie Calculator", desc: "Daily calorie needs (BMR & TDEE)" },
+  { href: "/date-time/age-calculator", icon: "🎂", title: "Age Calculator", desc: "Exact age in years & days" },
+  { href: "/math/percentage-calculator", icon: "%", title: "Percentage Calculator", desc: "Percent of a number & change" },
+  { href: "/finance/tip-calculator", icon: "💵", title: "Tip Calculator", desc: "Tip amount and bill splitting" },
+  { href: "/finance/mortgage-calculator", icon: "🏠", title: "Mortgage Calculator", desc: "Monthly payment & interest" },
+  { href: "/finance/compound-interest-calculator", icon: "📈", title: "Compound Interest", desc: "Watch savings grow" }
+];
+---
+
+<CalculatorLayout
+  title="BMI Calculator - Body Mass Index Calculator (Metric & Imperial)"
+  h1="BMI Calculator"
+  description="Free BMI calculator for adults. Enter height and weight in metric or imperial units to get your Body Mass Index and weight category instantly."
+  subtitle="Calculate your Body Mass Index in metric or imperial units and see your WHO weight category."
+  category="Health"
+  categoryHref="/health"
+  appCategory="HealthApplication"
+  faqs={faqs}
+  relatedTools={related}
+>
+  <div slot="calculator">
+    <div class="segmented" style="margin-bottom:24px;">
+      <button class="bmi-unit active" data-unit="metric">Metric (kg/cm)</button>
+      <button class="bmi-unit" data-unit="imperial">Imperial (lb/ft)</button>
+    </div>
+
+    <div class="calc-grid">
+      <div>
+        <div id="bmi-metric">
+          <div class="input-row">
+            <div class="field">
+              <label for="bmi-h-cm">Height</label>
+              <div class="input-affix has-suffix">
+                <input type="number" id="bmi-h-cm" value="175" step="any" inputmode="decimal" />
+                <span class="suffix">cm</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="bmi-w-kg">Weight</label>
+              <div class="input-affix has-suffix">
+                <input type="number" id="bmi-w-kg" value="70" step="any" inputmode="decimal" />
+                <span class="suffix">kg</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="bmi-imperial" style="display:none;">
+          <div class="input-row">
+            <div class="field">
+              <label for="bmi-h-ft">Height (ft)</label>
+              <div class="input-affix has-suffix">
+                <input type="number" id="bmi-h-ft" value="5" step="any" inputmode="decimal" />
+                <span class="suffix">ft</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="bmi-h-in">Height (in)</label>
+              <div class="input-affix has-suffix">
+                <input type="number" id="bmi-h-in" value="9" step="any" inputmode="decimal" />
+                <span class="suffix">in</span>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="bmi-w-lb">Weight</label>
+            <div class="input-affix has-suffix">
+              <input type="number" id="bmi-w-lb" value="154" step="any" inputmode="decimal" />
+              <span class="suffix">lb</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-panel">
+        <div class="result-main">
+          <div class="result-label">Your BMI</div>
+          <div class="result-value" id="bmi-value">22.9</div>
+          <div class="result-sub" id="bmi-category">Normal weight</div>
+        </div>
+        <div class="result-rows" id="bmi-rows"></div>
+      </div>
+    </div>
+
+    <div style="margin-top:22px;">
+      <div style="font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:8px;">BMI SCALE</div>
+      <div style="position:relative;height:14px;border-radius:8px;background:linear-gradient(to right,#60a5fa 0%,#60a5fa 18.5%,#34d399 18.5%,#34d399 45%,#fbbf24 45%,#fbbf24 62.5%,#f87171 62.5%,#f87171 100%);">
+        <div id="bmi-marker" style="position:absolute;top:-5px;width:4px;height:24px;background:#0f172a;border-radius:2px;transform:translateX(-50%);transition:left 0.2s;"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-muted);margin-top:5px;">
+        <span>15</span><span>18.5</span><span>25</span><span>30</span><span>40</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-muted);margin-top:2px;">
+        <span style="color:#2563eb;">Underweight</span><span style="color:#059669;">Normal</span><span style="color:#d97706;">Overweight</span><span style="color:#dc2626;">Obese</span>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var unit = 'metric';
+      var unitBtns = document.querySelectorAll('.bmi-unit');
+      var metricPane = document.getElementById('bmi-metric');
+      var imperialPane = document.getElementById('bmi-imperial');
+      var valueEl = document.getElementById('bmi-value');
+      var catEl = document.getElementById('bmi-category');
+      var rowsEl = document.getElementById('bmi-rows');
+      var marker = document.getElementById('bmi-marker');
+
+      function num(id) {
+        var v = parseFloat(document.getElementById(id).value);
+        return isNaN(v) ? null : v;
+      }
+      function category(bmi) {
+        if (bmi < 18.5) return ['Underweight', '#2563eb'];
+        if (bmi < 25) return ['Normal weight', '#059669'];
+        if (bmi < 30) return ['Overweight', '#d97706'];
+        return ['Obese', '#dc2626'];
+      }
+      function row(l, v) {
+        return '<div class="result-row"><span class="rr-label">' + l + '</span><span class="rr-value">' + v + '</span></div>';
+      }
+
+      function calc() {
+        var bmi = null, healthyLow = null, healthyHigh = null;
+        if (unit === 'metric') {
+          var h = num('bmi-h-cm'), w = num('bmi-w-kg');
+          if (h && w && h > 0) {
+            var m = h / 100;
+            bmi = w / (m * m);
+            healthyLow = 18.5 * m * m;
+            healthyHigh = 24.9 * m * m;
+            healthyLow = healthyLow.toFixed(1) + ' kg';
+            healthyHigh = healthyHigh.toFixed(1) + ' kg';
+          }
+        } else {
+          var ft = num('bmi-h-ft') || 0, inch = num('bmi-h-in') || 0, lb = num('bmi-w-lb');
+          var totalIn = ft * 12 + inch;
+          if (totalIn > 0 && lb) {
+            bmi = (lb / (totalIn * totalIn)) * 703;
+            healthyLow = (18.5 * totalIn * totalIn / 703).toFixed(1) + ' lb';
+            healthyHigh = (24.9 * totalIn * totalIn / 703).toFixed(1) + ' lb';
+          }
+        }
+        if (bmi === null) {
+          valueEl.textContent = '—';
+          catEl.textContent = 'Enter your height and weight';
+          rowsEl.innerHTML = '';
+          return;
+        }
+        var cat = category(bmi);
+        valueEl.textContent = bmi.toFixed(1);
+        catEl.textContent = cat[0];
+        catEl.style.color = cat[1];
+        valueEl.style.color = cat[1];
+        rowsEl.innerHTML =
+          row('Category', cat[0]) +
+          row('Healthy BMI range', '18.5 – 24.9') +
+          row('Healthy weight for you', healthyLow + ' – ' + healthyHigh);
+        var pct = Math.min(Math.max(((bmi - 15) / (40 - 15)) * 100, 0), 100);
+        marker.style.left = pct + '%';
+      }
+
+      unitBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          unitBtns.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          unit = btn.getAttribute('data-unit');
+          metricPane.style.display = unit === 'metric' ? '' : 'none';
+          imperialPane.style.display = unit === 'imperial' ? '' : 'none';
+          calc();
+        });
+      });
+
+      document.querySelectorAll('#bmi-h-cm,#bmi-w-kg,#bmi-h-ft,#bmi-h-in,#bmi-w-lb').forEach(function (el) {
+        el.addEventListener('input', calc);
+      });
+      calc();
+    })();
+  </script>
+
+  <section class="content-section">
+    <h2>How to Use the BMI Calculator</h2>
+    <p>Select your preferred units (metric or imperial), enter your height and weight, and your BMI appears instantly along with your weight category and a visual position on the BMI scale.</p>
+
+    <h2>The BMI Formula</h2>
+    <div class="formula-box">
+      Metric: &nbsp;BMI = weight (kg) ÷ height (m)²<br><br>
+      Imperial: &nbsp;BMI = (weight (lb) ÷ height (in)²) × 703
+    </div>
+    <p>For example, a person who is 175 cm tall and weighs 70 kg has a BMI of 70 ÷ (1.75 × 1.75) = 70 ÷ 3.0625 = <strong>22.9</strong>, which is in the normal range.</p>
+
+    <h2>BMI Categories (WHO)</h2>
+    <table class="ref-table">
+      <thead><tr><th>BMI Range</th><th>Category</th></tr></thead>
+      <tbody>
+        <tr><td>Below 16.0</td><td>Severe underweight</td></tr>
+        <tr><td>16.0 – 18.4</td><td>Underweight</td></tr>
+        <tr><td>18.5 – 24.9</td><td>Normal weight</td></tr>
+        <tr><td>25.0 – 29.9</td><td>Overweight</td></tr>
+        <tr><td>30.0 – 34.9</td><td>Obese (Class 1)</td></tr>
+        <tr><td>35.0 – 39.9</td><td>Obese (Class 2)</td></tr>
+        <tr><td>40.0 and above</td><td>Obese (Class 3)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Limitations of BMI</h2>
+    <p>BMI is a simple, widely used screening measure, but it does not tell the whole story. It cannot distinguish muscle from fat, so athletes and muscular individuals may register as overweight despite low body fat. It also does not reflect where fat is distributed, which matters for health risk. For a fuller picture, consider pairing BMI with a body fat estimate and waist measurement, and consult a healthcare professional.</p>
+    <p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: This tool is for informational purposes only and is not medical advice. Always consult a qualified healthcare provider.</em></p>
+  </section>
+</CalculatorLayout>

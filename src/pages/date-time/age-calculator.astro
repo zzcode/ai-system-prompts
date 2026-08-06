@@ -1,0 +1,149 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqs = [
+  { q: "How do I calculate my exact age?", a: "Enter your date of birth and the calculator shows your exact age in years, months, and days, plus totals in months, weeks, days, hours, and minutes." },
+  { q: "How is age calculated in years, months, and days?", a: "Age is calculated by finding the difference between your birth date and today's date, accounting for varying month lengths and leap years. The result is expressed as complete years, then remaining months, then remaining days." },
+  { q: "Can I calculate age on a specific date?", a: "Yes. Change the 'Age at date' field to any date to find how old you were or will be on that specific day. This is useful for planning, eligibility checks, and historical calculations." },
+  { q: "How many days old am I?", a: "The calculator shows your total age in days. For example, a 30-year-old is roughly 10,950 days old (accounting for leap years). Enter your birth date above to see your exact total." },
+  { q: "What is a leap year and does it affect my age?", a: "A leap year has 366 days (with February 29) and occurs every 4 years. It affects total day counts but not your age in years. This calculator accounts for leap years automatically." },
+  { q: "Is this age calculator free and private?", a: "Yes. It is completely free, requires no sign-up, and runs entirely in your browser. Your birth date is never stored or transmitted." }
+];
+
+const related = [
+  { href: "/health/bmi-calculator", icon: "⚖️", title: "BMI Calculator", desc: "Body mass index & category" },
+  { href: "/health/calorie-calculator", icon: "🔥", title: "Calorie Calculator", desc: "Daily calorie needs" },
+  { href: "/math/percentage-calculator", icon: "%", title: "Percentage Calculator", desc: "Percent of a number & change" },
+  { href: "/finance/tip-calculator", icon: "💵", title: "Tip Calculator", desc: "Tip amount and bill splitting" },
+  { href: "/finance/mortgage-calculator", icon: "🏠", title: "Mortgage Calculator", desc: "Monthly payment & interest" },
+  { href: "/finance/compound-interest-calculator", icon: "📈", title: "Compound Interest", desc: "Watch savings grow" }
+];
+---
+
+<CalculatorLayout
+  title="Age Calculator - Calculate Exact Age in Years, Months, Days"
+  h1="Age Calculator"
+  description="Free age calculator. Find your exact age in years, months, and days, plus totals in weeks, days, hours, and minutes. Fast and no sign-up."
+  subtitle="Calculate your exact age from your date of birth to today — or any date you choose."
+  category="Date & Time"
+  categoryHref="/date-time"
+  appCategory="UtilitiesApplication"
+  faqs={faqs}
+  relatedTools={related}
+>
+  <div slot="calculator">
+    <div class="calc-grid">
+      <div>
+        <div class="field">
+          <label for="age-dob">Date of birth</label>
+          <input type="date" id="age-dob" />
+        </div>
+        <div class="field">
+          <label for="age-at">Age at date</label>
+          <input type="date" id="age-at" />
+          <div class="hint">Defaults to today. Change to calculate age on any date.</div>
+        </div>
+      </div>
+
+      <div class="result-panel">
+        <div class="result-main">
+          <div class="result-label">Your Age</div>
+          <div class="result-value" id="age-main">—</div>
+          <div class="result-sub" id="age-sub">Enter your date of birth</div>
+        </div>
+        <div class="result-rows" id="age-rows"></div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var dobEl = document.getElementById('age-dob');
+      var atEl = document.getElementById('age-at');
+      var mainEl = document.getElementById('age-main');
+      var subEl = document.getElementById('age-sub');
+      var rowsEl = document.getElementById('age-rows');
+
+      function todayStr() {
+        var d = new Date();
+        return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+      }
+      atEl.value = todayStr();
+
+      function row(l, v) {
+        return '<div class="result-row"><span class="rr-label">' + l + '</span><span class="rr-value">' + v + '</span></div>';
+      }
+
+      function calc() {
+        if (!dobEl.value || !atEl.value) { mainEl.textContent='—'; subEl.textContent='Enter your date of birth'; rowsEl.innerHTML=''; return; }
+        var dob = new Date(dobEl.value + 'T00:00:00');
+        var at = new Date(atEl.value + 'T00:00:00');
+        if (isNaN(dob) || isNaN(at) || at < dob) { mainEl.textContent='—'; subEl.textContent='End date must be after birth date'; rowsEl.innerHTML=''; return; }
+
+        var years = at.getFullYear() - dob.getFullYear();
+        var months = at.getMonth() - dob.getMonth();
+        var days = at.getDate() - dob.getDate();
+        if (days < 0) { months--; var prevMonth = new Date(at.getFullYear(), at.getMonth(), 0); days += prevMonth.getDate(); }
+        if (months < 0) { years--; months += 12; }
+
+        mainEl.textContent = years + ' yrs ' + months + ' mo ' + days + ' d';
+
+        var diffMs = at - dob;
+        var totalDays = Math.floor(diffMs / 86400000);
+        var totalWeeks = Math.floor(totalDays / 7);
+        var totalMonths = years * 12 + months;
+        var totalHours = totalDays * 24;
+        var totalMinutes = totalHours * 60;
+
+        subEl.textContent = 'Born ' + dob.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+
+        // Next birthday
+        var nextBday = new Date(at.getFullYear(), dob.getMonth(), dob.getDate());
+        if (nextBday <= at) nextBday = new Date(at.getFullYear() + 1, dob.getMonth(), dob.getDate());
+        var daysToBday = Math.ceil((nextBday - at) / 86400000);
+
+        rowsEl.innerHTML =
+          row('Total months', totalMonths.toLocaleString()) +
+          row('Total weeks', totalWeeks.toLocaleString()) +
+          row('Total days', totalDays.toLocaleString()) +
+          row('Total hours', totalHours.toLocaleString()) +
+          row('Total minutes', totalMinutes.toLocaleString()) +
+          row('Next birthday in', daysToBday + ' days');
+      }
+
+      dobEl.addEventListener('input', calc);
+      atEl.addEventListener('input', calc);
+    })();
+  </script>
+
+  <section class="content-section">
+    <h2>How to Use the Age Calculator</h2>
+    <p>Enter your date of birth and, optionally, the date you want to calculate your age at (it defaults to today). Your exact age appears instantly in years, months, and days, along with totals in months, weeks, days, hours, and minutes, and a countdown to your next birthday.</p>
+
+    <h2>How Age Is Calculated</h2>
+    <p>Exact age is found by computing the difference between two dates while accounting for the varying lengths of months and the presence of leap years:</p>
+    <ul>
+      <li><strong>Years</strong> — the number of complete birthdays that have passed.</li>
+      <li><strong>Months</strong> — the complete months since the last birthday.</li>
+      <li><strong>Days</strong> — the remaining days into the current month.</li>
+    </ul>
+    <p>For total day counts, the calculator counts every day between the two dates, including February 29 in leap years.</p>
+
+    <h2>Example Calculation</h2>
+    <p>If you were born on March 15, 1995, and today is August 5, 2026:</p>
+    <ul>
+      <li>Years: 2026 − 1995 = 31 (birthday already passed this year)</li>
+      <li>Months: August − March = 4 full months</li>
+      <li>Days: 5 − 15 → borrow from the previous month = 21 days</li>
+    </ul>
+    <p>Exact age: <strong>31 years, 4 months, 21 days</strong>.</p>
+
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Verify eligibility age for applications, retirement, or benefits</li>
+      <li>Calculate a child's exact age for school enrollment</li>
+      <li>Find out how many days old you are for fun milestones</li>
+      <li>Count down to your next birthday</li>
+    </ul>
+  </section>
+</CalculatorLayout>

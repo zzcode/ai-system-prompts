@@ -1,0 +1,225 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqs = [
+  { q: "How do I calculate a percentage of a number?", a: "To find a percentage of a number, convert the percentage to a decimal by dividing by 100, then multiply by the number. For example, 25% of 200 = (25 ÷ 100) × 200 = 0.25 × 200 = 50." },
+  { q: "How do I calculate percentage increase?", a: "Subtract the original value from the new value, divide the result by the original value, then multiply by 100. For example, an increase from 50 to 75 = ((75 − 50) ÷ 50) × 100 = 50%." },
+  { q: "How do I calculate what percent one number is of another?", a: "Divide the part by the whole and multiply by 100. For example, to find what percent 30 is of 150: (30 ÷ 150) × 100 = 20%." },
+  { q: "What is the formula for percentage change?", a: "Percentage change = ((New Value − Old Value) ÷ |Old Value|) × 100. A positive result means an increase; a negative result means a decrease." },
+  { q: "How do I calculate percentage decrease?", a: "Subtract the new value from the original value, divide by the original value, then multiply by 100. For example, a decrease from 80 to 60 = ((80 − 60) ÷ 80) × 100 = 25%." },
+  { q: "Is this percentage calculator free?", a: "Yes. This calculator is completely free, requires no sign-up, and runs entirely in your browser. Your numbers are never stored or sent anywhere." },
+  { q: "Can I use this calculator on my phone?", a: "Yes. The calculator is fully responsive and works on any device — phones, tablets, laptops, and desktops — with no app to install." }
+];
+
+const related = [
+  { href: "/finance/tip-calculator", icon: "💵", title: "Tip Calculator", desc: "Tip amount and bill splitting" },
+  { href: "/finance/mortgage-calculator", icon: "🏠", title: "Mortgage Calculator", desc: "Monthly payment & interest" },
+  { href: "/finance/compound-interest-calculator", icon: "📈", title: "Compound Interest", desc: "Watch savings grow over time" },
+  { href: "/finance/loan-calculator", icon: "💳", title: "Loan Calculator", desc: "Loan payment & total cost" },
+  { href: "/health/bmi-calculator", icon: "⚖️", title: "BMI Calculator", desc: "Body mass index & category" },
+  { href: "/date-time/age-calculator", icon: "🎂", title: "Age Calculator", desc: "Exact age in years & days" }
+];
+---
+
+<CalculatorLayout
+  title="Percentage Calculator - Free Online Percent Calculator"
+  h1="Percentage Calculator"
+  description="Free percentage calculator. Find X% of Y, what percent X is of Y, and percentage increase or decrease. Instant results, no sign-up."
+  subtitle="Calculate percentages four ways — percent of a number, what percent one number is of another, and percentage change."
+  category="Math"
+  categoryHref="/math"
+  appCategory="UtilitiesApplication"
+  faqs={faqs}
+  relatedTools={related}
+>
+  <div slot="calculator">
+    <div class="segmented" role="tablist" style="margin-bottom:24px;">
+      <button class="pc-mode active" data-mode="0" role="tab">% of a number</button>
+      <button class="pc-mode" data-mode="1" role="tab">What % is X of Y</button>
+      <button class="pc-mode" data-mode="2" role="tab">% Change</button>
+    </div>
+
+    <div class="calc-grid">
+      <div>
+        <!-- Mode 0: X% of Y -->
+        <div id="pc-pane-0">
+          <div class="input-row">
+            <div class="field">
+              <label for="pc-a">Percentage</label>
+              <div class="input-affix has-suffix">
+                <input type="number" id="pc-a" value="25" step="any" inputmode="decimal" />
+                <span class="suffix">%</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="pc-b">Of number</label>
+              <input type="number" id="pc-b" value="200" step="any" inputmode="decimal" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Mode 1: X is what % of Y -->
+        <div id="pc-pane-1" style="display:none;">
+          <div class="input-row">
+            <div class="field">
+              <label for="pc-c">Value (part)</label>
+              <input type="number" id="pc-c" value="30" step="any" inputmode="decimal" />
+            </div>
+            <div class="field">
+              <label for="pc-d">Of total (whole)</label>
+              <input type="number" id="pc-d" value="150" step="any" inputmode="decimal" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Mode 2: % change -->
+        <div id="pc-pane-2" style="display:none;">
+          <div class="input-row">
+            <div class="field">
+              <label for="pc-e">From (old value)</label>
+              <input type="number" id="pc-e" value="50" step="any" inputmode="decimal" />
+            </div>
+            <div class="field">
+              <label for="pc-f">To (new value)</label>
+              <input type="number" id="pc-f" value="75" step="any" inputmode="decimal" />
+            </div>
+          </div>
+        </div>
+        <p class="hint" id="pc-formula-hint" style="font-size:0.82rem;color:var(--text-muted);"></p>
+      </div>
+
+      <div class="result-panel">
+        <div class="result-main">
+          <div class="result-label" id="pc-label">Result</div>
+          <div class="result-value" id="pc-result">50</div>
+          <div class="result-sub" id="pc-sub">25% of 200 = 50</div>
+        </div>
+        <div class="result-rows" id="pc-rows"></div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var mode = 0;
+      var modes = document.querySelectorAll('.pc-mode');
+      var panes = [
+        document.getElementById('pc-pane-0'),
+        document.getElementById('pc-pane-1'),
+        document.getElementById('pc-pane-2')
+      ];
+      var label = document.getElementById('pc-label');
+      var result = document.getElementById('pc-result');
+      var sub = document.getElementById('pc-sub');
+      var rows = document.getElementById('pc-rows');
+      var hint = document.getElementById('pc-formula-hint');
+
+      function num(id) {
+        var v = parseFloat(document.getElementById(id).value);
+        return isNaN(v) ? null : v;
+      }
+      function fmt(n) {
+        if (!isFinite(n)) return '—';
+        return Math.abs(n) >= 1000
+          ? n.toLocaleString('en-US', { maximumFractionDigits: 2 })
+          : Math.round(n * 10000) / 10000;
+      }
+      function row(l, v) {
+        return '<div class="result-row"><span class="rr-label">' + l + '</span><span class="rr-value">' + v + '</span></div>';
+      }
+
+      function calc() {
+        var html = '';
+        if (mode === 0) {
+          var a = num('pc-a'), b = num('pc-b');
+          label.textContent = 'Result';
+          if (a === null || b === null) { result.textContent = '—'; sub.textContent = 'Enter values above'; rows.innerHTML=''; return; }
+          var r = (a / 100) * b;
+          result.textContent = fmt(r);
+          sub.textContent = a + '% of ' + fmt(b) + ' = ' + fmt(r);
+          hint.textContent = 'Formula: (percentage ÷ 100) × number';
+          html += row('As decimal', fmt(a / 100));
+          html += row('Remaining (' + fmt(b) + ' − ' + fmt(r) + ')', fmt(b - r));
+        } else if (mode === 1) {
+          var c = num('pc-c'), d = num('pc-d');
+          label.textContent = 'Percentage';
+          if (c === null || d === null || d === 0) { result.textContent = '—'; sub.textContent = 'Enter values above'; rows.innerHTML=''; return; }
+          var p = (c / d) * 100;
+          result.textContent = fmt(p) + '%';
+          sub.textContent = fmt(c) + ' is ' + fmt(p) + '% of ' + fmt(d);
+          hint.textContent = 'Formula: (part ÷ whole) × 100';
+          html += row('Ratio', fmt(c / d));
+          html += row('Remainder %', fmt(100 - p) + '%');
+        } else {
+          var e = num('pc-e'), f = num('pc-f');
+          label.textContent = 'Percentage change';
+          if (e === null || f === null || e === 0) { result.textContent = '—'; sub.textContent = 'Enter values above'; rows.innerHTML=''; return; }
+          var ch = ((f - e) / Math.abs(e)) * 100;
+          var dir = ch >= 0 ? 'increase' : 'decrease';
+          result.textContent = (ch >= 0 ? '+' : '') + fmt(ch) + '%';
+          sub.textContent = 'From ' + fmt(e) + ' to ' + fmt(f) + ' is a ' + fmt(Math.abs(ch)) + '% ' + dir;
+          hint.textContent = 'Formula: ((new − old) ÷ |old|) × 100';
+          html += row('Absolute change', fmt(f - e));
+          html += row('Direction', dir.charAt(0).toUpperCase() + dir.slice(1));
+        }
+        rows.innerHTML = html;
+      }
+
+      modes.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          modes.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          mode = parseInt(btn.getAttribute('data-mode'), 10);
+          panes.forEach(function (p, i) { p.style.display = i === mode ? '' : 'none'; });
+          calc();
+        });
+      });
+
+      document.querySelectorAll('#pc-a,#pc-b,#pc-c,#pc-d,#pc-e,#pc-f').forEach(function (el) {
+        el.addEventListener('input', calc);
+      });
+      calc();
+    })();
+  </script>
+
+  <section class="content-section">
+    <h2>How to Use the Percentage Calculator</h2>
+    <p>This free percentage calculator handles the three most common percentage tasks. Select a mode using the tabs above the calculator, enter your numbers, and the result appears instantly as you type — no button to press.</p>
+    <ul>
+      <li><strong>% of a number</strong> — find what a given percentage of any number is (e.g., 25% of 200).</li>
+      <li><strong>What % is X of Y</strong> — find what percentage one value is of another (e.g., 30 is what percent of 150).</li>
+      <li><strong>% Change</strong> — find the percentage increase or decrease between two values (e.g., from 50 to 75).</li>
+    </ul>
+
+    <h2>Percentage Formulas</h2>
+    <p>All percentage calculations come from a few core formulas:</p>
+    <div class="formula-box">
+      Percentage of a number &nbsp;→&nbsp; Result = (P ÷ 100) × N<br><br>
+      Part as a percentage &nbsp;→&nbsp; Percentage = (Part ÷ Whole) × 100<br><br>
+      Percentage change &nbsp;→&nbsp; Change % = ((New − Old) ÷ |Old|) × 100
+    </div>
+
+    <h2>Worked Examples</h2>
+    <h3>Example 1: Find 25% of 200</h3>
+    <p>Convert 25% to a decimal (25 ÷ 100 = 0.25), then multiply by 200: 0.25 × 200 = <strong>50</strong>.</p>
+    <h3>Example 2: 30 is what percent of 150?</h3>
+    <p>Divide the part by the whole and multiply by 100: (30 ÷ 150) × 100 = <strong>20%</strong>.</p>
+    <h3>Example 3: Percentage increase from 50 to 75</h3>
+    <p>Find the difference (75 − 50 = 25), divide by the original (25 ÷ 50 = 0.5), multiply by 100 = <strong>50% increase</strong>.</p>
+
+    <h2>Common Percentage Reference Table</h2>
+    <table class="ref-table">
+      <thead><tr><th>Percentage</th><th>Decimal</th><th>Fraction</th><th>Of 100</th><th>Of 200</th></tr></thead>
+      <tbody>
+        <tr><td>5%</td><td>0.05</td><td>1/20</td><td>5</td><td>10</td></tr>
+        <tr><td>10%</td><td>0.10</td><td>1/10</td><td>10</td><td>20</td></tr>
+        <tr><td>20%</td><td>0.20</td><td>1/5</td><td>20</td><td>40</td></tr>
+        <tr><td>25%</td><td>0.25</td><td>1/4</td><td>25</td><td>50</td></tr>
+        <tr><td>33.33%</td><td>0.3333</td><td>1/3</td><td>33.33</td><td>66.67</td></tr>
+        <tr><td>50%</td><td>0.50</td><td>1/2</td><td>50</td><td>100</td></tr>
+        <tr><td>75%</td><td>0.75</td><td>3/4</td><td>75</td><td>150</td></tr>
+        <tr><td>100%</td><td>1.00</td><td>1/1</td><td>100</td><td>200</td></tr>
+      </tbody>
+    </table>
+  </section>
+</CalculatorLayout>

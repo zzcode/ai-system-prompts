@@ -1,0 +1,134 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface FAQ {
+  q: string;
+  a: string;
+}
+
+interface RelatedTool {
+  href: string;
+  icon: string;
+  title: string;
+  desc: string;
+}
+
+interface Props {
+  title: string;
+  h1: string;
+  description: string;
+  subtitle: string;
+  category: string;
+  categoryHref: string;
+  appCategory: string;
+  faqs: FAQ[];
+  relatedTools: RelatedTool[];
+  schemaExtra?: object[];
+}
+
+const {
+  title,
+  h1,
+  description,
+  subtitle,
+  category,
+  categoryHref,
+  appCategory,
+  faqs,
+  relatedTools,
+  schemaExtra = []
+} = Astro.props;
+
+const siteUrl = 'https://www.kodatools.com';
+const pageUrl = new URL(Astro.url.pathname, siteUrl).href;
+
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": h1,
+  "url": pageUrl,
+  "applicationCategory": appCategory,
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a }
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl },
+    { "@type": "ListItem", "position": 2, "name": category, "item": `${siteUrl}${categoryHref}` },
+    { "@type": "ListItem", "position": 3, "name": h1, "item": pageUrl }
+  ]
+};
+
+const schemas = [webAppSchema, faqSchema, breadcrumbSchema, ...schemaExtra];
+---
+
+<BaseLayout title={title} description={description} schema={schemas}>
+  <div class="container">
+    <div class="page-head">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep">/</span>
+        <a href={categoryHref}>{category}</a>
+        <span class="sep">/</span>
+        <span>{h1}</span>
+      </nav>
+      <h1>{h1}</h1>
+      <p class="subtitle">{subtitle}</p>
+    </div>
+
+    <!-- Calculator body -->
+    <div class="calc-shell">
+      <slot name="calculator" />
+    </div>
+
+    <!-- Ad slot 1: below calculator -->
+    <div class="ad-slot" data-ad-slot="below-calculator"></div>
+
+    <!-- Editorial / SEO content -->
+    <slot />
+
+    <!-- FAQ -->
+    <section class="content-section" id="faq">
+      <h2>Frequently Asked Questions</h2>
+      {faqs.map((f) => (
+        <div class="faq-item">
+          <details>
+            <summary>{f.q}</summary>
+            <div class="faq-answer">{f.a}</div>
+          </details>
+        </div>
+      ))}
+    </section>
+
+    <!-- Ad slot 2: above related tools -->
+    <div class="ad-slot" data-ad-slot="above-related"></div>
+
+    <!-- Related tools -->
+    <section class="content-section">
+      <h2>Related Calculators & Tools</h2>
+      <div class="related-grid">
+        {relatedTools.map((t) => (
+          <a href={t.href} class="related-card">
+            <span class="rc-icon">{t.icon}</span>
+            <span class="rc-title">{t.title}</span>
+            <span class="rc-desc">{t.desc}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

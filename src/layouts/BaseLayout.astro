@@ -1,0 +1,133 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  schema?: object | object[];
+  ogType?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  schema,
+  ogType = 'website'
+} = Astro.props;
+
+const siteUrl = 'https://www.kodatools.com';
+const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
+const fullTitle = title.includes('KodaTools') ? title : `${title} | KodaTools`;
+
+const navItems = [
+  { href: '/finance', label: 'Finance' },
+  { href: '/health', label: 'Health' },
+  { href: '/math', label: 'Math' },
+  { href: '/date-time', label: 'Date & Time' },
+  { href: '/converters', label: 'Converters' },
+  { href: '/everyday', label: 'Everyday' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content={ogType} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:site_name" content="KodaTools" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  {schema && (
+    Array.isArray(schema)
+      ? schema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)
+      : <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  )}
+
+  <!-- Google AdSense: replace ca-pub-XXXXXXXXXXXXXXXX with your publisher ID
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  -->
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">K</span>
+        Koda<span class="brand-accent">Tools</span>
+      </a>
+      <nav class="main-nav">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class={currentPath.startsWith(item.href) ? 'active' : ''}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo">
+            <span class="logo-mark">K</span>
+            Koda<span class="brand-accent">Tools</span>
+          </a>
+          <p>Free online calculators and everyday tools. Fast, accurate, and always free. No sign-up required.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Finance</h4>
+          <a href="/finance/mortgage-calculator">Mortgage Calculator</a>
+          <a href="/finance/loan-calculator">Loan Calculator</a>
+          <a href="/finance/compound-interest-calculator">Compound Interest</a>
+          <a href="/finance/tip-calculator">Tip Calculator</a>
+        </div>
+        <div class="footer-col">
+          <h4>Popular</h4>
+          <a href="/math/percentage-calculator">Percentage Calculator</a>
+          <a href="/health/bmi-calculator">BMI Calculator</a>
+          <a href="/date-time/age-calculator">Age Calculator</a>
+          <a href="/health/calorie-calculator">Calorie Calculator</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms">Terms of Service</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; {new Date().getFullYear()} KodaTools. All rights reserved.</span>
+        <span>Made for everyone. Always free.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

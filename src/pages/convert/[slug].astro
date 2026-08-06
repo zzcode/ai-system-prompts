@@ -1,0 +1,168 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import { allConversionPages, convertValue, formatNum, conversions } from '../../data/conversions.js';
+
+export function getStaticPaths() {
+  return allConversionPages().map((p) => ({
+    params: { slug: p.slug },
+    props: { def: p.def, value: p.value }
+  }));
+}
+
+const { def, value } = Astro.props;
+const result = convertValue(def, value);
+const resultStr = formatNum(result);
+const valueStr = formatNum(value);
+
+const title = `${valueStr} ${def.fromLabel} to ${def.toLabel} - ${valueStr} ${def.fromUnit} in ${def.toUnit}`;
+const h1 = `${valueStr} ${def.fromLabel} to ${def.toLabel}`;
+const description = `Convert ${valueStr} ${def.fromLabel.toLowerCase()} to ${def.toLabel.toLowerCase()}. ${valueStr} ${def.fromUnit} = ${resultStr} ${def.toUnit}. Free instant converter with formula and table.`;
+const subtitle = `${valueStr} ${def.fromUnit} equals ${resultStr} ${def.toUnit}. See the formula, a conversion table, and convert any value instantly.`;
+
+// Related conversions: other values in the same base slug + the reverse + the general converter
+const sameBase = conversions.find((c) => c.baseSlug === def.baseSlug);
+const nearby = sameBase.values
+  .filter((v) => v !== value)
+  .slice(0, 6)
+  .map((v) => ({
+    href: `/convert/${v}-${def.baseSlug}`,
+    icon: '⇄',
+    title: `${formatNum(v)} ${def.fromUnit} to ${def.toUnit}`,
+    desc: `${formatNum(v)} ${def.fromLabel.toLowerCase()} in ${def.toLabel.toLowerCase()}`
+  }));
+const reverseDef = conversions.find((c) => c.from === def.to && c.to === def.from);
+const related = [
+  ...nearby,
+  { href: '/converters/unit-converter', icon: '📏', title: 'Unit Converter', desc: 'Convert any length, weight, or temperature' }
+].slice(0, 6);
+
+const answerText = `${valueStr} ${def.fromLabel.toLowerCase()} is equal to ${resultStr} ${def.toLabel.toLowerCase()}.`;
+const faqs = [
+  { q: `How many ${def.toLabel.toLowerCase()} are in ${valueStr} ${def.fromLabel.toLowerCase()}?`, a: `${answerText} Use the formula: ${def.formula}.` },
+  { q: `What is the formula to convert ${def.fromLabel.toLowerCase()} to ${def.toLabel.toLowerCase()}?`, a: `The formula is: ${def.formula}. For ${valueStr} ${def.fromUnit}, that gives ${resultStr} ${def.toUnit}.` },
+  { q: `How do I convert ${def.fromLabel.toLowerCase()} to ${def.toLabel.toLowerCase()}?`, a: `${def.type === 'temp' ? 'Apply the temperature formula: ' + def.formula + '.' : 'Multiply the ' + def.fromLabel.toLowerCase() + ' value by ' + formatNum(def.factor) + ' to get ' + def.toLabel.toLowerCase() + '.'} Or use the converter above for an instant answer.` },
+  { q: `Is ${valueStr} ${def.fromUnit} the same as ${resultStr} ${def.toUnit}?`, a: `Yes. ${answerText} Minor rounding may occur depending on how many decimal places you use.` }
+];
+
+// Build a small table of nearby values (same conversion)
+const tableValues = sameBase.values.filter((v) => Math.abs(v - value) <= Math.max(value * 0.2, 5)).slice(0, 8);
+const tableRows = (tableValues.length >= 3 ? tableValues : sameBase.values.slice(0, 8));
+---
+
+<CalculatorLayout
+  title={title}
+  h1={h1}
+  description={description}
+  subtitle={subtitle}
+  category="Converters"
+  categoryHref="/converters"
+  appCategory="UtilitiesApplication"
+  faqs={faqs}
+  relatedTools={related}
+>
+  <div slot="calculator">
+    <!-- Direct answer -->
+    <div style="text-align:center;padding:8px 0 22px;">
+      <div style="font-size:0.85rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;">{valueStr} {def.fromLabel} =</div>
+      <div style="font-size:3rem;font-weight:800;color:var(--primary-dark);line-height:1.1;">{resultStr} <span style="font-size:1.6rem;">{def.toUnit}</span></div>
+    </div>
+
+    <div class="calc-grid">
+      <div>
+        <div class="field">
+          <label for="cv-value">{def.fromLabel} ({def.fromUnit})</label>
+          <input type="number" id="cv-value" value={value} step="any" inputmode="decimal" />
+        </div>
+        <div class="field">
+          <label for="cv-result">{def.toLabel} ({def.toUnit})</label>
+          <input type="number" id="cv-result" step="any" inputmode="decimal" style="background:var(--surface-alt);" />
+        </div>
+        <button class="btn btn-ghost" id="cv-swap" type="button">⇅ Reverse conversion</button>
+      </div>
+      <div class="result-panel">
+        <div class="result-main">
+          <div class="result-label">Formula</div>
+          <div style="font-family:var(--font-mono);font-size:1rem;color:var(--primary-dark);padding:8px 0;">{def.formula}</div>
+        </div>
+        <div class="result-rows" id="cv-rows"></div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline define:vars={{ factor: def.factor ?? null, type: def.type ?? 'linear', from: def.from, to: def.to, baseSlug: def.baseSlug }}>
+    (function () {
+      var valEl = document.getElementById('cv-value');
+      var resEl = document.getElementById('cv-result');
+      var rowsEl = document.getElementById('cv-rows');
+      var swapped = false;
+
+      function fmt(n){ if(!isFinite(n))return '—'; var r=Math.round(n*10000)/10000; return Math.abs(r)>=1000? r.toLocaleString('en-US',{maximumFractionDigits:2}) : String(r); }
+      function row(l,v){ return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>'; }
+
+      function convert(v, dir) {
+        // dir: true = from->to, false = to->from
+        if (type === 'temp') {
+          var fToC = (from === 'f'); // default from->to
+          if (!swapped) {
+            return fToC ? (v - 32) * 5/9 : v * 9/5 + 32;
+          } else {
+            return fToC ? v * 9/5 + 32 : (v - 32) * 5/9;
+          }
+        }
+        return (!swapped) ? v * factor : v / factor;
+      }
+
+      function calc() {
+        var v = parseFloat(valEl.value);
+        if (isNaN(v)) { resEl.value=''; rowsEl.innerHTML=''; return; }
+        var r = convert(v, true);
+        resEl.value = Math.round(r*10000)/10000;
+        rowsEl.innerHTML =
+          row('Input', fmt(v) + ' ' + (swapped ? to : from)) +
+          row('Result', fmt(r) + ' ' + (swapped ? from : to));
+      }
+
+      // editing the result converts back
+      resEl.addEventListener('input', function(){
+        var v = parseFloat(resEl.value);
+        if (isNaN(v)) { return; }
+        var back = convert(v, false);
+        valEl.value = Math.round(back*10000)/10000;
+      });
+
+      document.getElementById('cv-swap').addEventListener('click', function(){
+        swapped = !swapped;
+        var lab = document.querySelector('label[for="cv-value"]');
+        var lab2 = document.querySelector('label[for="cv-result"]');
+        var tmp = lab.textContent; lab.textContent = lab2.textContent; lab2.textContent = tmp;
+        calc();
+      });
+
+      valEl.addEventListener('input', calc);
+      calc();
+    })();
+  </script>
+
+  <section class="content-section">
+    <h2>{valueStr} {def.fromLabel} in {def.toLabel}</h2>
+    <p>{answerText}</p>
+    <p>The conversion uses the formula <code>{def.formula}</code>. Enter any value in the converter above to convert it instantly, or reverse the direction with the swap button.</p>
+
+    <h2>{def.fromLabel} to {def.toLabel} Conversion Table</h2>
+    <table class="ref-table">
+      <thead><tr><th>{def.fromLabel} ({def.fromUnit})</th><th>{def.toLabel} ({def.toUnit})</th></tr></thead>
+      <tbody>
+        {tableRows.map((v) => (
+          <tr>
+            <td>{formatNum(v)} {def.fromUnit}</td>
+            <td>{formatNum(convertValue(def, v))} {def.toUnit}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    {reverseDef && (
+      <p style="margin-top:14px;">Need the reverse? Use the <a href={`/converters/unit-converter`} style="color:var(--primary);">unit converter</a> to convert {def.toLabel.toLowerCase()} back to {def.fromLabel.toLowerCase()}.</p>
+    )}
+  </section>
+</CalculatorLayout>

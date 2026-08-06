@@ -1,0 +1,217 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqs = [
+  { q: "What is compound interest?", a: "Compound interest is interest calculated on both the initial principal and the accumulated interest from previous periods. This means your money grows faster over time compared to simple interest, which is calculated only on the principal." },
+  { q: "What is the compound interest formula?", a: "A = P(1 + r/n)^(nt), where A is the final amount, P is the principal, r is the annual interest rate (decimal), n is the number of compounding periods per year, and t is the number of years." },
+  { q: "What is the difference between simple and compound interest?", a: "Simple interest is calculated only on the original principal. Compound interest is calculated on the principal plus accumulated interest, so your balance grows exponentially rather than linearly. Over long periods, compounding makes a dramatic difference." },
+  { q: "How does compounding frequency affect growth?", a: "The more frequently interest compounds, the faster your money grows. Daily compounding yields slightly more than monthly, which yields more than annually. The difference is small at low rates but grows with higher rates and longer timeframes." },
+  { q: "What is the Rule of 72?", a: "The Rule of 72 is a quick way to estimate how long it takes to double your money: divide 72 by your annual interest rate. At 8% interest, your money doubles in about 72 ÷ 8 = 9 years." },
+  { q: "How do regular contributions affect compound growth?", a: "Adding regular monthly contributions dramatically increases your final balance because each contribution starts compounding. Consistent contributions plus time are the most powerful drivers of long-term growth." },
+  { q: "Is this calculator financial advice?", a: "No. This tool provides estimates for informational and educational purposes only. Actual investment returns vary and are not guaranteed. Consult a licensed financial advisor for personalized guidance." }
+];
+
+const related = [
+  { href: "/finance/mortgage-calculator", icon: "🏠", title: "Mortgage Calculator", desc: "Monthly payment & interest" },
+  { href: "/finance/loan-calculator", icon: "💳", title: "Loan Calculator", desc: "Loan payment & total cost" },
+  { href: "/finance/tip-calculator", icon: "💵", title: "Tip Calculator", desc: "Tip amount and bill splitting" },
+  { href: "/math/percentage-calculator", icon: "%", title: "Percentage Calculator", desc: "Percent of a number & change" },
+  { href: "/health/calorie-calculator", icon: "🔥", title: "Calorie Calculator", desc: "Daily calorie needs" },
+  { href: "/health/bmi-calculator", icon: "⚖️", title: "BMI Calculator", desc: "Body mass index & category" }
+];
+---
+
+<CalculatorLayout
+  title="Compound Interest Calculator - Watch Your Money Grow"
+  h1="Compound Interest Calculator"
+  description="Free compound interest calculator. See how your savings and investments grow over time with compounding. Add monthly contributions and view a year-by-year breakdown."
+  subtitle="Calculate how your money grows with compound interest, with optional monthly contributions and a year-by-year growth breakdown."
+  category="Finance"
+  categoryHref="/finance"
+  appCategory="FinanceApplication"
+  faqs={faqs}
+  relatedTools={related}
+>
+  <div slot="calculator">
+    <div class="calc-grid">
+      <div>
+        <div class="field">
+          <label for="ci-principal">Initial investment</label>
+          <div class="input-affix has-prefix">
+            <span class="prefix">$</span>
+            <input type="number" id="ci-principal" value="10000" step="any" inputmode="decimal" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="ci-contrib">Monthly contribution</label>
+          <div class="input-affix has-prefix">
+            <span class="prefix">$</span>
+            <input type="number" id="ci-contrib" value="200" step="any" inputmode="decimal" />
+          </div>
+        </div>
+        <div class="input-row">
+          <div class="field">
+            <label for="ci-rate">Annual interest rate</label>
+            <div class="input-affix has-suffix">
+              <input type="number" id="ci-rate" value="7" step="any" inputmode="decimal" />
+              <span class="suffix">%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="ci-years">Years</label>
+            <input type="number" id="ci-years" value="20" step="1" inputmode="numeric" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="ci-freq">Compounding frequency</label>
+          <select id="ci-freq">
+            <option value="12" selected>Monthly</option>
+            <option value="1">Annually</option>
+            <option value="4">Quarterly</option>
+            <option value="365">Daily</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="result-panel">
+        <div class="result-main">
+          <div class="result-label">Future Value</div>
+          <div class="result-value" id="ci-total">$—</div>
+          <div class="result-sub" id="ci-sub">in 20 years</div>
+        </div>
+        <div class="result-rows" id="ci-rows"></div>
+      </div>
+    </div>
+
+    <div style="margin-top:22px;">
+      <div style="font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:8px;">GROWTH BREAKDOWN</div>
+      <div style="display:flex;height:20px;border-radius:8px;overflow:hidden;">
+        <div id="ci-bar-p" style="background:#0f766e;transition:width 0.2s;"></div>
+        <div id="ci-bar-c" style="background:#2563eb;transition:width 0.2s;"></div>
+        <div id="ci-bar-i" style="background:#f59e0b;transition:width 0.2s;"></div>
+      </div>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:0.8rem;color:var(--text-secondary);margin-top:8px;">
+        <span><span style="display:inline-block;width:10px;height:10px;background:#0f766e;border-radius:2px;margin-right:5px;"></span>Initial <span id="ci-bar-pv"></span></span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:#2563eb;border-radius:2px;margin-right:5px;"></span>Contributions <span id="ci-bar-cv"></span></span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:#f59e0b;border-radius:2px;margin-right:5px;"></span>Interest <span id="ci-bar-iv"></span></span>
+      </div>
+    </div>
+
+    <div style="margin-top:22px;max-height:240px;overflow-y:auto;">
+      <table class="ref-table" id="ci-table">
+        <thead><tr><th>Year</th><th>Deposits</th><th>Interest</th><th>Balance</th></tr></thead>
+        <tbody id="ci-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      function num(id) { var v = parseFloat(document.getElementById(id).value); return isNaN(v) ? 0 : v; }
+      function money(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+      function row(l, v) { return '<div class="result-row"><span class="rr-label">' + l + '</span><span class="rr-value">' + v + '</span></div>'; }
+      var ids = ['ci-principal','ci-contrib','ci-rate','ci-years','ci-freq'];
+
+      function calc() {
+        var P = num('ci-principal');
+        var PMT = num('ci-contrib');
+        var rate = num('ci-rate');
+        var years = Math.max(parseInt(document.getElementById('ci-years').value, 10) || 0, 0);
+        var n = parseInt(document.getElementById('ci-freq').value, 10);
+
+        if (years <= 0 || rate < 0) {
+          document.getElementById('ci-total').textContent = '$—';
+          document.getElementById('ci-sub').textContent = 'Enter your numbers';
+          document.getElementById('ci-rows').innerHTML = '';
+          document.getElementById('ci-tbody').innerHTML = '';
+          return;
+        }
+
+        var r = rate / 100;
+        // Compound the principal annually in monthly steps for contribution timing
+        var balance = P;
+        var totalContrib = 0;
+        var rows = '';
+        var monthlyRate = r / n;
+        var periodsPerYear = n;
+
+        // simulate month by month using effective monthly growth of chosen frequency
+        var effMonthly = Math.pow(1 + r / periodsPerYear, periodsPerYear / 12) - 1;
+        for (var y = 1; y <= years; y++) {
+          for (var m = 0; m < 12; m++) {
+            balance = balance * (1 + effMonthly) + PMT;
+            totalContrib += PMT;
+          }
+          var deposits = P + totalContrib;
+          var interest = balance - deposits;
+          rows += '<tr><td>' + y + '</td><td>' + money(deposits) + '</td><td>' + money(interest) + '</td><td>' + money(balance) + '</td></tr>';
+        }
+
+        var totalDeposits = P + totalContrib;
+        var totalInterest = balance - totalDeposits;
+
+        document.getElementById('ci-total').textContent = money(balance);
+        document.getElementById('ci-sub').textContent = 'in ' + years + ' years at ' + rate + '%';
+        document.getElementById('ci-rows').innerHTML =
+          row('Total deposits', money(totalDeposits)) +
+          row('Total interest earned', money(totalInterest)) +
+          row('Initial investment', money(P)) +
+          row('Total contributions', money(totalContrib));
+
+        document.getElementById('ci-tbody').innerHTML = rows;
+
+        var t = balance > 0 ? balance : 1;
+        document.getElementById('ci-bar-p').style.width = (P / t * 100) + '%';
+        document.getElementById('ci-bar-c').style.width = (totalContrib / t * 100) + '%';
+        document.getElementById('ci-bar-i').style.width = (totalInterest / t * 100) + '%';
+        document.getElementById('ci-bar-pv').textContent = money(P);
+        document.getElementById('ci-bar-cv').textContent = money(totalContrib);
+        document.getElementById('ci-bar-iv').textContent = money(totalInterest);
+      }
+
+      ids.forEach(function (id) {
+        document.getElementById(id).addEventListener('input', calc);
+        document.getElementById(id).addEventListener('change', calc);
+      });
+      calc();
+    })();
+  </script>
+
+  <section class="content-section">
+    <h2>How to Use the Compound Interest Calculator</h2>
+    <p>Enter your starting amount, an optional monthly contribution, the expected annual interest rate, the number of years, and how often interest compounds. The calculator shows your projected final balance, how much you deposited, how much you earned in interest, and a year-by-year growth table.</p>
+
+    <h2>The Compound Interest Formula</h2>
+    <div class="formula-box">
+      A = P (1 + r/n)<sup>nt</sup><br><br>
+      A = final amount<br>
+      P = principal (starting amount)<br>
+      r = annual interest rate (as a decimal)<br>
+      n = compounding periods per year<br>
+      t = number of years
+    </div>
+    <p>When you add regular contributions, each deposit also begins compounding, which is why consistent investing is so powerful over long periods.</p>
+
+    <h2>Example: The Power of Compounding</h2>
+    <p>Suppose you invest $10,000, add $200 every month, and earn an average of 7% per year compounded monthly:</p>
+    <ul>
+      <li>After 10 years: about <strong>$54,000</strong></li>
+      <li>After 20 years: about <strong>$147,000</strong></li>
+      <li>After 30 years: about <strong>$331,000</strong></li>
+    </ul>
+    <p>Notice how growth accelerates — the last decade adds far more than the first. That is compounding at work.</p>
+
+    <h2>Compounding Frequency Comparison</h2>
+    <p>On a $10,000 investment at 7% for 20 years (no contributions):</p>
+    <table class="ref-table">
+      <thead><tr><th>Frequency</th><th>Final Amount</th></tr></thead>
+      <tbody>
+        <tr><td>Annually</td><td>$38,697</td></tr>
+        <tr><td>Quarterly</td><td>$39,598</td></tr>
+        <tr><td>Monthly</td><td>$40,388</td></tr>
+        <tr><td>Daily</td><td>$40,552</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: Projections are hypothetical and for education only. Investment returns vary and are not guaranteed. Not financial advice.</em></p>
+  </section>
+</CalculatorLayout>

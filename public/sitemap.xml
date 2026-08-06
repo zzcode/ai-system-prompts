@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.kodatools.com/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.kodatools.com/finance</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.kodatools.com/health</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.kodatools.com/math</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.kodatools.com/date-time</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.kodatools.com/converters</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.kodatools.com/everyday</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.kodatools.com/finance/mortgage-calculator</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.kodatools.com/finance/loan-calculator</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.kodatools.com/finance/compound-interest-calculator</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.kodatools.com/finance/tip-calculator</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.kodatools.com/health/bmi-calculator</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.kodatools.com/health/calorie-calculator</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.kodatools.com/math/percentage-calculator</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.kodatools.com/date-time/age-calculator</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.kodatools.com/converters/unit-converter</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.kodatools.com/everyday/word-counter</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.kodatools.com/about</loc><priority>0.4</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://www.kodatools.com/contact</loc><priority>0.4</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://www.kodatools.com/privacy-policy</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://www.kodatools.com/terms</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
+</urlset>

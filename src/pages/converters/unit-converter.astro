@@ -1,0 +1,178 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqs = [
+  { q: "How do I convert centimeters to inches?", a: "Divide the number of centimeters by 2.54 to get inches. For example, 150 cm ÷ 2.54 = 59.06 inches. This converter does it instantly for any value." },
+  { q: "How many centimeters are in an inch?", a: "There are exactly 2.54 centimeters in one inch. To convert inches to centimeters, multiply by 2.54." },
+  { q: "How do I convert kilograms to pounds?", a: "Multiply kilograms by 2.20462 to get pounds. For example, 70 kg × 2.20462 = 154.3 lbs." },
+  { q: "How do I convert Fahrenheit to Celsius?", a: "Subtract 32 from the Fahrenheit value, then multiply by 5/9. For example, 68°F − 32 = 36, × 5/9 = 20°C." },
+  { q: "What units does this converter support?", a: "This converter supports length (mm, cm, m, km, in, ft, yd, mi), weight (mg, g, kg, oz, lb), and temperature (Celsius, Fahrenheit, Kelvin). Switch categories using the tabs above." },
+  { q: "Is this unit converter free?", a: "Yes. It's completely free, works on any device, requires no sign-up, and runs entirely in your browser." }
+];
+
+const related = [
+  { href: "/math/percentage-calculator", icon: "%", title: "Percentage Calculator", desc: "Percent of a number & change" },
+  { href: "/health/bmi-calculator", icon: "⚖️", title: "BMI Calculator", desc: "Body mass index & category" },
+  { href: "/date-time/age-calculator", icon: "🎂", title: "Age Calculator", desc: "Exact age in years & days" },
+  { href: "/finance/tip-calculator", icon: "💵", title: "Tip Calculator", desc: "Tip amount and bill splitting" },
+  { href: "/health/calorie-calculator", icon: "🔥", title: "Calorie Calculator", desc: "Daily calorie needs" },
+  { href: "/finance/mortgage-calculator", icon: "🏠", title: "Mortgage Calculator", desc: "Monthly payment & interest" }
+];
+---
+
+<CalculatorLayout
+  title="Unit Converter - Length, Weight & Temperature"
+  h1="Unit Converter"
+  description="Free unit converter for length, weight, and temperature. Convert cm to inches, kg to lbs, Fahrenheit to Celsius and more. Instant results, no sign-up."
+  subtitle="Convert between units of length, weight, and temperature instantly — cm to inches, kg to lbs, °F to °C, and more."
+  category="Converters"
+  categoryHref="/converters"
+  appCategory="UtilitiesApplication"
+  faqs={faqs}
+  relatedTools={related}
+>
+  <div slot="calculator">
+    <div class="segmented" style="margin-bottom:24px;">
+      <button class="uc-cat active" data-cat="length">📏 Length</button>
+      <button class="uc-cat" data-cat="weight">⚖️ Weight</button>
+      <button class="uc-cat" data-cat="temperature">🌡️ Temperature</button>
+    </div>
+
+    <div class="calc-grid">
+      <div>
+        <div class="field">
+          <label for="uc-value">Value</label>
+          <input type="number" id="uc-value" value="150" step="any" inputmode="decimal" />
+        </div>
+        <div class="input-row">
+          <div class="field">
+            <label for="uc-from">From</label>
+            <select id="uc-from"></select>
+          </div>
+          <div class="field">
+            <label for="uc-to">To</label>
+            <select id="uc-to"></select>
+          </div>
+        </div>
+        <button class="btn btn-ghost" id="uc-swap" type="button">⇅ Swap units</button>
+      </div>
+
+      <div class="result-panel">
+        <div class="result-main">
+          <div class="result-label">Result</div>
+          <div class="result-value" id="uc-result">59.06</div>
+          <div class="result-sub" id="uc-sub">150 cm = 59.06 in</div>
+        </div>
+        <div class="result-rows" id="uc-rows"></div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var data = {
+        length: { units: { mm: 0.001, cm: 0.01, m: 1, km: 1000, in: 0.0254, ft: 0.3048, yd: 0.9144, mi: 1609.344 }, base: 'm', defFrom: 'cm', defTo: 'in' },
+        weight: { units: { mg: 0.000001, g: 0.001, kg: 1, oz: 0.0283495, lb: 0.453592 }, base: 'kg', defFrom: 'kg', defTo: 'lb' },
+        temperature: { units: { c: 'C', f: 'F', k: 'K' }, base: null, defFrom: 'c', defTo: 'f' }
+      };
+      var labels = { mm:'Millimeters (mm)', cm:'Centimeters (cm)', m:'Meters (m)', km:'Kilometers (km)', in:'Inches (in)', ft:'Feet (ft)', yd:'Yards (yd)', mi:'Miles (mi)', mg:'Milligrams (mg)', g:'Grams (g)', kg:'Kilograms (kg)', oz:'Ounces (oz)', lb:'Pounds (lb)', c:'Celsius (°C)', f:'Fahrenheit (°F)', k:'Kelvin (K)' };
+      var cat = 'length';
+      var fromEl = document.getElementById('uc-from');
+      var toEl = document.getElementById('uc-to');
+      var valEl = document.getElementById('uc-value');
+      var resEl = document.getElementById('uc-result');
+      var subEl = document.getElementById('uc-sub');
+      var rowsEl = document.getElementById('uc-rows');
+
+      function fmt(n) { if (!isFinite(n)) return '—'; return Math.abs(n) >= 1000 || Math.abs(n) < 0.01 ? n.toLocaleString('en-US',{maximumFractionDigits:4}) : Math.round(n*10000)/10000; }
+      function row(l,v){ return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>'; }
+
+      function populate() {
+        var units = Object.keys(data[cat].units);
+        fromEl.innerHTML = units.map(function(u){ return '<option value="'+u+'">'+labels[u]+'</option>'; }).join('');
+        toEl.innerHTML = fromEl.innerHTML;
+        fromEl.value = data[cat].defFrom;
+        toEl.value = data[cat].defTo;
+      }
+
+      function convert(v, from, to) {
+        if (cat === 'temperature') {
+          var c;
+          if (from === 'c') c = v; else if (from === 'f') c = (v - 32) * 5/9; else c = v - 273.15;
+          if (to === 'c') return c; else if (to === 'f') return c * 9/5 + 32; else return c + 273.15;
+        }
+        var factors = data[cat].units;
+        return v * factors[from] / factors[to];
+      }
+
+      function calc() {
+        var v = parseFloat(valEl.value);
+        var from = fromEl.value, to = toEl.value;
+        if (isNaN(v)) { resEl.textContent='—'; subEl.textContent='Enter a value'; rowsEl.innerHTML=''; return; }
+        var r = convert(v, from, to);
+        resEl.textContent = fmt(r);
+        subEl.textContent = fmt(v) + ' ' + from + ' = ' + fmt(r) + ' ' + to;
+        // show a few common conversions
+        var html = '';
+        var units = Object.keys(data[cat].units);
+        var shown = 0;
+        for (var i=0;i<units.length && shown<4;i++) {
+          var u = units[i];
+          if (u === to) continue;
+          html += row('In ' + labels[u].match(/\(([^)]+)\)/)[1], fmt(convert(v, from, u)));
+          shown++;
+        }
+        rowsEl.innerHTML = html;
+      }
+
+      document.querySelectorAll('.uc-cat').forEach(function(b){
+        b.addEventListener('click', function(){
+          document.querySelectorAll('.uc-cat').forEach(function(x){x.classList.remove('active');});
+          b.classList.add('active');
+          cat = b.getAttribute('data-cat');
+          populate();
+          calc();
+        });
+      });
+      document.getElementById('uc-swap').addEventListener('click', function(){
+        var t = fromEl.value; fromEl.value = toEl.value; toEl.value = t; calc();
+      });
+      [valEl, fromEl, toEl].forEach(function(el){ el.addEventListener('input', calc); el.addEventListener('change', calc); });
+      populate();
+      calc();
+    })();
+  </script>
+
+  <section class="content-section">
+    <h2>How to Use the Unit Converter</h2>
+    <p>Choose a category (length, weight, or temperature), enter a value, and select the units to convert from and to. The result updates instantly as you type, along with the same value expressed in several other common units.</p>
+
+    <h2>Common Conversion Formulas</h2>
+    <div class="formula-box">
+      Length: &nbsp;1 inch = 2.54 cm · 1 foot = 30.48 cm · 1 mile = 1.609 km<br><br>
+      Weight: &nbsp;1 kg = 2.20462 lb · 1 oz = 28.35 g<br><br>
+      Temperature: &nbsp;°C = (°F − 32) × 5/9 · °F = °C × 9/5 + 32
+    </div>
+
+    <h2>Length Conversion Table</h2>
+    <table class="ref-table">
+      <thead><tr><th>Unit</th><th>In Centimeters</th><th>In Inches</th></tr></thead>
+      <tbody>
+        <tr><td>1 cm</td><td>1</td><td>0.394</td></tr>
+        <tr><td>1 inch</td><td>2.54</td><td>1</td></tr>
+        <tr><td>1 foot</td><td>30.48</td><td>12</td></tr>
+        <tr><td>1 meter</td><td>100</td><td>39.37</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Weight Conversion Table</h2>
+    <table class="ref-table">
+      <thead><tr><th>Unit</th><th>In Kilograms</th><th>In Pounds</th></tr></thead>
+      <tbody>
+        <tr><td>1 kg</td><td>1</td><td>2.205</td></tr>
+        <tr><td>1 lb</td><td>0.454</td><td>1</td></tr>
+        <tr><td>1 oz</td><td>0.028</td><td>0.0625</td></tr>
+      </tbody>
+    </table>
+  </section>
+</CalculatorLayout>

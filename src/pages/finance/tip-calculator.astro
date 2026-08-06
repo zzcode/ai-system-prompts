@@ -1,0 +1,152 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqs = [
+  { q: "How much should I tip at a restaurant?", a: "In the United States, 15–20% of the pre-tax bill is standard for sit-down restaurants. 15% is acceptable for average service, 18–20% for good service, and more for exceptional service." },
+  { q: "Should I tip on the pre-tax or post-tax amount?", a: "Tipping is traditionally calculated on the pre-tax subtotal. However, tipping on the total (including tax) is also common and slightly more generous." },
+  { q: "How do I split a tip between multiple people?", a: "Enter the bill amount, choose a tip percentage, and set the number of people. The calculator shows the tip per person and total per person, so everyone pays their fair share." },
+  { q: "What is a standard tip percentage?", a: "The most common tip in the U.S. is 18–20% for table service. For quick service or takeout, 10–15% is typical. For delivery, 15–20% is standard." },
+  { q: "Do you tip on tax?", a: "Etiquette experts recommend calculating the tip on the pre-tax amount, but many people tip on the final total for simplicity. The difference is usually small." },
+  { q: "Is this tip calculator free?", a: "Yes. It's completely free, works on any device, requires no sign-up, and runs entirely in your browser." }
+];
+
+const related = [
+  { href: "/math/percentage-calculator", icon: "%", title: "Percentage Calculator", desc: "Percent of a number & change" },
+  { href: "/finance/mortgage-calculator", icon: "🏠", title: "Mortgage Calculator", desc: "Home loan payment & interest" },
+  { href: "/finance/loan-calculator", icon: "💳", title: "Loan Calculator", desc: "Loan payment & total cost" },
+  { href: "/finance/compound-interest-calculator", icon: "📈", title: "Compound Interest", desc: "Watch savings grow" },
+  { href: "/health/calorie-calculator", icon: "🔥", title: "Calorie Calculator", desc: "Daily calorie needs" },
+  { href: "/date-time/age-calculator", icon: "🎂", title: "Age Calculator", desc: "Exact age in years & days" }
+];
+---
+
+<CalculatorLayout
+  title="Tip Calculator - Calculate Tip & Split the Bill"
+  h1="Tip Calculator"
+  description="Free tip calculator. Calculate the tip amount and total, and split the bill between any number of people. Fast, easy, and no sign-up."
+  subtitle="Calculate the tip and total bill, then split it evenly between any number of people."
+  category="Finance"
+  categoryHref="/finance"
+  appCategory="FinanceApplication"
+  faqs={faqs}
+  relatedTools={related}
+>
+  <div slot="calculator">
+    <div class="calc-grid">
+      <div>
+        <div class="field">
+          <label for="tip-bill">Bill amount</label>
+          <div class="input-affix has-prefix">
+            <span class="prefix">$</span>
+            <input type="number" id="tip-bill" value="85" step="any" inputmode="decimal" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Tip percentage</label>
+          <div class="segmented" id="tip-presets">
+            <button data-tip="15">15%</button>
+            <button data-tip="18" class="active">18%</button>
+            <button data-tip="20">20%</button>
+            <button data-tip="25">25%</button>
+          </div>
+          <div class="input-affix has-suffix" style="margin-top:10px;">
+            <input type="number" id="tip-pct" value="18" step="any" inputmode="decimal" />
+            <span class="suffix">%</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="tip-people">Split between</label>
+          <div class="input-affix has-suffix">
+            <input type="number" id="tip-people" value="1" step="1" min="1" inputmode="numeric" />
+            <span class="suffix">people</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-panel">
+        <div class="result-main">
+          <div class="result-label">Total Per Person</div>
+          <div class="result-value" id="tip-per-person">$100.30</div>
+          <div class="result-sub" id="tip-sub">including $15.30 tip</div>
+        </div>
+        <div class="result-rows" id="tip-rows"></div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      function num(id) { var v = parseFloat(document.getElementById(id).value); return isNaN(v) ? 0 : v; }
+      function money(n) { return '$' + n.toFixed(2); }
+      function row(l, v) { return '<div class="result-row"><span class="rr-label">' + l + '</span><span class="rr-value">' + v + '</span></div>'; }
+      var presets = document.querySelectorAll('#tip-presets button');
+
+      function calc() {
+        var bill = num('tip-bill');
+        var pct = num('tip-pct');
+        var people = Math.max(Math.round(num('tip-people')), 1);
+        var tip = bill * pct / 100;
+        var total = bill + tip;
+        var tipEach = tip / people;
+        var totalEach = total / people;
+
+        document.getElementById('tip-per-person').textContent = money(totalEach);
+        document.getElementById('tip-sub').textContent = people > 1 ? 'per person · ' + money(tipEach) + ' tip each' : 'including ' + money(tip) + ' tip';
+        document.getElementById('tip-rows').innerHTML =
+          row('Tip amount', money(tip)) +
+          row('Total (bill + tip)', money(total)) +
+          row('Tip per person', money(tipEach)) +
+          row('Each person pays', money(totalEach));
+      }
+
+      presets.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          presets.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          document.getElementById('tip-pct').value = btn.getAttribute('data-tip');
+          calc();
+        });
+      });
+
+      document.getElementById('tip-pct').addEventListener('input', function () {
+        presets.forEach(function (b) { b.classList.remove('active'); });
+        calc();
+      });
+      ['tip-bill','tip-people'].forEach(function (id) { document.getElementById(id).addEventListener('input', calc); });
+      calc();
+    })();
+  </script>
+
+  <section class="content-section">
+    <h2>How to Use the Tip Calculator</h2>
+    <p>Enter the bill amount, choose or type a tip percentage, and set how many people are splitting the bill. The calculator instantly shows the tip amount, the total with tip, and how much each person pays.</p>
+
+    <h2>How to Calculate a Tip</h2>
+    <div class="formula-box">
+      Tip = Bill × (Tip % ÷ 100)<br>
+      Total = Bill + Tip<br>
+      Per person = Total ÷ Number of people
+    </div>
+    <p>For an $85 bill at 18%: tip = 85 × 0.18 = $15.30, total = $100.30.</p>
+
+    <h2>Quick Tip Reference (on a $50 bill)</h2>
+    <table class="ref-table">
+      <thead><tr><th>Tip %</th><th>Tip Amount</th><th>Total</th></tr></thead>
+      <tbody>
+        <tr><td>10%</td><td>$5.00</td><td>$55.00</td></tr>
+        <tr><td>15%</td><td>$7.50</td><td>$57.50</td></tr>
+        <tr><td>18%</td><td>$9.00</td><td>$59.00</td></tr>
+        <tr><td>20%</td><td>$10.00</td><td>$60.00</td></tr>
+        <tr><td>25%</td><td>$12.50</td><td>$62.50</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Tipping Etiquette Basics</h2>
+    <ul>
+      <li><strong>Sit-down restaurants:</strong> 15–20% of the pre-tax bill</li>
+      <li><strong>Delivery:</strong> 15–20%, with a minimum of a few dollars</li>
+      <li><strong>Takeout:</strong> 10% is appreciated but optional</li>
+      <li><strong>Bartenders:</strong> $1–2 per drink or 15–20% of the tab</li>
+    </ul>
+  </section>
+</CalculatorLayout>

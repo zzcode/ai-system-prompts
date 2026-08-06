@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const tools = [
+  { href: '/finance/mortgage-calculator', icon: '🏠', name: 'Mortgage Calculator', desc: 'Monthly payment, total interest & amortization breakdown' },
+  { href: '/finance/loan-calculator', icon: '💳', name: 'Loan Calculator', desc: 'Monthly payment and total cost for any fixed-rate loan' },
+  { href: '/finance/compound-interest-calculator', icon: '📈', name: 'Compound Interest Calculator', desc: 'See how savings and investments grow over time' },
+  { href: '/finance/tip-calculator', icon: '💵', name: 'Tip Calculator', desc: 'Calculate tip and split the bill between people' }
+];
+---
+
+<BaseLayout
+  title="Finance Calculators - Mortgage, Loan, Interest & More"
+  description="Free finance calculators: mortgage, loan, compound interest, tip, and more. Estimate payments, interest, and plan your money. No sign-up."
+>
+  <div class="container">
+    <div class="page-head">
+      <nav class="breadcrumb"><a href="/">Home</a><span class="sep">/</span><span>Finance</span></nav>
+      <h1>Finance Calculators</h1>
+      <p class="subtitle">Free tools to plan loans, mortgages, savings, and everyday spending. Instant, accurate, and always free.</p>
+    </div>
+    <div class="tool-grid">
+      {tools.map((t) => (
+        <a href={t.href} class="tool-card">
+          <span class="tc-icon" style="background:#fef3c7;color:#b45309;">{t.icon}</span>
+          <span>
+            <span class="tc-title">{t.name}</span>
+            <span class="tc-desc">{t.desc}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+    <section class="content-section" style="margin-top:32px;">
+      <h2>Plan Your Money with Confidence</h2>
+      <p>Whether you're buying a home, comparing loans, or growing your savings, our finance calculators give you clear, instant answers. Every tool shows the formula and a worked example so you understand exactly how the numbers are calculated. Estimates are for informational purposes and are not financial advice.</p>
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const tools = [
+  { href: '/everyday/word-counter', icon: '📝', name: 'Word Counter', desc: 'Count words, characters, sentences & reading time' }
+];
+---
+
+<BaseLayout
+  title="Everyday Tools - Word Counter, Text Tools & More"
+  description="Free everyday tools: word counter, text tools and more. Count words, characters, and reading time instantly. No sign-up."
+>
+  <div class="container">
+    <div class="page-head">
+      <nav class="breadcrumb"><a href="/">Home</a><span class="sep">/</span><span>Everyday</span></nav>
+      <h1>Everyday Tools</h1>
+      <p class="subtitle">Handy tools for writing, counting, and daily tasks.</p>
+    </div>
+    <div class="tool-grid">
+      {tools.map((t) => (
+        <a href={t.href} class="tool-card">
+          <span class="tc-icon" style="background:#fce7f3;color:#db2777;">{t.icon}</span>
+          <span>
+            <span class="tc-title">{t.name}</span>
+            <span class="tc-desc">{t.desc}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+    <section class="content-section" style="margin-top:32px;">
+      <h2>Simple Tools for Daily Tasks</h2>
+      <p>Quick, reliable tools for the tasks you do every day — counting words, working with text, and more. No accounts, no downloads, always free.</p>
+    </section>
+  </div>
+</BaseLayout>

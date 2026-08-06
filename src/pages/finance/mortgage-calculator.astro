@@ -1,0 +1,187 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqs = [
+  { q: "How is a monthly mortgage payment calculated?", a: "The monthly payment uses the amortization formula: M = P × [r(1+r)ⁿ] ÷ [(1+r)ⁿ − 1], where P is the loan principal, r is the monthly interest rate (annual rate ÷ 12), and n is the total number of monthly payments (years × 12)." },
+  { q: "What is included in a mortgage payment?", a: "This calculator shows principal and interest (P&I). A full monthly housing payment often also includes property taxes, homeowner's insurance, and possibly PMI (private mortgage insurance) if your down payment is under 20%." },
+  { q: "How much interest will I pay over the life of the loan?", a: "Total interest depends on the loan amount, rate, and term. On a $300,000 loan at 6.5% for 30 years, you'd pay roughly $382,000 in interest. Shorter terms and lower rates dramatically reduce total interest." },
+  { q: "Is a 15-year or 30-year mortgage better?", a: "A 15-year mortgage has higher monthly payments but far less total interest and builds equity faster. A 30-year mortgage has lower monthly payments and more flexibility. Choose based on your budget and financial goals." },
+  { q: "How does the interest rate affect my payment?", a: "Even a small rate change matters. On a $300,000 30-year loan, each 1% rate increase adds roughly $190–$200 to the monthly payment and tens of thousands in total interest." },
+  { q: "What is PMI?", a: "Private Mortgage Insurance is typically required when your down payment is below 20% of the home price. It usually costs 0.5%–1% of the loan amount per year and is added to your monthly payment until you reach 20% equity." },
+  { q: "Is this calculator financial advice?", a: "No. This tool provides estimates for informational purposes only. Actual loan terms vary by lender. Consult a licensed mortgage professional or financial advisor before making decisions." }
+];
+
+const related = [
+  { href: "/finance/loan-calculator", icon: "💳", title: "Loan Calculator", desc: "Payments for any loan type" },
+  { href: "/finance/compound-interest-calculator", icon: "📈", title: "Compound Interest", desc: "Watch savings grow over time" },
+  { href: "/finance/tip-calculator", icon: "💵", title: "Tip Calculator", desc: "Tip amount and bill splitting" },
+  { href: "/math/percentage-calculator", icon: "%", title: "Percentage Calculator", desc: "Percent of a number & change" },
+  { href: "/health/bmi-calculator", icon: "⚖️", title: "BMI Calculator", desc: "Body mass index & category" },
+  { href: "/date-time/age-calculator", icon: "🎂", title: "Age Calculator", desc: "Exact age in years & days" }
+];
+---
+
+<CalculatorLayout
+  title="Mortgage Calculator - Monthly Payment & Amortization"
+  h1="Mortgage Calculator"
+  description="Free mortgage calculator. Estimate your monthly payment, total interest, and payoff date. See a full principal vs interest breakdown instantly."
+  subtitle="Estimate your monthly mortgage payment, total interest, and see how principal and interest break down over the life of the loan."
+  category="Finance"
+  categoryHref="/finance"
+  appCategory="FinanceApplication"
+  faqs={faqs}
+  relatedTools={related}
+>
+  <div slot="calculator">
+    <div class="calc-grid">
+      <div>
+        <div class="field">
+          <label for="mg-price">Home price</label>
+          <div class="input-affix has-prefix">
+            <span class="prefix">$</span>
+            <input type="number" id="mg-price" value="400000" step="any" inputmode="decimal" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="mg-down">Down payment</label>
+          <div class="input-affix has-prefix has-suffix">
+            <span class="prefix">$</span>
+            <input type="number" id="mg-down" value="80000" step="any" inputmode="decimal" />
+            <span class="suffix" id="mg-down-pct" style="right:14px;">20%</span>
+          </div>
+        </div>
+        <div class="input-row">
+          <div class="field">
+            <label for="mg-rate">Interest rate</label>
+            <div class="input-affix has-suffix">
+              <input type="number" id="mg-rate" value="6.5" step="any" inputmode="decimal" />
+              <span class="suffix">%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="mg-term">Loan term</label>
+            <select id="mg-term">
+              <option value="30" selected>30 years</option>
+              <option value="20">20 years</option>
+              <option value="15">15 years</option>
+              <option value="10">10 years</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-panel">
+        <div class="result-main">
+          <div class="result-label">Monthly Payment (P&I)</div>
+          <div class="result-value" id="mg-payment">$2,022</div>
+          <div class="result-sub" id="mg-loan-sub">Loan amount: $320,000</div>
+        </div>
+        <div class="result-rows" id="mg-rows"></div>
+      </div>
+    </div>
+
+    <div style="margin-top:22px;">
+      <div style="font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:8px;">TOTAL COST BREAKDOWN</div>
+      <div id="mg-bar" style="display:flex;height:20px;border-radius:8px;overflow:hidden;">
+        <div id="mg-bar-p" style="background:#0f766e;transition:width 0.2s;"></div>
+        <div id="mg-bar-i" style="background:#f59e0b;transition:width 0.2s;"></div>
+      </div>
+      <div style="display:flex;gap:22px;font-size:0.8rem;color:var(--text-secondary);margin-top:8px;">
+        <span><span style="display:inline-block;width:10px;height:10px;background:#0f766e;border-radius:2px;margin-right:5px;"></span>Principal <span id="mg-bar-pv"></span></span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:#f59e0b;border-radius:2px;margin-right:5px;"></span>Interest <span id="mg-bar-iv"></span></span>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      function num(id) { var v = parseFloat(document.getElementById(id).value); return isNaN(v) ? 0 : v; }
+      function money(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+      function row(l, v) { return '<div class="result-row"><span class="rr-label">' + l + '</span><span class="rr-value">' + v + '</span></div>'; }
+
+      var els = ['mg-price','mg-down','mg-rate','mg-term'];
+
+      function calc() {
+        var price = num('mg-price');
+        var down = num('mg-down');
+        var rate = num('mg-rate');
+        var years = parseInt(document.getElementById('mg-term').value, 10);
+        var principal = Math.max(price - down, 0);
+        var downPct = price > 0 ? Math.round((down / price) * 100) : 0;
+        document.getElementById('mg-down-pct').textContent = downPct + '%';
+
+        if (principal <= 0 || rate <= 0) {
+          document.getElementById('mg-payment').textContent = '—';
+          document.getElementById('mg-loan-sub').textContent = 'Enter loan details';
+          document.getElementById('mg-rows').innerHTML = '';
+          return;
+        }
+
+        var r = rate / 100 / 12;
+        var n = years * 12;
+        var pow = Math.pow(1 + r, n);
+        var m = principal * (r * pow) / (pow - 1);
+        var totalPaid = m * n;
+        var totalInterest = totalPaid - principal;
+
+        document.getElementById('mg-payment').textContent = money(m);
+        document.getElementById('mg-loan-sub').textContent = 'Loan amount: ' + money(principal) + ' · ' + years + ' yr · ' + rate + '%';
+        document.getElementById('mg-rows').innerHTML =
+          row('Loan amount', money(principal)) +
+          row('Down payment', money(down) + ' (' + downPct + '%)') +
+          row('Total of ' + n + ' payments', money(totalPaid)) +
+          row('Total interest', money(totalInterest));
+
+        var pPct = (principal / totalPaid) * 100;
+        var iPct = 100 - pPct;
+        document.getElementById('mg-bar-p').style.width = pPct + '%';
+        document.getElementById('mg-bar-i').style.width = iPct + '%';
+        document.getElementById('mg-bar-pv').textContent = money(principal);
+        document.getElementById('mg-bar-iv').textContent = money(totalInterest);
+      }
+
+      els.forEach(function (id) {
+        document.getElementById(id).addEventListener('input', calc);
+        document.getElementById(id).addEventListener('change', calc);
+      });
+      calc();
+    })();
+  </script>
+
+  <section class="content-section">
+    <h2>How to Use the Mortgage Calculator</h2>
+    <p>Enter the home price, your down payment, the interest rate, and the loan term. The calculator instantly shows your estimated monthly principal and interest payment, the total amount you'll pay over the life of the loan, and the total interest cost. The bar chart visualizes how much of your total cost goes to principal versus interest.</p>
+
+    <h2>The Mortgage Payment Formula</h2>
+    <div class="formula-box">
+      M = P × [ r(1 + r)ⁿ ] ÷ [ (1 + r)ⁿ − 1 ]<br><br>
+      M = monthly payment<br>
+      P = loan principal (price − down payment)<br>
+      r = monthly interest rate (annual rate ÷ 12)<br>
+      n = total number of payments (years × 12)
+    </div>
+
+    <h2>Example Calculation</h2>
+    <p>For a $400,000 home with a $80,000 down payment (20%) at 6.5% for 30 years:</p>
+    <ul>
+      <li>Loan principal: $400,000 − $80,000 = $320,000</li>
+      <li>Monthly rate: 6.5% ÷ 12 = 0.5417%</li>
+      <li>Number of payments: 30 × 12 = 360</li>
+      <li>Monthly payment: <strong>$2,022</strong></li>
+      <li>Total paid over 30 years: about <strong>$728,000</strong>, of which roughly <strong>$408,000 is interest</strong></li>
+    </ul>
+
+    <h2>Monthly Payment by Loan Term</h2>
+    <p>On a $320,000 loan at 6.5% interest:</p>
+    <table class="ref-table">
+      <thead><tr><th>Term</th><th>Monthly Payment</th><th>Total Interest</th></tr></thead>
+      <tbody>
+        <tr><td>30 years</td><td>$2,022</td><td>$408,000</td></tr>
+        <tr><td>20 years</td><td>$2,386</td><td>$252,600</td></tr>
+        <tr><td>15 years</td><td>$2,788</td><td>$181,800</td></tr>
+        <tr><td>10 years</td><td>$3,634</td><td>$116,100</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: Estimates are for informational purposes only and do not include taxes, insurance, or PMI. This is not financial advice. Consult a licensed mortgage professional.</em></p>
+  </section>
+</CalculatorLayout>

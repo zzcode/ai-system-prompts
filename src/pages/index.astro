@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const categories = [
+  {
+    href: '/finance', icon: '💰', name: 'Finance', color: '#b45309', bg: '#fef3c7',
+    desc: 'Mortgage, loan, interest & money tools',
+    tools: [
+      { href: '/finance/mortgage-calculator', name: 'Mortgage Calculator' },
+      { href: '/finance/loan-calculator', name: 'Loan Calculator' },
+      { href: '/finance/compound-interest-calculator', name: 'Compound Interest' },
+      { href: '/finance/tip-calculator', name: 'Tip Calculator' }
+    ]
+  },
+  {
+    href: '/health', icon: '❤️', name: 'Health', color: '#dc2626', bg: '#fee2e2',
+    desc: 'BMI, calorie & fitness calculators',
+    tools: [
+      { href: '/health/bmi-calculator', name: 'BMI Calculator' },
+      { href: '/health/calorie-calculator', name: 'Calorie Calculator' }
+    ]
+  },
+  {
+    href: '/math', icon: '🧮', name: 'Math', color: '#2563eb', bg: '#dbeafe',
+    desc: 'Percentage, fractions & everyday math',
+    tools: [
+      { href: '/math/percentage-calculator', name: 'Percentage Calculator' }
+    ]
+  },
+  {
+    href: '/date-time', icon: '📅', name: 'Date & Time', color: '#7c3aed', bg: '#ede9fe',
+    desc: 'Age, dates & time calculations',
+    tools: [
+      { href: '/date-time/age-calculator', name: 'Age Calculator' }
+    ]
+  }
+];
+
+const popular = [
+  { href: '/math/percentage-calculator', icon: '%', name: 'Percentage Calculator', desc: 'Percent of a number, change & more', color: '#2563eb', bg: '#dbeafe' },
+  { href: '/finance/mortgage-calculator', icon: '🏠', name: 'Mortgage Calculator', desc: 'Monthly payment & total interest', color: '#b45309', bg: '#fef3c7' },
+  { href: '/health/bmi-calculator', icon: '⚖️', name: 'BMI Calculator', desc: 'Body mass index & weight category', color: '#dc2626', bg: '#fee2e2' },
+  { href: '/date-time/age-calculator', icon: '🎂', name: 'Age Calculator', desc: 'Exact age in years, months, days', color: '#7c3aed', bg: '#ede9fe' },
+  { href: '/finance/compound-interest-calculator', icon: '📈', name: 'Compound Interest', desc: 'Watch your savings grow', color: '#059669', bg: '#d1fae5' },
+  { href: '/finance/tip-calculator', icon: '💵', name: 'Tip Calculator', desc: 'Tip & split the bill easily', color: '#db2777', bg: '#fce7f3' },
+  { href: '/health/calorie-calculator', icon: '🔥', name: 'Calorie Calculator', desc: 'Daily calorie needs (BMR & TDEE)', color: '#dc2626', bg: '#fee2e2' },
+  { href: '/finance/loan-calculator', icon: '💳', name: 'Loan Calculator', desc: 'Payment & total cost of any loan', color: '#b45309', bg: '#fef3c7' }
+];
+
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "KodaTools",
+  "url": "https://www.kodatools.com",
+  "description": "Free online calculators and everyday tools.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://www.kodatools.com/?s={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+};
+---
+
+<BaseLayout
+  title="KodaTools - Free Online Calculators & Everyday Tools"
+  description="Free online calculators and everyday tools: percentage, mortgage, BMI, age, calorie, loan, tip and more. Fast, accurate, no sign-up. Works in your browser."
+  schema={orgSchema}
+>
+  <!-- Hero -->
+  <section style="background:linear-gradient(135deg,#0f766e,#0e7490 55%,#1d4ed8);color:#fff;padding:64px 0 56px;">
+    <div class="container" style="text-align:center;">
+      <h1 style="font-size:2.5rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:14px;">Free Online Calculators<br/>& Everyday Tools</h1>
+      <p style="font-size:1.12rem;opacity:0.92;max-width:620px;margin:0 auto 28px;">Fast, accurate tools for finance, health, math, and daily life. No sign-up. No downloads. Works instantly in your browser.</p>
+      <div style="max-width:520px;margin:0 auto;position:relative;">
+        <input id="hero-search" type="text" placeholder="Search calculators… (e.g. mortgage, bmi, percentage)" style="width:100%;padding:15px 20px;font-size:1rem;border:none;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.18);" />
+      </div>
+      <div style="margin-top:22px;font-size:0.85rem;opacity:0.85;">Popular:&nbsp;
+        <a href="/math/percentage-calculator" style="color:#fff;text-decoration:underline;">Percentage</a> ·
+        <a href="/finance/mortgage-calculator" style="color:#fff;text-decoration:underline;">Mortgage</a> ·
+        <a href="/health/bmi-calculator" style="color:#fff;text-decoration:underline;">BMI</a> ·
+        <a href="/date-time/age-calculator" style="color:#fff;text-decoration:underline;">Age</a> ·
+        <a href="/finance/tip-calculator" style="color:#fff;text-decoration:underline;">Tip</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- Popular tools -->
+    <section style="padding:44px 0 8px;">
+      <h2 style="font-size:1.5rem;font-weight:700;margin-bottom:20px;">Most Popular Calculators</h2>
+      <div class="tool-grid" style="grid-template-columns:repeat(4,1fr);" id="popular-grid">
+        {popular.map((t) => (
+          <a href={t.href} class="tool-card">
+            <span class="tc-icon" style={`background:${t.bg};color:${t.color};`}>{t.icon}</span>
+            <span>
+              <span class="tc-title">{t.name}</span>
+              <span class="tc-desc">{t.desc}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section style="padding:36px 0 20px;">
+      <h2 style="font-size:1.5rem;font-weight:700;margin-bottom:20px;">Browse by Category</h2>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;" class="cat-home-grid">
+        {categories.map((c) => (
+          <div class="card" style="padding:24px;">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+              <span style={`width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:${c.bg};color:${c.color};`}>{c.icon}</span>
+              <div>
+                <div style="font-weight:700;font-size:1.05rem;">{c.name}</div>
+                <div style="font-size:0.82rem;color:var(--text-muted);">{c.desc}</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:2px;margin-top:10px;">
+              {c.tools.map((t) => (
+                <a href={t.href} style="font-size:0.9rem;color:var(--text-secondary);text-decoration:none;padding:5px 0;border-bottom:1px dashed var(--border-light);">{t.name} →</a>
+              ))}
+              <a href={c.href} style="font-size:0.85rem;color:var(--primary);font-weight:600;text-decoration:none;padding-top:8px;">View all {c.name} →</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Why -->
+    <section class="content-section" style="margin-top:24px;">
+      <h2>Why KodaTools?</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:8px;" class="why-home-grid">
+        <div><div style="font-size:1.6rem;margin-bottom:6px;">⚡</div><strong>Instant results</strong><p style="margin-top:4px;">Calculations happen as you type — no buttons, no page reloads, no waiting.</p></div>
+        <div><div style="font-size:1.6rem;margin-bottom:6px;">🔒</div><strong>Private by design</strong><p style="margin-top:4px;">Everything runs in your browser. We never see or store your numbers.</p></div>
+        <div><div style="font-size:1.6rem;margin-bottom:6px;">🆓</div><strong>Always free</strong><p style="margin-top:4px;">No accounts, no subscriptions, no hidden fees. Every tool is free to use.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var input = document.getElementById('hero-search');
+      var cards = Array.prototype.slice.call(document.querySelectorAll('#popular-grid .tool-card'));
+      input.addEventListener('input', function () {
+        var q = input.value.trim().toLowerCase();
+        cards.forEach(function (card) {
+          var text = card.textContent.toLowerCase();
+          card.style.display = !q || text.indexOf(q) !== -1 ? '' : 'none';
+        });
+      });
+    })();
+  </script>
+
+  <style>
+    @media (max-width: 860px) {
+      #popular-grid { grid-template-columns: repeat(2,1fr) !important; }
+      .cat-home-grid { grid-template-columns: 1fr !important; }
+      .why-home-grid { grid-template-columns: 1fr !important; }
+    }
+    @media (max-width: 480px) {
+      #popular-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</BaseLayout>

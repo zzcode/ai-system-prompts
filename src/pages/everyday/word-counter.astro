@@ -1,0 +1,101 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqs = [
+  { q: "How does the word counter work?", a: "Paste or type your text and the tool instantly counts words, characters (with and without spaces), sentences, paragraphs, and estimates reading time. Everything updates in real time as you type." },
+  { q: "What counts as a word?", a: "A word is any sequence of characters separated by spaces or line breaks. Numbers and hyphenated terms each count as one word." },
+  { q: "How is reading time calculated?", a: "Reading time is estimated at an average of 200 words per minute, a common benchmark for adult reading speed on screen." },
+  { q: "Is there a word or character limit?", a: "No. You can paste text of any length. The counter handles everything from a tweet to a full essay or article." },
+  { q: "Is my text stored or sent anywhere?", a: "No. All counting happens entirely in your browser. Your text never leaves your device and is not stored or transmitted." },
+  { q: "Is this word counter free?", a: "Yes. It's completely free, requires no sign-up, and works on any device — phone, tablet, or computer." }
+];
+
+const related = [
+  { href: "/math/percentage-calculator", icon: "%", title: "Percentage Calculator", desc: "Percent of a number & change" },
+  { href: "/date-time/age-calculator", icon: "🎂", title: "Age Calculator", desc: "Exact age in years & days" },
+  { href: "/converters/unit-converter", icon: "📏", title: "Unit Converter", desc: "Length, weight & temperature" },
+  { href: "/health/bmi-calculator", icon: "⚖️", title: "BMI Calculator", desc: "Body mass index & category" },
+  { href: "/finance/tip-calculator", icon: "💵", title: "Tip Calculator", desc: "Tip amount and bill splitting" },
+  { href: "/finance/mortgage-calculator", icon: "🏠", title: "Mortgage Calculator", desc: "Monthly payment & interest" }
+];
+---
+
+<CalculatorLayout
+  title="Word Counter - Count Words, Characters & Reading Time"
+  h1="Word Counter"
+  description="Free word counter. Count words, characters, sentences, and paragraphs, plus estimated reading time. Real-time results, no sign-up."
+  subtitle="Count words, characters, sentences, and paragraphs in real time — with estimated reading time."
+  category="Everyday"
+  categoryHref="/everyday"
+  appCategory="UtilitiesApplication"
+  faqs={faqs}
+  relatedTools={related}
+>
+  <div slot="calculator">
+    <div class="field">
+      <label for="wc-text">Enter or paste your text</label>
+      <textarea id="wc-text" rows="8" placeholder="Start typing or paste your text here…" style="resize:vertical;"></textarea>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;" id="wc-stats">
+      <div class="result-panel" style="padding:16px;text-align:center;"><div class="result-label" style="font-size:0.75rem;">Words</div><div class="result-value" id="wc-words" style="font-size:1.7rem;">0</div></div>
+      <div class="result-panel" style="padding:16px;text-align:center;"><div class="result-label" style="font-size:0.75rem;">Characters</div><div class="result-value" id="wc-chars" style="font-size:1.7rem;">0</div></div>
+      <div class="result-panel" style="padding:16px;text-align:center;"><div class="result-label" style="font-size:0.75rem;">No spaces</div><div class="result-value" id="wc-nospace" style="font-size:1.7rem;">0</div></div>
+      <div class="result-panel" style="padding:16px;text-align:center;"><div class="result-label" style="font-size:0.75rem;">Sentences</div><div class="result-value" id="wc-sent" style="font-size:1.7rem;">0</div></div>
+    </div>
+    <div class="result-rows" id="wc-rows" style="margin-top:16px;background:var(--surface-alt);border-radius:12px;padding:16px;"></div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var el = document.getElementById('wc-text');
+      function row(l,v){ return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>'; }
+      function calc() {
+        var t = el.value;
+        var words = (t.trim().match(/\S+/g) || []).length;
+        var chars = t.length;
+        var nospace = t.replace(/\s/g, '').length;
+        var sent = (t.match(/[^.!?]+[.!?]+(\s|$)/g) || []).length || (t.trim() ? 1 : 0);
+        var paras = t.trim() ? t.trim().split(/\n\s*\n/).length : 0;
+        var readMin = words / 200;
+        var read = readMin < 1 ? Math.round(readMin*60) + ' sec' : readMin.toFixed(1) + ' min';
+        document.getElementById('wc-words').textContent = words.toLocaleString();
+        document.getElementById('wc-chars').textContent = chars.toLocaleString();
+        document.getElementById('wc-nospace').textContent = nospace.toLocaleString();
+        document.getElementById('wc-sent').textContent = sent.toLocaleString();
+        document.getElementById('wc-rows').innerHTML =
+          row('Paragraphs', paras.toLocaleString()) +
+          row('Reading time', read) +
+          row('Avg. word length', words ? (nospace/words).toFixed(1) + ' chars' : '—');
+      }
+      el.addEventListener('input', calc);
+      calc();
+    })();
+  </script>
+
+  <section class="content-section">
+    <h2>How to Use the Word Counter</h2>
+    <p>Type or paste your text into the box above. The tool instantly counts words, characters (with and without spaces), sentences, and paragraphs, and estimates how long the text takes to read.</p>
+
+    <h2>What Gets Counted</h2>
+    <ul>
+      <li><strong>Words</strong> — sequences of characters separated by spaces or line breaks</li>
+      <li><strong>Characters</strong> — every character including spaces</li>
+      <li><strong>Characters (no spaces)</strong> — all characters except spaces and line breaks</li>
+      <li><strong>Sentences</strong> — counted by ending punctuation (. ! ?)</li>
+      <li><strong>Paragraphs</strong> — blocks of text separated by blank lines</li>
+      <li><strong>Reading time</strong> — based on an average of 200 words per minute</li>
+    </ul>
+
+    <h2>Common Word Count Targets</h2>
+    <table class="ref-table">
+      <thead><tr><th>Content Type</th><th>Typical Length</th></tr></thead>
+      <tbody>
+        <tr><td>Tweet / X post</td><td>280 characters</td></tr>
+        <tr><td>Meta description</td><td>150–160 characters</td></tr>
+        <tr><td>Blog post</td><td>1,000–2,500 words</td></tr>
+        <tr><td>College essay</td><td>500–650 words</td></tr>
+        <tr><td>Short story</td><td>1,000–7,500 words</td></tr>
+      </tbody>
+    </table>
+  </section>
+</CalculatorLayout>

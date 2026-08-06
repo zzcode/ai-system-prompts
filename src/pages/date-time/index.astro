@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const tools = [
+  { href: '/date-time/age-calculator', icon: '🎂', name: 'Age Calculator', desc: 'Exact age in years, months, days, hours & minutes' }
+];
+---
+
+<BaseLayout
+  title="Date & Time Calculators - Age, Dates & Countdowns"
+  description="Free date and time calculators: age calculator, days between dates, and more. Fast, accurate results. No sign-up."
+>
+  <div class="container">
+    <div class="page-head">
+      <nav class="breadcrumb"><a href="/">Home</a><span class="sep">/</span><span>Date &amp; Time</span></nav>
+      <h1>Date &amp; Time Calculators</h1>
+      <p class="subtitle">Calculate age, count days between dates, and plan around time.</p>
+    </div>
+    <div class="tool-grid">
+      {tools.map((t) => (
+        <a href={t.href} class="tool-card">
+          <span class="tc-icon" style="background:#ede9fe;color:#7c3aed;">{t.icon}</span>
+          <span>
+            <span class="tc-title">{t.name}</span>
+            <span class="tc-desc">{t.desc}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+    <section class="content-section" style="margin-top:32px;">
+      <h2>Every Date, Counted</h2>
+      <p>From exact age to days between two dates, our date and time tools account for leap years and varying month lengths so the answer is always accurate.</p>
+    </section>
+  </div>
+</BaseLayout>

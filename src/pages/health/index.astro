@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const tools = [
+  { href: '/health/bmi-calculator', icon: '⚖️', name: 'BMI Calculator', desc: 'Body mass index and WHO weight category' },
+  { href: '/health/calorie-calculator', icon: '🔥', name: 'Calorie Calculator', desc: 'Daily calorie needs for loss, maintenance & gain' }
+];
+---
+
+<BaseLayout
+  title="Health & Fitness Calculators - BMI, Calorie & More"
+  description="Free health calculators: BMI, calorie needs, and more. Understand your body metrics with instant, accurate tools. No sign-up."
+>
+  <div class="container">
+    <div class="page-head">
+      <nav class="breadcrumb"><a href="/">Home</a><span class="sep">/</span><span>Health</span></nav>
+      <h1>Health & Fitness Calculators</h1>
+      <p class="subtitle">Understand your body metrics with free, accurate health calculators.</p>
+    </div>
+    <div class="tool-grid">
+      {tools.map((t) => (
+        <a href={t.href} class="tool-card">
+          <span class="tc-icon" style="background:#fee2e2;color:#dc2626;">{t.icon}</span>
+          <span>
+            <span class="tc-title">{t.name}</span>
+            <span class="tc-desc">{t.desc}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+    <section class="content-section" style="margin-top:32px;">
+      <h2>Know Your Numbers</h2>
+      <p>Our health calculators use established formulas like Mifflin-St Jeor and the WHO BMI categories to give you reliable estimates. All tools are for informational purposes only and are not a substitute for professional medical advice.</p>
+    </section>
+  </div>
+</BaseLayout>

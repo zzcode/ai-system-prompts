@@ -1,0 +1,208 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqs = [
+  { q: "How many calories should I eat per day?", a: "Daily calorie needs depend on age, sex, weight, height, and activity level. This calculator estimates your maintenance calories (TDEE). For weight loss, eat about 500 fewer calories per day; for gain, add about 250–500." },
+  { q: "What is TDEE?", a: "TDEE (Total Daily Energy Expenditure) is the total number of calories you burn in a day, including your basal metabolic rate (BMR) plus calories burned through activity and exercise." },
+  { q: "What is BMR?", a: "BMR (Basal Metabolic Rate) is the number of calories your body burns at complete rest to maintain basic functions like breathing and circulation. This calculator uses the Mifflin-St Jeor equation, considered the most accurate for most people." },
+  { q: "How many calories do I need to lose weight?", a: "A common approach is a 500-calorie daily deficit, which leads to roughly 0.5 kg (1 lb) of weight loss per week. Enter your details and the calculator shows targets for loss, maintenance, and gain." },
+  { q: "Is the Mifflin-St Jeor equation accurate?", a: "Mifflin-St Jeor is widely considered the most accurate BMR equation for the general population. However, all equations are estimates — individual metabolism varies, so treat results as a starting point and adjust based on real-world progress." },
+  { q: "Is this medical advice?", a: "No. This tool provides estimates for informational purposes only and is not medical or nutritional advice. Consult a doctor or registered dietitian before changing your diet, especially if you have health conditions." }
+];
+
+const related = [
+  { href: "/health/bmi-calculator", icon: "⚖️", title: "BMI Calculator", desc: "Body mass index & category" },
+  { href: "/math/percentage-calculator", icon: "%", title: "Percentage Calculator", desc: "Percent of a number & change" },
+  { href: "/date-time/age-calculator", icon: "🎂", title: "Age Calculator", desc: "Exact age in years & days" },
+  { href: "/finance/tip-calculator", icon: "💵", title: "Tip Calculator", desc: "Tip amount and bill splitting" },
+  { href: "/finance/mortgage-calculator", icon: "🏠", title: "Mortgage Calculator", desc: "Monthly payment & interest" },
+  { href: "/finance/compound-interest-calculator", icon: "📈", title: "Compound Interest", desc: "Watch savings grow" }
+];
+---
+
+<CalculatorLayout
+  title="Calorie Calculator - Daily Calorie Needs (BMR & TDEE)"
+  h1="Calorie Calculator"
+  description="Free calorie calculator. Estimate your daily calorie needs for weight loss, maintenance, or gain using the Mifflin-St Jeor equation. Instant results."
+  subtitle="Estimate how many calories you need per day to maintain, lose, or gain weight based on your body and activity level."
+  category="Health"
+  categoryHref="/health"
+  appCategory="HealthApplication"
+  faqs={faqs}
+  relatedTools={related}
+>
+  <div slot="calculator">
+    <div class="segmented" style="margin-bottom:24px;">
+      <button class="cal-unit active" data-unit="metric">Metric</button>
+      <button class="cal-unit" data-unit="imperial">Imperial</button>
+    </div>
+
+    <div class="calc-grid">
+      <div>
+        <div class="input-row">
+          <div class="field">
+            <label>Gender</label>
+            <div class="segmented" id="cal-gender">
+              <button data-g="male" class="active">Male</button>
+              <button data-g="female">Female</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="cal-age">Age</label>
+            <div class="input-affix has-suffix">
+              <input type="number" id="cal-age" value="30" step="1" inputmode="numeric" />
+              <span class="suffix">yrs</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="cal-metric">
+          <div class="input-row">
+            <div class="field">
+              <label for="cal-h-cm">Height</label>
+              <div class="input-affix has-suffix">
+                <input type="number" id="cal-h-cm" value="175" step="any" inputmode="decimal" />
+                <span class="suffix">cm</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="cal-w-kg">Weight</label>
+              <div class="input-affix has-suffix">
+                <input type="number" id="cal-w-kg" value="70" step="any" inputmode="decimal" />
+                <span class="suffix">kg</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="cal-imperial" style="display:none;">
+          <div class="input-row">
+            <div class="field">
+              <label for="cal-h-ft">Height (ft)</label>
+              <input type="number" id="cal-h-ft" value="5" step="any" inputmode="decimal" />
+            </div>
+            <div class="field">
+              <label for="cal-h-in">Height (in)</label>
+              <input type="number" id="cal-h-in" value="9" step="any" inputmode="decimal" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="cal-w-lb">Weight</label>
+            <div class="input-affix has-suffix">
+              <input type="number" id="cal-w-lb" value="154" step="any" inputmode="decimal" />
+              <span class="suffix">lb</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="cal-activity">Activity level</label>
+          <select id="cal-activity">
+            <option value="1.2">Sedentary (little or no exercise)</option>
+            <option value="1.375">Light (exercise 1–3 days/week)</option>
+            <option value="1.55" selected>Moderate (exercise 3–5 days/week)</option>
+            <option value="1.725">Very active (exercise 6–7 days/week)</option>
+            <option value="1.9">Extra active (physical job + exercise)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="result-panel">
+        <div class="result-main">
+          <div class="result-label">Maintenance Calories</div>
+          <div class="result-value" id="cal-tdee">2,450</div>
+          <div class="result-sub">calories per day (TDEE)</div>
+        </div>
+        <div class="result-rows" id="cal-rows"></div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var unit = 'metric', gender = 'male';
+      function num(id) { var v = parseFloat(document.getElementById(id).value); return isNaN(v) ? 0 : v; }
+      function row(l, v) { return '<div class="result-row"><span class="rr-label">' + l + '</span><span class="rr-value">' + v + '</span></div>'; }
+
+      function calc() {
+        var age = num('cal-age');
+        var activity = parseFloat(document.getElementById('cal-activity').value);
+        var kg, cm;
+        if (unit === 'metric') {
+          cm = num('cal-h-cm'); kg = num('cal-w-kg');
+        } else {
+          var inTotal = (num('cal-h-ft') * 12) + num('cal-h-in');
+          cm = inTotal * 2.54; kg = num('cal-w-lb') * 0.453592;
+        }
+        if (!age || !cm || !kg) {
+          document.getElementById('cal-tdee').textContent = '—';
+          document.getElementById('cal-rows').innerHTML = '';
+          return;
+        }
+        var bmr = gender === 'male'
+          ? (10 * kg) + (6.25 * cm) - (5 * age) + 5
+          : (10 * kg) + (6.25 * cm) - (5 * age) - 161;
+        var tdee = bmr * activity;
+
+        document.getElementById('cal-tdee').textContent = Math.round(tdee).toLocaleString();
+        document.getElementById('cal-rows').innerHTML =
+          row('BMR (at rest)', Math.round(bmr).toLocaleString() + ' cal') +
+          row('Mild weight loss (−250)', Math.round(tdee - 250).toLocaleString() + ' cal') +
+          row('Weight loss (−500)', Math.round(tdee - 500).toLocaleString() + ' cal') +
+          row('Weight gain (+250)', Math.round(tdee + 250).toLocaleString() + ' cal') +
+          row('Weight gain (+500)', Math.round(tdee + 500).toLocaleString() + ' cal');
+      }
+
+      document.querySelectorAll('.cal-unit').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.querySelectorAll('.cal-unit').forEach(function (x) { x.classList.remove('active'); });
+          b.classList.add('active');
+          unit = b.getAttribute('data-unit');
+          document.getElementById('cal-metric').style.display = unit === 'metric' ? '' : 'none';
+          document.getElementById('cal-imperial').style.display = unit === 'imperial' ? '' : 'none';
+          calc();
+        });
+      });
+      document.querySelectorAll('#cal-gender button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.querySelectorAll('#cal-gender button').forEach(function (x) { x.classList.remove('active'); });
+          b.classList.add('active');
+          gender = b.getAttribute('data-g');
+          calc();
+        });
+      });
+      document.querySelectorAll('#cal-age,#cal-h-cm,#cal-w-kg,#cal-h-ft,#cal-h-in,#cal-w-lb,#cal-activity').forEach(function (el) {
+        el.addEventListener('input', calc);
+        el.addEventListener('change', calc);
+      });
+      calc();
+    })();
+  </script>
+
+  <section class="content-section">
+    <h2>How to Use the Calorie Calculator</h2>
+    <p>Select your units and gender, then enter your age, height, weight, and activity level. The calculator estimates your BMR (calories burned at rest) and TDEE (total daily calories burned), then shows targets for weight loss, maintenance, and gain.</p>
+
+    <h2>The Mifflin-St Jeor Equation</h2>
+    <div class="formula-box">
+      Men: &nbsp;BMR = (10 × kg) + (6.25 × cm) − (5 × age) + 5<br><br>
+      Women: &nbsp;BMR = (10 × kg) + (6.25 × cm) − (5 × age) − 161<br><br>
+      TDEE = BMR × activity factor (1.2 to 1.9)
+    </div>
+
+    <h2>Activity Level Guide</h2>
+    <table class="ref-table">
+      <thead><tr><th>Level</th><th>Factor</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Sedentary</td><td>1.2</td><td>Little or no exercise, desk job</td></tr>
+        <tr><td>Light</td><td>1.375</td><td>Exercise 1–3 days per week</td></tr>
+        <tr><td>Moderate</td><td>1.55</td><td>Exercise 3–5 days per week</td></tr>
+        <tr><td>Very active</td><td>1.725</td><td>Hard exercise 6–7 days per week</td></tr>
+        <tr><td>Extra active</td><td>1.9</td><td>Physical job plus daily exercise</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Safe Rates of Weight Change</h2>
+    <p>A daily deficit of about 500 calories leads to roughly 0.5 kg (1 lb) of weight loss per week — a safe, sustainable rate for most people. Faster loss is possible but harder to maintain and may risk muscle loss. For gain, a surplus of 250–500 calories supports gradual, lean weight gain.</p>
+    <p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: Estimates are for informational purposes only and are not medical or nutritional advice. Consult a qualified professional before changing your diet.</em></p>
+  </section>
+</CalculatorLayout>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const tools = [
+  { href: '/converters/unit-converter', icon: '📏', name: 'Unit Converter', desc: 'Length, weight & temperature — cm to inches, kg to lbs, °F to °C' }
+];
+---
+
+<BaseLayout
+  title="Unit Converters - Length, Weight, Temperature & More"
+  description="Free unit converters: length, weight, temperature and more. Convert cm to inches, kg to lbs, Fahrenheit to Celsius. Instant results, no sign-up."
+>
+  <div class="container">
+    <div class="page-head">
+      <nav class="breadcrumb"><a href="/">Home</a><span class="sep">/</span><span>Converters</span></nav>
+      <h1>Unit Converters</h1>
+      <p class="subtitle">Convert between units of length, weight, temperature, and more — instantly.</p>
+    </div>
+    <div class="tool-grid">
+      {tools.map((t) => (
+        <a href={t.href} class="tool-card">
+          <span class="tc-icon" style="background:#d1fae5;color:#059669;">{t.icon}</span>
+          <span>
+            <span class="tc-title">{t.name}</span>
+            <span class="tc-desc">{t.desc}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+    <section class="content-section" style="margin-top:32px;">
+      <h2>Fast, Accurate Conversions</h2>
+      <p>Our converters handle the most common everyday conversions — length, weight, and temperature — with instant results as you type. Results update in real time and show the same value across several units at once.</p>
+    </section>
+  </div>
+</BaseLayout>

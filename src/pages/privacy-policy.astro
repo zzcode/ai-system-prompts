@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const updated = "August 2026";
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="KodaTools privacy policy. Learn how we handle data, cookies, and advertising. Your calculations stay in your browser — we never see or store them."
+>
+  <div class="container">
+    <div class="page-head">
+      <h1>Privacy Policy</h1>
+      <p class="subtitle">Last updated: {updated}</p>
+    </div>
+
+    <section class="content-section">
+      <h2>Overview</h2>
+      <p>KodaTools ("we", "our") respects your privacy. This policy explains what information we do and do not collect when you use our website and tools.</p>
+
+      <h2>Your Calculations Stay on Your Device</h2>
+      <p>All calculators and tools on KodaTools run entirely in your web browser. The numbers, text, and values you enter are never sent to our servers, stored, or shared. When you close the page, your input is gone.</p>
+
+      <h2>Information We Collect Automatically</h2>
+      <p>Like most websites, we may collect limited, non-identifying technical information to understand how the site is used and to keep it running well. This may include:</p>
+      <ul>
+        <li>Browser type and device type</li>
+        <li>Pages visited and approximate usage patterns</li>
+        <li>Approximate (country-level) location derived from IP address</li>
+        <li>Referring website</li>
+      </ul>
+
+      <h2>Cookies &amp; Advertising</h2>
+      <p>We use third-party advertising (such as Google AdSense) to keep our tools free. These services may use cookies and similar technologies to show ads based on your visits to this and other websites.</p>
+      <ul>
+        <li>Third-party vendors, including Google, use cookies to serve ads based on your prior visits.</li>
+        <li>Google's use of advertising cookies enables it and its partners to serve ads based on your visit to our site and/or other sites on the internet.</li>
+        <li>You may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" style="color:var(--primary);">Google Ads Settings</a>.</li>
+        <li>You can also visit <a href="https://www.aboutads.info/choices/" style="color:var(--primary);">www.aboutads.info/choices</a> to opt out of many third-party vendors' use of cookies for personalized advertising.</li>
+      </ul>
+
+      <h2>Analytics</h2>
+      <p>We may use privacy-respecting analytics to understand aggregate traffic and improve the site. This data is used in aggregate form and is not used to identify individual users.</p>
+
+      <h2>Data Security</h2>
+      <p>Because your inputs never leave your device, there is no personal calculation data for us to secure or breach. We serve the site over HTTPS to protect the connection between your browser and our servers.</p>
+
+      <h2>Children's Privacy</h2>
+      <p>Our tools are general-audience utilities and are not directed at children under 13. We do not knowingly collect personal information from children.</p>
+
+      <h2>Changes to This Policy</h2>
+      <p>We may update this policy from time to time. The "last updated" date above reflects the most recent revision. Continued use of the site after changes constitutes acceptance of the updated policy.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about this policy? Reach us via our <a href="/contact" style="color:var(--primary);">contact page</a>.</p>
+    </section>
+  </div>
+</BaseLayout>

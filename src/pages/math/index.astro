@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const tools = [
+  { href: '/math/percentage-calculator', icon: '%', name: 'Percentage Calculator', desc: 'Percent of a number, what % X is of Y, and percentage change' }
+];
+---
+
+<BaseLayout
+  title="Math Calculators - Percentage, Fractions & Everyday Math"
+  description="Free math calculators: percentage, fractions, averages and more. Instant, accurate results with formulas and examples. No sign-up."
+>
+  <div class="container">
+    <div class="page-head">
+      <nav class="breadcrumb"><a href="/">Home</a><span class="sep">/</span><span>Math</span></nav>
+      <h1>Math Calculators</h1>
+      <p class="subtitle">Everyday math made simple — with the formulas and worked examples to back it up.</p>
+    </div>
+    <div class="tool-grid">
+      {tools.map((t) => (
+        <a href={t.href} class="tool-card">
+          <span class="tc-icon" style="background:#dbeafe;color:#2563eb;">{t.icon}</span>
+          <span>
+            <span class="tc-title">{t.name}</span>
+            <span class="tc-desc">{t.desc}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+    <section class="content-section" style="margin-top:32px;">
+      <h2>Everyday Math, Simplified</h2>
+      <p>Our math calculators handle the calculations you reach for most — percentages, fractions, averages and more — with clear formulas and step-by-step examples so the answer always makes sense.</p>
+    </section>
+  </div>
+</BaseLayout>
