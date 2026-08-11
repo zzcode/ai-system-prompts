@@ -1,0 +1,77 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"What is net worth?",a:"Net worth is your total assets minus your total liabilities. It's the most accurate measure of your overall financial health — what you'd have left if you sold everything and paid off all debts."},
+{q:"What should my net worth be?",a:"A common rule: target net worth = Age × Annual Income ÷ 10. At age 30 earning $60k, aim for $180k. At 40, $240k. This is a rough guide; individual circumstances vary widely."},
+{q:"What counts as an asset?",a:"Assets include cash, savings, investments (stocks, bonds, retirement accounts), real estate equity (home value minus mortgage), vehicles, and valuable possessions. Anything you could sell for money."},
+{q:"What counts as a liability?",a:"Liabilities include mortgages, car loans, student loans, credit card balances, personal loans, and any other debt you owe."},
+{q:"Is a negative net worth bad?",a:"It's common for young people with student loans to have negative net worth. The goal is steady improvement: increase assets (save and invest) while decreasing liabilities (pay down debt)."}
+];
+const related=[
+{href:"/finance/retirement-calculator",icon:"🏖️",title:"Retirement Calculator",desc:"Plan retirement savings"},
+{href:"/finance/investment-calculator",icon:"📊",title:"Investment Calculator",desc:"Project investments"},
+{href:"/finance/compound-interest-calculator",icon:"📈",title:"Compound Interest",desc:"Grow savings"},
+{href:"/finance/savings-calculator",icon:"🐖",title:"Savings Calculator",desc:"Plan savings goals"},
+{href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Home loan payments"},
+{href:"/finance/inflation-calculator",icon:"💸",title:"Inflation Calculator",desc:"Purchasing power"}
+];
+---
+<CalculatorLayout title="Net Worth Calculator - Calculate Your Net Worth" h1="Net Worth Calculator" description="Free net worth calculator. Add up your assets and liabilities to find your net worth. See your financial position instantly. No sign-up." subtitle="Calculate your net worth by subtracting your total liabilities from your total assets." category="Finance" categoryHref="/finance" appCategory="FinanceApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<h3 style="margin-bottom:12px;">Assets</h3>
+<div class="field"><label for="nw-cash">Cash & savings</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="nw-cash" value="15000" step="any" /></div></div>
+<div class="field"><label for="nw-invest">Investments (stocks, retirement)</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="nw-invest" value="50000" step="any" /></div></div>
+<div class="field"><label for="nw-home">Home equity (value − mortgage)</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="nw-home" value="120000" step="any" /></div></div>
+<div class="field"><label for="nw-other">Other assets (car, valuables)</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="nw-other" value="20000" step="any" /></div></div>
+</div>
+<div>
+<h3 style="margin-bottom:12px;">Liabilities</h3>
+<div class="field"><label for="nw-mortgage">Mortgage remaining</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="nw-mortgage" value="0" step="any" /></div></div>
+<div class="field"><label for="nw-student">Student loans</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="nw-student" value="15000" step="any" /></div></div>
+<div class="field"><label for="nw-cc">Credit card debt</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="nw-cc" value="3000" step="any" /></div></div>
+<div class="field"><label for="nw-car">Car loan</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="nw-car" value="10000" step="any" /></div></div>
+</div>
+</div>
+<div class="result-panel" style="margin-top:20px;">
+<div class="result-main"><div class="result-label">Your Net Worth</div><div class="result-value" id="nw-net">$177,000</div><div class="result-sub" id="nw-sub">Assets $205K − Liabilities $28K</div></div>
+<div class="result-rows" id="nw-rows"></div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var assets=num('nw-cash')+num('nw-invest')+num('nw-home')+num('nw-other');
+var liab=num('nw-mortgage')+num('nw-student')+num('nw-cc')+num('nw-car');
+var net=assets-liab;
+document.getElementById('nw-net').textContent=money(net);
+document.getElementById('nw-net').style.color=net>=0?'var(--primary-dark)':'#dc2626';
+document.getElementById('nw-sub').textContent='Assets '+money(assets)+' − Liabilities '+money(liab);
+document.getElementById('nw-rows').innerHTML=row('Total assets',money(assets))+row('Total liabilities',money(liab))+row('Net worth',money(net))+row('Debt-to-asset ratio',assets>0?(liab/assets*100).toFixed(1)+'%':'—');
+}
+['nw-cash','nw-invest','nw-home','nw-other','nw-mortgage','nw-student','nw-cc','nw-car'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>Net Worth Benchmarks by Age</h2>
+<table class="ref-table"><thead><tr><th>Age</th><th>Median Net Worth (US)</th><th>Average Net Worth</th></tr></thead><tbody>
+<tr><td>18–24</td><td>$8,216</td><td>$28,707</td></tr>
+<tr><td>25–29</td><td>$7,510</td><td>$49,388</td></tr>
+<tr><td>30–34</td><td>$35,112</td><td>$122,700</td></tr>
+<tr><td>35–39</td><td>$55,519</td><td>$274,112</td></tr>
+<tr><td>40–44</td><td>$127,345</td><td>$623,694</td></tr>
+<tr><td>45–49</td><td>$164,197</td><td>$761,540</td></tr>
+<tr><td>50–54</td><td>$171,360</td><td>$897,663</td></tr>
+<tr><td>55–59</td><td>$193,549</td><td>$1,165,477</td></tr>
+<tr><td>60–64</td><td>$228,833</td><td>$1,675,214</td></tr>
+<tr><td>65–69</td><td>$271,805</td><td>$1,862,738</td></tr>
+</tbody></table>
+<p style="font-size:0.82rem;color:var(--text-muted);">Source: Federal Reserve Survey of Consumer Finances. Averages are skewed higher by wealthy households; medians are more representative.</p>
+<p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: For informational purposes only. Not financial advice.</em></p>
+</section>
+</CalculatorLayout>

@@ -1,0 +1,70 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I calculate my ovulation date?",a:"Ovulation typically occurs 14 days before your next period. For a 28-day cycle, ovulation is around day 14. The fertile window is the 5 days before ovulation plus ovulation day."},
+{q:"What is the fertile window?",a:"The fertile window is the 6 days leading up to and including ovulation. Sperm can survive up to 5 days, and the egg lives 12–24 hours, so conception is possible during this window."},
+{q:"How accurate is ovulation calculation?",a:"Calendar-based ovulation prediction is about 75% accurate for regular cycles. Irregular cycles make prediction harder. Ovulation test kits and basal body temperature tracking are more accurate."},
+{q:"When am I most likely to get pregnant?",a:"The 3 days leading up to ovulation and ovulation day itself have the highest pregnancy probability. The day before ovulation has the highest chance at about 30%."}
+];
+const related=[
+{href:"/health/pregnancy-due-date-calculator",icon:"🤰",title:"Due Date Calculator",desc:"Estimate your due date"},
+{href:"/health/bmi-calculator",icon:"⚖️",title:"BMI Calculator",desc:"Body mass index"},
+{href:"/health/calorie-calculator",icon:"🔥",title:"Calorie Calculator",desc:"Daily calorie needs"},
+{href:"/date-time/age-calculator",icon:"🎂",title:"Age Calculator",desc:"Exact age in years & days"},
+{href:"/health/macro-calculator",icon:"🥗",title:"Macro Calculator",desc:"Protein, carbs & fat"},
+{href:"/health/ideal-weight-calculator",icon:"🎯",title:"Ideal Weight",desc:"Healthy weight range"}
+];
+---
+<CalculatorLayout title="Ovulation Calculator - Fertile Window & Ovulation Predictor" h1="Ovulation Calculator" description="Free ovulation calculator. Predict your ovulation date and fertile window based on your menstrual cycle. Plan for pregnancy with a 6-month calendar. No sign-up." subtitle="Calculate your ovulation date and fertile window to plan or track pregnancy." category="Health" categoryHref="/health" appCategory="HealthApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="ov-date">First day of last period</label><input type="date" id="ov-date" /></div>
+<div class="field"><label for="ov-cycle">Cycle length</label><div class="input-affix has-suffix"><input type="number" id="ov-cycle" value="28" /><span class="suffix">days</span></div></div>
+<div class="field"><label for="ov-period">Period length</label><div class="input-affix has-suffix"><input type="number" id="ov-period" value="5" /><span class="suffix">days</span></div></div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Ovulation Date</div><div class="result-value" id="ov-date-result" style="font-size:1.5rem;">—</div><div class="result-sub" id="ov-sub">Enter your date</div></div>
+<div class="result-rows" id="ov-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function todayStr(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+document.getElementById('ov-date').value=todayStr();
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function fmt(d){return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});}
+function calc(){
+var d=document.getElementById('ov-date').value;
+if(!d)return;
+var date=new Date(d+'T00:00:00');
+var cycle=parseInt(document.getElementById('ov-cycle').value,10)||28;
+var period=parseInt(document.getElementById('ov-period').value,10)||5;
+var ovDay=cycle-14;
+var ovDate=new Date(date);ovDate.setDate(ovDate.getDate()+ovDay);
+var fertileStart=new Date(ovDate);fertileStart.setDate(fertileStart.getDate()-5);
+var fertileEnd=new Date(ovDate);fertileEnd.setDate(fertileEnd.getDate()+1);
+var nextPeriod=new Date(date);nextPeriod.setDate(nextPeriod.getDate()+cycle);
+document.getElementById('ov-date-result').textContent=fmt(ovDate);
+document.getElementById('ov-sub').textContent='Fertile: '+fmt(fertileStart)+' – '+fmt(fertileEnd);
+document.getElementById('ov-rows').innerHTML=row('Fertile window starts',fmt(fertileStart))+row('Ovulation date',fmt(ovDate))+row('Fertile window ends',fmt(fertileEnd))+row('Next period',fmt(nextPeriod))+row('Best chance to conceive',fmt(new Date(ovDate.getTime()-86400000)));
+}
+['ov-date','ov-cycle','ov-period'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>How Ovulation Works</h2>
+<p>Ovulation is when a mature egg is released from the ovary, typically 14 days before your next period. The egg survives 12–24 hours, while sperm can live up to 5 days in the reproductive tract — creating a ~6-day fertile window.</p>
+<div class="formula-box">Ovulation Day = Cycle Length − 14<br>Fertile Window = Ovulation − 5 days to Ovulation + 1 day</div>
+<h2>Fertility by Cycle Length</h2>
+<table class="ref-table"><thead><tr><th>Cycle Length</th><th>Ovulation Day</th><th>Fertile Window</th></tr></thead><tbody>
+<tr><td>21 days</td><td>Day 7</td><td>Days 2–8</td></tr>
+<tr><td>28 days</td><td>Day 14</td><td>Days 9–15</td></tr>
+<tr><td>30 days</td><td>Day 16</td><td>Days 11–17</td></tr>
+<tr><td>35 days</td><td>Day 21</td><td>Days 16–22</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: Estimates only, not medical advice. Consult a healthcare provider for fertility concerns.</em></p>
+</section>
+</CalculatorLayout>

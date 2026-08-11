@@ -10,6 +10,7 @@ const staticPages = [
   { url: '/date-time', priority: '0.8', changefreq: 'weekly' },
   { url: '/converters', priority: '0.8', changefreq: 'weekly' },
   { url: '/everyday', priority: '0.8', changefreq: 'weekly' },
+  { url: '/construction', priority: '0.8', changefreq: 'weekly' },
   // Finance
   { url: '/finance/mortgage-calculator', priority: '0.9', changefreq: 'monthly' },
   { url: '/finance/loan-calculator', priority: '0.9', changefreq: 'monthly' },
@@ -25,6 +26,8 @@ const staticPages = [
   { url: '/finance/investment-calculator', priority: '0.9', changefreq: 'monthly' },
   { url: '/finance/savings-calculator', priority: '0.9', changefreq: 'monthly' },
   { url: '/finance/credit-card-payoff-calculator', priority: '0.9', changefreq: 'monthly' },
+  { url: '/finance/inflation-calculator', priority: '0.9', changefreq: 'monthly' },
+  { url: '/finance/net-worth-calculator', priority: '0.9', changefreq: 'monthly' },
   // Health
   { url: '/health/bmi-calculator', priority: '0.9', changefreq: 'monthly' },
   { url: '/health/calorie-calculator', priority: '0.9', changefreq: 'monthly' },
@@ -34,6 +37,10 @@ const staticPages = [
   { url: '/health/macro-calculator', priority: '0.9', changefreq: 'monthly' },
   { url: '/health/ideal-weight-calculator', priority: '0.9', changefreq: 'monthly' },
   { url: '/health/water-intake-calculator', priority: '0.9', changefreq: 'monthly' },
+  { url: '/health/pregnancy-due-date-calculator', priority: '0.9', changefreq: 'monthly' },
+  { url: '/health/ovulation-calculator', priority: '0.9', changefreq: 'monthly' },
+  { url: '/health/pace-calculator', priority: '0.9', changefreq: 'monthly' },
+  { url: '/health/sleep-calculator', priority: '0.9', changefreq: 'monthly' },
   // Math
   { url: '/math/percentage-calculator', priority: '0.9', changefreq: 'monthly' },
   { url: '/math/fraction-calculator', priority: '0.9', changefreq: 'monthly' },
@@ -56,6 +63,11 @@ const staticPages = [
   { url: '/everyday/case-converter', priority: '0.9', changefreq: 'monthly' },
   { url: '/everyday/lorem-ipsum-generator', priority: '0.9', changefreq: 'monthly' },
   { url: '/everyday/qr-code-generator', priority: '0.9', changefreq: 'monthly' },
+  // Construction
+  { url: '/construction/square-footage-calculator', priority: '0.9', changefreq: 'monthly' },
+  { url: '/construction/concrete-calculator', priority: '0.9', changefreq: 'monthly' },
+  { url: '/construction/paint-calculator', priority: '0.9', changefreq: 'monthly' },
+  { url: '/construction/tile-calculator', priority: '0.9', changefreq: 'monthly' },
   // Compliance
   { url: '/about', priority: '0.4', changefreq: 'yearly' },
   { url: '/contact', priority: '0.4', changefreq: 'yearly' },

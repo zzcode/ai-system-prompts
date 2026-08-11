@@ -1,0 +1,76 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I calculate square footage?",a:"Multiply length by width. For a room that's 12 feet by 15 feet: 12 × 15 = 180 square feet. For irregular shapes, break the area into rectangles, calculate each, and add them together."},
+{q:"How many square feet is a 12x12 room?",a:"A 12×12 room is 144 square feet (12 × 12 = 144). This is a common bedroom or living room size."},
+{q:"How do I calculate square footage for flooring?",a:"Measure the length and width of each room, multiply to get square feet, then add 10% for waste and cuts. For 180 sq ft, order at least 198 sq ft of flooring."},
+{q:"How do I convert square feet to square meters?",a:"Multiply square feet by 0.092903. For example, 200 sq ft × 0.092903 = 18.58 square meters. Or use our unit converter."},
+{q:"How do I measure a room with multiple areas?",a:"Break the room into separate rectangles. Measure each section's length and width, calculate each area, then add them together. This calculator supports multiple areas."}
+];
+const related=[
+{href:"/construction/concrete-calculator",icon:"🧱",title:"Concrete Calculator",desc:"Estimate concrete for slabs"},
+{href:"/construction/paint-calculator",icon:"🎨",title:"Paint Calculator",desc:"How much paint you need"},
+{href:"/construction/tile-calculator",icon:"🧩",title:"Tile Calculator",desc:"Tiles for floors & walls"},
+{href:"/converters/unit-converter",icon:"📏",title:"Unit Converter",desc:"Length, weight & temp"},
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Home loan payments"}
+];
+---
+<CalculatorLayout title="Square Footage Calculator - Calculate Area for Any Space" h1="Square Footage Calculator" description="Free square footage calculator. Calculate the area of any room, house, or land in square feet, square meters, or square yards. Add multiple areas. No sign-up." subtitle="Calculate square footage for rooms, flooring, painting, and landscaping projects." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="input-row">
+<div class="field"><label for="sf-length">Length</label><div class="input-affix has-suffix"><input type="number" id="sf-length" value="12" step="any" /><span class="suffix">ft</span></div></div>
+<div class="field"><label for="sf-width">Width</label><div class="input-affix has-suffix"><input type="number" id="sf-width" value="15" step="any" /><span class="suffix">ft</span></div></div>
+</div>
+<div class="segmented" style="margin-top:10px;"><button class="sf-unit active" data-unit="ft">Feet</button><button class="sf-unit" data-unit="m">Meters</button></div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Total Area</div><div class="result-value" id="sf-result">180 sq ft</div><div class="result-sub" id="sf-sub">16.72 m² · 20 sq yd</div></div>
+<div class="result-rows" id="sf-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+var unit='ft';
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var l=num('sf-length'),w=num('sf-width');
+if(!l||!w)return;
+var sqft,sqm;
+if(unit==='ft'){sqft=l*w;sqm=sqft*0.092903;}
+else{sqm=l*w;sqft=sqm/0.092903;}
+var sqyd=sqft/9;
+document.getElementById('sf-result').textContent=Math.round(sqft).toLocaleString()+' sq ft';
+document.getElementById('sf-sub').textContent=sqm.toFixed(2)+' m² · '+sqyd.toFixed(1)+' sq yd';
+document.getElementById('sf-rows').innerHTML=row('Square feet',Math.round(sqft).toLocaleString())+row('Square meters',sqm.toFixed(2))+row('Square yards',sqyd.toFixed(1))+row('With 10% waste',Math.round(sqft*1.1).toLocaleString()+' sq ft');
+}
+document.querySelectorAll('.sf-unit').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.sf-unit').forEach(function(x){x.classList.remove('active');});b.classList.add('active');unit=b.getAttribute('data-unit');document.querySelectorAll('#sf-length + .suffix, #sf-width + .suffix').forEach(function(s){s.textContent=unit==='ft'?'ft':'m';});calc();});});
+['sf-length','sf-width'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>How to Calculate Square Footage</h2>
+<div class="formula-box">Area = Length × Width</div>
+<p>For rectangular spaces, simply multiply length by width. For irregular shapes, divide the area into rectangles, calculate each separately, then add the results.</p>
+<h2>Common Room Sizes</h2>
+<table class="ref-table"><thead><tr><th>Room Size</th><th>Square Feet</th><th>Square Meters</th></tr></thead><tbody>
+<tr><td>10 × 10</td><td>100</td><td>9.29</td></tr>
+<tr><td>12 × 12</td><td>144</td><td>13.38</td></tr>
+<tr><td>12 × 15</td><td>180</td><td>16.72</td></tr>
+<tr><td>15 × 20</td><td>300</td><td>27.87</td></tr>
+<tr><td>20 × 20</td><td>400</td><td>37.16</td></tr>
+</tbody></table>
+<h2>Waste Factor Guide</h2>
+<table class="ref-table"><thead><tr><th>Material</th><th>Recommended Waste</th></tr></thead><tbody>
+<tr><td>Flooring (tile, hardwood)</td><td>10–15%</td></tr>
+<tr><td>Paint</td><td>10%</td></tr>
+<tr><td>Carpet</td><td>5–10%</td></tr>
+<tr><td>Wallpaper</td><td>15–20%</td></tr>
+</tbody></table>
+</section>
+</CalculatorLayout>

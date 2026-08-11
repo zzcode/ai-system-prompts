@@ -1,0 +1,71 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How much paint do I need for a room?",a:"Measure the wall area (length × height of each wall), subtract doors and windows, then divide by 350–400 sq ft per gallon. A typical 12×12 room with 8ft ceilings needs about 2 gallons for two coats."},
+{q:"How many square feet does a gallon of paint cover?",a:"One gallon covers approximately 350–400 square feet with one coat. For two coats, plan on 175–200 sq ft per gallon. Primer covers about 300 sq ft per gallon."},
+{q:"How many coats of paint do I need?",a:"Typically two coats for good coverage, especially when changing colors. One coat may suffice when repainting with the same color. Dark colors over light may need three coats."},
+{q:"Should I subtract doors and windows?",a:"Yes. A standard door is about 20 sq ft and a window about 15 sq ft. This calculator subtracts them automatically to avoid over-ordering."}
+];
+const related=[
+{href:"/construction/square-footage-calculator",icon:"📏",title:"Square Footage",desc:"Calculate area for any space"},
+{href:"/construction/concrete-calculator",icon:"🧱",title:"Concrete Calculator",desc:"Estimate concrete for slabs"},
+{href:"/construction/tile-calculator",icon:"🧩",title:"Tile Calculator",desc:"Tiles for floors & walls"},
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/finance/discount-calculator",icon:"🏷️",title:"Discount Calculator",desc:"Sale price calculator"},
+{href:"/converters/unit-converter",icon:"📏",title:"Unit Converter",desc:"Length, weight & temp"}
+];
+---
+<CalculatorLayout title="Paint Calculator - How Much Paint Do I Need?" h1="Paint Calculator" description="Free paint calculator. Calculate how many gallons of paint you need for any room or wall. Accounts for doors, windows, and multiple coats. No sign-up." subtitle="Estimate how many gallons of paint you need for any room or project." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="pc-length">Room length</label><div class="input-affix has-suffix"><input type="number" id="pc-length" value="12" step="any" /><span class="suffix">ft</span></div></div>
+<div class="field"><label for="pc-width">Room width</label><div class="input-affix has-suffix"><input type="number" id="pc-width" value="12" step="any" /><span class="suffix">ft</span></div></div>
+<div class="input-row">
+<div class="field"><label for="pc-height">Wall height</label><div class="input-affix has-suffix"><input type="number" id="pc-height" value="8" step="any" /><span class="suffix">ft</span></div></div>
+<div class="field"><label for="pc-coats">Coats</label><select id="pc-coats"><option value="1">1 coat</option><option value="2" selected>2 coats</option><option value="3">3 coats</option></select></div>
+</div>
+<div class="input-row">
+<div class="field"><label for="pc-doors">Doors</label><input type="number" id="pc-doors" value="1" min="0" /></div>
+<div class="field"><label for="pc-windows">Windows</label><input type="number" id="pc-windows" value="2" min="0" /></div>
+</div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Paint Needed</div><div class="result-value" id="pc-gallons">2 gallons</div><div class="result-sub" id="pc-sub">for 2 coats</div></div>
+<div class="result-rows" id="pc-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var l=num('pc-length'),w=num('pc-width'),h=num('pc-height'),coats=parseInt(document.getElementById('pc-coats').value,10);
+var doors=num('pc-doors'),windows=num('pc-windows');
+if(!l||!w||!h)return;
+var wallArea=2*(l*h)+2*(w*h);
+var deductArea=doors*20+windows*15;
+var paintArea=(wallArea-deductArea)*coats;
+var gallons=Math.ceil(paintArea/350);
+var quarts=Math.ceil((paintArea/350-Math.floor(paintArea/350))*4);
+document.getElementById('pc-gallons').textContent=gallons+' gallon'+(gallons!==1?'s':'');
+document.getElementById('pc-sub').textContent='for '+coats+' coat'+(coats!==1?'s':'');
+document.getElementById('pc-rows').innerHTML=row('Wall area',Math.round(wallArea).toLocaleString()+' sq ft')+row('Doors & windows',Math.round(deductArea).toLocaleString()+' sq ft')+row('Paintable area',Math.round(paintArea).toLocaleString()+' sq ft')+row('Coverage','350 sq ft/gal');
+}
+['pc-length','pc-width','pc-height','pc-coats','pc-doors','pc-windows'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);document.getElementById(id).addEventListener('change',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>How to Calculate Paint Needed</h2>
+<div class="formula-box">Wall Area = 2 × (Length × Height) + 2 × (Width × Height)<br>Paintable = Wall Area − (Doors × 20) − (Windows × 15)<br>Gallons = (Paintable × Coats) ÷ 350</div>
+<h2>Paint Coverage Guide</h2>
+<table class="ref-table"><thead><tr><th>Paint Type</th><th>Coverage per Gallon</th></tr></thead><tbody>
+<tr><td>Interior wall paint</td><td>350–400 sq ft</td></tr>
+<tr><td>Primer</td><td>300 sq ft</td></tr>
+<tr><td>Exterior paint</td><td>250–300 sq ft</td></tr>
+<tr><td>Ceiling paint</td><td>350–400 sq ft</td></tr>
+</tbody></table>
+</section>
+</CalculatorLayout>

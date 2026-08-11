@@ -1,0 +1,78 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How does the sleep calculator work?",a:"Sleep occurs in 90-minute cycles. Waking up at the end of a cycle (rather than mid-cycle) feels more refreshing. The calculator finds the best bedtime or wake time based on 5-6 complete cycles."},
+{q:"How much sleep do I need?",a:"Adults need 7-9 hours per night. This calculator targets 5-6 sleep cycles (7.5-9 hours). Teenagers need 8-10 hours, and children need 9-12 hours."},
+{q:"What is a sleep cycle?",a:"A sleep cycle lasts about 90 minutes and includes light sleep, deep sleep, and REM sleep. Waking at the end of a cycle reduces grogginess (sleep inertia)."},
+{q:"Should I go to bed or fall asleep at the calculated time?",a:"The calculator shows when you should be ASLEEP. Add 15-20 minutes to fall asleep, so get into bed about 15-20 minutes before the suggested time."}
+];
+const related=[
+{href:"/health/bmi-calculator",icon:"⚖️",title:"BMI Calculator",desc:"Body mass index"},
+{href:"/health/calorie-calculator",icon:"🔥",title:"Calorie Calculator",desc:"Daily calorie needs"},
+{href:"/health/water-intake-calculator",icon:"💧",title:"Water Intake",desc:"Daily hydration goal"},
+{href:"/health/bmr-calculator",icon:"⚡",title:"BMR Calculator",desc:"Calories at rest"},
+{href:"/date-time/time-calculator",icon:"⏰",title:"Time Calculator",desc:"Hours between times"},
+{href:"/date-time/age-calculator",icon:"🎂",title:"Age Calculator",desc:"Exact age"}
+];
+---
+<CalculatorLayout title="Sleep Calculator - Best Time to Sleep & Wake Up" h1="Sleep Calculator" description="Free sleep calculator. Find the best time to go to sleep or wake up based on 90-minute sleep cycles. Wake up refreshed. No sign-up." subtitle="Find your optimal bedtime or wake-up time based on natural sleep cycles." category="Health" categoryHref="/health" appCategory="HealthApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="segmented" style="margin-bottom:24px;"><button class="sl-mode active" data-mode="wake">I want to wake at…</button><button class="sl-mode" data-mode="sleep">I'll sleep now…</button></div>
+<div id="sl-wake-pane">
+<div class="field"><label for="sl-wake-time">What time do you want to wake up?</label><input type="time" id="sl-wake-time" value="07:00" /></div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Best Times to Fall Asleep</div><div class="result-value" id="sl-times" style="font-size:1.3rem;">9:15 PM, 10:45 PM, 12:15 AM</div><div class="result-sub">for a 7:00 AM wake-up</div></div>
+<div class="result-rows" id="sl-rows"></div>
+</div>
+</div>
+<div id="sl-sleep-pane" style="display:none;">
+<div class="field"><label for="sl-sleep-time">What time are you going to bed?</label><input type="time" id="sl-sleep-time" value="22:30" /></div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Best Wake-Up Times</div><div class="result-value" id="sl-wake-times" style="font-size:1.3rem;">6:00 AM, 7:30 AM, 9:00 AM</div><div class="result-sub">if you sleep at 10:30 PM</div></div>
+<div class="result-rows" id="sl-wake-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+var mode='wake';
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function fmtTime(date){var h=date.getHours();var m=date.getMinutes();var ap=h>=12?'PM':'AM';var h12=h%12||12;return h12+':'+String(m).padStart(2,'0')+' '+ap;}
+function calcWake(){
+var t=document.getElementById('sl-wake-time').value;
+if(!t)return;
+var parts=t.split(':');var wake=new Date();wake.setHours(parseInt(parts[0],10),parseInt(parts[1],10),0,0);
+var times=[];var cycles=[6,5,4];
+for(var i=0;i<cycles.length;i++){var sleepTime=new Date(wake.getTime()-cycles[i]*90*60000-15*60000);times.push({cycles:cycles[i],hours:cycles[i]*1.5,time:fmtTime(sleepTime)});}
+document.getElementById('sl-times').textContent=times.map(function(t){return t.time;}).join(', ');
+document.getElementById('sl-rows').innerHTML=times.map(function(t){return row(t.cycles+' cycles ('+t.hours+' hrs)',t.time);}).join('');
+}
+function calcSleep(){
+var t=document.getElementById('sl-sleep-time').value;
+if(!t)return;
+var parts=t.split(':');var sleep=new Date();sleep.setHours(parseInt(parts[0],10),parseInt(parts[1],10),0,0);
+sleep.setMinutes(sleep.getMinutes()+15);
+var times=[];var cycles=[5,6,4];
+for(var i=0;i<cycles.length;i++){var wakeTime=new Date(sleep.getTime()+cycles[i]*90*60000);times.push({cycles:cycles[i],hours:cycles[i]*1.5,time:fmtTime(wakeTime)});}
+document.getElementById('sl-wake-times').textContent=times.map(function(t){return t.time;}).join(', ');
+document.getElementById('sl-wake-rows').innerHTML=times.map(function(t){return row(t.cycles+' cycles ('+t.hours+' hrs)',t.time);}).join('');
+}
+document.querySelectorAll('.sl-mode').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.sl-mode').forEach(function(x){x.classList.remove('active');});b.classList.add('active');mode=b.getAttribute('data-mode');document.getElementById('sl-wake-pane').style.display=mode==='wake'?'':'none';document.getElementById('sl-sleep-pane').style.display=mode==='sleep'?'':'none';});});
+document.getElementById('sl-wake-time').addEventListener('input',calcWake);
+document.getElementById('sl-sleep-time').addEventListener('input',calcSleep);
+calcWake();calcSleep();
+})();
+</script>
+<section class="content-section">
+<h2>How Sleep Cycles Work</h2>
+<p>Sleep consists of repeated 90-minute cycles through light sleep, deep sleep, and REM. Waking at the end of a cycle feels natural and refreshing, while waking mid-cycle causes grogginess (sleep inertia). The calculator targets the end of 4–6 complete cycles (6–9 hours).</p>
+<h2>Sleep Duration Guide</h2>
+<table class="ref-table"><thead><tr><th>Cycles</th><th>Hours</th><th>Quality</th></tr></thead><tbody>
+<tr><td>3 cycles</td><td>4.5 hrs</td><td>Minimum (not recommended)</td></tr>
+<tr><td>4 cycles</td><td>6 hrs</td><td>Short but functional</td></tr>
+<tr><td>5 cycles</td><td>7.5 hrs</td><td>Recommended for most adults</td></tr>
+<tr><td>6 cycles</td><td>9 hrs</td><td>Ideal, especially for athletes</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: General guidance only. Individual sleep needs vary. Consult a doctor for sleep disorders.</em></p>
+</section>
+</CalculatorLayout>

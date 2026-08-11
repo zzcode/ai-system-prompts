@@ -1,0 +1,71 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I calculate how many tiles I need?",a:"Measure the area (length × width), divide by the area of one tile, then add 10–15% for waste and cuts. For a 100 sq ft area with 12×12 tiles: 100 ÷ 1 = 100 tiles, order 115 with waste."},
+{q:"How many tiles come in a box?",a:"It varies by tile size. Common: 12×12 tiles come 10 per box (10 sq ft), 18×18 tiles come 5 per box (11.25 sq ft), 24×24 tiles come 4 per box (16 sq ft). Check the box label."},
+{q:"How much extra tile should I buy?",a:"Add 10% for standard layouts and 15% for diagonal patterns. Extra tiles are also useful for future repairs, so don't return leftovers."},
+{q:"How much grout do I need?",a:"Grout needed depends on tile size, joint width, and depth. As a rough guide, a 10lb bag of grout covers 100–150 sq ft with 1/4" joints. Always buy extra."}
+];
+const related=[
+{href:"/construction/square-footage-calculator",icon:"📏",title:"Square Footage",desc:"Calculate area for any space"},
+{href:"/construction/concrete-calculator",icon:"🧱",title:"Concrete Calculator",desc:"Estimate concrete for slabs"},
+{href:"/construction/paint-calculator",icon:"🎨",title:"Paint Calculator",desc:"How much paint you need"},
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"},
+{href:"/converters/unit-converter",icon:"📏",title:"Unit Converter",desc:"Length, weight & temp"},
+{href:"/math/fraction-calculator",icon:"½",title:"Fraction Calculator",desc:"Work with fractions"}
+];
+---
+<CalculatorLayout title="Tile Calculator - How Many Tiles Do I Need?" h1="Tile Calculator" description="Free tile calculator. Calculate how many tiles and boxes you need for floors, walls, and backsplashes. Includes waste factor and grout estimate. No sign-up." subtitle="Calculate the number of tiles, boxes, and grout needed for any tiling project." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="input-row">
+<div class="field"><label for="tc-area-len">Area length</label><div class="input-affix has-suffix"><input type="number" id="tc-area-len" value="10" step="any" /><span class="suffix">ft</span></div></div>
+<div class="field"><label for="tc-area-wid">Area width</label><div class="input-affix has-suffix"><input type="number" id="tc-area-wid" value="10" step="any" /><span class="suffix">ft</span></div></div>
+</div>
+<div class="input-row">
+<div class="field"><label for="tc-tile-len">Tile length</label><div class="input-affix has-suffix"><input type="number" id="tc-tile-len" value="12" step="any" /><span class="suffix">in</span></div></div>
+<div class="field"><label for="tc-tile-wid">Tile width</label><div class="input-affix has-suffix"><input type="number" id="tc-tile-wid" value="12" step="any" /><span class="suffix">in</span></div></div>
+</div>
+<div class="field"><label for="tc-waste">Waste factor</label><select id="tc-waste"><option value="0.10" selected>10% (standard)</option><option value="0.15">15% (diagonal)</option><option value="0.20">20% (complex pattern)</option></select></div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Tiles Needed</div><div class="result-value" id="tc-tiles">115 tiles</div><div class="result-sub" id="tc-sub">including 10% waste</div></div>
+<div class="result-rows" id="tc-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var al=num('tc-area-len'),aw=num('tc-area-wid'),tl=num('tc-tile-len'),tw=num('tc-tile-wid');
+var waste=parseFloat(document.getElementById('tc-waste').value);
+if(!al||!aw||!tl||!tw)return;
+var areaSqft=al*aw;
+var tileSqft=(tl*tw)/144;
+var tilesNeeded=Math.ceil(areaSqft/tileSqft);
+var tilesWithWaste=Math.ceil(tilesNeeded*(1+waste));
+var boxes=Math.ceil(tilesWithWaste/10);
+document.getElementById('tc-tiles').textContent=tilesWithWaste+' tiles';
+document.getElementById('tc-sub').textContent='including '+Math.round(waste*100)+'% waste';
+document.getElementById('tc-rows').innerHTML=row('Area',Math.round(areaSqft).toLocaleString()+' sq ft')+row('Tiles (no waste)',tilesNeeded)+row('Tiles (with waste)',tilesWithWaste)+row('Boxes (10/box)',boxes)+row('Extra tiles',tilesWithWaste-tilesNeeded);
+}
+['tc-area-len','tc-area-wid','tc-tile-len','tc-tile-wid','tc-waste'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);document.getElementById(id).addEventListener('change',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>How to Calculate Tiles</h2>
+<div class="formula-box">Tiles = Area(sq ft) ÷ Tile Area(sq ft) × (1 + Waste%)</div>
+<h2>Common Tile Sizes</h2>
+<table class="ref-table"><thead><tr><th>Tile Size</th><th>Tiles per sq ft</th><th>Per Box</th></tr></thead><tbody>
+<tr><td>4 × 4 in</td><td>9</td><td>~40 tiles</td></tr>
+<tr><td>6 × 6 in</td><td>4</td><td>~30 tiles</td></tr>
+<tr><td>12 × 12 in</td><td>1</td><td>10 tiles</td></tr>
+<tr><td>18 × 18 in</td><td>0.44</td><td>5 tiles</td></tr>
+<tr><td>24 × 24 in</td><td>0.25</td><td>4 tiles</td></tr>
+</tbody></table>
+</section>
+</CalculatorLayout>

@@ -1,0 +1,73 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How does inflation affect my money?",a:"Inflation reduces purchasing power over time. If inflation averages 3% per year, $100 today will only buy about $74 worth of goods in 10 years. This calculator shows the real impact."},
+{q:"How is inflation calculated?",a:"Future Value = Present × (1 + rate)^years. For $1000 at 3% inflation for 10 years: 1000 × 1.03^10 = $1,344. That's the amount you'd need to match today's purchasing power."},
+{q:"What is the average US inflation rate?",a:"The long-term US average is about 3% per year. Recent years have seen higher rates (7-8% in 2022). The Federal Reserve targets 2% annual inflation."},
+{q:"How do I protect against inflation?",a:"Invest in assets that outpace inflation: stocks, real estate, and inflation-protected bonds (TIPS). Savings accounts typically lose purchasing power to inflation over time."}
+];
+const related=[
+{href:"/finance/compound-interest-calculator",icon:"📈",title:"Compound Interest",desc:"Watch savings grow"},
+{href:"/finance/retirement-calculator",icon:"🏖️",title:"Retirement Calculator",desc:"Plan retirement"},
+{href:"/finance/investment-calculator",icon:"📊",title:"Investment Calculator",desc:"Project investments"},
+{href:"/finance/savings-calculator",icon:"🐖",title:"Savings Calculator",desc:"Plan savings goals"},
+{href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Home loan payments"},
+{href:"/finance/salary-calculator",icon:"💵",title:"Salary Calculator",desc:"Convert pay periods"}
+];
+---
+<CalculatorLayout title="Inflation Calculator - How Much Is Your Money Worth?" h1="Inflation Calculator" description="Free inflation calculator. See how inflation erodes purchasing power over time. Calculate future prices and real value of money. No sign-up." subtitle="Calculate how inflation affects the purchasing power of your money over time." category="Finance" categoryHref="/finance" appCategory="FinanceApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="calc-grid">
+<div>
+<div class="field"><label for="if-amount">Amount</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="if-amount" value="10000" step="any" /></div></div>
+<div class="input-row">
+<div class="field"><label for="if-rate">Inflation rate</label><div class="input-affix has-suffix"><input type="number" id="if-rate" value="3" step="any" /><span class="suffix">%</span></div></div>
+<div class="field"><label for="if-years">Years</label><input type="number" id="if-years" value="10" step="1" /></div>
+</div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Future Value Needed</div><div class="result-value" id="if-future">$13,439</div><div class="result-sub" id="if-sub">to match today's $10,000</div></div>
+<div class="result-rows" id="if-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var amt=num('if-amount'),rate=num('if-rate'),years=num('if-years');
+if(!amt||years<=0)return;
+var future=amt*Math.pow(1+rate/100,years);
+var lostPurchasing=future-amt;
+var realValue=amt/Math.pow(1+rate/100,years);
+document.getElementById('if-future').textContent=money(future);
+document.getElementById('if-sub').textContent='to match today\'s '+money(amt);
+document.getElementById('if-rows').innerHTML=row('Today\'s value',money(amt))+row('Future equivalent',money(future))+row('Purchasing power lost',money(lostPurchasing))+row('Real value in '+years+' yrs',money(realValue))+row('Cumulative inflation',((Math.pow(1+rate/100,years)-1)*100).toFixed(1)+'%');
+}
+['if-amount','if-rate','if-years'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>The Inflation Formula</h2>
+<div class="formula-box">Future Value = Present × (1 + rate)^years<br>Real Value = Present ÷ (1 + rate)^years</div>
+<h2>Historical US Inflation Rates</h2>
+<table class="ref-table"><thead><tr><th>Period</th><th>Avg Annual Inflation</th></tr></thead><tbody>
+<tr><td>2020</td><td>1.2%</td></tr>
+<tr><td>2021</td><td>4.7%</td></tr>
+<tr><td>2022</td><td>8.0%</td></tr>
+<tr><td>2023</td><td>4.1%</td></tr>
+<tr><td>Long-term average</td><td>~3%</td></tr>
+</tbody></table>
+<h2>$10,000 Over 10 Years at Different Rates</h2>
+<table class="ref-table"><thead><tr><th>Rate</th><th>Future Value Needed</th><th>Purchasing Power Lost</th></tr></thead><tbody>
+<tr><td>2%</td><td>$12,190</td><td>$2,190</td></tr>
+<tr><td>3%</td><td>$13,439</td><td>$3,439</td></tr>
+<tr><td>5%</td><td>$16,289</td><td>$6,289</td></tr>
+<tr><td>8%</td><td>$21,589</td><td>$11,589</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: Estimates for educational purposes only. Not financial advice.</em></p>
+</section>
+</CalculatorLayout>

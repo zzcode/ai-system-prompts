@@ -1,0 +1,89 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How do I calculate my running pace?",a:"Divide your time by the distance. For a 5K (3.1 miles) in 25 minutes: 25 ÷ 3.1 = 8:06 per mile pace. This calculator handles any distance and unit."},
+{q:"What is a good running pace?",a:"For beginners, 10–12 min/mile is common. Recreational runners aim for 8–10 min/mile. Competitive runners target 6–8 min/mile. Elite runners run under 5 min/mile."},
+{q:"How do I convert pace to speed?",a:"Speed = 60 ÷ pace (in minutes per mile). A 8:00 min/mile pace = 60 ÷ 8 = 7.5 mph. For km, use 60 ÷ pace in min/km = km/h."},
+{q:"What pace do I need for a sub-2-hour half marathon?",a:"A half marathon is 13.1 miles. To finish under 2 hours, you need a pace of 2:00:00 ÷ 13.1 = 9:09 per mile (5:41 per km)."}
+];
+const related=[
+{href:"/health/bmi-calculator",icon:"⚖️",title:"BMI Calculator",desc:"Body mass index"},
+{href:"/health/calorie-calculator",icon:"🔥",title:"Calorie Calculator",desc:"Daily calorie needs"},
+{href:"/health/bmr-calculator",icon:"⚡",title:"BMR Calculator",desc:"Calories at rest"},
+{href:"/health/tdee-calculator",icon:"⚡",title:"TDEE Calculator",desc:"Total daily burn"},
+{href:"/date-time/time-calculator",icon:"⏰",title:"Time Calculator",desc:"Hours between times"},
+{href:"/math/percentage-calculator",icon:"%",title:"Percentage Calculator",desc:"Percent of a number"}
+];
+---
+<CalculatorLayout title="Pace Calculator - Running Pace, Speed & Time Calculator" h1="Pace Calculator" description="Free running pace calculator. Calculate your pace per mile or km, finishing time, or speed. Perfect for runners and race planning. No sign-up." subtitle="Calculate your running pace, finish time, or speed for any distance." category="Health" categoryHref="/health" appCategory="HealthApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="segmented" style="margin-bottom:24px;"><button class="pc2-mode active" data-mode="pace">Calculate pace</button><button class="pc2-mode" data-mode="time">Calculate time</button></div>
+<div class="calc-grid">
+<div>
+<div class="field"><label for="pc2-dist">Distance</label><div class="input-affix has-suffix"><input type="number" id="pc2-dist" value="5" step="any" /><span class="suffix" id="pc2-dist-u">mi</span></div></div>
+<div class="segmented" style="margin-top:10px;"><button class="pc2-unit active" data-u="mi">Miles</button><button class="pc2-unit" data-u="km">Kilometers</button></div>
+<div id="pc2-time-input">
+<div class="input-row" style="margin-top:12px;">
+<div class="field"><label for="pc2-hr">Hours</label><input type="number" id="pc2-hr" value="0" min="0" /></div>
+<div class="field"><label for="pc2-min">Minutes</label><input type="number" id="pc2-min" value="40" min="0" /></div>
+<div class="field"><label for="pc2-sec">Seconds</label><input type="number" id="pc2-sec" value="0" min="0" /></div>
+</div>
+</div>
+<div id="pc2-pace-input" style="display:none;">
+<div class="input-row" style="margin-top:12px;">
+<div class="field"><label for="pc2-pmin">Pace min</label><input type="number" id="pc2-pmin" value="8" min="0" /></div>
+<div class="field"><label for="pc2-psec">Pace sec</label><input type="number" id="pc2-psec" value="0" min="0" /></div>
+</div>
+</div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label" id="pc2-label">Your Pace</div><div class="result-value" id="pc2-result">8:00/mi</div><div class="result-sub" id="pc2-sub">7.5 mph · 12.07 km/h</div></div>
+<div class="result-rows" id="pc2-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+var mode='pace',unit='mi';
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function fmtTime(sec){var h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=Math.round(sec%60);return (h>0?h+':':'')+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
+function calc(){
+var dist=num('pc2-dist');
+if(!dist)return;
+if(mode==='pace'){
+var totalSec=num('pc2-hr')*3600+num('pc2-min')*60+num('pc2-sec');
+var paceSec=totalSec/dist;
+var paceMin=Math.floor(paceSec/60),paceS=Math.round(paceSec%60);
+var speed=dist/(totalSec/3600);
+document.getElementById('pc2-label').textContent='Your Pace';
+document.getElementById('pc2-result').textContent=paceMin+':'+String(paceS).padStart(2,'0')+'/'+unit;
+document.getElementById('pc2-sub').textContent=speed.toFixed(1)+(unit==='mi'?' mph':' km/h');
+document.getElementById('pc2-rows').innerHTML=row('Pace',paceMin+':'+String(paceS).padStart(2,'0')+' /'+unit)+row('Speed',speed.toFixed(2)+' '+(unit==='mi'?'mph':'km/h'))+row('Total time',fmtTime(totalSec));
+}else{
+var pMin=num('pc2-pmin'),pSec=num('pc2-psec');
+var paceSec=pMin*60+pSec;
+var totalSec=paceSec*dist;
+var speed=dist/(totalSec/3600);
+document.getElementById('pc2-label').textContent='Finish Time';
+document.getElementById('pc2-result').textContent=fmtTime(totalSec);
+document.getElementById('pc2-sub').textContent=pMin+':'+String(pSec).padStart(2,'0')+'/'+unit+' pace';
+document.getElementById('pc2-rows').innerHTML=row('Time',fmtTime(totalSec))+row('Pace',pMin+':'+String(pSec).padStart(2,'0')+' /'+unit)+row('Speed',speed.toFixed(2)+' '+(unit==='mi'?'mph':'km/h'));
+}
+}
+document.querySelectorAll('.pc2-mode').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.pc2-mode').forEach(function(x){x.classList.remove('active');});b.classList.add('active');mode=b.getAttribute('data-mode');document.getElementById('pc2-time-input').style.display=mode==='pace'?'':'none';document.getElementById('pc2-pace-input').style.display=mode==='time'?'':'none';calc();});});
+document.querySelectorAll('.pc2-unit').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.pc2-unit').forEach(function(x){x.classList.remove('active');});b.classList.add('active');unit=b.getAttribute('data-u');document.getElementById('pc2-dist-u').textContent=unit;calc();});});
+['pc2-dist','pc2-hr','pc2-min','pc2-sec','pc2-pmin','pc2-psec'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>Common Race Paces</h2>
+<table class="ref-table"><thead><tr><th>Distance</th><th>Beginner</th><th>Intermediate</th><th>Advanced</th></tr></thead><tbody>
+<tr><td>5K (3.1 mi)</td><td>10:00/mi</td><td>8:00/mi</td><td>6:00/mi</td></tr>
+<tr><td>10K (6.2 mi)</td><td>11:00/mi</td><td>8:30/mi</td><td>6:30/mi</td></tr>
+<tr><td>Half (13.1 mi)</td><td>12:00/mi</td><td>9:00/mi</td><td>7:00/mi</td></tr>
+<tr><td>Marathon (26.2 mi)</td><td>13:00/mi</td><td>10:00/mi</td><td>8:00/mi</td></tr>
+</tbody></table>
+</section>
+</CalculatorLayout>

@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const tools = [
+  { href: '/construction/square-footage-calculator', icon: '📏', name: 'Square Footage Calculator', desc: 'Calculate area for rooms, flooring, painting & landscaping' },
+  { href: '/construction/concrete-calculator', icon: '🧱', name: 'Concrete Calculator', desc: 'Estimate cubic yards, bags & cost for slabs and footings' },
+  { href: '/construction/paint-calculator', icon: '🎨', name: 'Paint Calculator', desc: 'How many gallons of paint you need for any room' },
+  { href: '/construction/tile-calculator', icon: '🧩', name: 'Tile Calculator', desc: 'Calculate tiles, boxes & grout for floors and walls' }
+];
+---
+<BaseLayout title="Construction Calculators - Concrete, Paint, Square Footage & More" description="Free construction calculators: square footage, concrete, paint, tile, and more. Estimate materials and costs for DIY and construction projects. No sign-up.">
+  <div class="container">
+    <div class="page-head">
+      <nav class="breadcrumb"><a href="/">Home</a><span class="sep">/</span><span>Construction</span></nav>
+      <h1>Construction Calculators</h1>
+      <p class="subtitle">Estimate materials, coverage, and costs for construction and DIY projects.</p>
+    </div>
+    <div class="tool-grid">
+      {tools.map((t) => (
+        <a href={t.href} class="tool-card">
+          <span class="tc-icon" style="background:#fef3c7;color:#b45309;">{t.icon}</span>
+          <span><span class="tc-title">{t.name}</span><span class="tc-desc">{t.desc}</span></span>
+        </a>
+      ))}
+    </div>
+    <section class="content-section" style="margin-top:32px;">
+      <h2>Plan Your Projects Accurately</h2>
+      <p>Our construction calculators help you estimate materials before you start — saving time, money, and trips to the hardware store. From concrete and paint to tiles and square footage, get instant, accurate estimates for any project size.</p>
+    </section>
+  </div>
+</BaseLayout>

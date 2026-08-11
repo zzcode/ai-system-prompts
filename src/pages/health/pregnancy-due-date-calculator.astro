@@ -1,0 +1,76 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+const faqs=[
+{q:"How is my due date calculated?",a:"The standard method (Naegele's rule) adds 280 days (40 weeks) to the first day of your last menstrual period (LMP). This assumes a 28-day cycle with ovulation on day 14."},
+{q:"How accurate is the due date?",a:"Only about 5% of babies are born on their exact due date. Most arrive within two weeks before or after. The due date is an estimate, not a deadline."},
+{q:"Can I calculate my due date from conception date?",a:"Yes. If you know your conception date, add 266 days (38 weeks). This is more accurate than LMP if you track ovulation."},
+{q:"What are the three trimesters?",a:"First trimester: weeks 1–13. Second trimester: weeks 14–27. Third trimester: weeks 28–40+. Each has different milestones and symptoms."},
+{q:"When should I take a pregnancy test?",a:"Take a home pregnancy test on or after the first day of your missed period (about 4 weeks pregnant). Blood tests can detect pregnancy 7–10 days after conception."}
+];
+const related=[
+{href:"/health/bmi-calculator",icon:"⚖️",title:"BMI Calculator",desc:"Body mass index"},
+{href:"/health/calorie-calculator",icon:"🔥",title:"Calorie Calculator",desc:"Daily calorie needs"},
+{href:"/date-time/age-calculator",icon:"🎂",title:"Age Calculator",desc:"Exact age in years & days"},
+{href:"/health/ovulation-calculator",icon:"🌸",title:"Ovulation Calculator",desc:"Fertile window predictor"},
+{href:"/health/macro-calculator",icon:"🥗",title:"Macro Calculator",desc:"Protein, carbs & fat"},
+{href:"/health/ideal-weight-calculator",icon:"🎯",title:"Ideal Weight",desc:"Healthy weight range"}
+];
+---
+<CalculatorLayout title="Pregnancy Due Date Calculator - Estimate Your Due Date" h1="Pregnancy Due Date Calculator" description="Free pregnancy due date calculator. Estimate your due date based on your last period or conception date. See your pregnancy timeline and trimesters. No sign-up." subtitle="Calculate your estimated due date and see your pregnancy week-by-week timeline." category="Health" categoryHref="/health" appCategory="HealthApplication" faqs={faqs} relatedTools={related}>
+<div slot="calculator">
+<div class="segmented" style="margin-bottom:24px;"><button class="pd-mode active" data-mode="lmp">Last period (LMP)</button><button class="pd-mode" data-mode="conception">Conception date</button></div>
+<div class="calc-grid">
+<div>
+<div class="field"><label for="pd-date" id="pd-date-label">First day of last period</label><input type="date" id="pd-date" /></div>
+<div class="field"><label for="pd-cycle">Cycle length</label><div class="input-affix has-suffix"><input type="number" id="pd-cycle" value="28" /><span class="suffix">days</span></div></div>
+</div>
+<div class="result-panel">
+<div class="result-main"><div class="result-label">Estimated Due Date</div><div class="result-value" id="pd-duedate" style="font-size:1.5rem;">—</div><div class="result-sub" id="pd-sub">Enter your date</div></div>
+<div class="result-rows" id="pd-rows"></div>
+</div>
+</div>
+</div>
+<script is:inline>
+(function(){
+var mode='lmp';
+var modes=document.querySelectorAll('.pd-mode');
+var dateLabel=document.getElementById('pd-date-label');
+function todayStr(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+document.getElementById('pd-date').value=todayStr();
+modes.forEach(function(b){b.addEventListener('click',function(){modes.forEach(function(x){x.classList.remove('active');});b.classList.add('active');mode=b.getAttribute('data-mode');dateLabel.textContent=mode==='lmp'?'First day of last period':'Conception date';calc();});});
+function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
+function calc(){
+var d=document.getElementById('pd-date').value;
+if(!d)return;
+var date=new Date(d+'T00:00:00');
+var cycle=parseInt(document.getElementById('pd-cycle').value,10)||28;
+var dueDate;
+if(mode==='lmp'){dueDate=new Date(date);dueDate.setDate(dueDate.getDate()+280+(cycle-28));}
+else{dueDate=new Date(date);dueDate.setDate(dueDate.getDate()+266);}
+var today=new Date();today.setHours(0,0,0,0);
+var daysPreg=Math.floor((today-date)/(86400000));
+var weeks=Math.floor(daysPreg/7),days=daysPreg%7;
+var trimester=weeks<14?'First trimester':weeks<28?'Second trimester':'Third trimester';
+document.getElementById('pd-duedate').textContent=dueDate.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+document.getElementById('pd-sub').textContent=weeks+' weeks '+days+' days pregnant';
+var conceptionDate=new Date(date);conceptionDate.setDate(conceptionDate.getDate()+(mode==='lmp'?cycle-14:0));
+document.getElementById('pd-rows').innerHTML=row('Current week','Week '+Math.max(weeks,0))+row('Trimester',trimester)+row('Days pregnant',daysPreg)+row('Conception date',conceptionDate.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}))+row('Days until due',Math.max(0,Math.floor((dueDate-today)/86400000)));
+}
+document.getElementById('pd-date').addEventListener('input',calc);
+document.getElementById('pd-cycle').addEventListener('input',calc);
+calc();
+})();
+</script>
+<section class="content-section">
+<h2>How Due Dates Are Calculated</h2>
+<p>The most common method is Naegele's rule: add 280 days (40 weeks) to the first day of your last menstrual period. This assumes a 28-day cycle with ovulation around day 14. If your cycle is longer or shorter, the calculation adjusts accordingly.</p>
+<div class="formula-box">Due Date = LMP + 280 days (adjusted for cycle length)<br>Or: Due Date = Conception Date + 266 days</div>
+<h2>Pregnancy Trimesters</h2>
+<table class="ref-table"><thead><tr><th>Trimester</th><th>Weeks</th><th>Key Milestones</th></tr></thead><tbody>
+<tr><td>First</td><td>1–13</td><td>Heartbeat, organs form</td></tr>
+<tr><td>Second</td><td>14–27</td><td>Gender visible, movement felt</td></tr>
+<tr><td>Third</td><td>28–40+</td><td>Rapid growth, lungs mature</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: This tool provides estimates for informational purposes only and is not medical advice. Consult your healthcare provider for prenatal care.</em></p>
+</section>
+</CalculatorLayout>
