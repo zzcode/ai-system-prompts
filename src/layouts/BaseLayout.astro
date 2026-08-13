@@ -66,6 +66,15 @@ const currentPath = Astro.url.pathname;
 
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1994527331032191" crossorigin="anonymous"></script>
+
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4PKY9KBW0E"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4PKY9KBW0E');
+  </script>
 </head>
 <body>
   <header class="site-header">

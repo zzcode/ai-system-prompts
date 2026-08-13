@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const popularTools = [
+  { href: '/math/percentage-calculator', icon: '％', title: 'Percentage Calculator' },
+  { href: '/finance/mortgage-calculator', icon: '🏠', title: 'Mortgage Calculator' },
+  { href: '/health/bmi-calculator', icon: '⚖️', title: 'BMI Calculator' },
+  { href: '/date-time/age-calculator', icon: '🎂', title: 'Age Calculator' },
+  { href: '/finance/loan-calculator', icon: '💳', title: 'Loan Calculator' },
+  { href: '/health/calorie-calculator', icon: '🔥', title: 'Calorie Calculator' },
+  { href: '/construction/square-footage-calculator', icon: '📐', title: 'Square Footage' },
+  { href: '/health/pregnancy-due-date-calculator', icon: '🤰', title: 'Due Date Calculator' },
+];
+
+const categories = [
+  { href: '/finance', label: 'Finance' },
+  { href: '/health', label: 'Health' },
+  { href: '/math', label: 'Math' },
+  { href: '/construction', label: 'Construction' },
+  { href: '/date-time', label: 'Date & Time' },
+  { href: '/converters', label: 'Converters' },
+  { href: '/everyday', label: 'Everyday' },
+];
+---
+
+<BaseLayout
+  title="Page Not Found (404) | KodaTools"
+  description="The page you're looking for doesn't exist. Explore KodaTools' free online calculators and everyday tools instead."
+  canonical="https://www.kodatools.com/404.html"
+>
+  <div class="notfound-wrap">
+    <div class="container">
+      <div class="nf-hero">
+        <div class="nf-code">404</div>
+        <h1>Page Not Found</h1>
+        <p class="nf-sub">Sorry, the page you're looking for has moved or no longer exists. But don't worry — we have plenty of free tools to help you out.</p>
+
+        <form class="nf-search" action="/" method="get" onsubmit="return false;">
+          <input type="text" id="nf-q" placeholder="Search calculators (e.g. mortgage, BMI, age)…" aria-label="Search tools" />
+          <button type="button" class="btn btn-primary" id="nf-go">Search</button>
+        </form>
+
+        <a href="/" class="btn btn-ghost nf-home">← Back to Home</a>
+      </div>
+
+      <section class="content-section">
+        <h2>Popular Calculators</h2>
+        <div class="tool-grid">
+          {popularTools.map((t) => (
+            <a class="tool-card" href={t.href}>
+              <span class="tool-icon">{t.icon}</span>
+              <span class="tool-title">{t.title}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2>Browse by Category</h2>
+        <div class="nf-cats">
+          {categories.map((c) => (
+            <a class="nf-cat" href={c.href}>{c.label}</a>
+          ))}
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const go = document.getElementById('nf-go') as HTMLButtonElement | null;
+  const q = document.getElementById('nf-q') as HTMLInputElement | null;
+  go?.addEventListener('click', () => {
+    const term = q?.value.trim().toLowerCase() || '';
+    const map: Record<string, string> = {
+      'mortgage': '/finance/mortgage-calculator',
+      'loan': '/finance/loan-calculator',
+      'bmi': '/health/bmi-calculator',
+      'age': '/date-time/age-calculator',
+      'percentage': '/math/percentage-calculator',
+      'calorie': '/health/calorie-calculator',
+      'tip': '/finance/tip-calculator',
+      'square footage': '/construction/square-footage-calculator',
+      'due date': '/health/pregnancy-due-date-calculator',
+      'pregnancy': '/health/pregnancy-due-date-calculator',
+    };
+    for (const key in map) {
+      if (term.includes(key)) { window.location.href = map[key]; return; }
+    }
+    window.location.href = '/';
+  });
+  q?.addEventListener('keydown', (e) => { if (e.key === 'Enter') go?.click(); });
+</script>
+
+<style>
+  .notfound-wrap {
+    background: linear-gradient(180deg, var(--bg) 0%, #fff 100%);
+    min-height: calc(100vh - 320px);
+    padding: 56px 0 72px;
+  }
+  .nf-hero { text-align: center; max-width: 640px; margin: 0 auto 8px; }
+  .nf-code {
+    font-size: 96px; font-weight: 800; line-height: 1;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -2px;
+  }
+  .nf-hero h1 { font-size: 34px; margin: 12px 0 10px; color: var(--text); }
+  .nf-sub { color: var(--text-muted); font-size: 17px; line-height: 1.6; margin: 0 auto 28px; max-width: 520px; }
+
+  .nf-search {
+    display: flex; gap: 10px; max-width: 480px; margin: 0 auto 18px;
+  }
+  .nf-search input {
+    flex: 1; padding: 13px 16px; border: 1px solid var(--border);
+    border-radius: 10px; font-size: 15px; background: #fff; color: var(--text);
+  }
+  .nf-search input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+  .nf-home { display: inline-block; }
+
+  .nf-cats { display: flex; flex-wrap: wrap; gap: 12px; }
+  .nf-cat {
+    padding: 10px 18px; border: 1px solid var(--border); border-radius: 999px;
+    color: var(--text); text-decoration: none; font-weight: 600; background: #fff;
+    transition: all .15s ease;
+  }
+  .nf-cat:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+
+  @media (max-width: 600px) {
+    .nf-code { font-size: 72px; }
+    .nf-hero h1 { font-size: 26px; }
+    .nf-search { flex-direction: column; }
+    .nf-search button { width: 100%; }
+  }
+</style>
