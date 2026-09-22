@@ -43,21 +43,23 @@ document.querySelectorAll('.tc-mode').forEach(function(b){b.addEventListener('cl
 function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
 function calcDiff(){
 var s=document.getElementById('tc-start').value,e=document.getElementById('tc-end').value;
-if(!s||!e)return;
+if(!s||!e){document.getElementById('tc-dur').textContent='—';document.getElementById('tc-sub').textContent='Enter both times';document.getElementById('tc-rows').innerHTML='';return;}
 var sh=parseInt(s.split(':')[0],10),sm=parseInt(s.split(':')[1],10);
 var eh=parseInt(e.split(':')[0],10),em=parseInt(e.split(':')[1],10);
 var mins=(eh*60+em)-(sh*60+sm);
 if(document.getElementById('tc-overnight').checked&&mins<0)mins+=1440;
-if(mins<0)mins+=1440;
+if(mins<0){document.getElementById('tc-dur').textContent='—';document.getElementById('tc-sub').textContent='Select overnight if the end time is tomorrow';document.getElementById('tc-rows').innerHTML='';return;}
 var h=Math.floor(mins/60),m=mins%60;
 document.getElementById('tc-dur').textContent=h+'h '+m+'m';
 document.getElementById('tc-sub').textContent=(mins/60).toFixed(2)+' decimal hours';
-document.getElementById('tc-rows').innerHTML=row('Total minutes',mins)+row('Decimal hours',(mins/60).toFixed(2))+row('Work hours (−30min lunch)',Math.max(0,mins-30)/60).toFixed(2));
+document.getElementById('tc-rows').innerHTML=row('Total minutes',mins)+row('Decimal hours',(mins/60).toFixed(2))+row('Work hours (−30min lunch)',(Math.max(0,mins-30)/60).toFixed(2));
 }
 function calcAdd(){
 var durations=document.getElementById('tc-durations').value.split(/[,;\n]+/).map(function(s){return s.trim();}).filter(Boolean);
+if(!durations.length||durations.some(function(d){return !/^(?:\d+:[0-5]\d|\d+(?:\.\d+)?)$/.test(d);})){document.getElementById('tc-total').textContent='—';document.getElementById('tc-total-sub').textContent='Use hours:minutes (1:30) or decimal hours (1.5)';return;}
 var totalMin=0;
 durations.forEach(function(d){var parts=d.split(':');if(parts.length===2){totalMin+=parseInt(parts[0],10)*60+parseInt(parts[1],10);}else if(parts.length===1){totalMin+=parseFloat(parts[0])*60;}});
+totalMin=Math.round(totalMin);
 var h=Math.floor(totalMin/60),m=totalMin%60;
 document.getElementById('tc-total').textContent=h+'h '+m+'m';
 document.getElementById('tc-total-sub').textContent=(totalMin/60).toFixed(2)+' decimal hours';

@@ -99,3 +99,8 @@ const related = [
     </table>
   </section>
 </CalculatorLayout>
+
+<style>
+@media(max-width:600px){ #wc-stats { grid-template-columns:repeat(2,minmax(0,1fr)) !important; } }
+#wc-stats > * { min-width:0; overflow-wrap:anywhere; }
+</style>

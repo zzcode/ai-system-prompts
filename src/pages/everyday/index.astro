@@ -1,9 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import allTools from '../../data/tools.json';
 
-const tools = [
-  { href: '/everyday/word-counter', icon: '📝', name: 'Word Counter', desc: 'Count words, characters, sentences & reading time' }
-];
+const tools = allTools.filter((tool) => tool.href.startsWith('/everyday/'));
 ---
 
 <BaseLayout

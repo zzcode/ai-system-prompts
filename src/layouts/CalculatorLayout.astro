@@ -39,8 +39,9 @@ const {
   schemaExtra = []
 } = Astro.props;
 
+const externalServices = import.meta.env.PUBLIC_EXTERNAL_SERVICES !== 'off';
 const siteUrl = 'https://www.kodatools.com';
-const pageUrl = new URL(Astro.url.pathname, siteUrl).href;
+const pageUrl = new URL(Astro.url.pathname.replace(/\/+$/, '') || '/', siteUrl).href;
 
 const webAppSchema = {
   "@context": "https://schema.org",
@@ -90,21 +91,22 @@ const schemas = [webAppSchema, faqSchema, breadcrumbSchema, ...schemaExtra];
       <p class="subtitle">{subtitle}</p>
     </div>
 
+    <p class="tool-jump"><a href="#calculator">Use calculator</a><span aria-hidden="true"> · </span><a href="#faq">Questions & answers</a></p>
     <!-- Calculator body -->
-    <div class="calc-shell">
+    <div class="calc-shell" id="calculator">
       <slot name="calculator" />
     </div>
 
     <!-- Ad: below calculator (high-visibility position) -->
-    <div class="ad-container">
+    {externalServices && <div class="ad-container" aria-label="Advertisement">
       <ins class="adsbygoogle"
            style="display:block"
            data-ad-client="ca-pub-1994527331032191"
            data-ad-slot="8812345678"
            data-ad-format="auto"
            data-full-width-responsive="true"></ins>
-    </div>
-    <script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>}
+    {externalServices && <script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>}
 
     <!-- Editorial / SEO content -->
     <slot />
@@ -123,15 +125,15 @@ const schemas = [webAppSchema, faqSchema, breadcrumbSchema, ...schemaExtra];
     </section>
 
     <!-- Ad: above related tools -->
-    <div class="ad-container">
+    {externalServices && <div class="ad-container" aria-label="Advertisement">
       <ins class="adsbygoogle"
            style="display:block"
            data-ad-client="ca-pub-1994527331032191"
            data-ad-slot="8812345679"
            data-ad-format="auto"
            data-full-width-responsive="true"></ins>
-    </div>
-    <script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>}
+    {externalServices && <script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>}
 
     <!-- Related tools -->
     <section class="content-section">

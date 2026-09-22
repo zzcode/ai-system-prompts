@@ -1,9 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import allTools from '../../data/tools.json';
 
-const tools = [
-  { href: '/date-time/age-calculator', icon: '🎂', name: 'Age Calculator', desc: 'Exact age in years, months, days, hours & minutes' }
-];
+const tools = allTools.filter((tool) => tool.href.startsWith('/date-time/'));
 ---
 
 <BaseLayout

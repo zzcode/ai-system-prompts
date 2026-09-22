@@ -1,12 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import allTools from '../../data/tools.json';
 
-const tools = [
-  { href: '/finance/mortgage-calculator', icon: '🏠', name: 'Mortgage Calculator', desc: 'Monthly payment, total interest & amortization breakdown' },
-  { href: '/finance/loan-calculator', icon: '💳', name: 'Loan Calculator', desc: 'Monthly payment and total cost for any fixed-rate loan' },
-  { href: '/finance/compound-interest-calculator', icon: '📈', name: 'Compound Interest Calculator', desc: 'See how savings and investments grow over time' },
-  { href: '/finance/tip-calculator', icon: '💵', name: 'Tip Calculator', desc: 'Calculate tip and split the bill between people' }
-];
+const tools = allTools.filter((tool) => tool.href.startsWith('/finance/'));
 ---
 
 <BaseLayout

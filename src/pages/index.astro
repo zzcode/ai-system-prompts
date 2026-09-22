@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import allTools from '../data/tools.json';
 
 const categories = [
   {
@@ -36,6 +37,11 @@ const categories = [
   }
 ];
 
+categories.push(
+  { href: '/construction', icon: '📐', name: 'Construction', color: '#0f766e', bg: '#ccfbf1', desc: 'Area, concrete, paint and tile estimates', tools: allTools.filter(t => t.href.startsWith('/construction/')).map(t => ({href:t.href,name:t.name})) },
+  { href: '/converters', icon: '⇄', name: 'Converters', color: '#0f766e', bg: '#ccfbf1', desc: 'Length, weight and temperature conversions', tools: allTools.filter(t => t.href.startsWith('/converters/')).map(t => ({href:t.href,name:t.name})) },
+  { href: '/everyday', icon: '✦', name: 'Everyday', color: '#0f766e', bg: '#ccfbf1', desc: 'Text, passwords, QR codes and random numbers', tools: allTools.filter(t => t.href.startsWith('/everyday/')).slice(0,4).map(t => ({href:t.href,name:t.name})) }
+);
 const popular = [
   { href: '/math/percentage-calculator', icon: '%', name: 'Percentage Calculator', desc: 'Percent of a number, change & more', color: '#2563eb', bg: '#dbeafe' },
   { href: '/finance/mortgage-calculator', icon: '🏠', name: 'Mortgage Calculator', desc: 'Monthly payment & total interest', color: '#b45309', bg: '#fef3c7' },
@@ -72,7 +78,7 @@ const orgSchema = {
       <h1 style="font-size:2.5rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:14px;">Free Online Calculators<br/>& Everyday Tools</h1>
       <p style="font-size:1.12rem;opacity:0.92;max-width:620px;margin:0 auto 28px;">Fast, accurate tools for finance, health, math, and daily life. No sign-up. No downloads. Works instantly in your browser.</p>
       <div style="max-width:520px;margin:0 auto;position:relative;">
-        <input id="hero-search" type="text" placeholder="Search calculators… (e.g. mortgage, bmi, percentage)" style="width:100%;padding:15px 20px;font-size:1rem;border:none;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.18);" />
+        <input id="hero-search" type="search" aria-label="Search all 50 tools" aria-controls="search-results" placeholder="Search calculators… (e.g. mortgage, bmi, percentage)" style="width:100%;padding:15px 20px;font-size:1rem;border:none;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.18);" />
       </div>
       <div style="margin-top:22px;font-size:0.85rem;opacity:0.85;">Popular:&nbsp;
         <a href="/math/percentage-calculator" style="color:#fff;text-decoration:underline;">Percentage</a> ·
@@ -85,6 +91,13 @@ const orgSchema = {
   </section>
 
   <div class="container">
+    <section id="search-section" hidden class="search-section" aria-labelledby="search-heading">
+      <h2 id="search-heading">Search results</h2>
+      <p id="search-status" role="status" aria-live="polite"></p>
+      <div id="search-results" class="tool-grid">
+        {allTools.map((tool) => <a href={tool.href} class="tool-card" data-search={`${tool.name} ${tool.description} ${tool.category}`}><span class="tc-icon" aria-hidden="true">{tool.icon}</span><span><span class="tc-title">{tool.name}</span><span class="tc-desc">{tool.desc}</span></span></a>)}
+      </div>
+    </section>
     <!-- Popular tools -->
     <section style="padding:44px 0 8px;">
       <h2 style="font-size:1.5rem;font-weight:700;margin-bottom:20px;">Most Popular Calculators</h2>
@@ -139,14 +152,22 @@ const orgSchema = {
   <script is:inline>
     (function () {
       var input = document.getElementById('hero-search');
-      var cards = Array.prototype.slice.call(document.querySelectorAll('#popular-grid .tool-card'));
-      input.addEventListener('input', function () {
+      var section = document.getElementById('search-section');
+      var cards = Array.from(document.querySelectorAll('#search-results .tool-card'));
+      function search() {
         var q = input.value.trim().toLowerCase();
-        cards.forEach(function (card) {
-          var text = card.textContent.toLowerCase();
-          card.style.display = !q || text.indexOf(q) !== -1 ? '' : 'none';
+        section.hidden = !q;
+        var matches = 0;
+        cards.forEach(function(card) {
+          var visible = q.split(/\s+/).every(function(word) { return card.dataset.search.toLowerCase().includes(word); });
+          card.hidden = !visible;
+          if (visible) matches++;
         });
-      });
+        document.getElementById('search-status').textContent = matches ? matches + (matches === 1 ? ' tool found' : ' tools found') : 'No tools found. Try a shorter term, such as loan, date or QR.';
+      }
+      input.addEventListener('input', search);
+      input.value = new URLSearchParams(location.search).get('s') || '';
+      search();
     })();
   </script>
 

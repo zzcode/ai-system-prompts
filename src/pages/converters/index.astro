@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import allTools from '../../data/tools.json';
+import { conversions, formatNum } from '../../data/conversions.js';
 
-const tools = [
-  { href: '/converters/unit-converter', icon: '📏', name: 'Unit Converter', desc: 'Length, weight & temperature — cm to inches, kg to lbs, °F to °C' }
-];
+const tools = allTools.filter((tool) => tool.href.startsWith('/converters/'));
 ---
 
 <BaseLayout
@@ -31,5 +31,27 @@ const tools = [
       <h2>Fast, Accurate Conversions</h2>
       <p>Our converters handle the most common everyday conversions — length, weight, and temperature — with instant results as you type. Results update in real time and show the same value across several units at once.</p>
     </section>
+    <section class="content-section" aria-labelledby="conversion-directory">
+      <h2 id="conversion-directory">Browse Common Conversions</h2>
+      <p>Choose a conversion to see the answer, formula, nearby values, and an interactive converter.</p>
+      {conversions.map((conversion) => (
+        <section class="conversion-group">
+          <h3>{conversion.fromLabel} to {conversion.toLabel}</h3>
+          <ul class="conversion-links">
+            {conversion.values.map((value) => (
+              <li><a href={`/convert/${value}-${conversion.baseSlug}`}>{formatNum(value)} {conversion.fromUnit} to {conversion.toUnit}</a></li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </section>
   </div>
 </BaseLayout>
+
+<style>
+  .conversion-group { margin-top: 24px; }
+  .conversion-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; list-style: none; padding: 0; }
+  .conversion-links a { display: block; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; color: var(--primary); }
+  .conversion-links a:hover { background: var(--primary-soft); }
+  .conversion-links a:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+</style>

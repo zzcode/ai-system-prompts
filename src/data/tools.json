@@ -1,0 +1,452 @@
+[
+  {
+    "href": "/construction/concrete-calculator",
+    "title": "Concrete Calculator - How Much Concrete Do I Need?",
+    "description": "Free concrete calculator. Estimate cubic yards, cubic feet, and bags of concrete needed for slabs, footings, and columns. Includes cost estimate. No sign-up.",
+    "category": "Construction",
+    "name": "Concrete Calculator",
+    "desc": "Free concrete calculator. Estimate cubic yards, cubic feet, and bags of concrete needed for slabs, footings, and columns. Includes cost estimate. No sign-up.",
+    "icon": "\ud83d\udcd0"
+  },
+  {
+    "href": "/construction/paint-calculator",
+    "title": "Paint Calculator - How Much Paint Do I Need?",
+    "description": "Free paint calculator. Calculate how many gallons of paint you need for any room or wall. Accounts for doors, windows, and multiple coats. No sign-up.",
+    "category": "Construction",
+    "name": "Paint Calculator",
+    "desc": "Free paint calculator. Calculate how many gallons of paint you need for any room or wall. Accounts for doors, windows, and multiple coats. No sign-up.",
+    "icon": "\ud83d\udcd0"
+  },
+  {
+    "href": "/construction/square-footage-calculator",
+    "title": "Square Footage Calculator - Calculate Area for Any Space",
+    "description": "Free square footage calculator. Calculate the area of any room, house, or land in square feet, square meters, or square yards. Add multiple areas. No sign-up.",
+    "category": "Construction",
+    "name": "Square Footage Calculator",
+    "desc": "Free square footage calculator. Calculate the area of any room, house, or land in square feet, square meters, or square yards. Add multiple areas. No sign-up.",
+    "icon": "\ud83d\udcd0"
+  },
+  {
+    "href": "/construction/tile-calculator",
+    "title": "Tile Calculator - How Many Tiles Do I Need?",
+    "description": "Free tile calculator. Calculate how many tiles and boxes you need for floors, walls, and backsplashes. Includes waste factor and grout estimate. No sign-up.",
+    "category": "Construction",
+    "name": "Tile Calculator",
+    "desc": "Free tile calculator. Calculate how many tiles and boxes you need for floors, walls, and backsplashes. Includes waste factor and grout estimate. No sign-up.",
+    "icon": "\ud83d\udcd0"
+  },
+  {
+    "href": "/converters/unit-converter",
+    "title": "Unit Converter - Length, Weight & Temperature",
+    "description": "Free unit converter for length, weight, and temperature. Convert cm to inches, kg to lbs, Fahrenheit to Celsius and more. Instant results, no sign-up.",
+    "category": "Converters",
+    "name": "Unit Converter",
+    "desc": "Free unit converter for length, weight, and temperature. Convert cm to inches, kg to lbs, Fahrenheit to Celsius and more. Instant results, no sign-up.",
+    "icon": "\u21c4"
+  },
+  {
+    "href": "/date-time/age-calculator",
+    "title": "Age Calculator - Years, Months & Days",
+    "description": "Free age calculator. Find your exact age in years, months, and days, plus totals in weeks, days, hours, and minutes. Fast and no sign-up.",
+    "category": "Date & Time",
+    "name": "Age Calculator",
+    "desc": "Free age calculator. Find your exact age in years, months, and days, plus totals in weeks, days, hours, and minutes. Fast and no sign-up.",
+    "icon": "\ud83d\udcc5"
+  },
+  {
+    "href": "/date-time/date-calculator",
+    "title": "Date Calculator - Days Between Dates Calculator",
+    "description": "Free date calculator. Find the number of days, weeks, and months between two dates. Add or subtract days from any date. No sign-up.",
+    "category": "Date & Time",
+    "name": "Date Calculator",
+    "desc": "Free date calculator. Find the number of days, weeks, and months between two dates. Add or subtract days from any date. No sign-up.",
+    "icon": "\ud83d\udcc5"
+  },
+  {
+    "href": "/date-time/days-from-today",
+    "title": "Days From Today Calculator - Add or Subtract Days",
+    "description": "Free days from today calculator. Find a date 30, 60, 90, or any number of days from today. Add or subtract days, weeks, months. No sign-up.",
+    "category": "Date & Time",
+    "name": "Days From Today Calculator",
+    "desc": "Free days from today calculator. Find a date 30, 60, 90, or any number of days from today. Add or subtract days, weeks, months. No sign-up.",
+    "icon": "\ud83d\udcc5"
+  },
+  {
+    "href": "/date-time/time-calculator",
+    "title": "Time Calculator - Hours Between Times & Duration",
+    "description": "Free time calculator. Calculate hours and minutes between two times. Convert to decimal hours for timesheets. Add time durations. No sign-up.",
+    "category": "Date & Time",
+    "name": "Time Calculator",
+    "desc": "Free time calculator. Calculate hours and minutes between two times. Convert to decimal hours for timesheets. Add time durations. No sign-up.",
+    "icon": "\ud83d\udcc5"
+  },
+  {
+    "href": "/everyday/case-converter",
+    "title": "Case Converter - Uppercase, Lowercase & Title Case",
+    "description": "Free online case converter. Convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and more. Instant, no sign-up.",
+    "category": "Everyday",
+    "name": "Case Converter",
+    "desc": "Free online case converter. Convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and more. Instant, no sign-up.",
+    "icon": "\u2726"
+  },
+  {
+    "href": "/everyday/lorem-ipsum-generator",
+    "title": "Lorem Ipsum Generator - Free Placeholder Text Generator",
+    "description": "Free Lorem Ipsum generator. Create placeholder text by paragraphs, sentences, or words. Perfect for mockups, designs, and web development. No sign-up.",
+    "category": "Everyday",
+    "name": "Lorem Ipsum Generator",
+    "desc": "Free Lorem Ipsum generator. Create placeholder text by paragraphs, sentences, or words. Perfect for mockups, designs, and web development. No sign-up.",
+    "icon": "\u2726"
+  },
+  {
+    "href": "/everyday/password-generator",
+    "title": "Password Generator - Create Strong Random Passwords Online",
+    "description": "Free password generator. Create strong, random, secure passwords with custom length, uppercase, lowercase, numbers, and symbols. No sign-up, 100% private.",
+    "category": "Everyday",
+    "name": "Password Generator",
+    "desc": "Free password generator. Create strong, random, secure passwords with custom length, uppercase, lowercase, numbers, and symbols. No sign-up, 100% private.",
+    "icon": "\u2726"
+  },
+  {
+    "href": "/everyday/qr-code-generator",
+    "title": "QR Code Generator - Create Free QR Codes Online",
+    "description": "Free QR code generator. Create QR codes for URLs, text, phone numbers, and more. Download as PNG image. No sign-up, free for commercial use.",
+    "category": "Everyday",
+    "name": "QR Code Generator",
+    "desc": "Free QR code generator. Create QR codes for URLs, text, phone numbers, and more. Download as PNG image. No sign-up, free for commercial use.",
+    "icon": "\u2726"
+  },
+  {
+    "href": "/everyday/random-number-generator",
+    "title": "Random Number Generator - Pick Random Numbers Online",
+    "description": "Free random number generator. Pick random numbers between any range, generate unique or duplicate numbers, and draw random items from a list. No sign-up.",
+    "category": "Everyday",
+    "name": "Random Number Generator",
+    "desc": "Free random number generator. Pick random numbers between any range, generate unique or duplicate numbers, and draw random items from a list. No sign-up.",
+    "icon": "\u2726"
+  },
+  {
+    "href": "/everyday/word-counter",
+    "title": "Word Counter - Count Words, Characters & Reading Time",
+    "description": "Free word counter. Count words, characters, sentences, and paragraphs, plus estimated reading time. Real-time results, no sign-up.",
+    "category": "Everyday",
+    "name": "Word Counter",
+    "desc": "Free word counter. Count words, characters, sentences, and paragraphs, plus estimated reading time. Real-time results, no sign-up.",
+    "icon": "\u2726"
+  },
+  {
+    "href": "/finance/amortization-calculator",
+    "title": "Amortization Calculator - Loan Payment Schedule",
+    "description": "Free amortization calculator. See a full payment schedule showing principal vs interest for each month. Any loan amount, rate, and term. No sign-up.",
+    "category": "Finance",
+    "name": "Amortization Calculator",
+    "desc": "Free amortization calculator. See a full payment schedule showing principal vs interest for each month. Any loan amount, rate, and term. No sign-up.",
+    "icon": "$"
+  },
+  {
+    "href": "/finance/auto-loan-calculator",
+    "title": "Auto Loan Calculator - Car Payment & Total Cost",
+    "description": "Free auto loan calculator. Estimate your monthly car payment, total interest, and total cost. Compare loan terms and rates instantly. No sign-up.",
+    "category": "Finance",
+    "name": "Auto Loan Calculator",
+    "desc": "Free auto loan calculator. Estimate your monthly car payment, total interest, and total cost. Compare loan terms and rates instantly. No sign-up.",
+    "icon": "$"
+  },
+  {
+    "href": "/finance/compound-interest-calculator",
+    "title": "Compound Interest Calculator - Watch Your Money Grow",
+    "description": "Free compound interest calculator. See how your savings and investments grow over time with compounding. Add monthly contributions and view a year-by-year breakdown.",
+    "category": "Finance",
+    "name": "Compound Interest Calculator",
+    "desc": "Free compound interest calculator. See how your savings and investments grow over time with compounding. Add monthly contributions and view a year-by-year breakdown.",
+    "icon": "$"
+  },
+  {
+    "href": "/finance/credit-card-payoff-calculator",
+    "title": "Credit Card Payoff Calculator - When Will I Be Debt Free?",
+    "description": "Free credit card payoff calculator. Find out how long it takes to pay off your credit card and total interest. See how extra payments help. No sign-up.",
+    "category": "Finance",
+    "name": "Credit Card Payoff Calculator",
+    "desc": "Free credit card payoff calculator. Find out how long it takes to pay off your credit card and total interest. See how extra payments help. No sign-up.",
+    "icon": "$"
+  },
+  {
+    "href": "/finance/discount-calculator",
+    "title": "Discount Calculator - Sale Price & Savings Calculator",
+    "description": "Free discount calculator. Find the sale price after a percentage discount, calculate savings, and reverse-calculate original prices. No sign-up.",
+    "category": "Finance",
+    "name": "Discount Calculator",
+    "desc": "Free discount calculator. Find the sale price after a percentage discount, calculate savings, and reverse-calculate original prices. No sign-up.",
+    "icon": "$"
+  },
+  {
+    "href": "/finance/hourly-to-salary-calculator",
+    "title": "Hourly to Salary Calculator - Annual Pay",
+    "description": "Free hourly to salary calculator. Convert your hourly wage to annual, monthly, weekly salary. Includes overtime. No sign-up.",
+    "category": "Finance",
+    "name": "Hourly to Salary Calculator",
+    "desc": "Free hourly to salary calculator. Convert your hourly wage to annual, monthly, weekly salary. Includes overtime. No sign-up.",
+    "icon": "$"
+  },
+  {
+    "href": "/finance/inflation-calculator",
+    "title": "Inflation Calculator - How Much Is Your Money Worth?",
+    "description": "Free inflation calculator. See how inflation erodes purchasing power over time. Calculate future prices and real value of money. No sign-up.",
+    "category": "Finance",
+    "name": "Inflation Calculator",
+    "desc": "Free inflation calculator. See how inflation erodes purchasing power over time. Calculate future prices and real value of money. No sign-up.",
+    "icon": "$"
+  },
+  {
+    "href": "/finance/investment-calculator",
+    "title": "Investment Calculator - Project Portfolio Growth",
+    "description": "Free investment calculator. Project your portfolio growth with initial investment, monthly contributions, and expected returns. See future value instantly.",
+    "category": "Finance",
+    "name": "Investment Calculator",
+    "desc": "Free investment calculator. Project your portfolio growth with initial investment, monthly contributions, and expected returns. See future value instantly.",
+    "icon": "$"
+  },
+  {
+    "href": "/finance/loan-calculator",
+    "title": "Loan Calculator - Monthly Payment & Total Interest",
+    "description": "Free loan calculator. Calculate monthly payments and total interest for any fixed-rate loan \u2014 auto, personal, student, or home. Instant results.",
+    "category": "Finance",
+    "name": "Loan Calculator",
+    "desc": "Free loan calculator. Calculate monthly payments and total interest for any fixed-rate loan \u2014 auto, personal, student, or home. Instant results.",
+    "icon": "$"
+  },
+  {
+    "href": "/finance/mortgage-calculator",
+    "title": "Mortgage Calculator - Monthly Payment & Amortization",
+    "description": "Free mortgage calculator. Estimate your monthly payment, total interest, and payoff date. See a full principal vs interest breakdown instantly.",
+    "category": "Finance",
+    "name": "Mortgage Calculator",
+    "desc": "Free mortgage calculator. Estimate your monthly payment, total interest, and payoff date. See a full principal vs interest breakdown instantly.",
+    "icon": "$"
+  },
+  {
+    "href": "/finance/net-worth-calculator",
+    "title": "Net Worth Calculator - Calculate Your Net Worth",
+    "description": "Free net worth calculator. Add up your assets and liabilities to find your net worth. See your financial position instantly. No sign-up.",
+    "category": "Finance",
+    "name": "Net Worth Calculator",
+    "desc": "Free net worth calculator. Add up your assets and liabilities to find your net worth. See your financial position instantly. No sign-up.",
+    "icon": "$"
+  },
+  {
+    "href": "/finance/retirement-calculator",
+    "title": "Retirement Calculator - Project Your Retirement Savings",
+    "description": "Free retirement calculator. Project your retirement savings based on current balance, contributions, and return rate. See if you're on track. No sign-up.",
+    "category": "Finance",
+    "name": "Retirement Calculator",
+    "desc": "Free retirement calculator. Project your retirement savings based on current balance, contributions, and return rate. See if you're on track. No sign-up.",
+    "icon": "$"
+  },
+  {
+    "href": "/finance/salary-calculator",
+    "title": "Salary Calculator - Convert Annual, Monthly, Hourly Pay",
+    "description": "Free salary calculator. Convert between annual, monthly, biweekly, weekly, and hourly pay. See your breakdown instantly. No sign-up.",
+    "category": "Finance",
+    "name": "Salary Calculator",
+    "desc": "Free salary calculator. Convert between annual, monthly, biweekly, weekly, and hourly pay. See your breakdown instantly. No sign-up.",
+    "icon": "$"
+  },
+  {
+    "href": "/finance/sales-tax-calculator",
+    "title": "Sales Tax Calculator - Add or Remove Tax from Price",
+    "description": "Free sales tax calculator. Add tax to a price or find the original price before tax. Works with any tax rate. Instant results, no sign-up.",
+    "category": "Finance",
+    "name": "Sales Tax Calculator",
+    "desc": "Free sales tax calculator. Add tax to a price or find the original price before tax. Works with any tax rate. Instant results, no sign-up.",
+    "icon": "$"
+  },
+  {
+    "href": "/finance/savings-calculator",
+    "title": "Savings Calculator - Reach Your Savings Goal",
+    "description": "Free savings calculator. Find how long it takes to reach your savings goal or how much to save monthly. Includes interest. No sign-up.",
+    "category": "Finance",
+    "name": "Savings Calculator",
+    "desc": "Free savings calculator. Find how long it takes to reach your savings goal or how much to save monthly. Includes interest. No sign-up.",
+    "icon": "$"
+  },
+  {
+    "href": "/finance/tip-calculator",
+    "title": "Tip Calculator - Calculate Tip & Split the Bill",
+    "description": "Free tip calculator. Calculate the tip amount and total, and split the bill between any number of people. Fast, easy, and no sign-up.",
+    "category": "Finance",
+    "name": "Tip Calculator",
+    "desc": "Free tip calculator. Calculate the tip amount and total, and split the bill between any number of people. Fast, easy, and no sign-up.",
+    "icon": "$"
+  },
+  {
+    "href": "/health/bmi-calculator",
+    "title": "BMI Calculator - Metric & Imperial",
+    "description": "Free BMI calculator for adults. Enter height and weight in metric or imperial units to get your Body Mass Index and weight category instantly.",
+    "category": "Health",
+    "name": "BMI Calculator",
+    "desc": "Free BMI calculator for adults. Enter height and weight in metric or imperial units to get your Body Mass Index and weight category instantly.",
+    "icon": "\u2661"
+  },
+  {
+    "href": "/health/bmr-calculator",
+    "title": "BMR Calculator - Basal Metabolic Rate (Mifflin-St Jeor)",
+    "description": "Free BMR calculator. Calculate your Basal Metabolic Rate using the Mifflin-St Jeor equation. Find out how many calories you burn at rest. No sign-up.",
+    "category": "Health",
+    "name": "BMR Calculator",
+    "desc": "Free BMR calculator. Calculate your Basal Metabolic Rate using the Mifflin-St Jeor equation. Find out how many calories you burn at rest. No sign-up.",
+    "icon": "\u2661"
+  },
+  {
+    "href": "/health/body-fat-calculator",
+    "title": "Body Fat Calculator - U.S. Navy Method",
+    "description": "Free body fat calculator using the U.S. Navy method. Estimate your body fat percentage from circumference measurements. No sign-up.",
+    "category": "Health",
+    "name": "Body Fat Calculator",
+    "desc": "Free body fat calculator using the U.S. Navy method. Estimate your body fat percentage from circumference measurements. No sign-up.",
+    "icon": "\u2661"
+  },
+  {
+    "href": "/health/calorie-calculator",
+    "title": "Calorie Calculator - Daily Calorie Needs (BMR & TDEE)",
+    "description": "Free calorie calculator. Estimate your daily calorie needs for weight loss, maintenance, or gain using the Mifflin-St Jeor equation. Instant results.",
+    "category": "Health",
+    "name": "Calorie Calculator",
+    "desc": "Free calorie calculator. Estimate your daily calorie needs for weight loss, maintenance, or gain using the Mifflin-St Jeor equation. Instant results.",
+    "icon": "\u2661"
+  },
+  {
+    "href": "/health/ideal-weight-calculator",
+    "title": "Ideal Weight Calculator - Healthy Weight Range",
+    "description": "Free ideal weight calculator. Find your healthy weight range using the Devine formula and BMI. See your ideal body weight instantly. No sign-up.",
+    "category": "Health",
+    "name": "Ideal Weight Calculator",
+    "desc": "Free ideal weight calculator. Find your healthy weight range using the Devine formula and BMI. See your ideal body weight instantly. No sign-up.",
+    "icon": "\u2661"
+  },
+  {
+    "href": "/health/macro-calculator",
+    "title": "Macro Calculator - Protein, Carbs & Fat Calculator",
+    "description": "Free macro calculator. Calculate your daily protein, carbohydrate, and fat targets based on your calories and goals. No sign-up.",
+    "category": "Health",
+    "name": "Macro Calculator",
+    "desc": "Free macro calculator. Calculate your daily protein, carbohydrate, and fat targets based on your calories and goals. No sign-up.",
+    "icon": "\u2661"
+  },
+  {
+    "href": "/health/ovulation-calculator",
+    "title": "Ovulation Calculator - Estimated Fertile Window",
+    "description": "Free ovulation calculator. Predict your ovulation date and fertile window based on your menstrual cycle. Plan for pregnancy with a 6-month calendar. No sign-up.",
+    "category": "Health",
+    "name": "Ovulation Calculator",
+    "desc": "Free ovulation calculator. Predict your ovulation date and fertile window based on your menstrual cycle. Plan for pregnancy with a 6-month calendar. No sign-up.",
+    "icon": "\u2661"
+  },
+  {
+    "href": "/health/pace-calculator",
+    "title": "Pace Calculator - Running Pace, Speed & Time Calculator",
+    "description": "Free running pace calculator. Calculate your pace per mile or km, finishing time, or speed. Perfect for runners and race planning. No sign-up.",
+    "category": "Health",
+    "name": "Pace Calculator",
+    "desc": "Free running pace calculator. Calculate your pace per mile or km, finishing time, or speed. Perfect for runners and race planning. No sign-up.",
+    "icon": "\u2661"
+  },
+  {
+    "href": "/health/pregnancy-due-date-calculator",
+    "title": "Pregnancy Due Date Calculator - Estimate Your Due Date",
+    "description": "Free pregnancy due date calculator. Estimate your due date based on your last period or conception date. See your pregnancy timeline and trimesters. No sign-up.",
+    "category": "Health",
+    "name": "Pregnancy Due Date Calculator",
+    "desc": "Free pregnancy due date calculator. Estimate your due date based on your last period or conception date. See your pregnancy timeline and trimesters. No sign-up.",
+    "icon": "\u2661"
+  },
+  {
+    "href": "/health/sleep-calculator",
+    "title": "Sleep Calculator - Best Time to Sleep & Wake Up",
+    "description": "Free sleep calculator. Find the best time to go to sleep or wake up based on 90-minute sleep cycles. Wake up refreshed. No sign-up.",
+    "category": "Health",
+    "name": "Sleep Calculator",
+    "desc": "Free sleep calculator. Find the best time to go to sleep or wake up based on 90-minute sleep cycles. Wake up refreshed. No sign-up.",
+    "icon": "\u2661"
+  },
+  {
+    "href": "/health/tdee-calculator",
+    "title": "TDEE Calculator - Total Daily Energy Expenditure",
+    "description": "Free TDEE calculator. Calculate your Total Daily Energy Expenditure based on BMR and activity level. Find your maintenance calories. No sign-up.",
+    "category": "Health",
+    "name": "TDEE Calculator",
+    "desc": "Free TDEE calculator. Calculate your Total Daily Energy Expenditure based on BMR and activity level. Find your maintenance calories. No sign-up.",
+    "icon": "\u2661"
+  },
+  {
+    "href": "/health/water-intake-calculator",
+    "title": "Water Intake Calculator - Daily Hydration Goal",
+    "description": "Free water intake calculator. Find your daily hydration goal based on weight, activity, and climate. Get your personalized water target. No sign-up.",
+    "category": "Health",
+    "name": "Water Intake Calculator",
+    "desc": "Free water intake calculator. Find your daily hydration goal based on weight, activity, and climate. Get your personalized water target. No sign-up.",
+    "icon": "\u2661"
+  },
+  {
+    "href": "/math/average-calculator",
+    "title": "Average Calculator - Mean, Median, Mode of Numbers",
+    "description": "Free average calculator. Find the mean, median, mode, and range of any set of numbers. Also shows sum and count. No sign-up.",
+    "category": "Math",
+    "name": "Average Calculator",
+    "desc": "Free average calculator. Find the mean, median, mode, and range of any set of numbers. Also shows sum and count. No sign-up.",
+    "icon": "+"
+  },
+  {
+    "href": "/math/fraction-calculator",
+    "title": "Fraction Calculator - Add, Subtract, Multiply & Divide",
+    "description": "Free fraction calculator. Add, subtract, multiply, and divide fractions with step-by-step results. Simplifies automatically. No sign-up.",
+    "category": "Math",
+    "name": "Fraction Calculator",
+    "desc": "Free fraction calculator. Add, subtract, multiply, and divide fractions with step-by-step results. Simplifies automatically. No sign-up.",
+    "icon": "+"
+  },
+  {
+    "href": "/math/gpa-calculator",
+    "title": "GPA Calculator - Calculate Your Grade Point Average",
+    "description": "Free GPA calculator. Calculate your Grade Point Average on a 4.0 scale. Add courses, credits, and grades. Instant results. No sign-up.",
+    "category": "Math",
+    "name": "GPA Calculator",
+    "desc": "Free GPA calculator. Calculate your Grade Point Average on a 4.0 scale. Add courses, credits, and grades. Instant results. No sign-up.",
+    "icon": "+"
+  },
+  {
+    "href": "/math/grade-calculator",
+    "title": "Grade Calculator - Final Grade & Target Score",
+    "description": "Free grade calculator. Calculate your final grade from current grade and exam weight. Find what score you need on the final to reach your target.",
+    "category": "Math",
+    "name": "Grade Calculator",
+    "desc": "Free grade calculator. Calculate your final grade from current grade and exam weight. Find what score you need on the final to reach your target.",
+    "icon": "+"
+  },
+  {
+    "href": "/math/percentage-calculator",
+    "title": "Percentage Calculator - Free Online Percent Calculator",
+    "description": "Free percentage calculator. Find X% of Y, what percent X is of Y, and percentage increase or decrease. Instant results, no sign-up.",
+    "category": "Math",
+    "name": "Percentage Calculator",
+    "desc": "Free percentage calculator. Find X% of Y, what percent X is of Y, and percentage increase or decrease. Instant results, no sign-up.",
+    "icon": "+"
+  },
+  {
+    "href": "/math/ratio-calculator",
+    "title": "Ratio Calculator - Simplify and Solve Ratios",
+    "description": "Free ratio calculator. Simplify ratios, solve proportions, and scale ratios. Enter two or three values to find the missing one. No sign-up.",
+    "category": "Math",
+    "name": "Ratio Calculator",
+    "desc": "Free ratio calculator. Simplify ratios, solve proportions, and scale ratios. Enter two or three values to find the missing one. No sign-up.",
+    "icon": "+"
+  },
+  {
+    "href": "/math/scientific-calculator",
+    "title": "Scientific Calculator - Trig, Logs & Powers",
+    "description": "Free scientific calculator online. Perform calculations with trigonometry, logarithms, exponents, square roots, factorials, \u03c0, and e. No sign-up, works in browser.",
+    "category": "Math",
+    "name": "Scientific Calculator",
+    "desc": "Free scientific calculator online. Perform calculations with trigonometry, logarithms, exponents, square roots, factorials, \u03c0, and e. No sign-up, works in browser.",
+    "icon": "+"
+  }
+]

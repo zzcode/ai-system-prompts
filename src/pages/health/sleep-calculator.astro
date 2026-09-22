@@ -21,14 +21,14 @@ const related=[
 <div id="sl-wake-pane">
 <div class="field"><label for="sl-wake-time">What time do you want to wake up?</label><input type="time" id="sl-wake-time" value="07:00" /></div>
 <div class="result-panel">
-<div class="result-main"><div class="result-label">Best Times to Fall Asleep</div><div class="result-value" id="sl-times" style="font-size:1.3rem;">9:15 PM, 10:45 PM, 12:15 AM</div><div class="result-sub">for a 7:00 AM wake-up</div></div>
+<div class="result-main"><div class="result-label">Best Times to Fall Asleep</div><div class="result-value" id="sl-times" style="font-size:1.3rem;">9:15 PM, 10:45 PM, 12:15 AM</div><div class="result-sub" id="sl-bed-sub">for a 7:00 AM wake-up</div></div>
 <div class="result-rows" id="sl-rows"></div>
 </div>
 </div>
 <div id="sl-sleep-pane" style="display:none;">
 <div class="field"><label for="sl-sleep-time">What time are you going to bed?</label><input type="time" id="sl-sleep-time" value="22:30" /></div>
 <div class="result-panel">
-<div class="result-main"><div class="result-label">Best Wake-Up Times</div><div class="result-value" id="sl-wake-times" style="font-size:1.3rem;">6:00 AM, 7:30 AM, 9:00 AM</div><div class="result-sub">if you sleep at 10:30 PM</div></div>
+<div class="result-main"><div class="result-label">Best Wake-Up Times</div><div class="result-value" id="sl-wake-times" style="font-size:1.3rem;">6:00 AM, 7:30 AM, 9:00 AM</div><div class="result-sub" id="sl-wake-sub">if you sleep at 10:30 PM</div></div>
 <div class="result-rows" id="sl-wake-rows"></div>
 </div>
 </div>
@@ -40,8 +40,9 @@ function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</
 function fmtTime(date){var h=date.getHours();var m=date.getMinutes();var ap=h>=12?'PM':'AM';var h12=h%12||12;return h12+':'+String(m).padStart(2,'0')+' '+ap;}
 function calcWake(){
 var t=document.getElementById('sl-wake-time').value;
-if(!t)return;
+if(!t){document.getElementById('sl-times').textContent='—';document.getElementById('sl-bed-sub').textContent='Enter a wake-up time';document.getElementById('sl-rows').innerHTML='';return;}
 var parts=t.split(':');var wake=new Date();wake.setHours(parseInt(parts[0],10),parseInt(parts[1],10),0,0);
+document.getElementById('sl-bed-sub').textContent='for a '+fmtTime(wake)+' wake-up';
 var times=[];var cycles=[6,5,4];
 for(var i=0;i<cycles.length;i++){var sleepTime=new Date(wake.getTime()-cycles[i]*90*60000-15*60000);times.push({cycles:cycles[i],hours:cycles[i]*1.5,time:fmtTime(sleepTime)});}
 document.getElementById('sl-times').textContent=times.map(function(t){return t.time;}).join(', ');
@@ -49,8 +50,9 @@ document.getElementById('sl-rows').innerHTML=times.map(function(t){return row(t.
 }
 function calcSleep(){
 var t=document.getElementById('sl-sleep-time').value;
-if(!t)return;
+if(!t){document.getElementById('sl-wake-times').textContent='—';document.getElementById('sl-wake-sub').textContent='Enter a bedtime';document.getElementById('sl-wake-rows').innerHTML='';return;}
 var parts=t.split(':');var sleep=new Date();sleep.setHours(parseInt(parts[0],10),parseInt(parts[1],10),0,0);
+document.getElementById('sl-wake-sub').textContent='if you go to bed at '+fmtTime(sleep);
 sleep.setMinutes(sleep.getMinutes()+15);
 var times=[];var cycles=[5,6,4];
 for(var i=0;i<cycles.length;i++){var wakeTime=new Date(sleep.getTime()+cycles[i]*90*60000);times.push({cycles:cycles[i],hours:cycles[i]*1.5,time:fmtTime(wakeTime)});}

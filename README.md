@@ -1,3 +1,5 @@
+> 最新产品验收与部署说明见 [PRODUCT-ACCEPTANCE.md](PRODUCT-ACCEPTANCE.md)。以下原始 README 部分版本信息已过时。
+
 # KodaTools — Free Online Calculators & Everyday Tools
 
 面向英语用户的在线计算器与日常工具站，Astro 静态站 + Vercel 部署。

@@ -1,9 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import allTools from '../../data/tools.json';
 
-const tools = [
-  { href: '/math/percentage-calculator', icon: '%', name: 'Percentage Calculator', desc: 'Percent of a number, what % X is of Y, and percentage change' }
-];
+const tools = allTools.filter((tool) => tool.href.startsWith('/math/'));
 ---
 
 <BaseLayout

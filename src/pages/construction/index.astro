@@ -1,13 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-const tools = [
-  { href: '/construction/square-footage-calculator', icon: '📏', name: 'Square Footage Calculator', desc: 'Calculate area for rooms, flooring, painting & landscaping' },
-  { href: '/construction/concrete-calculator', icon: '🧱', name: 'Concrete Calculator', desc: 'Estimate cubic yards, bags & cost for slabs and footings' },
-  { href: '/construction/paint-calculator', icon: '🎨', name: 'Paint Calculator', desc: 'How many gallons of paint you need for any room' },
-  { href: '/construction/tile-calculator', icon: '🧩', name: 'Tile Calculator', desc: 'Calculate tiles, boxes & grout for floors and walls' }
-];
+import allTools from '../../data/tools.json';
+const tools = allTools.filter((tool) => tool.href.startsWith('/construction/'));
 ---
-<BaseLayout title="Construction Calculators - Concrete, Paint, Square Footage & More" description="Free construction calculators: square footage, concrete, paint, tile, and more. Estimate materials and costs for DIY and construction projects. No sign-up.">
+<BaseLayout title="Construction Calculators - Area & Materials" description="Free construction calculators: square footage, concrete, paint, tile, and more. Estimate materials and costs for DIY and construction projects. No sign-up.">
   <div class="container">
     <div class="page-head">
       <nav class="breadcrumb"><a href="/">Home</a><span class="sep">/</span><span>Construction</span></nav>

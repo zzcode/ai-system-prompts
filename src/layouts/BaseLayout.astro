@@ -7,6 +7,8 @@ interface Props {
   canonical?: string;
   schema?: object | object[];
   ogType?: string;
+  noindex?: boolean;
+  showAds?: boolean;
 }
 
 const {
@@ -14,11 +16,14 @@ const {
   description,
   canonical,
   schema,
-  ogType = 'website'
+  ogType = 'website',
+  noindex = false,
+  showAds = true
 } = Astro.props;
 
+const externalServices = import.meta.env.PUBLIC_EXTERNAL_SERVICES !== 'off';
 const siteUrl = 'https://www.kodatools.com';
-const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
+const canonicalUrl = canonical || new URL(Astro.url.pathname.replace(/\/+$/, '') || '/', siteUrl).href;
 const fullTitle = title.includes('KodaTools') ? title : `${title} | KodaTools`;
 
 const navItems = [
@@ -43,6 +48,7 @@ const currentPath = Astro.url.pathname;
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalUrl} />
 
+  <meta name="theme-color" content="#0f766e" />
   <!-- Open Graph -->
   <meta property="og:type" content={ogType} />
   <meta property="og:title" content={fullTitle} />
@@ -55,7 +61,7 @@ const currentPath = Astro.url.pathname;
   <meta name="twitter:title" content={fullTitle} />
   <meta name="twitter:description" content={description} />
 
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
   {schema && (
@@ -65,29 +71,31 @@ const currentPath = Astro.url.pathname;
   )}
 
   <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1994527331032191" crossorigin="anonymous"></script>
+  {externalServices && showAds && <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1994527331032191" crossorigin="anonymous"></script>}
 
   <!-- Google Analytics (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4PKY9KBW0E"></script>
-  <script is:inline>
+  {externalServices && <script async src="https://www.googletagmanager.com/gtag/js?id=G-4PKY9KBW0E"></script>}
+  {externalServices && <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-4PKY9KBW0E');
-  </script>
+  </script>}
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header">
     <div class="header-inner">
       <a href="/" class="logo">
         <span class="logo-mark">K</span>
         Koda<span class="brand-accent">Tools</span>
       </a>
-      <nav class="main-nav">
+      <nav class="main-nav" aria-label="Main categories">
         {navItems.map((item) => (
           <a
             href={item.href}
             class={currentPath.startsWith(item.href) ? 'active' : ''}
+            aria-current={currentPath.startsWith(item.href) ? 'location' : undefined}
           >
             {item.label}
           </a>
@@ -96,7 +104,7 @@ const currentPath = Astro.url.pathname;
     </div>
   </header>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <slot />
   </main>
 

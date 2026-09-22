@@ -1,8 +1,8 @@
 ---
 import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
 const faqs=[
-{q:"How do I use the scientific calculator?", a:"Type an expression or click the buttons. Supports +, −, ×, ÷, parentheses, exponents (^), square root (√), trigonometry (sin, cos, tan), logarithms (log, ln), π, and e."},
-{q:"What functions does this calculator support?",a:"Basic: +, −, ×, ÷. Scientific: sin, cos, tan, asin, acos, atan, log (base 10), ln (natural), √ (square root), x², x^y, π, e, !  (factorial), abs, and parentheses."},
+{q:"How do I use the scientific calculator?", a:"Use your keyboard for numbers and basic operators, or click the buttons. Supports +, −, ×, ÷, parentheses, exponents (^), square root (√), trigonometry (sin, cos, tan), logarithms (log, ln), π, and e."},
+{q:"What functions does this calculator support?",a:"Basic: +, −, ×, ÷. Scientific: sin, cos, tan (in radians), log (base 10), ln (natural), √ (square root), x², x^y, π, e, !  (factorial), and parentheses."},
 {q:"How do I calculate square root?",a:"Click √ then enter the number, or type sqrt(number). For example, sqrt(144) = 12."},
 {q:"Does this work on mobile?",a:"Yes. The calculator is fully responsive and works on any device — phone, tablet, or computer."},
 {q:"Is this calculator free?",a:"Yes. Completely free, no sign-up, and runs entirely in your browser."}
@@ -17,7 +17,7 @@ const related=[
 ];
 ---
 <CalculatorLayout
-  title="Scientific Calculator - Free Online Calculator with Functions"
+  title="Scientific Calculator - Trig, Logs & Powers"
   h1="Scientific Calculator"
   description="Free scientific calculator online. Perform calculations with trigonometry, logarithms, exponents, square roots, factorials, π, and e. No sign-up, works in browser."
   subtitle="A full-featured scientific calculator with trigonometry, logarithms, exponents, and more."
@@ -70,7 +70,7 @@ const related=[
       var display=document.getElementById('sc-display');
       var exprEl=document.getElementById('sc-expr');
       var expr='';
-      function factorial(n){if(n<0)return NaN;if(n<=1)return 1;var r=1;for(var i=2;i<=n;i++)r*=i;return r;}
+      function factorial(n){if(!Number.isInteger(n)||n<0||n>170)return NaN;if(n<=1)return 1;var r=1;for(var i=2;i<=n;i++)r*=i;return r;}
       function evaluate(e){
         e=e.replace(/pi/g,'Math.PI').replace(/(?<![a-zA-Z])e(?![a-zA-Z])/g,'Math.E')
            .replace(/sin\(/g,'Math.sin(').replace(/cos\(/g,'Math.cos(').replace(/tan\(/g,'Math.tan(')
@@ -87,6 +87,12 @@ const related=[
           if(v==='='){try{var r=evaluate(expr);display.textContent=isFinite(r)?+r.toFixed(10):'Error';exprEl.textContent=expr+' =';expr=String(r);}catch(e){display.textContent='Error';}return;}
           expr+=v;update();
         });
+      });
+      document.addEventListener('keydown',function(event){
+        if(event.ctrlKey||event.metaKey||event.altKey||/INPUT|TEXTAREA|SELECT|BUTTON/.test(document.activeElement.tagName))return;
+        var key=event.key==='Enter'?'=':event.key==='Backspace'?'DEL':event.key==='Escape'?'C':event.key;
+        var button=Array.from(document.querySelectorAll('.sc-btn')).find(function(b){return b.dataset.val===key;});
+        if(button){event.preventDefault();button.click();}
       });
     })();
   </script>

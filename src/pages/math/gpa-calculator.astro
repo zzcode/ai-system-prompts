@@ -41,14 +41,14 @@ courses.forEach(function(c,i){
 var div=document.createElement('div');
 div.className='input-row';
 div.style.cssText='grid-template-columns:2fr 1fr 1fr 40px;gap:8px;margin-bottom:8px;';
-div.innerHTML='<input type="text" value="'+c.name+'" data-i="'+i+'" data-f="name" placeholder="Course" style="padding:8px 10px;font-size:0.9rem;border:1.5px solid var(--border);border-radius:8px;">'+
+div.innerHTML='<input type="text" value="" data-i="'+i+'" data-f="name" placeholder="Course" style="padding:8px 10px;font-size:0.9rem;border:1.5px solid var(--border);border-radius:8px;">'+
 '<input type="number" value="'+c.credits+'" data-i="'+i+'" data-f="credits" min="0" style="padding:8px 10px;font-size:0.9rem;border:1.5px solid var(--border);border-radius:8px;">'+
 '<select data-i="'+i+'" data-f="grade" style="padding:8px 10px;font-size:0.9rem;border:1.5px solid var(--border);border-radius:8px;">'+
 Object.keys(grades).map(function(g){return '<option value="'+g+'"'+(g===c.grade?' selected':'')+'>'+g+'</option>';}).join('')+'</select>'+
-'<button data-i="'+i+'" class="gpa-del" style="border:none;background:none;color:var(--text-muted);cursor:pointer;font-size:1.2rem;padding:4px;">×</button>';
+'<button data-i="'+i+'" aria-label="Remove course" class="gpa-del" style="border:none;background:none;color:var(--text-muted);cursor:pointer;font-size:1.2rem;padding:4px;">×</button>';
 container.appendChild(div);
 });
-container.querySelectorAll('input,select').forEach(function(el){el.addEventListener('input',function(){var i=parseInt(el.getAttribute('data-i'),10);var f=el.getAttribute('data-f');courses[i][f]=f==='credits'?parseFloat(el.value)||0:el.value;calc();});});
+container.querySelectorAll('input,select').forEach(function(el){var idx=Number(el.dataset.i); el.setAttribute('aria-label', 'Course '+(idx+1)+' '+el.dataset.f); if(el.dataset.f==='name')el.value=courses[idx].name; el.addEventListener('input',function(){var i=parseInt(el.getAttribute('data-i'),10);var f=el.getAttribute('data-f');courses[i][f]=f==='credits'?parseFloat(el.value)||0:el.value;calc();});});
 container.querySelectorAll('.gpa-del').forEach(function(b){b.addEventListener('click',function(){courses.splice(parseInt(b.getAttribute('data-i'),10),1);render();calc();});});
 calc();
 }
@@ -59,7 +59,7 @@ var gpa=totalCredits>0?totalPoints/totalCredits:0;
 document.getElementById('gpa-val').textContent=gpa.toFixed(2);
 document.getElementById('gpa-sub').textContent=totalCredits+' credits · '+courses.length+' courses';
 }
-document.getElementById('gpa-add').addEventListener('click',function(){courses.push({name:'',credits:3,grade:'A'});render();});
+document.getElementById('gpa-add').addEventListener('click',function(){courses.push({name:'',credits:3,grade:'A'});render();calc();});
 render();
 })();
 </script>

@@ -14,7 +14,7 @@ const result = convertValue(def, value);
 const resultStr = formatNum(result);
 const valueStr = formatNum(value);
 
-const title = `${valueStr} ${def.fromLabel} to ${def.toLabel} - ${valueStr} ${def.fromUnit} in ${def.toUnit}`;
+const title = `${valueStr} ${def.fromUnit} to ${def.toUnit} — ${resultStr} ${def.toUnit}`;
 const h1 = `${valueStr} ${def.fromLabel} to ${def.toLabel}`;
 const description = `Convert ${valueStr} ${def.fromLabel.toLowerCase()} to ${def.toLabel.toLowerCase()}. ${valueStr} ${def.fromUnit} = ${resultStr} ${def.toUnit}. Free instant converter with formula and table.`;
 const subtitle = `${valueStr} ${def.fromUnit} equals ${resultStr} ${def.toUnit}. See the formula, a conversion table, and convert any value instantly.`;
@@ -23,7 +23,8 @@ const subtitle = `${valueStr} ${def.fromUnit} equals ${resultStr} ${def.toUnit}.
 const sameBase = conversions.find((c) => c.baseSlug === def.baseSlug);
 const nearby = sameBase.values
   .filter((v) => v !== value)
-  .slice(0, 6)
+  .sort((a, b) => Math.abs(a - value) - Math.abs(b - value) || a - b)
+  .slice(0, 5)
   .map((v) => ({
     href: `/convert/${v}-${def.baseSlug}`,
     icon: '⇄',
@@ -34,7 +35,7 @@ const reverseDef = conversions.find((c) => c.from === def.to && c.to === def.fro
 const related = [
   ...nearby,
   { href: '/converters/unit-converter', icon: '📏', title: 'Unit Converter', desc: 'Convert any length, weight, or temperature' }
-].slice(0, 6);
+];
 
 const answerText = `${valueStr} ${def.fromLabel.toLowerCase()} is equal to ${resultStr} ${def.toLabel.toLowerCase()}.`;
 const faqs = [
@@ -45,8 +46,10 @@ const faqs = [
 ];
 
 // Build a small table of nearby values (same conversion)
-const tableValues = sameBase.values.filter((v) => Math.abs(v - value) <= Math.max(value * 0.2, 5)).slice(0, 8);
-const tableRows = (tableValues.length >= 3 ? tableValues : sameBase.values.slice(0, 8));
+const tableRows = [...sameBase.values]
+  .sort((a, b) => Math.abs(a - value) - Math.abs(b - value) || a - b)
+  .slice(0, 8)
+  .sort((a, b) => a - b);
 ---
 
 <CalculatorLayout
@@ -63,8 +66,8 @@ const tableRows = (tableValues.length >= 3 ? tableValues : sameBase.values.slice
   <div slot="calculator">
     <!-- Direct answer -->
     <div style="text-align:center;padding:8px 0 22px;">
-      <div style="font-size:0.85rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;">{valueStr} {def.fromLabel} =</div>
-      <div style="font-size:3rem;font-weight:800;color:var(--primary-dark);line-height:1.1;">{resultStr} <span style="font-size:1.6rem;">{def.toUnit}</span></div>
+      <div style="font-size:0.85rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;" id="cv-answer-label">{valueStr} {def.fromLabel} =</div>
+      <div style="font-size:clamp(1.5rem, 6vw, 3rem);font-weight:800;color:var(--primary-dark);line-height:1.1;overflow-wrap:anywhere;" id="cv-answer" aria-live="polite">{resultStr} {def.toUnit}</div>
     </div>
 
     <div class="calc-grid">
@@ -82,52 +85,73 @@ const tableRows = (tableValues.length >= 3 ? tableValues : sameBase.values.slice
       <div class="result-panel">
         <div class="result-main">
           <div class="result-label">Formula</div>
-          <div style="font-family:var(--font-mono);font-size:1rem;color:var(--primary-dark);padding:8px 0;">{def.formula}</div>
+          <div style="font-family:var(--font-mono);font-size:1rem;color:var(--primary-dark);padding:8px 0;" id="cv-formula">{def.formula}</div>
         </div>
         <div class="result-rows" id="cv-rows"></div>
       </div>
     </div>
   </div>
 
-  <script is:inline define:vars={{ factor: def.factor ?? null, type: def.type ?? 'linear', from: def.from, to: def.to, baseSlug: def.baseSlug }}>
+  <script is:inline define:vars={{ factor: def.factor ?? null, type: def.type ?? 'linear', from: def.from, to: def.to, fromUnit: def.fromUnit, toUnit: def.toUnit }}>
     (function () {
       var valEl = document.getElementById('cv-value');
       var resEl = document.getElementById('cv-result');
       var rowsEl = document.getElementById('cv-rows');
       var swapped = false;
 
-      function fmt(n){ if(!isFinite(n))return '—'; var r=Math.round(n*10000)/10000; return Math.abs(r)>=1000? r.toLocaleString('en-US',{maximumFractionDigits:2}) : String(r); }
+      function inputNumber(n) { return Number(n.toPrecision(12)); }
+      function fmt(n) {
+        if (!Number.isFinite(n)) return '—';
+        if (n !== 0 && (Math.abs(n) < 0.0001 || Math.abs(n) >= 1e12)) return n.toExponential(6);
+        return n.toLocaleString('en-US', { maximumFractionDigits: 4 });
+      }
       function row(l,v){ return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>'; }
 
-      function convert(v, dir) {
-        // dir: true = from->to, false = to->from
+      function convert(v, forward) {
+        var originalDirection = forward !== swapped;
         if (type === 'temp') {
-          var fToC = (from === 'f'); // default from->to
-          if (!swapped) {
-            return fToC ? (v - 32) * 5/9 : v * 9/5 + 32;
-          } else {
-            return fToC ? v * 9/5 + 32 : (v - 32) * 5/9;
-          }
+          var fahrenheitToCelsius = (from === 'f') === originalDirection;
+          return fahrenheitToCelsius ? (v - 32) * 5/9 : v * 9/5 + 32;
         }
-        return (!swapped) ? v * factor : v / factor;
+        return originalDirection ? v * factor : v / factor;
+      }
+
+      function render(v, r) {
+        var inputUnit = swapped ? toUnit : fromUnit;
+        var outputUnit = swapped ? fromUnit : toUnit;
+        rowsEl.innerHTML = row('Input', fmt(v) + ' ' + inputUnit) + row('Result', fmt(r) + ' ' + outputUnit);
+        document.getElementById('cv-answer-label').textContent = fmt(v) + ' ' + inputUnit + ' =';
+        document.getElementById('cv-answer').textContent = fmt(r) + ' ' + outputUnit;
+        var formula;
+        if (type === 'temp') {
+          var fToC = (from === 'f') !== swapped;
+          formula = fToC ? '°C = (°F − 32) × 5/9' : '°F = °C × 9/5 + 32';
+        } else {
+          formula = outputUnit + ' = ' + inputUnit + ' × ' + fmt(swapped ? 1 / factor : factor);
+        }
+        document.getElementById('cv-formula').textContent = formula;
+      }
+
+      function clearResults() {
+        rowsEl.innerHTML = '';
+        document.getElementById('cv-answer-label').textContent = 'Enter a finite number';
+        document.getElementById('cv-answer').textContent = '—';
       }
 
       function calc() {
         var v = parseFloat(valEl.value);
-        if (isNaN(v)) { resEl.value=''; rowsEl.innerHTML=''; return; }
         var r = convert(v, true);
-        resEl.value = Math.round(r*10000)/10000;
-        rowsEl.innerHTML =
-          row('Input', fmt(v) + ' ' + (swapped ? to : from)) +
-          row('Result', fmt(r) + ' ' + (swapped ? from : to));
+        if (!Number.isFinite(v) || !Number.isFinite(r)) { resEl.value = ''; clearResults(); return; }
+        resEl.value = inputNumber(r);
+        render(v, r);
       }
 
-      // editing the result converts back
       resEl.addEventListener('input', function(){
-        var v = parseFloat(resEl.value);
-        if (isNaN(v)) { return; }
-        var back = convert(v, false);
-        valEl.value = Math.round(back*10000)/10000;
+        var r = parseFloat(resEl.value);
+        var v = convert(r, false);
+        if (!Number.isFinite(r) || !Number.isFinite(v)) { valEl.value = ''; clearResults(); return; }
+        valEl.value = inputNumber(v);
+        render(v, r);
       });
 
       document.getElementById('cv-swap').addEventListener('click', function(){
@@ -135,6 +159,8 @@ const tableRows = (tableValues.length >= 3 ? tableValues : sameBase.values.slice
         var lab = document.querySelector('label[for="cv-value"]');
         var lab2 = document.querySelector('label[for="cv-result"]');
         var tmp = lab.textContent; lab.textContent = lab2.textContent; lab2.textContent = tmp;
+        // Preserve the quantity when exchanging input and output units.
+        valEl.value = resEl.value;
         calc();
       });
 
@@ -154,7 +180,7 @@ const tableRows = (tableValues.length >= 3 ? tableValues : sameBase.values.slice
       <tbody>
         {tableRows.map((v) => (
           <tr>
-            <td>{formatNum(v)} {def.fromUnit}</td>
+            <td><a href={`/convert/${v}-${def.baseSlug}`}>{formatNum(v)} {def.fromUnit}</a></td>
             <td>{formatNum(convertValue(def, v))} {def.toUnit}</td>
           </tr>
         ))}

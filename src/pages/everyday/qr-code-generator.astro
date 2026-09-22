@@ -44,25 +44,50 @@ const related = [
       </div>
       <div class="result-panel" style="text-align:center;">
         <div id="qr-preview" style="display:flex;align-items:center;justify-content:center;min-height:200px;">
-          <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://www.kodatools.com" alt="QR Code" style="max-width:100%;border-radius:12px;background:#fff;padding:12px;" />
+          <canvas id="qr-canvas" role="img" aria-label="Generated QR code" style="max-width:100%;height:auto;background:#fff;"></canvas>
         </div>
-        <a class="btn btn-ghost" id="qr-download" href="https://api.qrserver.com/v1/create-qr-code/?size=512x512&data=https://www.kodatools.com" download="qrcode.png" target="_blank" style="width:100%;margin-top:12px;">⬇ Download PNG</a>
+        <p id="qr-status" role="status" aria-live="polite">Your text stays in this browser.</p>
+        <a class="btn btn-ghost" id="qr-download" download="qrcode.png" style="width:100%;margin-top:12px;">⬇ Download PNG</a>
       </div>
     </div>
   </div>
-  <script is:inline>
-    (function(){
-      var textEl=document.getElementById('qr-text'),sizeEl=document.getElementById('qr-size');
-      var img=document.getElementById('qr-img'),dl=document.getElementById('qr-download');
-      function gen(){
-        var data=encodeURIComponent(textEl.value||' ');
-        var size=sizeEl.value;
-        img.src='https://api.qrserver.com/v1/create-qr-code/?size='+size+'x'+size+'&data='+data;
-        dl.href='https://api.qrserver.com/v1/create-qr-code/?size=1024x1024&data='+data;
+  <script>
+    import QRCode from 'qrcode';
+    const textEl = document.querySelector<HTMLTextAreaElement>('#qr-text')!;
+    const sizeEl = document.querySelector<HTMLSelectElement>('#qr-size')!;
+    const canvas = document.querySelector<HTMLCanvasElement>('#qr-canvas')!;
+    const download = document.querySelector<HTMLAnchorElement>('#qr-download')!;
+    const status = document.querySelector<HTMLElement>('#qr-status')!;
+    let revision = 0;
+    let timer: ReturnType<typeof setTimeout>;
+    function invalidate() {
+      revision++;
+      download.removeAttribute('href');
+      download.setAttribute('aria-disabled', 'true');
+      canvas.hidden = true;
+    }
+    async function generate() {
+      invalidate();
+      const current = revision;
+      if (!textEl.value.trim()) { status.textContent = 'Enter text or a URL to generate a QR code.'; return; }
+      try {
+        const scratch = document.createElement('canvas');
+        await QRCode.toCanvas(scratch, textEl.value, { width: Number(sizeEl.value), margin: 4, errorCorrectionLevel: 'M' });
+        if (current !== revision) return;
+        canvas.width = scratch.width; canvas.height = scratch.height;
+        canvas.getContext('2d')!.drawImage(scratch, 0, 0);
+        download.href = canvas.toDataURL('image/png');
+        download.removeAttribute('aria-disabled');
+        canvas.hidden = false;
+        status.textContent = 'Ready. Generated locally; your text is not uploaded.';
+      } catch {
+        if (current === revision) status.textContent = 'This text is too long for a QR code. Try a shorter message or URL.';
       }
-      document.getElementById('qr-gen').addEventListener('click',gen);
-      textEl.addEventListener('input',function(){clearTimeout(window._qrt);window._qrt=setTimeout(gen,500);});
-    })();
+    }
+    document.querySelector('#qr-gen')!.addEventListener('click', generate);
+    textEl.addEventListener('input', () => { clearTimeout(timer); invalidate(); status.textContent = 'Updating…'; timer = setTimeout(generate, 300); });
+    sizeEl.addEventListener('change', generate);
+    generate();
   </script>
   <section class="content-section">
     <h2>How to Use the QR Code Generator</h2>

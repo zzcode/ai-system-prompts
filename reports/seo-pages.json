@@ -1,0 +1,3168 @@
+[
+  {
+    "route": "/404",
+    "primaryTopic": "Page Not Found",
+    "title": "Page Not Found (404) | KodaTools",
+    "description": "The page you're looking for doesn't exist. Explore KodaTools' free online calculators and everyday tools instead.",
+    "structuredData": [],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/about",
+    "primaryTopic": "About KodaTools",
+    "title": "About KodaTools",
+    "description": "Learn about KodaTools — free online calculators and everyday tools. Fast, accurate, private, and always free.",
+    "structuredData": [],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/construction/concrete-calculator",
+    "primaryTopic": "Concrete Calculator",
+    "title": "Concrete Calculator - How Much Concrete Do I Need? | KodaTools",
+    "description": "Free concrete calculator. Estimate cubic yards, cubic feet, and bags of concrete needed for slabs, footings, and columns. Includes cost estimate. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/construction",
+    "primaryTopic": "Construction Calculators",
+    "title": "Construction Calculators - Area & Materials | KodaTools",
+    "description": "Free construction calculators: square footage, concrete, paint, tile, and more. Estimate materials and costs for DIY and construction projects. No sign-up.",
+    "structuredData": [],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/construction/paint-calculator",
+    "primaryTopic": "Paint Calculator",
+    "title": "Paint Calculator - How Much Paint Do I Need? | KodaTools",
+    "description": "Free paint calculator. Calculate how many gallons of paint you need for any room or wall. Accounts for doors, windows, and multiple coats. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/construction/square-footage-calculator",
+    "primaryTopic": "Square Footage Calculator",
+    "title": "Square Footage Calculator - Calculate Area for Any Space | KodaTools",
+    "description": "Free square footage calculator. Calculate the area of any room, house, or land in square feet, square meters, or square yards. Add multiple areas. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/construction/tile-calculator",
+    "primaryTopic": "Tile Calculator",
+    "title": "Tile Calculator - How Many Tiles Do I Need? | KodaTools",
+    "description": "Free tile calculator. Calculate how many tiles and boxes you need for floors, walls, and backsplashes. Includes waste factor and grout estimate. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/contact",
+    "primaryTopic": "Contact Us",
+    "title": "Contact Us | KodaTools",
+    "description": "Get in touch with the KodaTools team. Suggest a new tool, report an issue, or send us feedback.",
+    "structuredData": [],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/0-celsius-to-fahrenheit",
+    "primaryTopic": "0 Celsius to Fahrenheit",
+    "title": "0 °C to °F — 32 °F | KodaTools",
+    "description": "Convert 0 celsius to fahrenheit. 0 °C = 32 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/1-cm-to-inches",
+    "primaryTopic": "1 Centimeters to Inches",
+    "title": "1 cm to in — 0.3937 in | KodaTools",
+    "description": "Convert 1 centimeters to inches. 1 cm = 0.3937 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/1-feet-to-m",
+    "primaryTopic": "1 Feet to Meters",
+    "title": "1 ft to m — 0.3048 m | KodaTools",
+    "description": "Convert 1 feet to meters. 1 ft = 0.3048 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/1-inches-to-cm",
+    "primaryTopic": "1 Inches to Centimeters",
+    "title": "1 in to cm — 2.54 cm | KodaTools",
+    "description": "Convert 1 inches to centimeters. 1 in = 2.54 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/1-kg-to-lbs",
+    "primaryTopic": "1 Kilograms to Pounds",
+    "title": "1 kg to lb — 2.2046 lb | KodaTools",
+    "description": "Convert 1 kilograms to pounds. 1 kg = 2.2046 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/1-m-to-feet",
+    "primaryTopic": "1 Meters to Feet",
+    "title": "1 m to ft — 3.2808 ft | KodaTools",
+    "description": "Convert 1 meters to feet. 1 m = 3.2808 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/1.5-m-to-feet",
+    "primaryTopic": "1.5 Meters to Feet",
+    "title": "1.5 m to ft — 4.9213 ft | KodaTools",
+    "description": "Convert 1.5 meters to feet. 1.5 m = 4.9213 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/1.6-m-to-feet",
+    "primaryTopic": "1.6 Meters to Feet",
+    "title": "1.6 m to ft — 5.2493 ft | KodaTools",
+    "description": "Convert 1.6 meters to feet. 1.6 m = 5.2493 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/1.7-m-to-feet",
+    "primaryTopic": "1.7 Meters to Feet",
+    "title": "1.7 m to ft — 5.5774 ft | KodaTools",
+    "description": "Convert 1.7 meters to feet. 1.7 m = 5.5774 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/1.8-m-to-feet",
+    "primaryTopic": "1.8 Meters to Feet",
+    "title": "1.8 m to ft — 5.9055 ft | KodaTools",
+    "description": "Convert 1.8 meters to feet. 1.8 m = 5.9055 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/10-celsius-to-fahrenheit",
+    "primaryTopic": "10 Celsius to Fahrenheit",
+    "title": "10 °C to °F — 50 °F | KodaTools",
+    "description": "Convert 10 celsius to fahrenheit. 10 °C = 50 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/10-cm-to-inches",
+    "primaryTopic": "10 Centimeters to Inches",
+    "title": "10 cm to in — 3.937 in | KodaTools",
+    "description": "Convert 10 centimeters to inches. 10 cm = 3.937 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/10-feet-to-m",
+    "primaryTopic": "10 Feet to Meters",
+    "title": "10 ft to m — 3.048 m | KodaTools",
+    "description": "Convert 10 feet to meters. 10 ft = 3.048 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/10-inches-to-cm",
+    "primaryTopic": "10 Inches to Centimeters",
+    "title": "10 in to cm — 25.4 cm | KodaTools",
+    "description": "Convert 10 inches to centimeters. 10 in = 25.4 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/10-kg-to-lbs",
+    "primaryTopic": "10 Kilograms to Pounds",
+    "title": "10 kg to lb — 22.0462 lb | KodaTools",
+    "description": "Convert 10 kilograms to pounds. 10 kg = 22.0462 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/10-lbs-to-kg",
+    "primaryTopic": "10 Pounds to Kilograms",
+    "title": "10 lb to kg — 4.5359 kg | KodaTools",
+    "description": "Convert 10 pounds to kilograms. 10 lb = 4.5359 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/10-m-to-feet",
+    "primaryTopic": "10 Meters to Feet",
+    "title": "10 m to ft — 32.8084 ft | KodaTools",
+    "description": "Convert 10 meters to feet. 10 m = 32.8084 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/100-celsius-to-fahrenheit",
+    "primaryTopic": "100 Celsius to Fahrenheit",
+    "title": "100 °C to °F — 212 °F | KodaTools",
+    "description": "Convert 100 celsius to fahrenheit. 100 °C = 212 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/100-cm-to-feet",
+    "primaryTopic": "100 Centimeters to Feet",
+    "title": "100 cm to ft — 3.2808 ft | KodaTools",
+    "description": "Convert 100 centimeters to feet. 100 cm = 3.2808 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/100-cm-to-inches",
+    "primaryTopic": "100 Centimeters to Inches",
+    "title": "100 cm to in — 39.3701 in | KodaTools",
+    "description": "Convert 100 centimeters to inches. 100 cm = 39.3701 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/100-fahrenheit-to-celsius",
+    "primaryTopic": "100 Fahrenheit to Celsius",
+    "title": "100 °F to °C — 37.7778 °C | KodaTools",
+    "description": "Convert 100 fahrenheit to celsius. 100 °F = 37.7778 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/100-feet-to-m",
+    "primaryTopic": "100 Feet to Meters",
+    "title": "100 ft to m — 30.48 m | KodaTools",
+    "description": "Convert 100 feet to meters. 100 ft = 30.48 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/100-kg-to-lbs",
+    "primaryTopic": "100 Kilograms to Pounds",
+    "title": "100 kg to lb — 220.462 lb | KodaTools",
+    "description": "Convert 100 kilograms to pounds. 100 kg = 220.462 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/100-lbs-to-kg",
+    "primaryTopic": "100 Pounds to Kilograms",
+    "title": "100 lb to kg — 45.3592 kg | KodaTools",
+    "description": "Convert 100 pounds to kilograms. 100 lb = 45.3592 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/100-m-to-feet",
+    "primaryTopic": "100 Meters to Feet",
+    "title": "100 m to ft — 328.084 ft | KodaTools",
+    "description": "Convert 100 meters to feet. 100 m = 328.084 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/110-cm-to-inches",
+    "primaryTopic": "110 Centimeters to Inches",
+    "title": "110 cm to in — 43.3071 in | KodaTools",
+    "description": "Convert 110 centimeters to inches. 110 cm = 43.3071 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/110-kg-to-lbs",
+    "primaryTopic": "110 Kilograms to Pounds",
+    "title": "110 kg to lb — 242.5082 lb | KodaTools",
+    "description": "Convert 110 kilograms to pounds. 110 kg = 242.5082 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/110-lbs-to-kg",
+    "primaryTopic": "110 Pounds to Kilograms",
+    "title": "110 lb to kg — 49.8951 kg | KodaTools",
+    "description": "Convert 110 pounds to kilograms. 110 lb = 49.8951 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/12-feet-to-m",
+    "primaryTopic": "12 Feet to Meters",
+    "title": "12 ft to m — 3.6576 m | KodaTools",
+    "description": "Convert 12 feet to meters. 12 ft = 3.6576 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/12-inches-to-cm",
+    "primaryTopic": "12 Inches to Centimeters",
+    "title": "12 in to cm — 30.48 cm | KodaTools",
+    "description": "Convert 12 inches to centimeters. 12 in = 30.48 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/120-cm-to-feet",
+    "primaryTopic": "120 Centimeters to Feet",
+    "title": "120 cm to ft — 3.937 ft | KodaTools",
+    "description": "Convert 120 centimeters to feet. 120 cm = 3.937 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/120-cm-to-inches",
+    "primaryTopic": "120 Centimeters to Inches",
+    "title": "120 cm to in — 47.2441 in | KodaTools",
+    "description": "Convert 120 centimeters to inches. 120 cm = 47.2441 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/120-kg-to-lbs",
+    "primaryTopic": "120 Kilograms to Pounds",
+    "title": "120 kg to lb — 264.5544 lb | KodaTools",
+    "description": "Convert 120 kilograms to pounds. 120 kg = 264.5544 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/120-lbs-to-kg",
+    "primaryTopic": "120 Pounds to Kilograms",
+    "title": "120 lb to kg — 54.431 kg | KodaTools",
+    "description": "Convert 120 pounds to kilograms. 120 lb = 54.431 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/130-cm-to-feet",
+    "primaryTopic": "130 Centimeters to Feet",
+    "title": "130 cm to ft — 4.2651 ft | KodaTools",
+    "description": "Convert 130 centimeters to feet. 130 cm = 4.2651 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/130-cm-to-inches",
+    "primaryTopic": "130 Centimeters to Inches",
+    "title": "130 cm to in — 51.1811 in | KodaTools",
+    "description": "Convert 130 centimeters to inches. 130 cm = 51.1811 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/130-lbs-to-kg",
+    "primaryTopic": "130 Pounds to Kilograms",
+    "title": "130 lb to kg — 58.967 kg | KodaTools",
+    "description": "Convert 130 pounds to kilograms. 130 lb = 58.967 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/140-cm-to-feet",
+    "primaryTopic": "140 Centimeters to Feet",
+    "title": "140 cm to ft — 4.5932 ft | KodaTools",
+    "description": "Convert 140 centimeters to feet. 140 cm = 4.5932 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/140-cm-to-inches",
+    "primaryTopic": "140 Centimeters to Inches",
+    "title": "140 cm to in — 55.1181 in | KodaTools",
+    "description": "Convert 140 centimeters to inches. 140 cm = 55.1181 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/140-lbs-to-kg",
+    "primaryTopic": "140 Pounds to Kilograms",
+    "title": "140 lb to kg — 63.5029 kg | KodaTools",
+    "description": "Convert 140 pounds to kilograms. 140 lb = 63.5029 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/15-celsius-to-fahrenheit",
+    "primaryTopic": "15 Celsius to Fahrenheit",
+    "title": "15 °C to °F — 59 °F | KodaTools",
+    "description": "Convert 15 celsius to fahrenheit. 15 °C = 59 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/15-cm-to-inches",
+    "primaryTopic": "15 Centimeters to Inches",
+    "title": "15 cm to in — 5.9055 in | KodaTools",
+    "description": "Convert 15 centimeters to inches. 15 cm = 5.9055 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/15-feet-to-m",
+    "primaryTopic": "15 Feet to Meters",
+    "title": "15 ft to m — 4.572 m | KodaTools",
+    "description": "Convert 15 feet to meters. 15 ft = 4.572 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/15-inches-to-cm",
+    "primaryTopic": "15 Inches to Centimeters",
+    "title": "15 in to cm — 38.1 cm | KodaTools",
+    "description": "Convert 15 inches to centimeters. 15 in = 38.1 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/15-kg-to-lbs",
+    "primaryTopic": "15 Kilograms to Pounds",
+    "title": "15 kg to lb — 33.0693 lb | KodaTools",
+    "description": "Convert 15 kilograms to pounds. 15 kg = 33.0693 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/15-lbs-to-kg",
+    "primaryTopic": "15 Pounds to Kilograms",
+    "title": "15 lb to kg — 6.8039 kg | KodaTools",
+    "description": "Convert 15 pounds to kilograms. 15 lb = 6.8039 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/15-m-to-feet",
+    "primaryTopic": "15 Meters to Feet",
+    "title": "15 m to ft — 49.2126 ft | KodaTools",
+    "description": "Convert 15 meters to feet. 15 m = 49.2126 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/150-cm-to-feet",
+    "primaryTopic": "150 Centimeters to Feet",
+    "title": "150 cm to ft — 4.9213 ft | KodaTools",
+    "description": "Convert 150 centimeters to feet. 150 cm = 4.9213 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/150-cm-to-inches",
+    "primaryTopic": "150 Centimeters to Inches",
+    "title": "150 cm to in — 59.0551 in | KodaTools",
+    "description": "Convert 150 centimeters to inches. 150 cm = 59.0551 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/150-lbs-to-kg",
+    "primaryTopic": "150 Pounds to Kilograms",
+    "title": "150 lb to kg — 68.0388 kg | KodaTools",
+    "description": "Convert 150 pounds to kilograms. 150 lb = 68.0388 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/152-cm-to-feet",
+    "primaryTopic": "152 Centimeters to Feet",
+    "title": "152 cm to ft — 4.9869 ft | KodaTools",
+    "description": "Convert 152 centimeters to feet. 152 cm = 4.9869 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/155-cm-to-feet",
+    "primaryTopic": "155 Centimeters to Feet",
+    "title": "155 cm to ft — 5.0853 ft | KodaTools",
+    "description": "Convert 155 centimeters to feet. 155 cm = 5.0853 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/157-cm-to-feet",
+    "primaryTopic": "157 Centimeters to Feet",
+    "title": "157 cm to ft — 5.1509 ft | KodaTools",
+    "description": "Convert 157 centimeters to feet. 157 cm = 5.1509 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/160-cm-to-feet",
+    "primaryTopic": "160 Centimeters to Feet",
+    "title": "160 cm to ft — 5.2493 ft | KodaTools",
+    "description": "Convert 160 centimeters to feet. 160 cm = 5.2493 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/160-cm-to-inches",
+    "primaryTopic": "160 Centimeters to Inches",
+    "title": "160 cm to in — 62.9921 in | KodaTools",
+    "description": "Convert 160 centimeters to inches. 160 cm = 62.9921 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/160-lbs-to-kg",
+    "primaryTopic": "160 Pounds to Kilograms",
+    "title": "160 lb to kg — 72.5747 kg | KodaTools",
+    "description": "Convert 160 pounds to kilograms. 160 lb = 72.5747 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/162-cm-to-feet",
+    "primaryTopic": "162 Centimeters to Feet",
+    "title": "162 cm to ft — 5.315 ft | KodaTools",
+    "description": "Convert 162 centimeters to feet. 162 cm = 5.315 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/165-cm-to-feet",
+    "primaryTopic": "165 Centimeters to Feet",
+    "title": "165 cm to ft — 5.4134 ft | KodaTools",
+    "description": "Convert 165 centimeters to feet. 165 cm = 5.4134 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/167-cm-to-feet",
+    "primaryTopic": "167 Centimeters to Feet",
+    "title": "167 cm to ft — 5.479 ft | KodaTools",
+    "description": "Convert 167 centimeters to feet. 167 cm = 5.479 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/170-cm-to-feet",
+    "primaryTopic": "170 Centimeters to Feet",
+    "title": "170 cm to ft — 5.5774 ft | KodaTools",
+    "description": "Convert 170 centimeters to feet. 170 cm = 5.5774 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/170-cm-to-inches",
+    "primaryTopic": "170 Centimeters to Inches",
+    "title": "170 cm to in — 66.9291 in | KodaTools",
+    "description": "Convert 170 centimeters to inches. 170 cm = 66.9291 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/170-lbs-to-kg",
+    "primaryTopic": "170 Pounds to Kilograms",
+    "title": "170 lb to kg — 77.1106 kg | KodaTools",
+    "description": "Convert 170 pounds to kilograms. 170 lb = 77.1106 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/172-cm-to-feet",
+    "primaryTopic": "172 Centimeters to Feet",
+    "title": "172 cm to ft — 5.643 ft | KodaTools",
+    "description": "Convert 172 centimeters to feet. 172 cm = 5.643 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/175-cm-to-feet",
+    "primaryTopic": "175 Centimeters to Feet",
+    "title": "175 cm to ft — 5.7415 ft | KodaTools",
+    "description": "Convert 175 centimeters to feet. 175 cm = 5.7415 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/177-cm-to-feet",
+    "primaryTopic": "177 Centimeters to Feet",
+    "title": "177 cm to ft — 5.8071 ft | KodaTools",
+    "description": "Convert 177 centimeters to feet. 177 cm = 5.8071 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/18-celsius-to-fahrenheit",
+    "primaryTopic": "18 Celsius to Fahrenheit",
+    "title": "18 °C to °F — 64.4 °F | KodaTools",
+    "description": "Convert 18 celsius to fahrenheit. 18 °C = 64.4 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/180-celsius-to-fahrenheit",
+    "primaryTopic": "180 Celsius to Fahrenheit",
+    "title": "180 °C to °F — 356 °F | KodaTools",
+    "description": "Convert 180 celsius to fahrenheit. 180 °C = 356 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/180-cm-to-feet",
+    "primaryTopic": "180 Centimeters to Feet",
+    "title": "180 cm to ft — 5.9055 ft | KodaTools",
+    "description": "Convert 180 centimeters to feet. 180 cm = 5.9055 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/180-cm-to-inches",
+    "primaryTopic": "180 Centimeters to Inches",
+    "title": "180 cm to in — 70.8661 in | KodaTools",
+    "description": "Convert 180 centimeters to inches. 180 cm = 70.8661 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/180-lbs-to-kg",
+    "primaryTopic": "180 Pounds to Kilograms",
+    "title": "180 lb to kg — 81.6466 kg | KodaTools",
+    "description": "Convert 180 pounds to kilograms. 180 lb = 81.6466 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/182-cm-to-feet",
+    "primaryTopic": "182 Centimeters to Feet",
+    "title": "182 cm to ft — 5.9711 ft | KodaTools",
+    "description": "Convert 182 centimeters to feet. 182 cm = 5.9711 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/185-cm-to-feet",
+    "primaryTopic": "185 Centimeters to Feet",
+    "title": "185 cm to ft — 6.0696 ft | KodaTools",
+    "description": "Convert 185 centimeters to feet. 185 cm = 6.0696 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/188-cm-to-feet",
+    "primaryTopic": "188 Centimeters to Feet",
+    "title": "188 cm to ft — 6.168 ft | KodaTools",
+    "description": "Convert 188 centimeters to feet. 188 cm = 6.168 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/190-cm-to-feet",
+    "primaryTopic": "190 Centimeters to Feet",
+    "title": "190 cm to ft — 6.2336 ft | KodaTools",
+    "description": "Convert 190 centimeters to feet. 190 cm = 6.2336 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/190-cm-to-inches",
+    "primaryTopic": "190 Centimeters to Inches",
+    "title": "190 cm to in — 74.8031 in | KodaTools",
+    "description": "Convert 190 centimeters to inches. 190 cm = 74.8031 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/193-cm-to-feet",
+    "primaryTopic": "193 Centimeters to Feet",
+    "title": "193 cm to ft — 6.332 ft | KodaTools",
+    "description": "Convert 193 centimeters to feet. 193 cm = 6.332 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/195-cm-to-feet",
+    "primaryTopic": "195 Centimeters to Feet",
+    "title": "195 cm to ft — 6.3976 ft | KodaTools",
+    "description": "Convert 195 centimeters to feet. 195 cm = 6.3976 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/198-cm-to-feet",
+    "primaryTopic": "198 Centimeters to Feet",
+    "title": "198 cm to ft — 6.4961 ft | KodaTools",
+    "description": "Convert 198 centimeters to feet. 198 cm = 6.4961 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/2-cm-to-inches",
+    "primaryTopic": "2 Centimeters to Inches",
+    "title": "2 cm to in — 0.7874 in | KodaTools",
+    "description": "Convert 2 centimeters to inches. 2 cm = 0.7874 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/2-feet-to-m",
+    "primaryTopic": "2 Feet to Meters",
+    "title": "2 ft to m — 0.6096 m | KodaTools",
+    "description": "Convert 2 feet to meters. 2 ft = 0.6096 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/2-inches-to-cm",
+    "primaryTopic": "2 Inches to Centimeters",
+    "title": "2 in to cm — 5.08 cm | KodaTools",
+    "description": "Convert 2 inches to centimeters. 2 in = 5.08 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/2-kg-to-lbs",
+    "primaryTopic": "2 Kilograms to Pounds",
+    "title": "2 kg to lb — 4.4092 lb | KodaTools",
+    "description": "Convert 2 kilograms to pounds. 2 kg = 4.4092 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/2-m-to-feet",
+    "primaryTopic": "2 Meters to Feet",
+    "title": "2 m to ft — 6.5617 ft | KodaTools",
+    "description": "Convert 2 meters to feet. 2 m = 6.5617 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/2.5-m-to-feet",
+    "primaryTopic": "2.5 Meters to Feet",
+    "title": "2.5 m to ft — 8.2021 ft | KodaTools",
+    "description": "Convert 2.5 meters to feet. 2.5 m = 8.2021 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/20-celsius-to-fahrenheit",
+    "primaryTopic": "20 Celsius to Fahrenheit",
+    "title": "20 °C to °F — 68 °F | KodaTools",
+    "description": "Convert 20 celsius to fahrenheit. 20 °C = 68 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/20-cm-to-inches",
+    "primaryTopic": "20 Centimeters to Inches",
+    "title": "20 cm to in — 7.874 in | KodaTools",
+    "description": "Convert 20 centimeters to inches. 20 cm = 7.874 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/20-feet-to-m",
+    "primaryTopic": "20 Feet to Meters",
+    "title": "20 ft to m — 6.096 m | KodaTools",
+    "description": "Convert 20 feet to meters. 20 ft = 6.096 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/20-inches-to-cm",
+    "primaryTopic": "20 Inches to Centimeters",
+    "title": "20 in to cm — 50.8 cm | KodaTools",
+    "description": "Convert 20 inches to centimeters. 20 in = 50.8 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/20-kg-to-lbs",
+    "primaryTopic": "20 Kilograms to Pounds",
+    "title": "20 kg to lb — 44.0924 lb | KodaTools",
+    "description": "Convert 20 kilograms to pounds. 20 kg = 44.0924 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/20-lbs-to-kg",
+    "primaryTopic": "20 Pounds to Kilograms",
+    "title": "20 lb to kg — 9.0718 kg | KodaTools",
+    "description": "Convert 20 pounds to kilograms. 20 lb = 9.0718 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/20-m-to-feet",
+    "primaryTopic": "20 Meters to Feet",
+    "title": "20 m to ft — 65.6168 ft | KodaTools",
+    "description": "Convert 20 meters to feet. 20 m = 65.6168 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/200-celsius-to-fahrenheit",
+    "primaryTopic": "200 Celsius to Fahrenheit",
+    "title": "200 °C to °F — 392 °F | KodaTools",
+    "description": "Convert 200 celsius to fahrenheit. 200 °C = 392 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/200-cm-to-feet",
+    "primaryTopic": "200 Centimeters to Feet",
+    "title": "200 cm to ft — 6.5617 ft | KodaTools",
+    "description": "Convert 200 centimeters to feet. 200 cm = 6.5617 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/200-cm-to-inches",
+    "primaryTopic": "200 Centimeters to Inches",
+    "title": "200 cm to in — 78.7402 in | KodaTools",
+    "description": "Convert 200 centimeters to inches. 200 cm = 78.7402 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/200-fahrenheit-to-celsius",
+    "primaryTopic": "200 Fahrenheit to Celsius",
+    "title": "200 °F to °C — 93.3333 °C | KodaTools",
+    "description": "Convert 200 fahrenheit to celsius. 200 °F = 93.3333 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/200-lbs-to-kg",
+    "primaryTopic": "200 Pounds to Kilograms",
+    "title": "200 lb to kg — 90.7184 kg | KodaTools",
+    "description": "Convert 200 pounds to kilograms. 200 lb = 90.7184 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/212-fahrenheit-to-celsius",
+    "primaryTopic": "212 Fahrenheit to Celsius",
+    "title": "212 °F to °C — 100 °C | KodaTools",
+    "description": "Convert 212 fahrenheit to celsius. 212 °F = 100 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/22-celsius-to-fahrenheit",
+    "primaryTopic": "22 Celsius to Fahrenheit",
+    "title": "22 °C to °F — 71.6 °F | KodaTools",
+    "description": "Convert 22 celsius to fahrenheit. 22 °C = 71.6 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/220-celsius-to-fahrenheit",
+    "primaryTopic": "220 Celsius to Fahrenheit",
+    "title": "220 °C to °F — 428 °F | KodaTools",
+    "description": "Convert 220 celsius to fahrenheit. 220 °C = 428 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/24-inches-to-cm",
+    "primaryTopic": "24 Inches to Centimeters",
+    "title": "24 in to cm — 60.96 cm | KodaTools",
+    "description": "Convert 24 inches to centimeters. 24 in = 60.96 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/25-celsius-to-fahrenheit",
+    "primaryTopic": "25 Celsius to Fahrenheit",
+    "title": "25 °C to °F — 77 °F | KodaTools",
+    "description": "Convert 25 celsius to fahrenheit. 25 °C = 77 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/25-cm-to-inches",
+    "primaryTopic": "25 Centimeters to Inches",
+    "title": "25 cm to in — 9.8425 in | KodaTools",
+    "description": "Convert 25 centimeters to inches. 25 cm = 9.8425 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/25-feet-to-m",
+    "primaryTopic": "25 Feet to Meters",
+    "title": "25 ft to m — 7.62 m | KodaTools",
+    "description": "Convert 25 feet to meters. 25 ft = 7.62 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/25-kg-to-lbs",
+    "primaryTopic": "25 Kilograms to Pounds",
+    "title": "25 kg to lb — 55.1155 lb | KodaTools",
+    "description": "Convert 25 kilograms to pounds. 25 kg = 55.1155 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/25-lbs-to-kg",
+    "primaryTopic": "25 Pounds to Kilograms",
+    "title": "25 lb to kg — 11.3398 kg | KodaTools",
+    "description": "Convert 25 pounds to kilograms. 25 lb = 11.3398 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/25-m-to-feet",
+    "primaryTopic": "25 Meters to Feet",
+    "title": "25 m to ft — 82.021 ft | KodaTools",
+    "description": "Convert 25 meters to feet. 25 m = 82.021 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/28-celsius-to-fahrenheit",
+    "primaryTopic": "28 Celsius to Fahrenheit",
+    "title": "28 °C to °F — 82.4 °F | KodaTools",
+    "description": "Convert 28 celsius to fahrenheit. 28 °C = 82.4 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/3-cm-to-inches",
+    "primaryTopic": "3 Centimeters to Inches",
+    "title": "3 cm to in — 1.1811 in | KodaTools",
+    "description": "Convert 3 centimeters to inches. 3 cm = 1.1811 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/3-feet-to-m",
+    "primaryTopic": "3 Feet to Meters",
+    "title": "3 ft to m — 0.9144 m | KodaTools",
+    "description": "Convert 3 feet to meters. 3 ft = 0.9144 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/3-inches-to-cm",
+    "primaryTopic": "3 Inches to Centimeters",
+    "title": "3 in to cm — 7.62 cm | KodaTools",
+    "description": "Convert 3 inches to centimeters. 3 in = 7.62 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/3-m-to-feet",
+    "primaryTopic": "3 Meters to Feet",
+    "title": "3 m to ft — 9.8425 ft | KodaTools",
+    "description": "Convert 3 meters to feet. 3 m = 9.8425 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/30-celsius-to-fahrenheit",
+    "primaryTopic": "30 Celsius to Fahrenheit",
+    "title": "30 °C to °F — 86 °F | KodaTools",
+    "description": "Convert 30 celsius to fahrenheit. 30 °C = 86 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/30-cm-to-inches",
+    "primaryTopic": "30 Centimeters to Inches",
+    "title": "30 cm to in — 11.811 in | KodaTools",
+    "description": "Convert 30 centimeters to inches. 30 cm = 11.811 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/30-feet-to-m",
+    "primaryTopic": "30 Feet to Meters",
+    "title": "30 ft to m — 9.144 m | KodaTools",
+    "description": "Convert 30 feet to meters. 30 ft = 9.144 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/30-inches-to-cm",
+    "primaryTopic": "30 Inches to Centimeters",
+    "title": "30 in to cm — 76.2 cm | KodaTools",
+    "description": "Convert 30 inches to centimeters. 30 in = 76.2 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/30-kg-to-lbs",
+    "primaryTopic": "30 Kilograms to Pounds",
+    "title": "30 kg to lb — 66.1386 lb | KodaTools",
+    "description": "Convert 30 kilograms to pounds. 30 kg = 66.1386 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/30-lbs-to-kg",
+    "primaryTopic": "30 Pounds to Kilograms",
+    "title": "30 lb to kg — 13.6078 kg | KodaTools",
+    "description": "Convert 30 pounds to kilograms. 30 lb = 13.6078 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/30-m-to-feet",
+    "primaryTopic": "30 Meters to Feet",
+    "title": "30 m to ft — 98.4252 ft | KodaTools",
+    "description": "Convert 30 meters to feet. 30 m = 98.4252 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/32-celsius-to-fahrenheit",
+    "primaryTopic": "32 Celsius to Fahrenheit",
+    "title": "32 °C to °F — 89.6 °F | KodaTools",
+    "description": "Convert 32 celsius to fahrenheit. 32 °C = 89.6 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/32-fahrenheit-to-celsius",
+    "primaryTopic": "32 Fahrenheit to Celsius",
+    "title": "32 °F to °C — 0 °C | KodaTools",
+    "description": "Convert 32 fahrenheit to celsius. 32 °F = 0 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/35-celsius-to-fahrenheit",
+    "primaryTopic": "35 Celsius to Fahrenheit",
+    "title": "35 °C to °F — 95 °F | KodaTools",
+    "description": "Convert 35 celsius to fahrenheit. 35 °C = 95 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/350-fahrenheit-to-celsius",
+    "primaryTopic": "350 Fahrenheit to Celsius",
+    "title": "350 °F to °C — 176.6667 °C | KodaTools",
+    "description": "Convert 350 fahrenheit to celsius. 350 °F = 176.6667 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/36-inches-to-cm",
+    "primaryTopic": "36 Inches to Centimeters",
+    "title": "36 in to cm — 91.44 cm | KodaTools",
+    "description": "Convert 36 inches to centimeters. 36 in = 91.44 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/37-celsius-to-fahrenheit",
+    "primaryTopic": "37 Celsius to Fahrenheit",
+    "title": "37 °C to °F — 98.6 °F | KodaTools",
+    "description": "Convert 37 celsius to fahrenheit. 37 °C = 98.6 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/375-fahrenheit-to-celsius",
+    "primaryTopic": "375 Fahrenheit to Celsius",
+    "title": "375 °F to °C — 190.5556 °C | KodaTools",
+    "description": "Convert 375 fahrenheit to celsius. 375 °F = 190.5556 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/38-celsius-to-fahrenheit",
+    "primaryTopic": "38 Celsius to Fahrenheit",
+    "title": "38 °C to °F — 100.4 °F | KodaTools",
+    "description": "Convert 38 celsius to fahrenheit. 38 °C = 100.4 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/4-feet-to-cm",
+    "primaryTopic": "4 Feet to Centimeters",
+    "title": "4 ft to cm — 121.92 cm | KodaTools",
+    "description": "Convert 4 feet to centimeters. 4 ft = 121.92 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/4-feet-to-m",
+    "primaryTopic": "4 Feet to Meters",
+    "title": "4 ft to m — 1.2192 m | KodaTools",
+    "description": "Convert 4 feet to meters. 4 ft = 1.2192 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/4-inches-to-cm",
+    "primaryTopic": "4 Inches to Centimeters",
+    "title": "4 in to cm — 10.16 cm | KodaTools",
+    "description": "Convert 4 inches to centimeters. 4 in = 10.16 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/4-m-to-feet",
+    "primaryTopic": "4 Meters to Feet",
+    "title": "4 m to ft — 13.1234 ft | KodaTools",
+    "description": "Convert 4 meters to feet. 4 m = 13.1234 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/4.5-feet-to-cm",
+    "primaryTopic": "4.5 Feet to Centimeters",
+    "title": "4.5 ft to cm — 137.16 cm | KodaTools",
+    "description": "Convert 4.5 feet to centimeters. 4.5 ft = 137.16 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/40-celsius-to-fahrenheit",
+    "primaryTopic": "40 Celsius to Fahrenheit",
+    "title": "40 °C to °F — 104 °F | KodaTools",
+    "description": "Convert 40 celsius to fahrenheit. 40 °C = 104 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/40-cm-to-inches",
+    "primaryTopic": "40 Centimeters to Inches",
+    "title": "40 cm to in — 15.748 in | KodaTools",
+    "description": "Convert 40 centimeters to inches. 40 cm = 15.748 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/40-inches-to-cm",
+    "primaryTopic": "40 Inches to Centimeters",
+    "title": "40 in to cm — 101.6 cm | KodaTools",
+    "description": "Convert 40 inches to centimeters. 40 in = 101.6 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/40-kg-to-lbs",
+    "primaryTopic": "40 Kilograms to Pounds",
+    "title": "40 kg to lb — 88.1848 lb | KodaTools",
+    "description": "Convert 40 kilograms to pounds. 40 kg = 88.1848 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/40-lbs-to-kg",
+    "primaryTopic": "40 Pounds to Kilograms",
+    "title": "40 lb to kg — 18.1437 kg | KodaTools",
+    "description": "Convert 40 pounds to kilograms. 40 lb = 18.1437 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/400-fahrenheit-to-celsius",
+    "primaryTopic": "400 Fahrenheit to Celsius",
+    "title": "400 °F to °C — 204.4444 °C | KodaTools",
+    "description": "Convert 400 fahrenheit to celsius. 400 °F = 204.4444 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/45-kg-to-lbs",
+    "primaryTopic": "45 Kilograms to Pounds",
+    "title": "45 kg to lb — 99.2079 lb | KodaTools",
+    "description": "Convert 45 kilograms to pounds. 45 kg = 99.2079 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/48-inches-to-cm",
+    "primaryTopic": "48 Inches to Centimeters",
+    "title": "48 in to cm — 121.92 cm | KodaTools",
+    "description": "Convert 48 inches to centimeters. 48 in = 121.92 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5-celsius-to-fahrenheit",
+    "primaryTopic": "5 Celsius to Fahrenheit",
+    "title": "5 °C to °F — 41 °F | KodaTools",
+    "description": "Convert 5 celsius to fahrenheit. 5 °C = 41 °F. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5-cm-to-inches",
+    "primaryTopic": "5 Centimeters to Inches",
+    "title": "5 cm to in — 1.9685 in | KodaTools",
+    "description": "Convert 5 centimeters to inches. 5 cm = 1.9685 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5-feet-to-cm",
+    "primaryTopic": "5 Feet to Centimeters",
+    "title": "5 ft to cm — 152.4 cm | KodaTools",
+    "description": "Convert 5 feet to centimeters. 5 ft = 152.4 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5-feet-to-m",
+    "primaryTopic": "5 Feet to Meters",
+    "title": "5 ft to m — 1.524 m | KodaTools",
+    "description": "Convert 5 feet to meters. 5 ft = 1.524 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5-inches-to-cm",
+    "primaryTopic": "5 Inches to Centimeters",
+    "title": "5 in to cm — 12.7 cm | KodaTools",
+    "description": "Convert 5 inches to centimeters. 5 in = 12.7 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5-kg-to-lbs",
+    "primaryTopic": "5 Kilograms to Pounds",
+    "title": "5 kg to lb — 11.0231 lb | KodaTools",
+    "description": "Convert 5 kilograms to pounds. 5 kg = 11.0231 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5-lbs-to-kg",
+    "primaryTopic": "5 Pounds to Kilograms",
+    "title": "5 lb to kg — 2.268 kg | KodaTools",
+    "description": "Convert 5 pounds to kilograms. 5 lb = 2.268 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5-m-to-feet",
+    "primaryTopic": "5 Meters to Feet",
+    "title": "5 m to ft — 16.4042 ft | KodaTools",
+    "description": "Convert 5 meters to feet. 5 m = 16.4042 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5.1-feet-to-cm",
+    "primaryTopic": "5.1 Feet to Centimeters",
+    "title": "5.1 ft to cm — 155.448 cm | KodaTools",
+    "description": "Convert 5.1 feet to centimeters. 5.1 ft = 155.448 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5.2-feet-to-cm",
+    "primaryTopic": "5.2 Feet to Centimeters",
+    "title": "5.2 ft to cm — 158.496 cm | KodaTools",
+    "description": "Convert 5.2 feet to centimeters. 5.2 ft = 158.496 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5.3-feet-to-cm",
+    "primaryTopic": "5.3 Feet to Centimeters",
+    "title": "5.3 ft to cm — 161.544 cm | KodaTools",
+    "description": "Convert 5.3 feet to centimeters. 5.3 ft = 161.544 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5.4-feet-to-cm",
+    "primaryTopic": "5.4 Feet to Centimeters",
+    "title": "5.4 ft to cm — 164.592 cm | KodaTools",
+    "description": "Convert 5.4 feet to centimeters. 5.4 ft = 164.592 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5.5-feet-to-cm",
+    "primaryTopic": "5.5 Feet to Centimeters",
+    "title": "5.5 ft to cm — 167.64 cm | KodaTools",
+    "description": "Convert 5.5 feet to centimeters. 5.5 ft = 167.64 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5.6-feet-to-cm",
+    "primaryTopic": "5.6 Feet to Centimeters",
+    "title": "5.6 ft to cm — 170.688 cm | KodaTools",
+    "description": "Convert 5.6 feet to centimeters. 5.6 ft = 170.688 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5.7-feet-to-cm",
+    "primaryTopic": "5.7 Feet to Centimeters",
+    "title": "5.7 ft to cm — 173.736 cm | KodaTools",
+    "description": "Convert 5.7 feet to centimeters. 5.7 ft = 173.736 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5.8-feet-to-cm",
+    "primaryTopic": "5.8 Feet to Centimeters",
+    "title": "5.8 ft to cm — 176.784 cm | KodaTools",
+    "description": "Convert 5.8 feet to centimeters. 5.8 ft = 176.784 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/5.9-feet-to-cm",
+    "primaryTopic": "5.9 Feet to Centimeters",
+    "title": "5.9 ft to cm — 179.832 cm | KodaTools",
+    "description": "Convert 5.9 feet to centimeters. 5.9 ft = 179.832 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/50-cm-to-inches",
+    "primaryTopic": "50 Centimeters to Inches",
+    "title": "50 cm to in — 19.685 in | KodaTools",
+    "description": "Convert 50 centimeters to inches. 50 cm = 19.685 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/50-fahrenheit-to-celsius",
+    "primaryTopic": "50 Fahrenheit to Celsius",
+    "title": "50 °F to °C — 10 °C | KodaTools",
+    "description": "Convert 50 fahrenheit to celsius. 50 °F = 10 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/50-feet-to-m",
+    "primaryTopic": "50 Feet to Meters",
+    "title": "50 ft to m — 15.24 m | KodaTools",
+    "description": "Convert 50 feet to meters. 50 ft = 15.24 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/50-inches-to-cm",
+    "primaryTopic": "50 Inches to Centimeters",
+    "title": "50 in to cm — 127 cm | KodaTools",
+    "description": "Convert 50 inches to centimeters. 50 in = 127 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/50-kg-to-lbs",
+    "primaryTopic": "50 Kilograms to Pounds",
+    "title": "50 kg to lb — 110.231 lb | KodaTools",
+    "description": "Convert 50 kilograms to pounds. 50 kg = 110.231 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/50-lbs-to-kg",
+    "primaryTopic": "50 Pounds to Kilograms",
+    "title": "50 lb to kg — 22.6796 kg | KodaTools",
+    "description": "Convert 50 pounds to kilograms. 50 lb = 22.6796 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/50-m-to-feet",
+    "primaryTopic": "50 Meters to Feet",
+    "title": "50 m to ft — 164.042 ft | KodaTools",
+    "description": "Convert 50 meters to feet. 50 m = 164.042 ft. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/55-kg-to-lbs",
+    "primaryTopic": "55 Kilograms to Pounds",
+    "title": "55 kg to lb — 121.2541 lb | KodaTools",
+    "description": "Convert 55 kilograms to pounds. 55 kg = 121.2541 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/6-feet-to-cm",
+    "primaryTopic": "6 Feet to Centimeters",
+    "title": "6 ft to cm — 182.88 cm | KodaTools",
+    "description": "Convert 6 feet to centimeters. 6 ft = 182.88 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/6-feet-to-m",
+    "primaryTopic": "6 Feet to Meters",
+    "title": "6 ft to m — 1.8288 m | KodaTools",
+    "description": "Convert 6 feet to meters. 6 ft = 1.8288 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/6-inches-to-cm",
+    "primaryTopic": "6 Inches to Centimeters",
+    "title": "6 in to cm — 15.24 cm | KodaTools",
+    "description": "Convert 6 inches to centimeters. 6 in = 15.24 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/6.1-feet-to-cm",
+    "primaryTopic": "6.1 Feet to Centimeters",
+    "title": "6.1 ft to cm — 185.928 cm | KodaTools",
+    "description": "Convert 6.1 feet to centimeters. 6.1 ft = 185.928 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/6.2-feet-to-cm",
+    "primaryTopic": "6.2 Feet to Centimeters",
+    "title": "6.2 ft to cm — 188.976 cm | KodaTools",
+    "description": "Convert 6.2 feet to centimeters. 6.2 ft = 188.976 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/6.5-feet-to-cm",
+    "primaryTopic": "6.5 Feet to Centimeters",
+    "title": "6.5 ft to cm — 198.12 cm | KodaTools",
+    "description": "Convert 6.5 feet to centimeters. 6.5 ft = 198.12 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/60-cm-to-inches",
+    "primaryTopic": "60 Centimeters to Inches",
+    "title": "60 cm to in — 23.622 in | KodaTools",
+    "description": "Convert 60 centimeters to inches. 60 cm = 23.622 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/60-fahrenheit-to-celsius",
+    "primaryTopic": "60 Fahrenheit to Celsius",
+    "title": "60 °F to °C — 15.5556 °C | KodaTools",
+    "description": "Convert 60 fahrenheit to celsius. 60 °F = 15.5556 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/60-inches-to-cm",
+    "primaryTopic": "60 Inches to Centimeters",
+    "title": "60 in to cm — 152.4 cm | KodaTools",
+    "description": "Convert 60 inches to centimeters. 60 in = 152.4 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/60-kg-to-lbs",
+    "primaryTopic": "60 Kilograms to Pounds",
+    "title": "60 kg to lb — 132.2772 lb | KodaTools",
+    "description": "Convert 60 kilograms to pounds. 60 kg = 132.2772 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/60-lbs-to-kg",
+    "primaryTopic": "60 Pounds to Kilograms",
+    "title": "60 lb to kg — 27.2155 kg | KodaTools",
+    "description": "Convert 60 pounds to kilograms. 60 lb = 27.2155 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/65-fahrenheit-to-celsius",
+    "primaryTopic": "65 Fahrenheit to Celsius",
+    "title": "65 °F to °C — 18.3333 °C | KodaTools",
+    "description": "Convert 65 fahrenheit to celsius. 65 °F = 18.3333 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/65-kg-to-lbs",
+    "primaryTopic": "65 Kilograms to Pounds",
+    "title": "65 kg to lb — 143.3003 lb | KodaTools",
+    "description": "Convert 65 kilograms to pounds. 65 kg = 143.3003 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/68-fahrenheit-to-celsius",
+    "primaryTopic": "68 Fahrenheit to Celsius",
+    "title": "68 °F to °C — 20 °C | KodaTools",
+    "description": "Convert 68 fahrenheit to celsius. 68 °F = 20 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/7-feet-to-cm",
+    "primaryTopic": "7 Feet to Centimeters",
+    "title": "7 ft to cm — 213.36 cm | KodaTools",
+    "description": "Convert 7 feet to centimeters. 7 ft = 213.36 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/7-feet-to-m",
+    "primaryTopic": "7 Feet to Meters",
+    "title": "7 ft to m — 2.1336 m | KodaTools",
+    "description": "Convert 7 feet to meters. 7 ft = 2.1336 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/7-inches-to-cm",
+    "primaryTopic": "7 Inches to Centimeters",
+    "title": "7 in to cm — 17.78 cm | KodaTools",
+    "description": "Convert 7 inches to centimeters. 7 in = 17.78 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/70-cm-to-inches",
+    "primaryTopic": "70 Centimeters to Inches",
+    "title": "70 cm to in — 27.5591 in | KodaTools",
+    "description": "Convert 70 centimeters to inches. 70 cm = 27.5591 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/70-fahrenheit-to-celsius",
+    "primaryTopic": "70 Fahrenheit to Celsius",
+    "title": "70 °F to °C — 21.1111 °C | KodaTools",
+    "description": "Convert 70 fahrenheit to celsius. 70 °F = 21.1111 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/70-kg-to-lbs",
+    "primaryTopic": "70 Kilograms to Pounds",
+    "title": "70 kg to lb — 154.3234 lb | KodaTools",
+    "description": "Convert 70 kilograms to pounds. 70 kg = 154.3234 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/70-lbs-to-kg",
+    "primaryTopic": "70 Pounds to Kilograms",
+    "title": "70 lb to kg — 31.7514 kg | KodaTools",
+    "description": "Convert 70 pounds to kilograms. 70 lb = 31.7514 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/72-fahrenheit-to-celsius",
+    "primaryTopic": "72 Fahrenheit to Celsius",
+    "title": "72 °F to °C — 22.2222 °C | KodaTools",
+    "description": "Convert 72 fahrenheit to celsius. 72 °F = 22.2222 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/72-inches-to-cm",
+    "primaryTopic": "72 Inches to Centimeters",
+    "title": "72 in to cm — 182.88 cm | KodaTools",
+    "description": "Convert 72 inches to centimeters. 72 in = 182.88 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/75-fahrenheit-to-celsius",
+    "primaryTopic": "75 Fahrenheit to Celsius",
+    "title": "75 °F to °C — 23.8889 °C | KodaTools",
+    "description": "Convert 75 fahrenheit to celsius. 75 °F = 23.8889 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/75-kg-to-lbs",
+    "primaryTopic": "75 Kilograms to Pounds",
+    "title": "75 kg to lb — 165.3465 lb | KodaTools",
+    "description": "Convert 75 kilograms to pounds. 75 kg = 165.3465 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/77-fahrenheit-to-celsius",
+    "primaryTopic": "77 Fahrenheit to Celsius",
+    "title": "77 °F to °C — 25 °C | KodaTools",
+    "description": "Convert 77 fahrenheit to celsius. 77 °F = 25 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/8-feet-to-m",
+    "primaryTopic": "8 Feet to Meters",
+    "title": "8 ft to m — 2.4384 m | KodaTools",
+    "description": "Convert 8 feet to meters. 8 ft = 2.4384 m. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/8-inches-to-cm",
+    "primaryTopic": "8 Inches to Centimeters",
+    "title": "8 in to cm — 20.32 cm | KodaTools",
+    "description": "Convert 8 inches to centimeters. 8 in = 20.32 cm. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/80-cm-to-inches",
+    "primaryTopic": "80 Centimeters to Inches",
+    "title": "80 cm to in — 31.4961 in | KodaTools",
+    "description": "Convert 80 centimeters to inches. 80 cm = 31.4961 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/80-fahrenheit-to-celsius",
+    "primaryTopic": "80 Fahrenheit to Celsius",
+    "title": "80 °F to °C — 26.6667 °C | KodaTools",
+    "description": "Convert 80 fahrenheit to celsius. 80 °F = 26.6667 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/80-kg-to-lbs",
+    "primaryTopic": "80 Kilograms to Pounds",
+    "title": "80 kg to lb — 176.3696 lb | KodaTools",
+    "description": "Convert 80 kilograms to pounds. 80 kg = 176.3696 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/80-lbs-to-kg",
+    "primaryTopic": "80 Pounds to Kilograms",
+    "title": "80 lb to kg — 36.2874 kg | KodaTools",
+    "description": "Convert 80 pounds to kilograms. 80 lb = 36.2874 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/85-fahrenheit-to-celsius",
+    "primaryTopic": "85 Fahrenheit to Celsius",
+    "title": "85 °F to °C — 29.4444 °C | KodaTools",
+    "description": "Convert 85 fahrenheit to celsius. 85 °F = 29.4444 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/85-kg-to-lbs",
+    "primaryTopic": "85 Kilograms to Pounds",
+    "title": "85 kg to lb — 187.3927 lb | KodaTools",
+    "description": "Convert 85 kilograms to pounds. 85 kg = 187.3927 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/90-cm-to-inches",
+    "primaryTopic": "90 Centimeters to Inches",
+    "title": "90 cm to in — 35.4331 in | KodaTools",
+    "description": "Convert 90 centimeters to inches. 90 cm = 35.4331 in. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/90-fahrenheit-to-celsius",
+    "primaryTopic": "90 Fahrenheit to Celsius",
+    "title": "90 °F to °C — 32.2222 °C | KodaTools",
+    "description": "Convert 90 fahrenheit to celsius. 90 °F = 32.2222 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/90-kg-to-lbs",
+    "primaryTopic": "90 Kilograms to Pounds",
+    "title": "90 kg to lb — 198.4158 lb | KodaTools",
+    "description": "Convert 90 kilograms to pounds. 90 kg = 198.4158 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/90-lbs-to-kg",
+    "primaryTopic": "90 Pounds to Kilograms",
+    "title": "90 lb to kg — 40.8233 kg | KodaTools",
+    "description": "Convert 90 pounds to kilograms. 90 lb = 40.8233 kg. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/95-fahrenheit-to-celsius",
+    "primaryTopic": "95 Fahrenheit to Celsius",
+    "title": "95 °F to °C — 35 °C | KodaTools",
+    "description": "Convert 95 fahrenheit to celsius. 95 °F = 35 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/95-kg-to-lbs",
+    "primaryTopic": "95 Kilograms to Pounds",
+    "title": "95 kg to lb — 209.4389 lb | KodaTools",
+    "description": "Convert 95 kilograms to pounds. 95 kg = 209.4389 lb. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/convert/98.6-fahrenheit-to-celsius",
+    "primaryTopic": "98.6 Fahrenheit to Celsius",
+    "title": "98.6 °F to °C — 37 °C | KodaTools",
+    "description": "Convert 98.6 fahrenheit to celsius. 98.6 °F = 37 °C. Free instant converter with formula and table.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/converters",
+    "primaryTopic": "Unit Converters",
+    "title": "Unit Converters - Length, Weight, Temperature & More | KodaTools",
+    "description": "Free unit converters: length, weight, temperature and more. Convert cm to inches, kg to lbs, Fahrenheit to Celsius. Instant results, no sign-up.",
+    "structuredData": [],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/converters/unit-converter",
+    "primaryTopic": "Unit Converter",
+    "title": "Unit Converter - Length, Weight & Temperature | KodaTools",
+    "description": "Free unit converter for length, weight, and temperature. Convert cm to inches, kg to lbs, Fahrenheit to Celsius and more. Instant results, no sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/date-time/age-calculator",
+    "primaryTopic": "Age Calculator",
+    "title": "Age Calculator - Years, Months & Days | KodaTools",
+    "description": "Free age calculator. Find your exact age in years, months, and days, plus totals in weeks, days, hours, and minutes. Fast and no sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/date-time/date-calculator",
+    "primaryTopic": "Date Calculator",
+    "title": "Date Calculator - Days Between Dates Calculator | KodaTools",
+    "description": "Free date calculator. Find the number of days, weeks, and months between two dates. Add or subtract days from any date. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/date-time/days-from-today",
+    "primaryTopic": "Days From Today Calculator",
+    "title": "Days From Today Calculator - Add or Subtract Days | KodaTools",
+    "description": "Free days from today calculator. Find a date 30, 60, 90, or any number of days from today. Add or subtract days, weeks, months. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/date-time",
+    "primaryTopic": "Date & Time Calculators",
+    "title": "Date & Time Calculators - Age, Dates & Countdowns | KodaTools",
+    "description": "Free date and time calculators: age calculator, days between dates, and more. Fast, accurate results. No sign-up.",
+    "structuredData": [],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/date-time/time-calculator",
+    "primaryTopic": "Time Calculator",
+    "title": "Time Calculator - Hours Between Times & Duration | KodaTools",
+    "description": "Free time calculator. Calculate hours and minutes between two times. Convert to decimal hours for timesheets. Add time durations. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/everyday/case-converter",
+    "primaryTopic": "Case Converter",
+    "title": "Case Converter - Uppercase, Lowercase & Title Case | KodaTools",
+    "description": "Free online case converter. Convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and more. Instant, no sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/everyday",
+    "primaryTopic": "Everyday Tools",
+    "title": "Everyday Tools - Word Counter, Text Tools & More | KodaTools",
+    "description": "Free everyday tools: word counter, text tools and more. Count words, characters, and reading time instantly. No sign-up.",
+    "structuredData": [],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/everyday/lorem-ipsum-generator",
+    "primaryTopic": "Lorem Ipsum Generator",
+    "title": "Lorem Ipsum Generator - Free Placeholder Text Generator | KodaTools",
+    "description": "Free Lorem Ipsum generator. Create placeholder text by paragraphs, sentences, or words. Perfect for mockups, designs, and web development. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/everyday/password-generator",
+    "primaryTopic": "Password Generator",
+    "title": "Password Generator - Create Strong Random Passwords Online | KodaTools",
+    "description": "Free password generator. Create strong, random, secure passwords with custom length, uppercase, lowercase, numbers, and symbols. No sign-up, 100% private.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/everyday/qr-code-generator",
+    "primaryTopic": "QR Code Generator",
+    "title": "QR Code Generator - Create Free QR Codes Online | KodaTools",
+    "description": "Free QR code generator. Create QR codes for URLs, text, phone numbers, and more. Download as PNG image. No sign-up, free for commercial use.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/everyday/random-number-generator",
+    "primaryTopic": "Random Number Generator",
+    "title": "Random Number Generator - Pick Random Numbers Online | KodaTools",
+    "description": "Free random number generator. Pick random numbers between any range, generate unique or duplicate numbers, and draw random items from a list. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/everyday/word-counter",
+    "primaryTopic": "Word Counter",
+    "title": "Word Counter - Count Words, Characters & Reading Time | KodaTools",
+    "description": "Free word counter. Count words, characters, sentences, and paragraphs, plus estimated reading time. Real-time results, no sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/amortization-calculator",
+    "primaryTopic": "Amortization Calculator",
+    "title": "Amortization Calculator - Loan Payment Schedule | KodaTools",
+    "description": "Free amortization calculator. See a full payment schedule showing principal vs interest for each month. Any loan amount, rate, and term. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/auto-loan-calculator",
+    "primaryTopic": "Auto Loan Calculator",
+    "title": "Auto Loan Calculator - Car Payment & Total Cost | KodaTools",
+    "description": "Free auto loan calculator. Estimate your monthly car payment, total interest, and total cost. Compare loan terms and rates instantly. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/compound-interest-calculator",
+    "primaryTopic": "Compound Interest Calculator",
+    "title": "Compound Interest Calculator - Watch Your Money Grow | KodaTools",
+    "description": "Free compound interest calculator. See how your savings and investments grow over time with compounding. Add monthly contributions and view a year-by-year breakdown.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/credit-card-payoff-calculator",
+    "primaryTopic": "Credit Card Payoff Calculator",
+    "title": "Credit Card Payoff Calculator - When Will I Be Debt Free? | KodaTools",
+    "description": "Free credit card payoff calculator. Find out how long it takes to pay off your credit card and total interest. See how extra payments help. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/discount-calculator",
+    "primaryTopic": "Discount Calculator",
+    "title": "Discount Calculator - Sale Price & Savings Calculator | KodaTools",
+    "description": "Free discount calculator. Find the sale price after a percentage discount, calculate savings, and reverse-calculate original prices. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/hourly-to-salary-calculator",
+    "primaryTopic": "Hourly to Salary Calculator",
+    "title": "Hourly to Salary Calculator - Annual Pay | KodaTools",
+    "description": "Free hourly to salary calculator. Convert your hourly wage to annual, monthly, weekly salary. Includes overtime. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance",
+    "primaryTopic": "Finance Calculators",
+    "title": "Finance Calculators - Mortgage, Loan, Interest & More | KodaTools",
+    "description": "Free finance calculators: mortgage, loan, compound interest, tip, and more. Estimate payments, interest, and plan your money. No sign-up.",
+    "structuredData": [],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/inflation-calculator",
+    "primaryTopic": "Inflation Calculator",
+    "title": "Inflation Calculator - How Much Is Your Money Worth? | KodaTools",
+    "description": "Free inflation calculator. See how inflation erodes purchasing power over time. Calculate future prices and real value of money. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/investment-calculator",
+    "primaryTopic": "Investment Calculator",
+    "title": "Investment Calculator - Project Portfolio Growth | KodaTools",
+    "description": "Free investment calculator. Project your portfolio growth with initial investment, monthly contributions, and expected returns. See future value instantly.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/loan-calculator",
+    "primaryTopic": "Loan Calculator",
+    "title": "Loan Calculator - Monthly Payment & Total Interest | KodaTools",
+    "description": "Free loan calculator. Calculate monthly payments and total interest for any fixed-rate loan — auto, personal, student, or home. Instant results.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/mortgage-calculator",
+    "primaryTopic": "Mortgage Calculator",
+    "title": "Mortgage Calculator - Monthly Payment & Amortization | KodaTools",
+    "description": "Free mortgage calculator. Estimate your monthly payment, total interest, and payoff date. See a full principal vs interest breakdown instantly.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/net-worth-calculator",
+    "primaryTopic": "Net Worth Calculator",
+    "title": "Net Worth Calculator - Calculate Your Net Worth | KodaTools",
+    "description": "Free net worth calculator. Add up your assets and liabilities to find your net worth. See your financial position instantly. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/retirement-calculator",
+    "primaryTopic": "Retirement Calculator",
+    "title": "Retirement Calculator - Project Your Retirement Savings | KodaTools",
+    "description": "Free retirement calculator. Project your retirement savings based on current balance, contributions, and return rate. See if you're on track. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/salary-calculator",
+    "primaryTopic": "Salary Calculator",
+    "title": "Salary Calculator - Convert Annual, Monthly, Hourly Pay | KodaTools",
+    "description": "Free salary calculator. Convert between annual, monthly, biweekly, weekly, and hourly pay. See your breakdown instantly. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/sales-tax-calculator",
+    "primaryTopic": "Sales Tax Calculator",
+    "title": "Sales Tax Calculator - Add or Remove Tax from Price | KodaTools",
+    "description": "Free sales tax calculator. Add tax to a price or find the original price before tax. Works with any tax rate. Instant results, no sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/savings-calculator",
+    "primaryTopic": "Savings Calculator",
+    "title": "Savings Calculator - Reach Your Savings Goal | KodaTools",
+    "description": "Free savings calculator. Find how long it takes to reach your savings goal or how much to save monthly. Includes interest. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/finance/tip-calculator",
+    "primaryTopic": "Tip Calculator",
+    "title": "Tip Calculator - Calculate Tip & Split the Bill | KodaTools",
+    "description": "Free tip calculator. Calculate the tip amount and total, and split the bill between any number of people. Fast, easy, and no sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/health/bmi-calculator",
+    "primaryTopic": "BMI Calculator",
+    "title": "BMI Calculator - Metric & Imperial | KodaTools",
+    "description": "Free BMI calculator for adults. Enter height and weight in metric or imperial units to get your Body Mass Index and weight category instantly.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/health/bmr-calculator",
+    "primaryTopic": "BMR Calculator",
+    "title": "BMR Calculator - Basal Metabolic Rate (Mifflin-St Jeor) | KodaTools",
+    "description": "Free BMR calculator. Calculate your Basal Metabolic Rate using the Mifflin-St Jeor equation. Find out how many calories you burn at rest. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/health/body-fat-calculator",
+    "primaryTopic": "Body Fat Calculator",
+    "title": "Body Fat Calculator - U.S. Navy Method | KodaTools",
+    "description": "Free body fat calculator using the U.S. Navy method. Estimate your body fat percentage from circumference measurements. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/health/calorie-calculator",
+    "primaryTopic": "Calorie Calculator",
+    "title": "Calorie Calculator - Daily Calorie Needs (BMR & TDEE) | KodaTools",
+    "description": "Free calorie calculator. Estimate your daily calorie needs for weight loss, maintenance, or gain using the Mifflin-St Jeor equation. Instant results.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/health/ideal-weight-calculator",
+    "primaryTopic": "Ideal Weight Calculator",
+    "title": "Ideal Weight Calculator - Healthy Weight Range | KodaTools",
+    "description": "Free ideal weight calculator. Find your healthy weight range using the Devine formula and BMI. See your ideal body weight instantly. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/health",
+    "primaryTopic": "Health & Fitness Calculators",
+    "title": "Health & Fitness Calculators - BMI, Calorie & More | KodaTools",
+    "description": "Free health calculators: BMI, calorie needs, and more. Understand your body metrics with instant, accurate tools. No sign-up.",
+    "structuredData": [],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/health/macro-calculator",
+    "primaryTopic": "Macro Calculator",
+    "title": "Macro Calculator - Protein, Carbs & Fat Calculator | KodaTools",
+    "description": "Free macro calculator. Calculate your daily protein, carbohydrate, and fat targets based on your calories and goals. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/health/ovulation-calculator",
+    "primaryTopic": "Ovulation Calculator",
+    "title": "Ovulation Calculator - Estimated Fertile Window | KodaTools",
+    "description": "Free ovulation calculator. Predict your ovulation date and fertile window based on your menstrual cycle. Plan for pregnancy with a 6-month calendar. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/health/pace-calculator",
+    "primaryTopic": "Pace Calculator",
+    "title": "Pace Calculator - Running Pace, Speed & Time Calculator | KodaTools",
+    "description": "Free running pace calculator. Calculate your pace per mile or km, finishing time, or speed. Perfect for runners and race planning. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/health/pregnancy-due-date-calculator",
+    "primaryTopic": "Pregnancy Due Date Calculator",
+    "title": "Pregnancy Due Date Calculator - Estimate Your Due Date | KodaTools",
+    "description": "Free pregnancy due date calculator. Estimate your due date based on your last period or conception date. See your pregnancy timeline and trimesters. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/health/sleep-calculator",
+    "primaryTopic": "Sleep Calculator",
+    "title": "Sleep Calculator - Best Time to Sleep & Wake Up | KodaTools",
+    "description": "Free sleep calculator. Find the best time to go to sleep or wake up based on 90-minute sleep cycles. Wake up refreshed. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/health/tdee-calculator",
+    "primaryTopic": "TDEE Calculator",
+    "title": "TDEE Calculator - Total Daily Energy Expenditure | KodaTools",
+    "description": "Free TDEE calculator. Calculate your Total Daily Energy Expenditure based on BMR and activity level. Find your maintenance calories. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/health/water-intake-calculator",
+    "primaryTopic": "Water Intake Calculator",
+    "title": "Water Intake Calculator - Daily Hydration Goal | KodaTools",
+    "description": "Free water intake calculator. Find your daily hydration goal based on weight, activity, and climate. Get your personalized water target. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/",
+    "primaryTopic": "Free Online Calculators& Everyday Tools",
+    "title": "KodaTools - Free Online Calculators & Everyday Tools",
+    "description": "Free online calculators and everyday tools: percentage, mortgage, BMI, age, calorie, loan, tip and more. Fast, accurate, no sign-up. Works in your browser.",
+    "structuredData": [
+      "WebSite"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/math/average-calculator",
+    "primaryTopic": "Average Calculator",
+    "title": "Average Calculator - Mean, Median, Mode of Numbers | KodaTools",
+    "description": "Free average calculator. Find the mean, median, mode, and range of any set of numbers. Also shows sum and count. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/math/fraction-calculator",
+    "primaryTopic": "Fraction Calculator",
+    "title": "Fraction Calculator - Add, Subtract, Multiply & Divide | KodaTools",
+    "description": "Free fraction calculator. Add, subtract, multiply, and divide fractions with step-by-step results. Simplifies automatically. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/math/gpa-calculator",
+    "primaryTopic": "GPA Calculator",
+    "title": "GPA Calculator - Calculate Your Grade Point Average | KodaTools",
+    "description": "Free GPA calculator. Calculate your Grade Point Average on a 4.0 scale. Add courses, credits, and grades. Instant results. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/math/grade-calculator",
+    "primaryTopic": "Grade Calculator",
+    "title": "Grade Calculator - Final Grade & Target Score | KodaTools",
+    "description": "Free grade calculator. Calculate your final grade from current grade and exam weight. Find what score you need on the final to reach your target.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/math",
+    "primaryTopic": "Math Calculators",
+    "title": "Math Calculators - Percentage, Fractions & Everyday Math | KodaTools",
+    "description": "Free math calculators: percentage, fractions, averages and more. Instant, accurate results with formulas and examples. No sign-up.",
+    "structuredData": [],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/math/percentage-calculator",
+    "primaryTopic": "Percentage Calculator",
+    "title": "Percentage Calculator - Free Online Percent Calculator | KodaTools",
+    "description": "Free percentage calculator. Find X% of Y, what percent X is of Y, and percentage increase or decrease. Instant results, no sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/math/ratio-calculator",
+    "primaryTopic": "Ratio Calculator",
+    "title": "Ratio Calculator - Simplify and Solve Ratios | KodaTools",
+    "description": "Free ratio calculator. Simplify ratios, solve proportions, and scale ratios. Enter two or three values to find the missing one. No sign-up.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/math/scientific-calculator",
+    "primaryTopic": "Scientific Calculator",
+    "title": "Scientific Calculator - Trig, Logs & Powers | KodaTools",
+    "description": "Free scientific calculator online. Perform calculations with trigonometry, logarithms, exponents, square roots, factorials, π, and e. No sign-up, works in browser.",
+    "structuredData": [
+      "WebApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/privacy-policy",
+    "primaryTopic": "Privacy Policy",
+    "title": "Privacy Policy | KodaTools",
+    "description": "KodaTools privacy policy. Learn how we handle data, cookies, and advertising. Your calculations stay in your browser — we never see or store them.",
+    "structuredData": [],
+    "technicalSEO": "pass"
+  },
+  {
+    "route": "/terms",
+    "primaryTopic": "Terms of Service",
+    "title": "Terms of Service | KodaTools",
+    "description": "KodaTools terms of service. Read the terms governing your use of our free online calculators and everyday tools.",
+    "structuredData": [],
+    "technicalSEO": "pass"
+  }
+]
