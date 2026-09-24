@@ -1,0 +1,13 @@
+---
+import { adClient, displayAdSlot, externalServicesEnabled } from '../config/advertising.js';
+const enabled = externalServicesEnabled({ ...import.meta.env, VERCEL_ENV: process.env.VERCEL_ENV });
+---
+{enabled && <div class="ad-container" aria-label="Advertisement">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client={adClient}
+       data-ad-slot={displayAdSlot}
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+</div>}
+{enabled && <script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>}

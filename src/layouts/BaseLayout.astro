@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { externalServicesEnabled, adClient } from '../config/advertising.js';
 
 interface Props {
   title: string;
@@ -21,7 +22,7 @@ const {
   showAds = true
 } = Astro.props;
 
-const externalServices = import.meta.env.PUBLIC_EXTERNAL_SERVICES !== 'off';
+const externalServices = externalServicesEnabled({ ...import.meta.env, VERCEL_ENV: process.env.VERCEL_ENV });
 const siteUrl = 'https://www.kodatools.com';
 const canonicalUrl = canonical || new URL(Astro.url.pathname.replace(/\/+$/, '') || '/', siteUrl).href;
 const fullTitle = title.includes('KodaTools') ? title : `${title} | KodaTools`;
@@ -71,7 +72,7 @@ const currentPath = Astro.url.pathname;
   )}
 
   <!-- Google AdSense -->
-  {externalServices && showAds && <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1994527331032191" crossorigin="anonymous"></script>}
+  {externalServices && showAds && <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adClient}`} crossorigin="anonymous"></script>}
 
   <!-- Google Analytics (gtag.js) -->
   {externalServices && <script async src="https://www.googletagmanager.com/gtag/js?id=G-4PKY9KBW0E"></script>}
