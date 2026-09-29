@@ -1,0 +1,36 @@
+---
+interface Props { examples: { label: string; values: Record<string, string | number> }[] }
+const { examples } = Astro.props;
+---
+<div class="worked-examples" aria-label="Try an example">
+  <p><strong>Try an example</strong> — choose a starting point, then adjust the inputs.</p>
+  <div class="example-actions">
+    {examples.map(example => <button type="button" class="btn btn-ghost" data-example-values={JSON.stringify(example.values)}>{example.label}</button>)}
+  </div>
+  <p class="example-status" role="status"></p>
+</div>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-example-values]').forEach(button => {
+    button.addEventListener('click', () => {
+      const values = JSON.parse(button.dataset.exampleValues!);
+      let last: HTMLInputElement | HTMLSelectElement | null = null;
+      Object.entries(values).forEach(([id, value]) => {
+        const input = document.getElementById(id);
+        if (input instanceof HTMLInputElement || input instanceof HTMLSelectElement) {
+          input.value = String(value);
+          last = input;
+        }
+      });
+      if (last) (last as HTMLInputElement).dispatchEvent(new Event('input', { bubbles: true }));
+      const status = button.closest('.worked-examples')?.querySelector('.example-status');
+      if (status) status.textContent = `${button.textContent?.trim()} loaded. Results updated below.`;
+    });
+  });
+</script>
+<style>
+.worked-examples { margin-bottom: 24px; }
+.worked-examples p { font-size: .9rem; }
+.example-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.example-actions button { white-space: normal; text-align: left; }
+.example-status { min-height: 1.5em; margin-top: 8px; color: var(--text-secondary); }
+</style>

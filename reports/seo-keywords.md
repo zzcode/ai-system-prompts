@@ -218,7 +218,7 @@
 | /convert/98.6-fahrenheit-to-celsius | 98.6 Fahrenheit to Celsius | 98.6 °F to °C — 37 °C — KodaTools |
 | /converters | Unit Converters | Unit Converters - Length, Weight, Temperature & More — KodaTools |
 | /converters/unit-converter | Unit Converter | Unit Converter - Length, Weight & Temperature — KodaTools |
-| /date-time/age-calculator | Age Calculator | Age Calculator - Years, Months & Days — KodaTools |
+| /date-time/age-calculator | Age Calculator | Age Calculator - Age on Any Date in Years, Months & Days — KodaTools |
 | /date-time/date-calculator | Date Calculator | Date Calculator - Days Between Dates Calculator — KodaTools |
 | /date-time/days-from-today | Days From Today Calculator | Days From Today Calculator - Add or Subtract Days — KodaTools |
 | /date-time | Date & Time Calculators | Date & Time Calculators - Age, Dates & Countdowns — KodaTools |
@@ -232,14 +232,14 @@
 | /everyday/word-counter | Word Counter | Word Counter - Count Words, Characters & Reading Time — KodaTools |
 | /finance/amortization-calculator | Amortization Calculator | Amortization Calculator - Loan Payment Schedule — KodaTools |
 | /finance/auto-loan-calculator | Auto Loan Calculator | Auto Loan Calculator - Car Payment & Total Cost — KodaTools |
-| /finance/compound-interest-calculator | Compound Interest Calculator | Compound Interest Calculator - Watch Your Money Grow — KodaTools |
+| /finance/compound-interest-calculator | Compound Interest Calculator | Compound Interest Calculator with Monthly Contributions — KodaTools |
 | /finance/credit-card-payoff-calculator | Credit Card Payoff Calculator | Credit Card Payoff Calculator - When Will I Be Debt Free? — KodaTools |
 | /finance/discount-calculator | Discount Calculator | Discount Calculator - Sale Price & Savings Calculator — KodaTools |
 | /finance/hourly-to-salary-calculator | Hourly to Salary Calculator | Hourly to Salary Calculator - Annual Pay — KodaTools |
 | /finance | Finance Calculators | Finance Calculators - Mortgage, Loan, Interest & More — KodaTools |
 | /finance/inflation-calculator | Inflation Calculator | Inflation Calculator - How Much Is Your Money Worth? — KodaTools |
 | /finance/investment-calculator | Investment Calculator | Investment Calculator - Project Portfolio Growth — KodaTools |
-| /finance/loan-calculator | Loan Calculator | Loan Calculator - Monthly Payment & Total Interest — KodaTools |
+| /finance/loan-calculator | Loan Calculator | Loan Payment Calculator - Monthly Payment & Total Interest — KodaTools |
 | /finance/mortgage-calculator | Mortgage Calculator | Mortgage Calculator - Monthly Payment & Amortization — KodaTools |
 | /finance/net-worth-calculator | Net Worth Calculator | Net Worth Calculator - Calculate Your Net Worth — KodaTools |
 | /finance/retirement-calculator | Retirement Calculator | Retirement Calculator - Project Your Retirement Savings — KodaTools |

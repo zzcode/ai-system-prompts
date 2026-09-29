@@ -1,29 +1,30 @@
 ---
 import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import Examples from '../../components/Examples.astro';
+import { loanPayment } from '../../lib/planning.js';
+const terms = [3, 4, 5, 6].map(years => ({ years, ...loanPayment(25000, 8, years * 12) }));
+const money = value => '$' + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 const faqs = [
   { q: "How is a loan payment calculated?", a: "A fixed loan payment uses the amortization formula: M = P × [r(1+r)ⁿ] ÷ [(1+r)ⁿ − 1], where P is the loan amount, r is the monthly interest rate (annual ÷ 12), and n is the number of monthly payments." },
   { q: "What is the difference between interest rate and APR?", a: "The interest rate is the cost of borrowing the principal. APR (Annual Percentage Rate) includes the interest rate plus fees and other costs, giving a fuller picture of the loan's true annual cost." },
   { q: "How can I pay less total interest?", a: "Choose a shorter loan term, make extra payments toward principal, improve your credit score to get a lower rate, or make a larger down payment. Even small extra payments significantly reduce total interest." },
-  { q: "What is an amortization schedule?", a: "An amortization schedule shows each payment broken into principal and interest over the life of the loan. Early payments are mostly interest; later payments are mostly principal." },
+  { q: "What is an amortization schedule?", a: "An amortization schedule shows each payment broken into principal and interest over the life of the loan. The interest share declines as the balance falls; the split depends on the rate and term." },
   { q: "Does this calculator work for auto and personal loans?", a: "Yes. Any fixed-rate installment loan — auto, personal, student, or home — uses the same amortization formula. Just enter the loan amount, rate, and term." },
-  { q: "Is this calculator free?", a: "Yes. Completely free, no sign-up, and all calculations run in your browser. Nothing is stored or shared." }
+  { q: "Is this calculator free?", a: "Yes. Completely free, no sign-up, and all calculations run in your browser. The values entered into the calculator are processed locally." }
 ];
 
 const related = [
-  { href: "/finance/mortgage-calculator", icon: "🏠", title: "Mortgage Calculator", desc: "Home loan payment & interest" },
-  { href: "/finance/compound-interest-calculator", icon: "📈", title: "Compound Interest", desc: "Grow savings over time" },
-  { href: "/finance/tip-calculator", icon: "💵", title: "Tip Calculator", desc: "Tip amount and bill splitting" },
-  { href: "/math/percentage-calculator", icon: "%", title: "Percentage Calculator", desc: "Percent of a number & change" },
-  { href: "/date-time/age-calculator", icon: "🎂", title: "Age Calculator", desc: "Exact age in years & days" },
-  { href: "/health/bmi-calculator", icon: "⚖️", title: "BMI Calculator", desc: "Body mass index & category" }
+  { href: "/finance/amortization-calculator", icon: "📋", title: "Amortization Calculator", desc: "See principal and interest by payment" },
+  { href: "/finance/auto-loan-calculator", icon: "🚗", title: "Auto Loan Calculator", desc: "Include a down payment and trade-in" },
+  { href: "/finance/credit-card-payoff-calculator", icon: "💳", title: "Credit Card Payoff", desc: "Estimate time to clear a card balance" }
 ];
 ---
 
 <CalculatorLayout
-  title="Loan Calculator - Monthly Payment & Total Interest"
+  title="Loan Payment Calculator - Monthly Payment & Total Interest"
   h1="Loan Calculator"
-  description="Free loan calculator. Calculate monthly payments and total interest for any fixed-rate loan — auto, personal, student, or home. Instant results."
+  description="Calculate fixed-rate loan payments, including 0% loans. Compare 3–6 year terms, total interest and repayment costs with worked examples."
   subtitle="Calculate the monthly payment and total interest for any fixed-rate loan in seconds."
   category="Finance"
   categoryHref="/finance"
@@ -32,6 +33,10 @@ const related = [
   relatedTools={related}
 >
   <div slot="calculator">
+    <Examples examples={[
+      { label: '$25,000 over 5 years', values: { 'ln-amount': 25000, 'ln-rate': 8, 'ln-term': 5 } },
+      { label: '$12,000 at 0% interest', values: { 'ln-amount': 12000, 'ln-rate': 0, 'ln-term': 2 } }
+    ]} />
     <div class="calc-grid">
       <div>
         <div class="field">
@@ -43,16 +48,16 @@ const related = [
         </div>
         <div class="input-row">
           <div class="field">
-            <label for="ln-rate">Interest rate (APR)</label>
+            <label for="ln-rate">Annual interest rate</label>
             <div class="input-affix has-suffix">
-              <input type="number" id="ln-rate" value="8" step="any" inputmode="decimal" />
+              <input type="number" id="ln-rate" min="0" value="8" step="any" inputmode="decimal" />
               <span class="suffix">%</span>
             </div>
           </div>
           <div class="field">
             <label for="ln-term">Loan term</label>
             <div class="input-affix has-suffix">
-              <input type="number" id="ln-term" value="5" step="1" inputmode="numeric" />
+              <input type="number" id="ln-term" min="0.083333" max="100" value="5" step="1" inputmode="numeric" />
               <span class="suffix">yrs</span>
             </div>
           </div>
@@ -70,10 +75,11 @@ const related = [
     </div>
   </div>
 
-  <script is:inline>
+  <script>
+    import { loanPayment } from "../../lib/planning.js";
     (function () {
-      function num(id) { var v = parseFloat(document.getElementById(id).value); return isNaN(v) ? 0 : v; }
-      function money(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+      function num(id) { var v = parseFloat(document.getElementById(id).value); return v; }
+      function money(n) { return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
       function row(l, v) { return '<div class="result-row"><span class="rr-label">' + l + '</span><span class="rr-value">' + v + '</span></div>'; }
       var ids = ['ln-amount','ln-rate','ln-term'];
 
@@ -81,18 +87,17 @@ const related = [
         var P = num('ln-amount');
         var rate = num('ln-rate');
         var years = num('ln-term');
-        if (P <= 0 || rate <= 0 || years <= 0) {
+        var n = Math.round(years * 12);
+        var estimate = years > 0 && years <= 100 ? loanPayment(P, rate, n) : null;
+        if (!estimate) {
           document.getElementById('ln-payment').textContent = '—';
           document.getElementById('ln-sub').textContent = 'Enter loan details';
           document.getElementById('ln-rows').innerHTML = '';
           return;
         }
-        var r = rate / 100 / 12;
-        var n = Math.round(years * 12);
-        var pow = Math.pow(1 + r, n);
-        var m = P * (r * pow) / (pow - 1);
-        var total = m * n;
-        var interest = total - P;
+        var m = estimate.payment;
+        var total = estimate.total;
+        var interest = estimate.interest;
 
         document.getElementById('ln-payment').textContent = money(m);
         document.getElementById('ln-sub').textContent = 'for ' + n + ' months at ' + rate + '%';
@@ -109,8 +114,11 @@ const related = [
 
   <section class="content-section">
     <h2>How to Use the Loan Calculator</h2>
-    <p>Enter the loan amount, the annual interest rate (APR), and the loan term in years. The calculator instantly shows your fixed monthly payment, the total interest you'll pay, and the total cost of the loan.</p>
+    <p>Enter the loan amount, the annual interest rate, and the loan term in years. The calculator instantly shows your fixed monthly payment, the total interest you'll pay, and the total cost of the loan.</p>
 
+    <h2>Which rate should I enter?</h2>
+    <p>Use the annual interest rate from your loan terms. APR can also include fees, so entering APR as the interest rate may not reproduce the lender's payment. This calculator assumes equal monthly payments, a fixed rate, and no fees, insurance, taxes, or balloon payment. See the <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-difference-between-a-loan-interest-rate-and-the-apr-en-733/">CFPB explanation of interest rate and APR</a>.</p>
+    <p>At 0% interest, divide the amount borrowed by the number of payments. A $12,000 loan over 24 months is $500 per month. Terms are rounded to the nearest whole month; displayed totals use unrounded payments, so a lender's final payment may differ slightly.</p>
     <h2>The Loan Payment Formula</h2>
     <div class="formula-box">
       M = P × [ r(1 + r)ⁿ ] ÷ [ (1 + r)ⁿ − 1 ]<br><br>
@@ -119,16 +127,13 @@ const related = [
     </div>
 
     <h2>Example Calculation</h2>
-    <p>For a $25,000 loan at 8% APR for 5 years: monthly rate = 0.667%, payments = 60, giving a monthly payment of <strong>$507</strong>, total interest of about <strong>$5,415</strong>, and a total cost of <strong>$30,415</strong>.</p>
+    <p>For a $25,000 loan at 8% annual interest for 5 years: monthly rate = 0.667%, payments = 60, giving a monthly payment of <strong>{money(terms[2].payment)}</strong>, total interest of about <strong>{money(terms[2].interest)}</strong>, and a total cost of <strong>{money(terms[2].total)}</strong>.</p>
 
     <h2>Monthly Payment by Term ($25,000 at 8%)</h2>
     <table class="ref-table">
       <thead><tr><th>Term</th><th>Monthly Payment</th><th>Total Interest</th></tr></thead>
       <tbody>
-        <tr><td>3 years</td><td>$783</td><td>$3,203</td></tr>
-        <tr><td>4 years</td><td>$610</td><td>$4,296</td></tr>
-        <tr><td>5 years</td><td>$507</td><td>$5,415</td></tr>
-        <tr><td>6 years</td><td>$438</td><td>$6,559</td></tr>
+        {terms.map(term => <tr><td>{term.years} years</td><td>{money(term.payment)}</td><td>{money(term.interest)}</td></tr>)}
       </tbody>
     </table>
     <p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: Estimates only, not financial advice. Actual loan terms vary by lender.</em></p>

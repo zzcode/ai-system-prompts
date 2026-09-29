@@ -1,27 +1,25 @@
 ---
 import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import Examples from '../../components/Examples.astro';
 
 const faqs = [
   { q: "How do I calculate my exact age?", a: "Enter your date of birth and the calculator shows your exact age in years, months, and days, plus totals in months, weeks, days, hours, and minutes." },
   { q: "How is age calculated in years, months, and days?", a: "Age is calculated by finding the difference between your birth date and today's date, accounting for varying month lengths and leap years. The result is expressed as complete years, then remaining months, then remaining days." },
   { q: "Can I calculate age on a specific date?", a: "Yes. Change the 'Age at date' field to any date to find how old you were or will be on that specific day. This is useful for planning, eligibility checks, and historical calculations." },
   { q: "How many days old am I?", a: "The calculator shows your total age in days. For example, a 30-year-old is roughly 10,950 days old (accounting for leap years). Enter your birth date above to see your exact total." },
-  { q: "What is a leap year and does it affect my age?", a: "A leap year has 366 days (with February 29) and occurs every 4 years. It affects total day counts but not your age in years. This calculator accounts for leap years automatically." },
+  { q: "What is a leap year and does it affect my age?", a: "A leap year has 366 days. Years divisible by 4 are leap years, except century years must also be divisible by 400. This calculator counts leap days and uses February 28 as a February 29 anniversary in non-leap years." },
   { q: "Is this age calculator free and private?", a: "Yes. It is completely free, requires no sign-up, and runs entirely in your browser. Your birth date is never stored or transmitted." }
 ];
 
 const related = [
-  { href: "/health/bmi-calculator", icon: "⚖️", title: "BMI Calculator", desc: "Body mass index & category" },
-  { href: "/health/calorie-calculator", icon: "🔥", title: "Calorie Calculator", desc: "Daily calorie needs" },
-  { href: "/math/percentage-calculator", icon: "%", title: "Percentage Calculator", desc: "Percent of a number & change" },
-  { href: "/finance/tip-calculator", icon: "💵", title: "Tip Calculator", desc: "Tip amount and bill splitting" },
-  { href: "/finance/mortgage-calculator", icon: "🏠", title: "Mortgage Calculator", desc: "Monthly payment & interest" },
-  { href: "/finance/compound-interest-calculator", icon: "📈", title: "Compound Interest", desc: "Watch savings grow" }
+  { href: "/date-time/date-calculator", icon: "📅", title: "Date Calculator", desc: "Count days between any two dates" },
+  { href: "/date-time/days-from-today", icon: "📆", title: "Days from Today", desc: "Find a date before or after today" },
+  { href: "/date-time/time-calculator", icon: "⏱", title: "Time Calculator", desc: "Add durations or find elapsed time" }
 ];
 ---
 
 <CalculatorLayout
-  title="Age Calculator - Years, Months & Days"
+  title="Age Calculator - Age on Any Date in Years, Months & Days"
   h1="Age Calculator"
   description="Free age calculator. Find your exact age in years, months, and days, plus totals in weeks, days, hours, and minutes. Fast and no sign-up."
   subtitle="Calculate your exact age from your date of birth to today — or any date you choose."
@@ -32,6 +30,10 @@ const related = [
   relatedTools={related}
 >
   <div slot="calculator">
+    <Examples examples={[
+      { label: 'Age on a specific date', values: { 'age-dob': '1995-03-15', 'age-at': '2026-08-05' } },
+      { label: 'Leap-day birthday', values: { 'age-dob': '2000-02-29', 'age-at': '2025-02-28' } }
+    ]} />
     <div class="calc-grid">
       <div>
         <div class="field">
@@ -56,7 +58,8 @@ const related = [
     </div>
   </div>
 
-  <script is:inline>
+  <script>
+    import { calendarAge } from "../../lib/planning.js";
     (function () {
       var dobEl = document.getElementById('age-dob');
       var atEl = document.getElementById('age-at');
@@ -76,38 +79,23 @@ const related = [
 
       function calc() {
         if (!dobEl.value || !atEl.value) { mainEl.textContent='—'; subEl.textContent='Enter your date of birth'; rowsEl.innerHTML=''; return; }
-        var dob = new Date(dobEl.value + 'T00:00:00');
-        var at = new Date(atEl.value + 'T00:00:00');
-        if (isNaN(dob) || isNaN(at) || at < dob) { mainEl.textContent='—'; subEl.textContent='End date must be after birth date'; rowsEl.innerHTML=''; return; }
-
-        var years = at.getFullYear() - dob.getFullYear();
-        var months = at.getMonth() - dob.getMonth();
-        var days = at.getDate() - dob.getDate();
-        if (days < 0) { months--; var prevMonth = new Date(at.getFullYear(), at.getMonth(), 0); days += prevMonth.getDate(); }
-        if (months < 0) { years--; months += 12; }
-
-        mainEl.textContent = years + ' yrs ' + months + ' mo ' + days + ' d';
-
-        var diffMs = at - dob;
-        var totalDays = Math.floor(diffMs / 86400000);
+        var age = calendarAge(dobEl.value, atEl.value);
+        if (!age) { mainEl.textContent='—'; subEl.textContent='Enter valid dates; end date cannot precede birth date'; rowsEl.innerHTML=''; return; }
+        mainEl.textContent = age.years + ' yrs ' + age.months + ' mo ' + age.days + ' d';
+        var totalDays = age.totalDays;
         var totalWeeks = Math.floor(totalDays / 7);
-        var totalMonths = years * 12 + months;
+        var totalMonths = age.totalMonths;
         var totalHours = totalDays * 24;
         var totalMinutes = totalHours * 60;
-
-        subEl.textContent = 'Born ' + dob.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
-
-        // Next birthday
-        var nextBday = new Date(at.getFullYear(), dob.getMonth(), dob.getDate());
-        if (nextBday <= at) nextBday = new Date(at.getFullYear() + 1, dob.getMonth(), dob.getDate());
-        var daysToBday = Math.ceil((nextBday - at) / 86400000);
+        subEl.textContent = 'From ' + dobEl.value + ' to ' + atEl.value;
+        var daysToBday = age.birthdayDays;
 
         rowsEl.innerHTML =
           row('Total months', totalMonths.toLocaleString()) +
           row('Total weeks', totalWeeks.toLocaleString()) +
           row('Total days', totalDays.toLocaleString()) +
-          row('Total hours', totalHours.toLocaleString()) +
-          row('Total minutes', totalMinutes.toLocaleString()) +
+          row('Hours (24 per day)', totalHours.toLocaleString()) +
+          row('Minutes (1,440 per day)', totalMinutes.toLocaleString()) +
           row('Next birthday in', daysToBday + ' days');
       }
 
@@ -123,12 +111,16 @@ const related = [
     <h2>How Age Is Calculated</h2>
     <p>Exact age is found by computing the difference between two dates while accounting for the varying lengths of months and the presence of leap years:</p>
     <ul>
-      <li><strong>Years</strong> — the number of complete birthdays that have passed.</li>
+      <li><strong>Years</strong> — complete years using the anniversary convention below.</li>
       <li><strong>Months</strong> — the complete months since the last birthday.</li>
-      <li><strong>Days</strong> — the remaining days into the current month.</li>
+      <li><strong>Days</strong> — calendar days since the most recent monthly anniversary.</li>
     </ul>
     <p>For total day counts, the calculator counts every day between the two dates, including February 29 in leap years.</p>
 
+    <h2>Month-end dates, leap days and time zones</h2>
+    <p>When the birth day does not exist in the target month, this calculator uses that month's last day as the monthly anniversary. January 31 to February 28, 2025 is 0 years, 1 month, 0 days; January 31 to March 1 is 0 years, 1 month, 1 day.</p>
+    <p>A February 29 birthday uses February 28 in non-leap years. This is the calculator's convention, not a determination of legal eligibility. Check the rules of the relevant organization when an age threshold matters.</p>
+    <p>Total days count calendar dates and do not change with daylight saving time. Hours and minutes are conversions of that day count, not elapsed time since a recorded birth time. For another interval, use the <a href="/date-time/date-calculator">date difference calculator</a>.</p>
     <h2>Example Calculation</h2>
     <p>If you were born on March 15, 1995, and today is August 5, 2026:</p>
     <ul>

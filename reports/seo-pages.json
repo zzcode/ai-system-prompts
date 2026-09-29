@@ -19,7 +19,7 @@
     "route": "/construction/concrete-calculator",
     "primaryTopic": "Concrete Calculator",
     "title": "Concrete Calculator - How Much Concrete Do I Need? | KodaTools",
-    "description": "Free concrete calculator. Estimate cubic yards, cubic feet, and bags of concrete needed for slabs, footings, and columns. Includes cost estimate. No sign-up.",
+    "description": "Free concrete calculator. Estimate cubic yards, cubic feet, and bags of concrete needed for rectangular slabs and footings. Includes cost estimate. No sign-up.",
     "structuredData": [
       "WebApplication",
       "FAQPage",
@@ -2562,7 +2562,7 @@
   {
     "route": "/date-time/age-calculator",
     "primaryTopic": "Age Calculator",
-    "title": "Age Calculator - Years, Months & Days | KodaTools",
+    "title": "Age Calculator - Age on Any Date in Years, Months & Days | KodaTools",
     "description": "Free age calculator. Find your exact age in years, months, and days, plus totals in weeks, days, hours, and minutes. Fast and no sign-up.",
     "structuredData": [
       "WebApplication",
@@ -2722,7 +2722,7 @@
   {
     "route": "/finance/compound-interest-calculator",
     "primaryTopic": "Compound Interest Calculator",
-    "title": "Compound Interest Calculator - Watch Your Money Grow | KodaTools",
+    "title": "Compound Interest Calculator with Monthly Contributions | KodaTools",
     "description": "Free compound interest calculator. See how your savings and investments grow over time with compounding. Add monthly contributions and view a year-by-year breakdown.",
     "structuredData": [
       "WebApplication",
@@ -2802,8 +2802,8 @@
   {
     "route": "/finance/loan-calculator",
     "primaryTopic": "Loan Calculator",
-    "title": "Loan Calculator - Monthly Payment & Total Interest | KodaTools",
-    "description": "Free loan calculator. Calculate monthly payments and total interest for any fixed-rate loan — auto, personal, student, or home. Instant results.",
+    "title": "Loan Payment Calculator - Monthly Payment & Total Interest | KodaTools",
+    "description": "Calculate fixed-rate loan payments, including 0% loans. Compare 3–6 year terms, total interest and repayment costs with worked examples.",
     "structuredData": [
       "WebApplication",
       "FAQPage",

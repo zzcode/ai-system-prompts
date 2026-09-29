@@ -100,7 +100,7 @@ const orgSchema = {
     </section>
     <!-- Popular tools -->
     <section style="padding:44px 0 8px;">
-      <h2 style="font-size:1.5rem;font-weight:700;margin-bottom:20px;">Most Popular Calculators</h2>
+      <h2 style="font-size:1.5rem;font-weight:700;margin-bottom:20px;">Everyday Calculators</h2>
       <div class="tool-grid" style="grid-template-columns:repeat(4,1fr);" id="popular-grid">
         {popular.map((t) => (
           <a href={t.href} class="tool-card">
@@ -111,6 +111,17 @@ const orgSchema = {
             </span>
           </a>
         ))}
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="planning-heading">
+      <h2 id="planning-heading">Start with the question you need to answer</h2>
+      <div class="tool-grid">
+        <a href="/finance/loan-calculator" class="tool-card"><span><span class="tc-title">What will this loan cost each month?</span><span class="tc-desc">Compare payment terms, try a zero-interest example and see the full repayment cost.</span></span></a>
+        <a href="/finance/compound-interest-calculator" class="tool-card"><span><span class="tc-title">What difference would monthly savings make?</span><span class="tc-desc">Compare regular contributions with a single deposit and follow the yearly balance.</span></span></a>
+        <a href="/date-time/age-calculator" class="tool-card"><span><span class="tc-title">How old will I be on a specific date?</span><span class="tc-desc">Use a target date, explore a leap-day example and count calendar days.</span></span></a>
+        <a href="/construction/concrete-calculator" class="tool-card"><span><span class="tc-title">How many bags of concrete do I need?</span><span class="tc-desc">Convert slab dimensions to cubic yards and bag counts with an adjustable allowance.</span></span></a>
+        <a href="/construction/paint-calculator" class="tool-card"><span><span class="tc-title">How much paint for two coats?</span><span class="tc-desc">Subtract openings, enter your paint's coverage and estimate whole gallons.</span></span></a>
       </div>
     </section>
 

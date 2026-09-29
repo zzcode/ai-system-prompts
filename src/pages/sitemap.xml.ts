@@ -1,3 +1,4 @@
+import { reviewedPages } from '../data/search-focus.js';
 import { allConversionPages } from '../data/conversions.js';
 
 const SITE = 'https://www.kodatools.com';
@@ -88,7 +89,7 @@ export function GET() {
   const urls = allPages
     .map(
       (p) => `  <url>
-    <loc>${SITE}${p.url}</loc>
+    <loc>${SITE}${p.url}</loc>${reviewedPages[p.url] ? `\n    <lastmod>${reviewedPages[p.url]}</lastmod>` : ''}
     <priority>${p.priority}</priority>
     <changefreq>${p.changefreq}</changefreq>
   </url>`

@@ -1,10 +1,11 @@
 ---
 import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import Examples from '../../components/Examples.astro';
 const faqs=[
 {q:"How do I calculate how much concrete I need?",a:"Multiply length × width × depth to get cubic volume. For a 10ft × 10ft slab that's 4 inches deep: 10 × 10 × (4/12) = 33.3 cubic feet = 1.23 cubic yards. Order 5-10% extra for waste."},
 {q:"How many bags of concrete equal 1 cubic yard?",a:"It takes about 45 bags of 80lb concrete mix to make 1 cubic yard, or 60 bags of 60lb mix. Each 80lb bag yields about 0.6 cubic feet."},
-{q:"How thick should a concrete slab be?",a:"Patios and walkways: 4 inches. Driveways: 4–6 inches. Foundations: 8–12 inches. Always check local building codes for minimum thickness requirements."},
-{q:"How much does concrete cost?",a:"Ready-mix concrete costs $100–$150 per cubic yard (plus delivery). Bagged concrete (DIY) costs $4–$7 per 80lb bag. A typical 10×10 patio slab needs about 1.5 yards ($150–$225)."}
+{q:"How thick should a concrete slab be?",a:"Enter the thickness specified for your project. This volume calculator does not determine structural thickness, reinforcement or load capacity; those depend on the design and local requirements."},
+{q:"How much does concrete cost?",a:"Enter a current supplier quote per cubic yard for a material estimate. Delivery, minimum loads, tax, labor and reinforcement are excluded. A blank price leaves the cost estimate hidden."}
 ];
 const related=[
 {href:"/construction/square-footage-calculator",icon:"📏",title:"Square Footage",desc:"Calculate area for any space"},
@@ -15,8 +16,12 @@ const related=[
 {href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Home loan payments"}
 ];
 ---
-<CalculatorLayout title="Concrete Calculator - How Much Concrete Do I Need?" h1="Concrete Calculator" description="Free concrete calculator. Estimate cubic yards, cubic feet, and bags of concrete needed for slabs, footings, and columns. Includes cost estimate. No sign-up." subtitle="Calculate how much concrete you need for slabs, footings, and posts in cubic yards and bags." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
+<CalculatorLayout title="Concrete Calculator - How Much Concrete Do I Need?" h1="Concrete Calculator" description="Free concrete calculator. Estimate cubic yards, cubic feet, and bags of concrete needed for rectangular slabs and footings. Includes cost estimate. No sign-up." subtitle="Calculate how much concrete you need for rectangular slabs and footings in cubic yards and bags, with an optional waste allowance." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
 <div slot="calculator">
+<Examples examples={[
+{label: '10 × 10 ft slab, 4 in deep', values: {'cc-length': 10, 'cc-width': 10, 'cc-depth': 4, 'cc-waste': 10}},
+{label: '4 × 20 ft walkway, 4 in deep', values: {'cc-length': 4, 'cc-width': 20, 'cc-depth': 4, 'cc-waste': 10}}
+]} />
 <div class="calc-grid">
 <div>
 <div class="input-row">
@@ -24,10 +29,11 @@ const related=[
 <div class="field"><label for="cc-width">Width</label><div class="input-affix has-suffix"><input type="number" id="cc-width" value="10" step="any" /><span class="suffix">ft</span></div></div>
 </div>
 <div class="field"><label for="cc-depth">Depth / Thickness</label><div class="input-affix has-suffix"><input type="number" id="cc-depth" value="4" step="any" /><span class="suffix">in</span></div></div>
-<div class="field"><label for="cc-price">Price per cubic yard (optional)</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="cc-price" value="130" step="any" /></div></div>
+<div class="field"><label for="cc-waste">Extra allowance (%)</label><input type="number" id="cc-waste" value="10" min="0" max="100" step="any" /><div class="hint">Adjust for your project. Use 0 to see the exact geometric volume.</div></div>
+<div class="field"><label for="cc-price">Price per cubic yard (optional)</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="cc-price" min="0" placeholder="Supplier quote" step="any" /></div></div>
 </div>
 <div class="result-panel">
-<div class="result-main"><div class="result-label">Concrete Needed</div><div class="result-value" id="cc-yards">1.23 yd³</div><div class="result-sub" id="cc-sub">56 bags (80lb)</div></div>
+<div class="result-main"><div class="result-label">Concrete Needed</div><div class="result-value" id="cc-yards">1.36 yd³</div><div class="result-sub" id="cc-sub">62 bags (80lb)</div></div>
 <div class="result-rows" id="cc-rows"></div>
 </div>
 </div>
@@ -38,35 +44,42 @@ function num(id){var v=parseFloat(document.getElementById(id).value);return isNa
 function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
 function calc(){
 var l=num('cc-length'),w=num('cc-width'),d=num('cc-depth'),price=num('cc-price');
-if(!l||!w||!d)return;
-var cuft=l*w*(d/12);
+var waste=num('cc-waste');
+if (![l,w,d,price,waste].every(Number.isFinite) || l<=0 || w<=0 || d<=0 || price<0 || waste<0 || waste>100 || !document.getElementById('cc-waste').value) { document.getElementById('cc-yards').textContent='—'; document.getElementById('cc-sub').textContent='Enter positive dimensions and an allowance from 0 to 100%'; document.getElementById('cc-rows').innerHTML=''; return; }
+var base=l*w*(d/12);
+var cuft=base*(1+waste/100);
 var cuyd=cuft/27;
 var bags80=Math.ceil(cuft/0.6);
 var bags60=Math.ceil(cuft/0.45);
 var cost=cuyd*price;
 document.getElementById('cc-yards').textContent=cuyd.toFixed(2)+' yd³';
 document.getElementById('cc-sub').textContent=bags80+' bags (80lb) or '+bags60+' bags (60lb)';
-document.getElementById('cc-rows').innerHTML=row('Cubic feet',cuft.toFixed(1)+' ft³')+row('Cubic yards',cuyd.toFixed(2)+' yd³')+row('80lb bags',bags80)+row('60lb bags',bags60)+(price>0?row('Estimated cost','$'+Math.round(cost).toLocaleString()):'');
+document.getElementById('cc-rows').innerHTML=row('Volume before allowance',(base/27).toFixed(2)+' yd³')+row('Extra allowance',waste+'%')+row('Cubic feet including allowance',cuft.toFixed(1)+' ft³')+row('Cubic yards',cuyd.toFixed(2)+' yd³')+row('80lb bags',bags80)+row('60lb bags',bags60)+(price>0?row('Estimated cost','$'+Math.round(cost).toLocaleString()):'');
 }
-['cc-length','cc-width','cc-depth','cc-price'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+['cc-length','cc-width','cc-depth','cc-price','cc-waste'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
 calc();
 })();
 </script>
 <section class="content-section">
 <h2>How to Calculate Concrete</h2>
 <div class="formula-box">Cubic Feet = Length(ft) × Width(ft) × Depth(in)/12<br>Cubic Yards = Cubic Feet ÷ 27<br>Bags = Cubic Feet ÷ 0.6 (per 80lb bag)</div>
+<h2>Example: a 10 × 10 slab at 4 inches</h2>
+<p>Convert depth to feet: 4 ÷ 12 = 0.3333 ft. Volume is 10 × 10 × 0.3333 = 33.33 ft³, or 1.235 yd³. Adding 10% gives 36.67 ft³, or 1.358 yd³. At 0.60 ft³ per 80 lb bag, round 36.67 ÷ 0.60 up to <strong>62 bags</strong>.</p>
+<p>The result includes the allowance you enter; do not add it again. For separate rectangular sections, calculate each section and add their volumes. Round bag counts only after combining volumes. This tool does not calculate round columns or subtract voids.</p>
+<p>Need dimensions first? Use the <a href="/construction/square-footage-calculator">square footage calculator</a> for area and the <a href="/converters/unit-converter">unit converter</a> to convert measurements.</p>
 <h2>Concrete Bag Coverage</h2>
 <table class="ref-table"><thead><tr><th>Bag Size</th><th>Cubic Feet per Bag</th><th>Bags per Cubic Yard</th></tr></thead><tbody>
 <tr><td>40 lb</td><td>0.30</td><td>90</td></tr>
 <tr><td>60 lb</td><td>0.45</td><td>60</td></tr>
 <tr><td>80 lb</td><td>0.60</td><td>45</td></tr>
 </tbody></table>
-<h2>Common Concrete Projects</h2>
-<table class="ref-table"><thead><tr><th>Project</th><th>Typical Size</th><th>Concrete Needed</th></tr></thead><tbody>
+<p>Bag yields depend on the mix. The estimates use 0.60 ft³ for 80 lb and 0.45 ft³ for 60 lb; check the yield printed on your product. See <a href="https://www.quikrete.com/productlines/concretemix.asp">QUIKRETE Concrete Mix product information</a>.</p>
+<h2>Example Rectangular Volumes (No Allowance)</h2>
+<table class="ref-table"><thead><tr><th>Project</th><th>Example Dimensions</th><th>Concrete Needed</th></tr></thead><tbody>
 <tr><td>Patio slab</td><td>10×10 ft, 4" thick</td><td>1.23 yd³</td></tr>
 <tr><td>Driveway</td><td>20×20 ft, 6" thick</td><td>7.41 yd³</td></tr>
 <tr><td>Sidewalk</td><td>4×20 ft, 4" thick</td><td>0.99 yd³</td></tr>
-<tr><td>Post footing</td><td>12" dia × 24" deep</td><td>0.16 yd³</td></tr>
+
 </tbody></table>
 </section>
 </CalculatorLayout>

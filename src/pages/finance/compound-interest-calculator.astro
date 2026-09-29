@@ -1,5 +1,10 @@
 ---
 import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import Examples from '../../components/Examples.astro';
+import { compoundBalance } from '../../lib/planning.js';
+const money = value => '$' + Math.round(value).toLocaleString('en-US');
+const growthExamples = [10, 20, 30].map(years => ({ years, ...compoundBalance(10000, 200, 7, years, 12) }));
+const frequencies = [{ name: 'Annually', n: 1 }, { name: 'Quarterly', n: 4 }, { name: 'Monthly', n: 12 }, { name: 'Daily', n: 365 }];
 
 const faqs = [
   { q: "What is compound interest?", a: "Compound interest is interest calculated on both the initial principal and the accumulated interest from previous periods. This means your money grows faster over time compared to simple interest, which is calculated only on the principal." },
@@ -12,17 +17,14 @@ const faqs = [
 ];
 
 const related = [
-  { href: "/finance/mortgage-calculator", icon: "🏠", title: "Mortgage Calculator", desc: "Monthly payment & interest" },
-  { href: "/finance/loan-calculator", icon: "💳", title: "Loan Calculator", desc: "Loan payment & total cost" },
-  { href: "/finance/tip-calculator", icon: "💵", title: "Tip Calculator", desc: "Tip amount and bill splitting" },
-  { href: "/math/percentage-calculator", icon: "%", title: "Percentage Calculator", desc: "Percent of a number & change" },
-  { href: "/health/calorie-calculator", icon: "🔥", title: "Calorie Calculator", desc: "Daily calorie needs" },
-  { href: "/health/bmi-calculator", icon: "⚖️", title: "BMI Calculator", desc: "Body mass index & category" }
+  { href: "/finance/savings-calculator", icon: "💰", title: "Savings Calculator", desc: "Plan a savings balance" },
+  { href: "/finance/inflation-calculator", icon: "📉", title: "Inflation Calculator", desc: "Compare future purchasing power" },
+  { href: "/finance/investment-calculator", icon: "📈", title: "Investment Calculator", desc: "Explore contribution scenarios" }
 ];
 ---
 
 <CalculatorLayout
-  title="Compound Interest Calculator - Watch Your Money Grow"
+  title="Compound Interest Calculator with Monthly Contributions"
   h1="Compound Interest Calculator"
   description="Free compound interest calculator. See how your savings and investments grow over time with compounding. Add monthly contributions and view a year-by-year breakdown."
   subtitle="Calculate how your money grows with compound interest, with optional monthly contributions and a year-by-year growth breakdown."
@@ -33,6 +35,10 @@ const related = [
   relatedTools={related}
 >
   <div slot="calculator">
+    <Examples examples={[
+      { label: '$10,000 + $200/month', values: { 'ci-principal': 10000, 'ci-contrib': 200, 'ci-rate': 7, 'ci-years': 20, 'ci-freq': 12 } },
+      { label: 'Compare with no contributions', values: { 'ci-principal': 10000, 'ci-contrib': 0, 'ci-rate': 7, 'ci-years': 20, 'ci-freq': 12 } }
+    ]} />
     <div class="calc-grid">
       <div>
         <div class="field">
@@ -59,7 +65,7 @@ const related = [
           </div>
           <div class="field">
             <label for="ci-years">Years</label>
-            <input type="number" id="ci-years" value="20" step="1" inputmode="numeric" />
+            <input type="number" id="ci-years" min="1" max="100" value="20" step="1" inputmode="numeric" />
           </div>
         </div>
         <div class="field">
@@ -105,9 +111,10 @@ const related = [
     </div>
   </div>
 
-  <script is:inline>
+  <script>
+    import { compoundBalance } from "../../lib/planning.js";
     (function () {
-      function num(id) { var v = parseFloat(document.getElementById(id).value); return isNaN(v) ? 0 : v; }
+      function num(id) { var v = parseFloat(document.getElementById(id).value); return v; }
       function money(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
       function row(l, v) { return '<div class="result-row"><span class="rr-label">' + l + '</span><span class="rr-value">' + v + '</span></div>'; }
       var ids = ['ci-principal','ci-contrib','ci-rate','ci-years','ci-freq'];
@@ -116,36 +123,22 @@ const related = [
         var P = num('ci-principal');
         var PMT = num('ci-contrib');
         var rate = num('ci-rate');
-        var years = Math.max(parseInt(document.getElementById('ci-years').value, 10) || 0, 0);
+        var years = num('ci-years');
         var n = parseInt(document.getElementById('ci-freq').value, 10);
 
-        if (years <= 0 || rate < 0) {
+        var estimate = compoundBalance(P, PMT, rate, years, n);
+        if (!estimate) {
           document.getElementById('ci-total').textContent = '$—';
           document.getElementById('ci-sub').textContent = 'Enter your numbers';
           document.getElementById('ci-rows').innerHTML = '';
           document.getElementById('ci-tbody').innerHTML = '';
+          ['p','c','i'].forEach(key => { document.getElementById('ci-bar-' + key).style.width = '0%'; document.getElementById('ci-bar-' + key + 'v').textContent = ''; });
           return;
         }
 
-        var r = rate / 100;
-        // Compound the principal annually in monthly steps for contribution timing
-        var balance = P;
-        var totalContrib = 0;
-        var rows = '';
-        var monthlyRate = r / n;
-        var periodsPerYear = n;
-
-        // simulate month by month using effective monthly growth of chosen frequency
-        var effMonthly = Math.pow(1 + r / periodsPerYear, periodsPerYear / 12) - 1;
-        for (var y = 1; y <= years; y++) {
-          for (var m = 0; m < 12; m++) {
-            balance = balance * (1 + effMonthly) + PMT;
-            totalContrib += PMT;
-          }
-          var deposits = P + totalContrib;
-          var interest = balance - deposits;
-          rows += '<tr><td>' + y + '</td><td>' + money(deposits) + '</td><td>' + money(interest) + '</td><td>' + money(balance) + '</td></tr>';
-        }
+        var balance = estimate.balance;
+        var totalContrib = PMT * years * 12;
+        var rows = estimate.rows.map(item => '<tr><td>' + item.year + '</td><td>' + money(item.deposits) + '</td><td>' + money(item.interest) + '</td><td>' + money(item.balance) + '</td></tr>').join('');
 
         var totalDeposits = P + totalContrib;
         var totalInterest = balance - totalDeposits;
@@ -181,6 +174,10 @@ const related = [
     <h2>How to Use the Compound Interest Calculator</h2>
     <p>Enter your starting amount, an optional monthly contribution, the expected annual interest rate, the number of years, and how often interest compounds. The calculator shows your projected final balance, how much you deposited, how much you earned in interest, and a year-by-year growth table.</p>
 
+    <h2>How monthly contributions are applied</h2>
+    <p>Deposits are added at the end of each month, after that month's growth. The selected compounding frequency is converted to an equivalent monthly growth rate: i = (1 + r/n)<sup>n/12</sup> − 1. This is a mathematical estimate, not a model of a particular bank's daily balance or deposit rules.</p>
+    <p>For m months, the balance is P(1+i)<sup>m</sup> + C × ((1+i)<sup>m</sup> − 1)/i, where C is the monthly contribution. At 0% interest, it is simply P + C × m. Use whole years from 1 to 100 and nonnegative amounts. Taxes, fees, inflation, withdrawals and changing returns are not included.</p>
+    <p>For background, see <a href="https://www.investor.gov/introduction-investing/investing-basics/save-and-invest/small-savings-add-big-money">Investor.gov's explanation of compounding</a>. The example rate below is hypothetical, not a predicted return.</p>
     <h2>The Compound Interest Formula</h2>
     <div class="formula-box">
       A = P (1 + r/n)<sup>nt</sup><br><br>
@@ -195,9 +192,7 @@ const related = [
     <h2>Example: The Power of Compounding</h2>
     <p>Suppose you invest $10,000, add $200 every month, and earn an average of 7% per year compounded monthly:</p>
     <ul>
-      <li>After 10 years: about <strong>$54,000</strong></li>
-      <li>After 20 years: about <strong>$147,000</strong></li>
-      <li>After 30 years: about <strong>$331,000</strong></li>
+      {growthExamples.map(example => <li>After {example.years} years: about <strong>{money(example.balance)}</strong> ({money(example.deposits)} deposited)</li>)}
     </ul>
     <p>Notice how growth accelerates — the last decade adds far more than the first. That is compounding at work.</p>
 
@@ -206,10 +201,7 @@ const related = [
     <table class="ref-table">
       <thead><tr><th>Frequency</th><th>Final Amount</th></tr></thead>
       <tbody>
-        <tr><td>Annually</td><td>$38,697</td></tr>
-        <tr><td>Quarterly</td><td>$39,598</td></tr>
-        <tr><td>Monthly</td><td>$40,388</td></tr>
-        <tr><td>Daily</td><td>$40,552</td></tr>
+        {frequencies.map(frequency => <tr><td>{frequency.name}</td><td>{money(compoundBalance(10000, 0, 7, 20, frequency.n).balance)}</td></tr>)}
       </tbody>
     </table>
     <p style="font-size:0.85rem;color:var(--text-muted);"><em>Disclaimer: Projections are hypothetical and for education only. Investment returns vary and are not guaranteed. Not financial advice.</em></p>
