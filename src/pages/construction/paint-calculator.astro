@@ -4,8 +4,8 @@ import Examples from '../../components/Examples.astro';
 const faqs=[
 {q:"How much paint do I need for a room?",a:"Measure the wall area (length × height of each wall), subtract doors and windows, multiply by the coat count, then divide by the one-coat coverage on the paint label. A typical 12×12 room with 8ft ceilings needs about 2 gallons for two coats."},
 {q:"How many square feet does a gallon of paint cover?",a:"Coverage depends on the product and surface. This calculator starts at 350 square feet per US gallon for one coat; replace that with the coverage on your paint label."},
-{q:"How many coats of paint do I need?",a:"Typically two coats for good coverage, especially when changing colors. One coat may suffice when repainting with the same color. Dark colors over light may need three coats."},
-{q:"Should I subtract doors and windows?",a:"Yes. A standard door is about 20 sq ft and a window about 15 sq ft. This calculator subtracts them automatically to avoid over-ordering."}
+{q:"Does the paint calculator include the ceiling?",a:"Choose Walls plus ceiling to add the room length times width. That setting uses the same paint, coverage and coat count for both surfaces. If the ceiling uses a different product or finish, calculate and buy it separately."},
+{q:"Should I subtract doors and windows?",a:"Yes. Enter the number of openings and their average areas. The starting assumptions are 20 sq ft per door and 15 sq ft per window; replace them with your measured sizes."}
 ];
 const related=[
 {href:"/construction/square-footage-calculator",icon:"📏",title:"Square Footage",desc:"Calculate area for any space"},
@@ -16,11 +16,12 @@ const related=[
 {href:"/converters/unit-converter",icon:"📏",title:"Unit Converter",desc:"Length, weight & temp"}
 ];
 ---
-<CalculatorLayout title="Paint Calculator - How Much Paint Do I Need?" h1="Paint Calculator" description="Free paint calculator. Calculate how many gallons of paint you need for any room or wall. Accounts for doors, windows, and multiple coats. No sign-up." subtitle="Estimate how many gallons of paint you need for any room or project." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
+<CalculatorLayout title="Paint Calculator: Room Walls, Ceiling & Two Coats" h1="Paint Calculator" description="Estimate paint gallons for room walls and an optional ceiling. Adjust coats, door and window sizes, and product coverage. Includes a 12x12 room example." subtitle="Estimate US gallons for room walls and an optional ceiling, using your paint coverage and coat count." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
 <div slot="calculator">
 <Examples examples={[
-{label: '12 × 12 ft bedroom, two coats', values: {'pc-length': 12, 'pc-width': 12, 'pc-height': 8, 'pc-coats': 2, 'pc-doors': 1, 'pc-windows': 2, 'pc-coverage': 350}},
-{label: '20 × 15 ft room, two coats', values: {'pc-length': 20, 'pc-width': 15, 'pc-height': 8, 'pc-coats': 2, 'pc-doors': 2, 'pc-windows': 3, 'pc-coverage': 350}}
+{label: '12 × 12 ft bedroom, two coats', values: {'pc-length': 12, 'pc-width': 12, 'pc-height': 8, 'pc-coats': 2, 'pc-doors': 1, 'pc-windows': 2, 'pc-coverage': 350, 'pc-door-area': 20, 'pc-window-area': 15, 'pc-ceiling': 0}},
+{label: '12 × 12 ft walls plus ceiling', values: {'pc-length': 12, 'pc-width': 12, 'pc-height': 8, 'pc-coats': 2, 'pc-doors': 1, 'pc-windows': 2, 'pc-coverage': 350, 'pc-door-area': 20, 'pc-window-area': 15, 'pc-ceiling': 1}},
+{label: '20 × 15 ft room, two coats', values: {'pc-length': 20, 'pc-width': 15, 'pc-height': 8, 'pc-coats': 2, 'pc-doors': 2, 'pc-windows': 3, 'pc-coverage': 350, 'pc-door-area': 20, 'pc-window-area': 15, 'pc-ceiling': 0}}
 ]} />
 <div class="calc-grid">
 <div>
@@ -34,7 +35,12 @@ const related=[
 <div class="field"><label for="pc-doors">Doors</label><input type="number" id="pc-doors" value="1" min="0" /></div>
 <div class="field"><label for="pc-windows">Windows</label><input type="number" id="pc-windows" value="2" min="0" /></div>
 </div>
-<div class="field"><label for="pc-coverage">Coverage per US gallon (sq ft, one coat)</label><input type="number" id="pc-coverage" value="350" min="1" step="any" /><div class="hint">Use the coverage on your paint label. Walls only; ceiling and trim are excluded.</div></div>
+<div class="input-row">
+<div class="field"><label for="pc-door-area">Average door area (sq ft)</label><input type="number" id="pc-door-area" value="20" min="0" step="any" /></div>
+<div class="field"><label for="pc-window-area">Average window area (sq ft)</label><input type="number" id="pc-window-area" value="15" min="0" step="any" /></div>
+</div>
+<div class="field"><label for="pc-ceiling">Surfaces to paint</label><select id="pc-ceiling"><option value="0">Walls only</option><option value="1">Walls plus ceiling (same paint)</option></select><div class="hint">Use a separate estimate for ceiling paint of a different type or finish.</div></div>
+<div class="field"><label for="pc-coverage">Coverage per US gallon (sq ft, one coat)</label><input type="number" id="pc-coverage" value="350" min="1" step="any" /><div class="hint">Use the coverage on your paint label. Trim and primer are excluded.</div></div>
 </div>
 <div class="result-panel">
 <div class="result-main"><div class="result-label">Paint Needed</div><div class="result-value" id="pc-gallons">2 gallons</div><div class="result-sub" id="pc-sub">for 2 coats</div></div>
@@ -42,38 +48,35 @@ const related=[
 </div>
 </div>
 </div>
-<script is:inline>
+<script>
+import { paintEstimate } from '../../lib/materials.js';
 (function(){
-function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+const ids=['pc-length','pc-width','pc-height','pc-coats','pc-doors','pc-windows','pc-door-area','pc-window-area','pc-coverage','pc-ceiling'];
 function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
 function calc(){
-var l=num('pc-length'),w=num('pc-width'),h=num('pc-height'),coats=parseInt(document.getElementById('pc-coats').value,10);
-var doors=num('pc-doors'),windows=num('pc-windows');
-var coverage=num('pc-coverage');
-if (![l,w,h,doors,windows,coverage].every(Number.isFinite) || l<=0 || w<=0 || h<=0 || coverage<=0 || doors<0 || windows<0 || !Number.isInteger(doors) || !Number.isInteger(windows)) { document.getElementById('pc-gallons').textContent='—'; document.getElementById('pc-sub').textContent='Enter positive dimensions and coverage; use whole opening counts'; document.getElementById('pc-rows').innerHTML=''; return; }
-var wallArea=2*(l*h)+2*(w*h);
-var deductArea=doors*20+windows*15;
-if(deductArea>=wallArea){document.getElementById('pc-gallons').textContent='—';document.getElementById('pc-sub').textContent='Openings must be smaller than the wall area';document.getElementById('pc-rows').innerHTML='';return;}
-var paintArea=(wallArea-deductArea)*coats;
-var gallons=Math.ceil(paintArea/coverage);
-
-document.getElementById('pc-gallons').textContent=gallons+' gallon'+(gallons!==1?'s':'');
-document.getElementById('pc-sub').textContent='for '+coats+' coat'+(coats!==1?'s':'');
-document.getElementById('pc-rows').innerHTML=row('Wall area',Math.round(wallArea).toLocaleString()+' sq ft')+row('Doors & windows',Math.round(deductArea).toLocaleString()+' sq ft')+row('Area across all coats',Math.round(paintArea).toLocaleString()+' sq ft')+row('Unrounded amount',(paintArea/coverage).toFixed(2)+' US gal')+row('Coverage',coverage+' sq ft/US gal');
+const values=ids.map(id=>document.getElementById(id).value.trim());
+const r=paintEstimate(...values.map(v=>v===''?NaN:Number(v)));
+if(!r){document.getElementById('pc-gallons').textContent='—';document.getElementById('pc-sub').textContent='Check dimensions, coverage and whole opening counts. Openings must be smaller than walls.';document.getElementById('pc-rows').innerHTML='';return;}
+document.getElementById('pc-gallons').textContent=r.purchase+' gallon'+(r.purchase!==1?'s':'');
+document.getElementById('pc-sub').textContent='for '+values[3]+' coat'+(values[3]!=='1'?'s':'')+' · '+(r.ceilingArea?'walls + ceiling':'walls only');
+document.getElementById('pc-rows').innerHTML=row('Gross wall area',r.walls.toFixed(2)+' sq ft')+row('Doors & windows deducted',r.openings.toFixed(2)+' sq ft')+row('Ceiling included',r.ceilingArea.toFixed(2)+' sq ft')+row('Area across all coats',r.coated.toFixed(2)+' sq ft')+row('Unrounded amount',r.gallons.toFixed(2)+' US gal')+row('Coverage per coat',values[8]+' sq ft/US gal');
 }
-['pc-length','pc-width','pc-height','pc-coats','pc-doors','pc-windows','pc-coverage'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);document.getElementById(id).addEventListener('change',calc);});
-calc();
+ids.forEach(id=>{document.getElementById(id).addEventListener('input',calc);document.getElementById(id).addEventListener('change',calc);});calc();
 })();
 </script>
 <section class="content-section">
 <h2>How to Calculate Paint Needed</h2>
-<div class="formula-box">Wall Area = 2 × (Length × Height) + 2 × (Width × Height)<br>Paintable = Wall Area − (Doors × 20) − (Windows × 15)<br>US Gallons = (Paintable × Coats) ÷ Coverage per Gallon</div>
-<h2>Worked Example: a 12 × 12 Room</h2>
+<div class="formula-box">Wall Area = 2 × (Length × Height) + 2 × (Width × Height)<br>Paintable = Wall Area − Door Area − Window Area + Optional Ceiling Area<br>US Gallons = (Paintable × Coats) ÷ Coverage per Gallon</div>
+<h2>How much paint for a 12x12 room with two coats?</h2>
 <p>Four 8-foot walls have 2 × (12 + 12) × 8 = 384 sq ft of area. One assumed 20 sq ft door and two assumed 15 sq ft windows leave 334 sq ft. Two coats cover 668 sq ft in total. At 350 sq ft per US gallon, that is <strong>1.91 gallons</strong>, rounded up to <strong>2 whole gallons</strong>.</p>
+<h2>Including the ceiling in a 12x12 room</h2>
+<p>The ceiling adds 12 × 12 = 144 sq ft. With the same openings, paint and two coats, the estimate becomes (334 + 144) × 2 ÷ 350 = <strong>2.73 US gallons</strong>, or <strong>3 whole gallons</strong>. Choose the walls-plus-ceiling example to try it. If the ceiling has a different finish, keep its purchase separate instead of combining gallons.</p>
+<h2>Is floor square footage enough to estimate paint?</h2>
+<p>No. Two rooms with the same floor area can have different perimeters and wall areas. Measure room length, width and wall height, then subtract openings. For differently sized doors or windows, divide their total measured area by their count and enter that average.</p>
 <h2>Choose the right coverage for your paint</h2>
 <p>The 350 sq ft default is an example, not a guarantee. Enter the manufacturer's one-coat coverage for the product and surface; see <a href="https://www.behr.com/how-to/interior/determine-how-much-interior-paint-to-buy">BEHR's measuring and coverage guide</a> for an example. Texture, porosity, application method and color changes affect the amount needed. Primer is a separate product; calculate it separately using its own coverage and coat count.</p>
 <h2>What is included?</h2>
-<p>This tool estimates four rectangular walls in a room, excludes the ceiling and trim, and assumes each door is 20 sq ft and each window is 15 sq ft. For unusually sized openings or irregular walls, measure them separately. Gallons are US gallons and the purchase estimate rounds up to whole gallons; no additional waste percentage is added.</p>
+<p>This tool estimates four rectangular walls and, optionally, a flat rectangular ceiling. Door and window areas are editable; trim is excluded. For sloped ceilings or irregular walls, measure them separately. Gallons are US gallons and the purchase estimate rounds up to whole gallons; no additional waste percentage is added.</p>
 <p>Use the <a href="/construction/square-footage-calculator">square footage calculator</a> to check surface areas. For a floor project, use the <a href="/construction/tile-calculator">tile calculator</a> instead.</p>
 </section>
 </CalculatorLayout>

@@ -5,11 +5,11 @@
 | URL | 主主题 | 页面标题 |
 |---|---|---|
 | /about | About KodaTools | About KodaTools |
-| /construction/concrete-calculator | Concrete Calculator | Concrete Calculator - How Much Concrete Do I Need? — KodaTools |
+| /construction/concrete-calculator | Concrete Calculator | Concrete Bag Calculator: Slab Yards & 40–80 lb Bags — KodaTools |
 | /construction | Construction Calculators | Construction Calculators - Area & Materials — KodaTools |
-| /construction/paint-calculator | Paint Calculator | Paint Calculator - How Much Paint Do I Need? — KodaTools |
+| /construction/paint-calculator | Paint Calculator | Paint Calculator: Room Walls, Ceiling & Two Coats — KodaTools |
 | /construction/square-footage-calculator | Square Footage Calculator | Square Footage Calculator - Calculate Area for Any Space — KodaTools |
-| /construction/tile-calculator | Tile Calculator | Tile Calculator - How Many Tiles Do I Need? — KodaTools |
+| /construction/tile-calculator | Tile Calculator | Tile Calculator: Tiles, Boxes & Material Cost — KodaTools |
 | /contact | Contact Us | Contact Us — KodaTools |
 | /convert/0-celsius-to-fahrenheit | 0 Celsius to Fahrenheit | 0 °C to °F — 32 °F — KodaTools |
 | /convert/1-cm-to-inches | 1 Centimeters to Inches | 1 cm to in — 0.3937 in — KodaTools |

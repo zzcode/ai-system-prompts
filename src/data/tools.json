@@ -1,20 +1,20 @@
 [
   {
     "href": "/construction/concrete-calculator",
-    "title": "Concrete Calculator - How Much Concrete Do I Need?",
-    "description": "Free concrete calculator. Estimate cubic yards, cubic feet, and bags of concrete needed for slabs, footings, and columns. Includes cost estimate. No sign-up.",
+    "title": "Concrete Bag Calculator: Slab Yards & 40\u201380 lb Bags",
+    "description": "Calculate concrete bags and cubic yards for a slab. Compare 40, 50, 60 and 80 lb bags, add waste and check 10x10 or 12x12 slab examples.",
     "category": "Construction",
     "name": "Concrete Calculator",
-    "desc": "Free concrete calculator. Estimate cubic yards, cubic feet, and bags of concrete needed for slabs, footings, and columns. Includes cost estimate. No sign-up.",
+    "desc": "Calculate concrete bags and cubic yards for a slab. Compare 40, 50, 60 and 80 lb bags, add waste and check 10x10 or 12x12 slab examples.",
     "icon": "\ud83d\udcd0"
   },
   {
     "href": "/construction/paint-calculator",
-    "title": "Paint Calculator - How Much Paint Do I Need?",
-    "description": "Free paint calculator. Calculate how many gallons of paint you need for any room or wall. Accounts for doors, windows, and multiple coats. No sign-up.",
+    "title": "Paint Calculator: Room Walls, Ceiling & Two Coats",
+    "description": "Estimate paint gallons for room walls and an optional ceiling. Adjust coats, door and window sizes, and product coverage. Includes a 12x12 room example.",
     "category": "Construction",
     "name": "Paint Calculator",
-    "desc": "Free paint calculator. Calculate how many gallons of paint you need for any room or wall. Accounts for doors, windows, and multiple coats. No sign-up.",
+    "desc": "Estimate paint gallons for room walls and an optional ceiling. Adjust coats, door and window sizes, and product coverage. Includes a 12x12 room example.",
     "icon": "\ud83d\udcd0"
   },
   {
@@ -28,11 +28,11 @@
   },
   {
     "href": "/construction/tile-calculator",
-    "title": "Tile Calculator - How Many Tiles Do I Need?",
-    "description": "Free tile calculator. Calculate how many tiles and boxes you need for floors, walls, and backsplashes. Includes waste factor and grout estimate. No sign-up.",
+    "title": "Tile Calculator: Tiles, Boxes & Material Cost",
+    "description": "Calculate tiles and whole boxes for floors, walls or backsplashes. Enter tile size, tiles per box and waste; estimate material cost with 12x24 examples.",
     "category": "Construction",
     "name": "Tile Calculator",
-    "desc": "Free tile calculator. Calculate how many tiles and boxes you need for floors, walls, and backsplashes. Includes waste factor and grout estimate. No sign-up.",
+    "desc": "Calculate tiles and whole boxes for floors, walls or backsplashes. Enter tile size, tiles per box and waste; estimate material cost with 12x24 examples.",
     "icon": "\ud83d\udcd0"
   },
   {

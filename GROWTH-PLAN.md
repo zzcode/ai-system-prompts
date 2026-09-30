@@ -29,3 +29,7 @@ After enough fresh data accumulates, improve pages with impressions but weak eng
 ## Verification
 
 Run `npm test`, `npm run build`, `npm run check:build`, and `npm run audit:seo`. Preview locally with external services disabled. Verify each example button in a browser, invalid inputs, and narrow-screen layout before publication.
+
+## September 30: material-planning long tails
+
+See [keyword opportunity research](reports/keyword-opportunities-2026-09-30.md) for query clusters, evidence, limitations and measurement rules. The second cohort improves concrete bags, paint walls/ceiling and tile boxes within existing URLs. Tile joins the core sitemap, bringing it to ten URLs. Homepage, construction category and these three tools have material updates dated September 30. No search-volume or revenue forecast is implied.

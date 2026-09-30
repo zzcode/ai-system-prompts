@@ -1,4 +1,5 @@
 import test from 'node:test';
+import { tileEstimate, concreteEstimate, paintEstimate } from '../src/lib/materials.js';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
@@ -38,7 +39,7 @@ function mount(file, values) {
   script=script.replace(/import .*? from [^;]+;/g,'');
   const elements={};
   for(const [,id] of source.matchAll(/id="([^"]+)"/g)) elements[id]={value:String(values[id]??''),textContent:'',innerHTML:'',style:{},handlers:{},addEventListener(e,fn){this.handlers[e]=fn;}};
-  vm.runInNewContext(script,{loanPayment,compoundBalance,calendarAge,document:{getElementById:id=>elements[id]}});
+  vm.runInNewContext(script,{tileEstimate,concreteEstimate,paintEstimate,loanPayment,compoundBalance,calendarAge,document:{getElementById:id=>elements[id]}});
   return elements;
 }
 test('loan UI clears stale results and accepts zero interest',()=>{
@@ -59,8 +60,17 @@ test('concrete UI includes allowance and clears invalid dimensions',()=>{
   e['cc-length'].value='';e['cc-length'].handlers.input();assert.equal(e['cc-yards'].textContent,'—');assert.equal(e['cc-rows'].innerHTML,'');
 });
 test('paint UI respects product coverage and rejects impossible openings',()=>{
-  const e=mount('construction/paint-calculator.astro',{'pc-length':12,'pc-width':12,'pc-height':8,'pc-coats':2,'pc-doors':1,'pc-windows':2,'pc-coverage':350});
+  const e=mount('construction/paint-calculator.astro',{'pc-length':12,'pc-width':12,'pc-height':8,'pc-coats':2,'pc-doors':1,'pc-windows':2,'pc-coverage':350,'pc-door-area':20,'pc-window-area':15,'pc-ceiling':0});
   assert.equal(e['pc-gallons'].textContent,'2 gallons');
   e['pc-coverage'].value='250';e['pc-coverage'].handlers.input();assert.equal(e['pc-gallons'].textContent,'3 gallons');
   e['pc-doors'].value='100';e['pc-doors'].handlers.input();assert.equal(e['pc-gallons'].textContent,'—');assert.equal(e['pc-rows'].innerHTML,'');
+});
+
+test('tile UI shows actual pack count and clears stale costs',()=>{
+  const e=mount('construction/tile-calculator.astro',{'tc-area-len':10,'tc-area-wid':10,'tc-tile-len':12,'tc-tile-wid':24,'tc-waste':10,'tc-per-box':8,'tc-price':30});
+  assert.equal(e['tc-tiles'].textContent,'55 tiles');
+  assert.ok(e['tc-sub'].textContent.startsWith('7 whole boxes'));
+  assert.ok(e['tc-rows'].innerHTML.includes('$210.00'));
+  e['tc-per-box'].value='0';e['tc-per-box'].handlers.input();
+  assert.equal(e['tc-tiles'].textContent,'—');assert.equal(e['tc-rows'].innerHTML,'');
 });

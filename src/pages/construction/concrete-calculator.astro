@@ -1,8 +1,11 @@
 ---
 import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
 import Examples from '../../components/Examples.astro';
+import { concreteEstimate } from '../../lib/materials.js';
+const slabExamples = [[10,10,4],[12,12,4],[20,20,4],[20,20,6]].map(([l,w,d]) => ({l,w,d,exact:concreteEstimate(l,w,d,0),order:concreteEstimate(l,w,d,10)}));
 const faqs=[
 {q:"How do I calculate how much concrete I need?",a:"Multiply length × width × depth to get cubic volume. For a 10ft × 10ft slab that's 4 inches deep: 10 × 10 × (4/12) = 33.3 cubic feet = 1.23 cubic yards. Order 5-10% extra for waste."},
+{q:"How many 80 lb bags for a 10x10 slab at 4 inches?",a:"The slab is 33.33 cubic feet before allowance. At 0.60 cubic feet per 80 lb bag, round up to 56 bags. With 10% extra, the estimate is 62 bags. Confirm the yield on your concrete mix label."},
 {q:"How many bags of concrete equal 1 cubic yard?",a:"It takes about 45 bags of 80lb concrete mix to make 1 cubic yard, or 60 bags of 60lb mix. Each 80lb bag yields about 0.6 cubic feet."},
 {q:"How thick should a concrete slab be?",a:"Enter the thickness specified for your project. This volume calculator does not determine structural thickness, reinforcement or load capacity; those depend on the design and local requirements."},
 {q:"How much does concrete cost?",a:"Enter a current supplier quote per cubic yard for a material estimate. Delivery, minimum loads, tax, labor and reinforcement are excluded. A blank price leaves the cost estimate hidden."}
@@ -16,10 +19,11 @@ const related=[
 {href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Home loan payments"}
 ];
 ---
-<CalculatorLayout title="Concrete Calculator - How Much Concrete Do I Need?" h1="Concrete Calculator" description="Free concrete calculator. Estimate cubic yards, cubic feet, and bags of concrete needed for rectangular slabs and footings. Includes cost estimate. No sign-up." subtitle="Calculate how much concrete you need for rectangular slabs and footings in cubic yards and bags, with an optional waste allowance." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
+<CalculatorLayout title="Concrete Bag Calculator: Slab Yards & 40–80 lb Bags" h1="Concrete Calculator" description="Calculate concrete bags and cubic yards for a slab. Compare 40, 50, 60 and 80 lb bags, add waste and check 10x10 or 12x12 slab examples." subtitle="Calculate how much concrete you need for rectangular slabs and footings in cubic yards and bags, with an optional waste allowance." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
 <div slot="calculator">
 <Examples examples={[
 {label: '10 × 10 ft slab, 4 in deep', values: {'cc-length': 10, 'cc-width': 10, 'cc-depth': 4, 'cc-waste': 10}},
+{label: '12 × 12 ft slab, 4 in deep', values: {'cc-length': 12, 'cc-width': 12, 'cc-depth': 4, 'cc-waste': 10}},
 {label: '4 × 20 ft walkway, 4 in deep', values: {'cc-length': 4, 'cc-width': 20, 'cc-depth': 4, 'cc-waste': 10}}
 ]} />
 <div class="calc-grid">
@@ -38,26 +42,20 @@ const related=[
 </div>
 </div>
 </div>
-<script is:inline>
+<script>
+import { concreteEstimate } from '../../lib/materials.js';
 (function(){
-function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+const ids=['cc-length','cc-width','cc-depth','cc-waste','cc-price'];
 function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
 function calc(){
-var l=num('cc-length'),w=num('cc-width'),d=num('cc-depth'),price=num('cc-price');
-var waste=num('cc-waste');
-if (![l,w,d,price,waste].every(Number.isFinite) || l<=0 || w<=0 || d<=0 || price<0 || waste<0 || waste>100 || !document.getElementById('cc-waste').value) { document.getElementById('cc-yards').textContent='—'; document.getElementById('cc-sub').textContent='Enter positive dimensions and an allowance from 0 to 100%'; document.getElementById('cc-rows').innerHTML=''; return; }
-var base=l*w*(d/12);
-var cuft=base*(1+waste/100);
-var cuyd=cuft/27;
-var bags80=Math.ceil(cuft/0.6);
-var bags60=Math.ceil(cuft/0.45);
-var cost=cuyd*price;
-document.getElementById('cc-yards').textContent=cuyd.toFixed(2)+' yd³';
-document.getElementById('cc-sub').textContent=bags80+' bags (80lb) or '+bags60+' bags (60lb)';
-document.getElementById('cc-rows').innerHTML=row('Volume before allowance',(base/27).toFixed(2)+' yd³')+row('Extra allowance',waste+'%')+row('Cubic feet including allowance',cuft.toFixed(1)+' ft³')+row('Cubic yards',cuyd.toFixed(2)+' yd³')+row('80lb bags',bags80)+row('60lb bags',bags60)+(price>0?row('Estimated cost','$'+Math.round(cost).toLocaleString()):'');
+const values=ids.map(id=>document.getElementById(id).value.trim());
+const r=concreteEstimate(...values.slice(0,4).map(v=>v===''?NaN:Number(v)),values[4]===''?null:Number(values[4]));
+if(!r){document.getElementById('cc-yards').textContent='—';document.getElementById('cc-sub').textContent='Enter positive dimensions and an allowance from 0 to 100%';document.getElementById('cc-rows').innerHTML='';return;}
+document.getElementById('cc-yards').textContent=r.yards.toFixed(2)+' yd³';
+document.getElementById('cc-sub').textContent=r.bags[80]+' bags (80 lb) or '+r.bags[60]+' bags (60 lb)';
+document.getElementById('cc-rows').innerHTML=row('Volume before allowance',(r.base/27).toFixed(2)+' yd³')+row('Extra allowance',values[3]+'%')+row('Cubic feet including allowance',r.cubicFeet.toFixed(2)+' ft³')+Object.entries(r.bags).map(([size,count])=>row(size+' lb bags',count)).join('')+(r.cost===null?'':row('Ready-mix material estimate','$'+r.cost.toFixed(2)));
 }
-['cc-length','cc-width','cc-depth','cc-price','cc-waste'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
-calc();
+ids.forEach(id=>document.getElementById(id).addEventListener('input',calc));calc();
 })();
 </script>
 <section class="content-section">
@@ -70,16 +68,17 @@ calc();
 <h2>Concrete Bag Coverage</h2>
 <table class="ref-table"><thead><tr><th>Bag Size</th><th>Cubic Feet per Bag</th><th>Bags per Cubic Yard</th></tr></thead><tbody>
 <tr><td>40 lb</td><td>0.30</td><td>90</td></tr>
+<tr><td>50 lb</td><td>0.375</td><td>72</td></tr>
 <tr><td>60 lb</td><td>0.45</td><td>60</td></tr>
 <tr><td>80 lb</td><td>0.60</td><td>45</td></tr>
 </tbody></table>
-<p>Bag yields depend on the mix. The estimates use 0.60 ft³ for 80 lb and 0.45 ft³ for 60 lb; check the yield printed on your product. See <a href="https://www.quikrete.com/productlines/concretemix.asp">QUIKRETE Concrete Mix product information</a>.</p>
-<h2>Example Rectangular Volumes (No Allowance)</h2>
-<table class="ref-table"><thead><tr><th>Project</th><th>Example Dimensions</th><th>Concrete Needed</th></tr></thead><tbody>
-<tr><td>Patio slab</td><td>10×10 ft, 4" thick</td><td>1.23 yd³</td></tr>
-<tr><td>Driveway</td><td>20×20 ft, 6" thick</td><td>7.41 yd³</td></tr>
-<tr><td>Sidewalk</td><td>4×20 ft, 4" thick</td><td>0.99 yd³</td></tr>
-
+<p>Bag yields depend on the mix. The estimates use the yields in the table; check the yield printed on your product. See <a href="https://www.quikrete.com/pdfs/data_sheet-concrete%20mix%201101.pdf">QUIKRETE Concrete Mix yield data sheet</a>.</p>
+<h2>How many bags for a 10x10, 12x12 or 20x20 slab?</h2>
+<p>These rectangular slab examples use feet for length and width, inches for thickness, and 0.60 ft³ per 80 lb bag. The last column already includes 10% extra. Thickness is an input, not a design recommendation.</p>
+<table class="ref-table"><thead><tr><th>Slab and thickness</th><th>Exact yd³</th><th>80 lb bags, no extra</th><th>80 lb bags + 10%</th></tr></thead><tbody>
+{slabExamples.map(({l,w,d,exact,order}) => <tr><td>{l} × {w} ft, {d} in</td><td>{exact.yards.toFixed(2)}</td><td>{exact.bags[80]}</td><td>{order.bags[80]}</td></tr>)}
 </tbody></table>
+<h2>Bagged concrete or ready-mix: compare the same volume</h2>
+<p>The yardage and bag counts are alternatives for the same volume, not quantities to add together. For bagged mix, multiply your selected bag count by its quoted price. The optional price field above instead uses your ready-mix price per cubic yard. Compare delivery fees and minimum orders separately; the calculator does not estimate installation labor.</p>
 </section>
 </CalculatorLayout>
