@@ -3,13 +3,18 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import allTools from '../../data/tools.json';
 const tools = allTools.filter((tool) => tool.href.startsWith('/construction/'));
 ---
-<BaseLayout title="Construction Calculators - Area & Materials" description="Free construction calculators: square footage, concrete, paint, tile, and more. Estimate materials and costs for DIY and construction projects. No sign-up.">
+<BaseLayout showAds={false} title="Construction Calculators - Area & Materials" description="Free construction calculators: square footage, concrete, paint, tile, and more. Estimate materials and costs for DIY and construction projects. No sign-up.">
   <div class="container">
     <div class="page-head">
       <nav class="breadcrumb"><a href="/">Home</a><span class="sep">/</span><span>Construction</span></nav>
       <h1>Construction Calculators</h1>
       <p class="subtitle">Estimate materials, coverage, and costs for construction and DIY projects.</p>
     </div>
+    <section class="content-section" style="border-left:4px solid var(--primary);padding:20px 24px;background:#f0fdfa;">
+      <h2>One project, one material list</h2>
+      <p>Combine multiple floors, rooms or slabs using the same product before rounding what to buy. Add your supplier prices, save your plan on this browser and export a shopping list.</p>
+      <a href="/construction/material-planner" class="btn btn-primary">Build a material list</a>
+    </section>
     <div class="tool-grid">
       {tools.map((t) => (
         <a href={t.href} class="tool-card">

@@ -7,6 +7,7 @@
 | /about | About KodaTools | About KodaTools |
 | /construction/concrete-calculator | Concrete Calculator | Concrete Bag Calculator: Slab Yards & 40–80 lb Bags — KodaTools |
 | /construction | Construction Calculators | Construction Calculators - Area & Materials — KodaTools |
+| /construction/material-planner | Material Planner | Material Planner: Multi-Room Shopping List — KodaTools |
 | /construction/paint-calculator | Paint Calculator | Paint Calculator: Room Walls, Ceiling & Two Coats — KodaTools |
 | /construction/square-footage-calculator | Square Footage Calculator | Square Footage Calculator - Calculate Area for Any Space — KodaTools |
 | /construction/tile-calculator | Tile Calculator | Tile Calculator: Tiles, Boxes & Material Cost — KodaTools |
@@ -216,7 +217,7 @@
 | /convert/95-fahrenheit-to-celsius | 95 Fahrenheit to Celsius | 95 °F to °C — 35 °C — KodaTools |
 | /convert/95-kg-to-lbs | 95 Kilograms to Pounds | 95 kg to lb — 209.4389 lb — KodaTools |
 | /convert/98.6-fahrenheit-to-celsius | 98.6 Fahrenheit to Celsius | 98.6 °F to °C — 37 °C — KodaTools |
-| /converters | Unit Converters | Unit Converters - Length, Weight, Temperature & More — KodaTools |
+| /converters | File & Unit Converters | Converters - Excel to JSON, Units & Measurements — KodaTools |
 | /converters/unit-converter | Unit Converter | Unit Converter - Length, Weight & Temperature — KodaTools |
 | /date-time/age-calculator | Age Calculator | Age Calculator - Age on Any Date in Years, Months & Days — KodaTools |
 | /date-time/date-calculator | Date Calculator | Date Calculator - Days Between Dates Calculator — KodaTools |
@@ -260,7 +261,7 @@
 | /health/sleep-calculator | Sleep Calculator | Sleep Calculator - Best Time to Sleep & Wake Up — KodaTools |
 | /health/tdee-calculator | TDEE Calculator | TDEE Calculator - Total Daily Energy Expenditure — KodaTools |
 | /health/water-intake-calculator | Water Intake Calculator | Water Intake Calculator - Daily Hydration Goal — KodaTools |
-| / | Free Online Calculators& Everyday Tools | KodaTools - Free Online Calculators & Everyday Tools |
+| / | Plan your materialsbefore you buy. | Material Planner & Free Online Calculators — KodaTools |
 | /math/average-calculator | Average Calculator | Average Calculator - Mean, Median, Mode of Numbers — KodaTools |
 | /math/fraction-calculator | Fraction Calculator | Fraction Calculator - Add, Subtract, Multiply & Divide — KodaTools |
 | /math/gpa-calculator | GPA Calculator | GPA Calculator - Calculate Your Grade Point Average — KodaTools |
@@ -271,3 +272,4 @@
 | /math/scientific-calculator | Scientific Calculator | Scientific Calculator - Trig, Logs & Powers — KodaTools |
 | /privacy-policy | Privacy Policy | Privacy Policy — KodaTools |
 | /terms | Terms of Service | Terms of Service — KodaTools |
+| /tools/excel-to-json | Excel to JSON Converter | Excel to JSON Converter: XLSX & CSV, No Upload — KodaTools |

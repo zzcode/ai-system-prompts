@@ -1,6 +1,7 @@
 ---
 import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
 import Examples from '../../components/Examples.astro';
+import MaterialPlanLink from '../../components/MaterialPlanLink.astro';
 const faqs=[
 {q:"How much paint do I need for a room?",a:"Measure the wall area (length × height of each wall), subtract doors and windows, multiply by the coat count, then divide by the one-coat coverage on the paint label. A typical 12×12 room with 8ft ceilings needs about 2 gallons for two coats."},
 {q:"How many square feet does a gallon of paint cover?",a:"Coverage depends on the product and surface. This calculator starts at 350 square feet per US gallon for one coat; replace that with the coverage on your paint label."},
@@ -16,7 +17,7 @@ const related=[
 {href:"/converters/unit-converter",icon:"📏",title:"Unit Converter",desc:"Length, weight & temp"}
 ];
 ---
-<CalculatorLayout title="Paint Calculator: Room Walls, Ceiling & Two Coats" h1="Paint Calculator" description="Estimate paint gallons for room walls and an optional ceiling. Adjust coats, door and window sizes, and product coverage. Includes a 12x12 room example." subtitle="Estimate US gallons for room walls and an optional ceiling, using your paint coverage and coat count." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
+<CalculatorLayout title="Paint Calculator: Room Walls, Ceiling & Two Coats" h1="Paint Calculator" description="Estimate paint gallons for room walls and an optional ceiling. Adjust coats, door and window sizes, and product coverage. Includes a 12x12 room example." subtitle="Estimate US gallons for room walls and an optional ceiling, using your paint coverage and coat count." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related} showAds={false}>
 <div slot="calculator">
 <Examples examples={[
 {label: '12 × 12 ft bedroom, two coats', values: {'pc-length': 12, 'pc-width': 12, 'pc-height': 8, 'pc-coats': 2, 'pc-doors': 1, 'pc-windows': 2, 'pc-coverage': 350, 'pc-door-area': 20, 'pc-window-area': 15, 'pc-ceiling': 0}},
@@ -64,6 +65,7 @@ document.getElementById('pc-rows').innerHTML=row('Gross wall area',r.walls.toFix
 ids.forEach(id=>{document.getElementById(id).addEventListener('input',calc);document.getElementById(id).addEventListener('change',calc);});calc();
 })();
 </script>
+<MaterialPlanLink kind="paint" fields={["pc-length", "pc-width", "pc-height", "pc-coats", "pc-doors", "pc-windows", "pc-door-area", "pc-window-area", "pc-coverage", "pc-ceiling"]} />
 <section class="content-section">
 <h2>How to Calculate Paint Needed</h2>
 <div class="formula-box">Wall Area = 2 × (Length × Height) + 2 × (Width × Height)<br>Paintable = Wall Area − Door Area − Window Area + Optional Ceiling Area<br>US Gallons = (Paintable × Coats) ÷ Coverage per Gallon</div>

@@ -1,0 +1,136 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import { FIELD_SETS } from '../../lib/material-plan.js';
+const names = {tile: 'Tile', concrete: 'Concrete', paint: 'Paint'};
+const faqs = [
+  {q:'How are areas combined into a shopping list?',a:'Areas with the same product name, material and compatible packaging or coverage are combined before rounding. Tile dimensions, tiles per box and quoted price must match; concrete bag size, yield and price must match; paint coverage and price must match. Different products stay separate. Use different product names for different colors, finishes or mixes.'},
+  {q:'Can I save or share my material list?',a:'Save on this browser keeps one plan on this device until you remove it or clear browser storage. Load saved plan restores it. Export CSV creates a file you can share yourself, and Print list opens a print-friendly view. There is no account or cloud sync.'},
+  {q:'What does the material cost include?',a:'Only the products for which you enter a price. Blank prices are marked Not quoted; the subtotal excludes those products. Prices are in USD. Tax, delivery, labor, grout, adhesive, trim and primer are excluded.'},
+  {q:'Does this plan determine a construction specification?',a:'No. Enter the thickness, product yield, coverage and allowance appropriate for your project. These are quantity estimates, not a structural design, tile layout or installation specification. Confirm measurements and product labels before ordering.'}
+];
+const related = [
+  {href:'/construction/tile-calculator',icon:'🧩',title:'Tile Calculator',desc:'Tiles, whole boxes and material cost'},
+  {href:'/construction/concrete-calculator',icon:'🧱',title:'Concrete Calculator',desc:'Slab volume and alternative bag sizes'},
+  {href:'/construction/paint-calculator',icon:'🎨',title:'Paint Calculator',desc:'Room walls, openings and ceiling'},
+  {href:'/construction/square-footage-calculator',icon:'📏',title:'Square Footage',desc:'Measure rectangular areas'}
+];
+---
+<CalculatorLayout title="Material Planner: Multi-Room Shopping List" h1="Material Planner" description="Combine tile, concrete and paint estimates across areas. Round matching products once, add supplier prices, save on your browser and export a shopping list." subtitle="Measure each area. Combine matching products. Leave with a list of what to buy." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related} showAds={false}>
+  <div slot="calculator" class="planner" id="material-planner">
+    <noscript><p>This planner needs JavaScript for calculations and local saving. You can still read the formulas and worked examples below.</p></noscript>
+    <div class="planner-toolbar">
+      <div class="field"><label for="plan-title">Project name</label><input id="plan-title" maxlength="80" value="My material list" /></div>
+      <div class="planner-actions">
+        <button type="button" id="plan-save" class="btn btn-secondary" disabled>Save on this browser</button>
+        <button type="button" id="plan-load" class="btn btn-secondary">Load saved plan</button>
+      </div>
+    </div>
+    <p class="hint">Your draft lasts for this tab. Saving is optional and keeps one plan on this browser after the tab closes. Product names, measurements and prices stay on your device.</p>
+    <p id="plan-status" role="status" aria-live="polite"></p>
+    <div class="planner-layout">
+      <form id="area-form" class="area-editor">
+        <h2 id="area-form-heading">Add an area</h2>
+        <div class="field"><label for="plan-kind">Material</label><select id="plan-kind"><option value="tile">Tile</option><option value="concrete">Concrete bags</option><option value="paint">Paint</option></select></div>
+        <div class="field"><label for="area-label">Area name</label><input id="area-label" maxlength="80" required value="Area 1" /></div>
+        <div class="field"><label for="area-product">Product name / color / finish</label><input id="area-product" maxlength="80" required value="Floor tile" /><p class="hint">Use the same name only for the same product. Different colors or finishes need separate names.</p></div>
+        {Object.entries(FIELD_SETS).map(([kind, fields]) => (
+          <fieldset data-kind-fields={kind} hidden={kind !== 'tile'} disabled={kind !== 'tile'}>
+            <legend>{names[kind]} measurements and packaging</legend>
+            <div class="planner-fields">
+              {fields.map(([label, value, min, max, step], index) => <div class="field">
+                <label for={`plan-${kind}-${index}`}>{label}</label>
+                {kind === 'paint' && index === 9 ? <select id={`plan-${kind}-${index}`}><option value="0">Walls only</option><option value="1">Walls plus ceiling (same paint)</option></select> : <input type="number" id={`plan-${kind}-${index}`} data-value-index={index} value={value} min={min} max={max ?? undefined} step={step ?? 'any'} required={!(kind === 'tile' && index === 6)} />}
+              </div>)}
+              {kind === 'concrete' && <>
+                <div class="field"><label for="plan-bag-size">Bag weight</label><select id="plan-bag-size"><option value="40">40 lb</option><option value="50">50 lb</option><option value="60">60 lb</option><option value="80" selected>80 lb</option></select></div>
+                <div class="field"><label for="plan-bag-yield">Yield per bag (ft³)</label><input id="plan-bag-yield" type="number" min="0.001" step="any" value="0.60" required /><p class="hint">Check the yield printed on your mix. Changing bag weight resets this example yield.</p></div>
+                <div class="field"><label for="plan-concrete-price">Price per bag (USD, optional)</label><input id="plan-concrete-price" type="number" min="0" step="any" /></div>
+              </>}
+              {kind === 'paint' && <div class="field"><label for="plan-paint-price">Price per US gallon (USD, optional)</label><input id="plan-paint-price" type="number" min="0" step="any" /></div>}
+            </div>
+          </fieldset>
+        ))}
+        <p class="hint">US customary units. Allowances are editable assumptions; packaging and coverage must match your product.</p>
+        <p id="area-error" role="alert"></p>
+        <div class="planner-actions"><button class="btn btn-primary" type="submit" id="area-add">Add area to list</button><button type="button" id="area-cancel" class="btn btn-secondary" hidden>Cancel edit</button></div>
+      </form>
+      <section class="shopping-list" aria-labelledby="shopping-heading">
+        <div class="list-heading"><h2 id="shopping-heading">Your shopping list</h2><span id="area-count">0 areas</span></div>
+        <p id="plan-empty">Start with a floor, a room or a slab. Add another area using the same product to combine the purchase quantities.</p>
+        <div id="plan-results" hidden>
+          <div id="plan-groups"></div>
+          <div class="quoted-total"><span id="plan-total-label">Quoted material subtotal</span><strong id="plan-total">$0.00</strong></div>
+          <p id="plan-price-note" class="hint"></p>
+          <p class="hint">Tax, delivery, labor, grout, adhesive, trim and primer are excluded. Check your measurements and product labels before buying.</p>
+          <div class="planner-actions list-actions"><button type="button" id="plan-export" class="btn btn-primary">Export CSV</button><button type="button" id="plan-print" class="btn btn-secondary">Print list</button></div>
+          <h3>Areas in this plan</h3>
+          <ul id="plan-areas"></ul>
+        </div>
+        <button type="button" id="plan-forget" class="text-button" hidden>Remove saved copy from this browser</button>
+      </section>
+    </div>
+  </div>
+  <section class="content-section">
+    <h2>Why combine areas before rounding?</h2>
+    <p>Two floors of 10 × 5 ft total 100 sq ft. With 10% extra, 12 × 24 in tiles and 8 tiles per box, the combined requirement is 55 tiles: buy <strong>7 boxes, containing 56 tiles</strong>. Rounding each floor into boxes separately would buy 4 + 4 = 8 boxes. The planner combines compatible quantities first.</p>
+    <p>For example, two separate 1 sq ft patches using 12 × 12 in tile, no allowance and 8 tiles per box need <strong>one shared box</strong>, rather than one box for each patch. Do not combine different products just because their dimensions match.</p>
+    <h2>How each material is calculated</h2>
+    <ul>
+      <li><strong>Tile:</strong> sum each area's length × width × (1 + allowance / 100). Divide by tile area, round to whole tiles, then round to whole boxes.</li>
+      <li><strong>Concrete:</strong> sum length × width × thickness / 12 × (1 + allowance / 100) in cubic feet. Divide by your bag's yield and round up to whole bags.</li>
+      <li><strong>Paint:</strong> for each room, subtract doors and windows from the four walls, add the ceiling if selected, then multiply by coats and divide by coverage. Combine the same paint before rounding up to whole US gallons.</li>
+    </ul>
+    <p>Paint with a different color or finish belongs in a separate product group. The planner does not optimize tile cuts, determine slab design, or calculate ready-mix delivery minimums. For individual worked examples and product references, use the <a href="/construction/tile-calculator">tile</a>, <a href="/construction/concrete-calculator">concrete</a> and <a href="/construction/paint-calculator">paint calculators</a>.</p>
+  </section>
+</CalculatorLayout>
+<script>
+  import '../../scripts/material-planner.js';
+</script>
+<style is:global>
+  .planner {font-variant-numeric:tabular-nums;}
+  .planner h2 {font-size:1.3rem; margin-bottom:16px;}
+  .planner h3 {font-size:1rem;}
+  .planner-toolbar {display:flex; align-items:end; justify-content:space-between; gap:18px; flex-wrap:wrap;}
+  .planner-toolbar .field {flex:1; min-width:200px; margin-bottom:0;}
+  .planner-actions {display:flex; flex-wrap:wrap; gap:8px;}
+  .planner-actions .btn {white-space:normal; min-height:44px;}
+  #plan-status {min-height:1.7em; margin:12px 0; color:var(--primary-dark);}
+  .planner-layout {display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:28px; border-top:1px solid var(--border); padding-top:24px;}
+  .area-editor, .shopping-list {min-width:0;}
+  .area-editor {border-right:1px solid var(--border); padding-right:28px;}
+  .planner fieldset {border:0; padding:0; margin:0; min-width:0;}
+  .planner legend {font-weight:600; margin-bottom:12px;}
+  .planner-fields {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 14px;}
+  .planner-fields label {font-size:.85rem;}
+  .planner-fields .field {min-width:0;}
+  .planner input, .planner select {width:100%; min-width:0;}
+  .list-heading {display:flex; align-items:baseline; justify-content:space-between; gap:12px;}
+  .list-heading span {color:var(--text-muted); white-space:nowrap;}
+  #plan-empty {padding:24px 0; color:var(--text-secondary); max-width:45ch;}
+  .purchase-line {padding:18px 0; border-bottom:1px solid var(--border); overflow-wrap:anywhere;}
+  .purchase-line:first-child {padding-top:0;}
+  .purchase-line .purchase-quantity {font-weight:700; font-size:1.3rem; color:var(--primary-dark);}
+  .purchase-line .purchase-price {font-weight:600;}
+  .purchase-line p {margin-top:6px; font-size:.9rem; color:var(--text-secondary);}
+  .quoted-total {display:flex; justify-content:space-between; gap:12px; padding:18px 0 4px;}
+  .quoted-total strong {font-size:1.4rem;}
+  .list-actions {margin:20px 0 24px;}
+  #plan-areas {list-style:none; padding:0;}
+  #plan-areas li {border-bottom:1px solid var(--border); padding:12px 0; overflow-wrap:anywhere;}
+  #plan-areas li p {font-size:.85rem; color:var(--text-secondary); margin:4px 0;}
+  .text-button {background:none; border:0; padding:10px 6px; text-decoration:underline; color:var(--primary-dark); cursor:pointer; font:inherit; font-size:.9rem; min-height:44px;}
+  #area-error {color:#b91c1c; margin:12px 0;}
+  @media(max-width:760px) {.planner-layout {grid-template-columns:1fr;} .area-editor {border-right:0; padding-right:0; padding-bottom:24px; border-bottom:1px solid var(--border);} }
+  @media(max-width:380px) {.planner-fields {grid-template-columns:1fr;}}
+  @media print {
+    .site-header, .site-footer, .tool-jump, .area-editor, .planner-actions, #plan-status, #plan-forget, #faq, .related-grid, .planner ~ *, .content-section {display:none!important;}
+    body {background:white; color:black; font-size:11pt;}
+    .container {max-width:none; padding:0;}
+    .page-head {padding:0 0 12px;}
+    .calc-shell {box-shadow:none; border:0; padding:0;}
+    .planner-layout {display:block; padding-top:12px; border:0;}
+    .planner-toolbar input {border:0; padding:0; font-weight:bold;}
+    #plan-areas .text-button {display:none;}
+    .purchase-line {break-inside:avoid;}
+  }
+</style>

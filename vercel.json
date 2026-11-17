@@ -4,6 +4,11 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/tools/excel-to-json.html",
+      "destination": "/tools/excel-to-json",
+      "permanent": true
+    },
+    {
       "source": "/terms-of-service",
       "destination": "/terms",
       "permanent": true
@@ -25,21 +30,6 @@
     },
     {
       "source": "/index.html",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/blog.html",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/tools/:path*",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/blog-:slug*",
       "destination": "/",
       "permanent": true
     }

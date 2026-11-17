@@ -20,7 +20,7 @@ for(const file of walk('dist').filter(p=>p.endsWith('.html'))){
 }
 const tools=JSON.parse(fs.readFileSync('src/data/tools.json','utf8'));
 for(const t of tools){
- const category=t.href.split('/')[1];const html=fs.readFileSync(`dist/${category}/index.html`,'utf8');
+ const category=t.categoryHref || '/'+t.href.split('/')[1];const html=fs.readFileSync(`dist${category}/index.html`,'utf8');
  assert.ok(html.includes(`href="${t.href}"`),`Missing category entry: ${t.href}`);
  assert.ok(fs.readFileSync('dist/index.html','utf8').includes(`href="${t.href}"`),`Missing search entry: ${t.href}`);
 }

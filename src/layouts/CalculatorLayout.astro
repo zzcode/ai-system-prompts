@@ -25,6 +25,7 @@ interface Props {
   faqs: FAQ[];
   relatedTools: RelatedTool[];
   schemaExtra?: object[];
+  showAds?: boolean;
 }
 
 const {
@@ -37,7 +38,8 @@ const {
   appCategory,
   faqs,
   relatedTools,
-  schemaExtra = []
+  schemaExtra = [],
+  showAds = true
 } = Astro.props;
 
 const siteUrl = 'https://www.kodatools.com';
@@ -77,7 +79,7 @@ const breadcrumbSchema = {
 const schemas = [webAppSchema, faqSchema, breadcrumbSchema, ...schemaExtra];
 ---
 
-<BaseLayout title={title} description={description} schema={schemas}>
+<BaseLayout title={title} description={description} schema={schemas} showAds={showAds}>
   <div class="container">
     <div class="page-head">
       <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -98,7 +100,7 @@ const schemas = [webAppSchema, faqSchema, breadcrumbSchema, ...schemaExtra];
     </div>
 
     <!-- Ad: below calculator (high-visibility position) -->
-    <AdSlot />
+    {showAds && <AdSlot />}
 
     <!-- Editorial / SEO content -->
     <slot />
@@ -117,7 +119,7 @@ const schemas = [webAppSchema, faqSchema, breadcrumbSchema, ...schemaExtra];
     </section>
 
     <!-- Ad: above related tools -->
-    <AdSlot />
+    {showAds && <AdSlot />}
 
     <!-- Related tools -->
     <section class="content-section">

@@ -33,3 +33,23 @@ Run `npm test`, `npm run build`, `npm run check:build`, and `npm run audit:seo`.
 ## September 30: material-planning long tails
 
 See [keyword opportunity research](reports/keyword-opportunities-2026-09-30.md) for query clusters, evidence, limitations and measurement rules. The second cohort improves concrete bags, paint walls/ceiling and tile boxes within existing URLs. Tile joins the core sitemap, bringing it to ten URLs. Homepage, construction category and these three tools have material updates dated September 30. No search-volume or revenue forecast is implied.
+
+
+## November 17: restore a real legacy tool and test complete workflows
+
+A migration review found that `/tools/excel-to-json` and its `.html` variant were redirected to an unrelated calculator homepage. Restore useful functionality at the original canonical route; permanently map only its HTML alias. Remove the generic `/tools/:path*` and `/blog-:slug*` homepage fallbacks. Keep matching date/terms mappings. A URL classified as a redirect does not itself need to be indexed; inspect its destination.
+
+The restored converter accepts local XLSX/UTF-8 CSV files, selects worksheets, handles blank/duplicate headers without overwriting columns, preserves CSV identifiers as strings and supports JSON copy/download. It does not upload file contents. A small public sample workbook contains invented data.
+
+The new material planner serves a distinct task, not another numeric keyword variant. It combines matching product quantities before purchasing-rounding, provides per-product prices and a clearly incomplete subtotal when quotes are absent, supports optional local saving and CSV/print output, and connects to existing concrete/tile/paint tools. Whole US gallons are the paint purchase unit; different products/finishes remain separate. Material pages remove ads for the initial usability experiment.
+
+### Operating priorities
+
+1. Verify production routes, migration destinations, core sitemap and local input handling after release. Submit only a few changed core URLs after successful live testing; record request status separately from actual indexing.
+2. Revisit completed, comparable reporting periods. Inspect last crawl, actual indexed status, non-brand impressions, clicks and destination URLs. GSC validation passed is not a guarantee of inclusion. Avoid repeated indexing requests for unchanged pages.
+3. Measure actual tasks with `material_plan_action` (add/update area, save, load, export, print). These events exclude all raw inputs and follow the site's existing analytics setup; respect Do Not Track and Global Privacy Control for these new events. Do not optimize for ad clicks.
+4. Test real tasks with 5–10 intended users. Prepare demonstrations and relevant outreach drafts, but send messages only with explicit authorization. Do not buy traffic, links or ads without a specified budget.
+5. Review the two product hypotheses separately: recovered file conversion and material shopping lists. Keep indexed/used legacy pages stable. After six weeks of sufficient product and distribution work, retain what users use and reconsider weak directions; six weeks does not establish SEO's long-term ceiling.
+6. Keep changes small, run all repository checks, inspect responsive UI and preserve rollback through Git. Store private account data outside the public repo. Do not infer demand or income from successful builds, sitemap acceptance, a single ranking or tiny revenue samples.
+
+This release also updates the obsolete Astro build toolchain and aligns CI with Node 24. This is maintenance, not a claim that framework upgrades improve Google rankings.

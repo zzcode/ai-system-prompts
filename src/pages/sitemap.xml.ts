@@ -55,6 +55,8 @@ const staticPages = [
   { url: '/date-time/date-calculator', priority: '0.9', changefreq: 'monthly' },
   { url: '/date-time/days-from-today', priority: '0.9', changefreq: 'monthly' },
   { url: '/date-time/time-calculator', priority: '0.9', changefreq: 'monthly' },
+  // Restored legacy tool, retaining its original canonical route.
+  { url: '/tools/excel-to-json', priority: '0.9', changefreq: 'monthly' },
   // Converters
   { url: '/converters/unit-converter', priority: '0.9', changefreq: 'monthly' },
   // Everyday
@@ -65,6 +67,7 @@ const staticPages = [
   { url: '/everyday/lorem-ipsum-generator', priority: '0.9', changefreq: 'monthly' },
   { url: '/everyday/qr-code-generator', priority: '0.9', changefreq: 'monthly' },
   // Construction
+  { url: '/construction/material-planner', priority: '0.9', changefreq: 'monthly' },
   { url: '/construction/square-footage-calculator', priority: '0.9', changefreq: 'monthly' },
   { url: '/construction/concrete-calculator', priority: '0.9', changefreq: 'monthly' },
   { url: '/construction/paint-calculator', priority: '0.9', changefreq: 'monthly' },

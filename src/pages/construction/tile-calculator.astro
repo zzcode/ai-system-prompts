@@ -1,6 +1,7 @@
 ---
 import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
 import Examples from '../../components/Examples.astro';
+import MaterialPlanLink from '../../components/MaterialPlanLink.astro';
 const faqs=[
 {q:"How many 12x24 tiles do I need for 100 square feet?",a:"A nominal 12 × 24 inch tile covers 2 square feet. A 100 sq ft area needs 50 tiles before allowance, or 55 with 10% extra. If your selected product has 8 tiles per box, buy 7 boxes (56 tiles). Check the actual product dimensions and carton coverage."},
 {q:"How do I calculate how many boxes of tile I need?",a:"Divide the area including your allowance by the area of one tile, round up to whole tiles, then divide by the actual tiles per box and round up to whole boxes. Box quantities vary by product; this calculator lets you enter the number on your carton."},
@@ -16,7 +17,7 @@ const related=[
 {href:"/math/fraction-calculator",icon:"½",title:"Fraction Calculator",desc:"Work with fractions"}
 ];
 ---
-<CalculatorLayout title="Tile Calculator: Tiles, Boxes & Material Cost" h1="Tile Calculator" description="Calculate tiles and whole boxes for floors, walls or backsplashes. Enter tile size, tiles per box and waste; estimate material cost with 12x24 examples." subtitle="Estimate tiles, whole boxes and optional material cost for a rectangular floor, wall or backsplash." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related}>
+<CalculatorLayout title="Tile Calculator: Tiles, Boxes & Material Cost" h1="Tile Calculator" description="Calculate tiles and whole boxes for floors, walls or backsplashes. Enter tile size, tiles per box and waste; estimate material cost with 12x24 examples." subtitle="Estimate tiles, whole boxes and optional material cost for a rectangular floor, wall or backsplash." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related} showAds={false}>
 <div slot="calculator">
 <Examples examples={[
 {label: '100 sq ft with 12 × 24 in tiles', values: {'tc-area-len':10,'tc-area-wid':10,'tc-tile-len':12,'tc-tile-wid':24,'tc-waste':10,'tc-per-box':8,'tc-price':''}},
@@ -58,6 +59,7 @@ document.getElementById('tc-rows').innerHTML=row('Surface area',r.area.toFixed(2
 ids.forEach(id=>document.getElementById(id).addEventListener('input',calc));calc();
 })();
 </script>
+<MaterialPlanLink kind="tile" fields={["tc-area-len", "tc-area-wid", "tc-tile-len", "tc-tile-wid", "tc-waste", "tc-per-box", "tc-price"]} />
 <section class="content-section">
 <h2>How to calculate tiles and boxes</h2>
 <div class="formula-box">Surface area = Length (ft) × Width (ft)<br>Tile area = Tile length (in) × Tile width (in) ÷ 144<br>Tiles = round up [Surface area × (1 + Allowance ÷ 100) ÷ Tile area]<br>Boxes = round up (Tiles ÷ Tiles per box)</div>

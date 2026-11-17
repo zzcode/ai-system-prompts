@@ -39,7 +39,7 @@ const categories = [
 
 categories.push(
   { href: '/construction', icon: '📐', name: 'Construction', color: '#0f766e', bg: '#ccfbf1', desc: 'Area, concrete, paint and tile estimates', tools: allTools.filter(t => t.href.startsWith('/construction/')).map(t => ({href:t.href,name:t.name})) },
-  { href: '/converters', icon: '⇄', name: 'Converters', color: '#0f766e', bg: '#ccfbf1', desc: 'Length, weight and temperature conversions', tools: allTools.filter(t => t.href.startsWith('/converters/')).map(t => ({href:t.href,name:t.name})) },
+  { href: '/converters', icon: '⇄', name: 'Converters', color: '#0f766e', bg: '#ccfbf1', desc: 'Excel to JSON and measurement conversions', tools: allTools.filter(t => t.href.startsWith('/converters/') || t.categoryHref === '/converters').map(t => ({href:t.href,name:t.name})) },
   { href: '/everyday', icon: '✦', name: 'Everyday', color: '#0f766e', bg: '#ccfbf1', desc: 'Text, passwords, QR codes and random numbers', tools: allTools.filter(t => t.href.startsWith('/everyday/')).slice(0,4).map(t => ({href:t.href,name:t.name})) }
 );
 const popular = [
@@ -58,7 +58,7 @@ const orgSchema = {
   "@type": "WebSite",
   "name": "KodaTools",
   "url": "https://www.kodatools.com",
-  "description": "Free online calculators and everyday tools.",
+  "description": "Material planning, file conversion and everyday calculators.",
   "potentialAction": {
     "@type": "SearchAction",
     "target": "https://www.kodatools.com/?s={search_term_string}",
@@ -68,17 +68,20 @@ const orgSchema = {
 ---
 
 <BaseLayout
-  title="KodaTools - Free Online Calculators & Everyday Tools"
-  description="Free online calculators and everyday tools: percentage, mortgage, BMI, age, calorie, loan, tip and more. Fast, accurate, no sign-up. Works in your browser."
+  title="Material Planner & Free Online Calculators | KodaTools"
+  description="Plan tile, paint and concrete purchases across multiple areas. Save and export a material list, or use free calculators for money, dates and everyday tasks."
   schema={orgSchema}
 >
   <!-- Hero -->
-  <section style="background:linear-gradient(135deg,#0f766e,#0e7490 55%,#1d4ed8);color:#fff;padding:64px 0 56px;">
-    <div class="container" style="text-align:center;">
-      <h1 style="font-size:2.5rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:14px;">Free Online Calculators<br/>& Everyday Tools</h1>
-      <p style="font-size:1.12rem;opacity:0.92;max-width:620px;margin:0 auto 28px;">Fast, accurate tools for finance, health, math, and daily life. No sign-up. No downloads. Works instantly in your browser.</p>
-      <div style="max-width:520px;margin:0 auto;position:relative;">
-        <input id="hero-search" type="search" aria-label="Search all 50 tools" aria-controls="search-results" placeholder="Search calculators… (e.g. mortgage, bmi, percentage)" style="width:100%;padding:15px 20px;font-size:1rem;border:none;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.18);" />
+  <section class="project-hero">
+    <div class="container">
+      <h1>Plan your materials<br/>before you buy.</h1>
+      <p class="hero-intro">Combine tile, paint and concrete estimates across your project. Get whole-package quantities and a shopping list you can save, print or take to your supplier.</p>
+      <a href="/construction/material-planner" class="hero-cta">Build a material list</a>
+      <p class="hero-note">Free to use. No account. Your measurements stay in your browser.</p>
+      <div class="hero-search-wrap">
+        <label for="hero-search">Or find an everyday calculator</label>
+        <input id="hero-search" type="search" aria-label={`Search all ${allTools.length} tools`} aria-controls="search-results" placeholder="Search tools (e.g. tile, loan, age)" />
       </div>
       <div style="margin-top:22px;font-size:0.85rem;opacity:0.85;">Popular:&nbsp;
         <a href="/math/percentage-calculator" style="color:#fff;text-decoration:underline;">Percentage</a> ·
@@ -155,7 +158,7 @@ const orgSchema = {
       <h2>Why KodaTools?</h2>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:8px;" class="why-home-grid">
         <div><div style="font-size:1.6rem;margin-bottom:6px;">⚡</div><strong>Instant results</strong><p style="margin-top:4px;">Calculations happen as you type — no buttons, no page reloads, no waiting.</p></div>
-        <div><div style="font-size:1.6rem;margin-bottom:6px;">🔒</div><strong>Private by design</strong><p style="margin-top:4px;">Everything runs in your browser. We never see or store your numbers.</p></div>
+        <div><div style="font-size:1.6rem;margin-bottom:6px;">🔒</div><strong>Private by design</strong><p style="margin-top:4px;">Calculations stay in your browser. Save a material plan on your device only when you choose.</p></div>
         <div><div style="font-size:1.6rem;margin-bottom:6px;">🆓</div><strong>Always free</strong><p style="margin-top:4px;">No accounts, no subscriptions, no hidden fees. Every tool is free to use.</p></div>
       </div>
     </section>
@@ -184,6 +187,14 @@ const orgSchema = {
   </script>
 
   <style>
+    .project-hero {background:#115e59;color:#fff;padding:52px 0 40px;}
+    .project-hero h1 {font-size:clamp(2.25rem,5vw,3.4rem);line-height:1.1;font-weight:750;letter-spacing:-.025em;margin-bottom:20px;max-width:22ch;}
+    .hero-intro {font-size:1.1rem;max-width:58ch;color:#e6f4f1;margin-bottom:24px;}
+    .hero-cta {display:inline-block;background:white;color:#115e59;font-weight:700;padding:13px 20px;border-radius:8px;text-decoration:none;}
+    .hero-note {font-size:.85rem;color:#e6f4f1;margin:12px 0 28px;}
+    .hero-search-wrap {max-width:520px;}
+    .hero-search-wrap label {display:block;margin-bottom:8px;font-size:.9rem;}
+    #hero-search {width:100%;padding:13px 16px;font-size:1rem;border:1px solid #b5d9d1;border-radius:8px;}
     @media (max-width: 860px) {
       #popular-grid { grid-template-columns: repeat(2,1fr) !important; }
       .cat-home-grid { grid-template-columns: 1fr !important; }

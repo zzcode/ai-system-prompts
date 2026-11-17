@@ -1,12 +1,31 @@
 [
   {
+    "name": "Material Planner",
+    "href": "/construction/material-planner",
+    "icon": "📋",
+    "category": "Construction",
+    "description": "Combine tile, concrete and paint estimates across multiple areas. Save a project on your browser, add prices and export a shopping list.",
+    "desc": "Multiple areas, whole packages and a printable shopping list",
+    "title": "Material Planner: Multi-Room Shopping List"
+  },
+  {
+    "href": "/tools/excel-to-json",
+    "title": "Excel to JSON Converter: XLSX & CSV, No Upload",
+    "description": "Convert XLSX or CSV to JSON in your browser. Choose a worksheet, preserve text IDs and download JSON. Files stay on your device. No account or upload.",
+    "category": "Converters",
+    "categoryHref": "/converters",
+    "name": "Excel to JSON Converter",
+    "desc": "Read XLSX or CSV locally, choose a sheet and download JSON.",
+    "icon": "▦"
+  },
+  {
     "href": "/construction/concrete-calculator",
-    "title": "Concrete Bag Calculator: Slab Yards & 40\u201380 lb Bags",
+    "title": "Concrete Bag Calculator: Slab Yards & 40–80 lb Bags",
     "description": "Calculate concrete bags and cubic yards for a slab. Compare 40, 50, 60 and 80 lb bags, add waste and check 10x10 or 12x12 slab examples.",
     "category": "Construction",
     "name": "Concrete Calculator",
     "desc": "Calculate concrete bags and cubic yards for a slab. Compare 40, 50, 60 and 80 lb bags, add waste and check 10x10 or 12x12 slab examples.",
-    "icon": "\ud83d\udcd0"
+    "icon": "📐"
   },
   {
     "href": "/construction/paint-calculator",
@@ -15,7 +34,7 @@
     "category": "Construction",
     "name": "Paint Calculator",
     "desc": "Estimate paint gallons for room walls and an optional ceiling. Adjust coats, door and window sizes, and product coverage. Includes a 12x12 room example.",
-    "icon": "\ud83d\udcd0"
+    "icon": "📐"
   },
   {
     "href": "/construction/square-footage-calculator",
@@ -24,7 +43,7 @@
     "category": "Construction",
     "name": "Square Footage Calculator",
     "desc": "Free square footage calculator. Calculate the area of any room, house, or land in square feet, square meters, or square yards. Add multiple areas. No sign-up.",
-    "icon": "\ud83d\udcd0"
+    "icon": "📐"
   },
   {
     "href": "/construction/tile-calculator",
@@ -33,7 +52,7 @@
     "category": "Construction",
     "name": "Tile Calculator",
     "desc": "Calculate tiles and whole boxes for floors, walls or backsplashes. Enter tile size, tiles per box and waste; estimate material cost with 12x24 examples.",
-    "icon": "\ud83d\udcd0"
+    "icon": "📐"
   },
   {
     "href": "/converters/unit-converter",
@@ -42,7 +61,7 @@
     "category": "Converters",
     "name": "Unit Converter",
     "desc": "Free unit converter for length, weight, and temperature. Convert cm to inches, kg to lbs, Fahrenheit to Celsius and more. Instant results, no sign-up.",
-    "icon": "\u21c4"
+    "icon": "⇄"
   },
   {
     "href": "/date-time/age-calculator",
@@ -51,7 +70,7 @@
     "category": "Date & Time",
     "name": "Age Calculator",
     "desc": "Free age calculator. Find your exact age in years, months, and days, plus totals in weeks, days, hours, and minutes. Fast and no sign-up.",
-    "icon": "\ud83d\udcc5"
+    "icon": "📅"
   },
   {
     "href": "/date-time/date-calculator",
@@ -60,7 +79,7 @@
     "category": "Date & Time",
     "name": "Date Calculator",
     "desc": "Free date calculator. Find the number of days, weeks, and months between two dates. Add or subtract days from any date. No sign-up.",
-    "icon": "\ud83d\udcc5"
+    "icon": "📅"
   },
   {
     "href": "/date-time/days-from-today",
@@ -69,7 +88,7 @@
     "category": "Date & Time",
     "name": "Days From Today Calculator",
     "desc": "Free days from today calculator. Find a date 30, 60, 90, or any number of days from today. Add or subtract days, weeks, months. No sign-up.",
-    "icon": "\ud83d\udcc5"
+    "icon": "📅"
   },
   {
     "href": "/date-time/time-calculator",
@@ -78,7 +97,7 @@
     "category": "Date & Time",
     "name": "Time Calculator",
     "desc": "Free time calculator. Calculate hours and minutes between two times. Convert to decimal hours for timesheets. Add time durations. No sign-up.",
-    "icon": "\ud83d\udcc5"
+    "icon": "📅"
   },
   {
     "href": "/everyday/case-converter",
@@ -87,7 +106,7 @@
     "category": "Everyday",
     "name": "Case Converter",
     "desc": "Free online case converter. Convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and more. Instant, no sign-up.",
-    "icon": "\u2726"
+    "icon": "✦"
   },
   {
     "href": "/everyday/lorem-ipsum-generator",
@@ -96,7 +115,7 @@
     "category": "Everyday",
     "name": "Lorem Ipsum Generator",
     "desc": "Free Lorem Ipsum generator. Create placeholder text by paragraphs, sentences, or words. Perfect for mockups, designs, and web development. No sign-up.",
-    "icon": "\u2726"
+    "icon": "✦"
   },
   {
     "href": "/everyday/password-generator",
@@ -105,7 +124,7 @@
     "category": "Everyday",
     "name": "Password Generator",
     "desc": "Free password generator. Create strong, random, secure passwords with custom length, uppercase, lowercase, numbers, and symbols. No sign-up, 100% private.",
-    "icon": "\u2726"
+    "icon": "✦"
   },
   {
     "href": "/everyday/qr-code-generator",
@@ -114,7 +133,7 @@
     "category": "Everyday",
     "name": "QR Code Generator",
     "desc": "Free QR code generator. Create QR codes for URLs, text, phone numbers, and more. Download as PNG image. No sign-up, free for commercial use.",
-    "icon": "\u2726"
+    "icon": "✦"
   },
   {
     "href": "/everyday/random-number-generator",
@@ -123,7 +142,7 @@
     "category": "Everyday",
     "name": "Random Number Generator",
     "desc": "Free random number generator. Pick random numbers between any range, generate unique or duplicate numbers, and draw random items from a list. No sign-up.",
-    "icon": "\u2726"
+    "icon": "✦"
   },
   {
     "href": "/everyday/word-counter",
@@ -132,7 +151,7 @@
     "category": "Everyday",
     "name": "Word Counter",
     "desc": "Free word counter. Count words, characters, sentences, and paragraphs, plus estimated reading time. Real-time results, no sign-up.",
-    "icon": "\u2726"
+    "icon": "✦"
   },
   {
     "href": "/finance/amortization-calculator",
@@ -209,10 +228,10 @@
   {
     "href": "/finance/loan-calculator",
     "title": "Loan Calculator - Monthly Payment & Total Interest",
-    "description": "Free loan calculator. Calculate monthly payments and total interest for any fixed-rate loan \u2014 auto, personal, student, or home. Instant results.",
+    "description": "Free loan calculator. Calculate monthly payments and total interest for any fixed-rate loan — auto, personal, student, or home. Instant results.",
     "category": "Finance",
     "name": "Loan Calculator",
-    "desc": "Free loan calculator. Calculate monthly payments and total interest for any fixed-rate loan \u2014 auto, personal, student, or home. Instant results.",
+    "desc": "Free loan calculator. Calculate monthly payments and total interest for any fixed-rate loan — auto, personal, student, or home. Instant results.",
     "icon": "$"
   },
   {
@@ -285,7 +304,7 @@
     "category": "Health",
     "name": "BMI Calculator",
     "desc": "Free BMI calculator for adults. Enter height and weight in metric or imperial units to get your Body Mass Index and weight category instantly.",
-    "icon": "\u2661"
+    "icon": "♡"
   },
   {
     "href": "/health/bmr-calculator",
@@ -294,7 +313,7 @@
     "category": "Health",
     "name": "BMR Calculator",
     "desc": "Free BMR calculator. Calculate your Basal Metabolic Rate using the Mifflin-St Jeor equation. Find out how many calories you burn at rest. No sign-up.",
-    "icon": "\u2661"
+    "icon": "♡"
   },
   {
     "href": "/health/body-fat-calculator",
@@ -303,7 +322,7 @@
     "category": "Health",
     "name": "Body Fat Calculator",
     "desc": "Free body fat calculator using the U.S. Navy method. Estimate your body fat percentage from circumference measurements. No sign-up.",
-    "icon": "\u2661"
+    "icon": "♡"
   },
   {
     "href": "/health/calorie-calculator",
@@ -312,7 +331,7 @@
     "category": "Health",
     "name": "Calorie Calculator",
     "desc": "Free calorie calculator. Estimate your daily calorie needs for weight loss, maintenance, or gain using the Mifflin-St Jeor equation. Instant results.",
-    "icon": "\u2661"
+    "icon": "♡"
   },
   {
     "href": "/health/ideal-weight-calculator",
@@ -321,7 +340,7 @@
     "category": "Health",
     "name": "Ideal Weight Calculator",
     "desc": "Free ideal weight calculator. Find your healthy weight range using the Devine formula and BMI. See your ideal body weight instantly. No sign-up.",
-    "icon": "\u2661"
+    "icon": "♡"
   },
   {
     "href": "/health/macro-calculator",
@@ -330,7 +349,7 @@
     "category": "Health",
     "name": "Macro Calculator",
     "desc": "Free macro calculator. Calculate your daily protein, carbohydrate, and fat targets based on your calories and goals. No sign-up.",
-    "icon": "\u2661"
+    "icon": "♡"
   },
   {
     "href": "/health/ovulation-calculator",
@@ -339,7 +358,7 @@
     "category": "Health",
     "name": "Ovulation Calculator",
     "desc": "Free ovulation calculator. Predict your ovulation date and fertile window based on your menstrual cycle. Plan for pregnancy with a 6-month calendar. No sign-up.",
-    "icon": "\u2661"
+    "icon": "♡"
   },
   {
     "href": "/health/pace-calculator",
@@ -348,7 +367,7 @@
     "category": "Health",
     "name": "Pace Calculator",
     "desc": "Free running pace calculator. Calculate your pace per mile or km, finishing time, or speed. Perfect for runners and race planning. No sign-up.",
-    "icon": "\u2661"
+    "icon": "♡"
   },
   {
     "href": "/health/pregnancy-due-date-calculator",
@@ -357,7 +376,7 @@
     "category": "Health",
     "name": "Pregnancy Due Date Calculator",
     "desc": "Free pregnancy due date calculator. Estimate your due date based on your last period or conception date. See your pregnancy timeline and trimesters. No sign-up.",
-    "icon": "\u2661"
+    "icon": "♡"
   },
   {
     "href": "/health/sleep-calculator",
@@ -366,7 +385,7 @@
     "category": "Health",
     "name": "Sleep Calculator",
     "desc": "Free sleep calculator. Find the best time to go to sleep or wake up based on 90-minute sleep cycles. Wake up refreshed. No sign-up.",
-    "icon": "\u2661"
+    "icon": "♡"
   },
   {
     "href": "/health/tdee-calculator",
@@ -375,7 +394,7 @@
     "category": "Health",
     "name": "TDEE Calculator",
     "desc": "Free TDEE calculator. Calculate your Total Daily Energy Expenditure based on BMR and activity level. Find your maintenance calories. No sign-up.",
-    "icon": "\u2661"
+    "icon": "♡"
   },
   {
     "href": "/health/water-intake-calculator",
@@ -384,7 +403,7 @@
     "category": "Health",
     "name": "Water Intake Calculator",
     "desc": "Free water intake calculator. Find your daily hydration goal based on weight, activity, and climate. Get your personalized water target. No sign-up.",
-    "icon": "\u2661"
+    "icon": "♡"
   },
   {
     "href": "/math/average-calculator",
@@ -443,10 +462,10 @@
   {
     "href": "/math/scientific-calculator",
     "title": "Scientific Calculator - Trig, Logs & Powers",
-    "description": "Free scientific calculator online. Perform calculations with trigonometry, logarithms, exponents, square roots, factorials, \u03c0, and e. No sign-up, works in browser.",
+    "description": "Free scientific calculator online. Perform calculations with trigonometry, logarithms, exponents, square roots, factorials, π, and e. No sign-up, works in browser.",
     "category": "Math",
     "name": "Scientific Calculator",
-    "desc": "Free scientific calculator online. Perform calculations with trigonometry, logarithms, exponents, square roots, factorials, \u03c0, and e. No sign-up, works in browser.",
+    "desc": "Free scientific calculator online. Perform calculations with trigonometry, logarithms, exponents, square roots, factorials, π, and e. No sign-up, works in browser.",
     "icon": "+"
   }
 ]

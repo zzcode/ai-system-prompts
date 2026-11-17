@@ -1,0 +1,39 @@
+---
+interface Props { kind: 'tile' | 'paint' | 'concrete'; fields: string[]; }
+const {kind, fields} = Astro.props;
+---
+<div class="plan-next-step">
+  <h2>Planning more than one area?</h2>
+  <p>Add this estimate to a material list. Combine areas using the same product before rounding up your purchase, then save or print your list.</p>
+  <button type="button" class="btn btn-primary" data-plan-kind={kind} data-plan-fields={JSON.stringify(fields)}>Add to material list</button>
+  <p class="hint" role="status" data-plan-transfer-status></p>
+  <a href="/construction/material-planner">Open material planner</a>
+</div>
+<script>
+  import { PENDING_KEY, validateItem, BAG_YIELDS } from '../lib/material-plan.js';
+  document.querySelectorAll('[data-plan-kind]').forEach(button => {
+    button.addEventListener('click', () => {
+      const status = button.parentElement.querySelector('[data-plan-transfer-status]');
+      try {
+        const kind = button.dataset.planKind;
+        const values = JSON.parse(button.dataset.planFields).map(id => {
+          const text = document.getElementById(id).value.trim();
+          return text === '' ? null : Number(text);
+        });
+        const item = {kind, values, label: 'Area 1', product: kind === 'tile' ? 'Floor tile' : kind === 'paint' ? 'Wall paint' : 'Concrete mix', unitPrice: null, bagSize: 80, yield: BAG_YIELDS[80]};
+        const normalized = validateItem(item).item;
+        sessionStorage.setItem(PENDING_KEY, JSON.stringify(normalized));
+        window.location.assign('/construction/material-planner');
+      } catch {
+        status.textContent = 'Check the calculator inputs first. If browser storage is unavailable, open the planner and enter your measurements there.';
+      }
+    });
+  });
+</script>
+<style>
+  .plan-next-step {margin-top:28px; padding:24px; border:1px solid var(--primary); border-radius:var(--radius); background:#f0fdfa;}
+  .plan-next-step h2 {font-size:1.15rem; margin-bottom:8px;}
+  .plan-next-step p {max-width:65ch; margin-bottom:12px;}
+  .plan-next-step a {color:var(--primary-dark);}
+  .plan-next-step button {white-space:normal;}
+</style>
