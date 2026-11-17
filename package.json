@@ -13,7 +13,12 @@
     "audit:seo": "node scripts/audit-seo.mjs"
   },
   "dependencies": {
-    "astro": "^4.16.0",
-    "qrcode": "^1.5.4"
+    "astro": "7.4.12",
+    "papaparse": "5.7.1",
+    "qrcode": "^1.5.4",
+    "read-excel-file": "9.3.17"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }
