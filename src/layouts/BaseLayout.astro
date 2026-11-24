@@ -10,6 +10,8 @@ interface Props {
   ogType?: string;
   noindex?: boolean;
   showAds?: boolean;
+  focusedHome?: boolean;
+  lang?: 'en' | 'en-US';
 }
 
 const {
@@ -19,7 +21,9 @@ const {
   schema,
   ogType = 'website',
   noindex = false,
-  showAds = true
+  showAds = true,
+  focusedHome = false,
+  lang = 'en'
 } = Astro.props;
 
 const externalServices = externalServicesEnabled({ ...import.meta.env, VERCEL_ENV: process.env.VERCEL_ENV });
@@ -27,7 +31,10 @@ const siteUrl = 'https://www.kodatools.com';
 const canonicalUrl = canonical || new URL(Astro.url.pathname.replace(/\/+$/, '') || '/', siteUrl).href;
 const fullTitle = title.includes('KodaTools') ? title : `${title} | KodaTools`;
 
-const navItems = [
+const navItems = focusedHome ? [
+  { href: '/finance/escrow-analysis-checker', label: 'Escrow' },
+  { href: '/finance/unemployment-benefits-by-state', label: 'Unemployment' },
+] : [
   { href: '/finance', label: 'Finance' },
   { href: '/health', label: 'Health' },
   { href: '/math', label: 'Math' },
@@ -41,7 +48,7 @@ const currentPath = Astro.url.pathname;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={lang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -117,8 +124,9 @@ const currentPath = Astro.url.pathname;
             <span class="logo-mark">K</span>
             Koda<span class="brand-accent">Tools</span>
           </a>
-          <p>Free online calculators and everyday tools. Fast, accurate, and always free. No sign-up required.</p>
+          <p>{focusedHome ? 'Free tools for practical decisions. No sign-up required.' : 'Free online calculators and everyday tools. Fast, accurate, and always free. No sign-up required.'}</p>
         </div>
+        {!focusedHome ? <>
         <div class="footer-col">
           <h4>Finance</h4>
           <a href="/finance/mortgage-calculator">Mortgage Calculator</a>
@@ -133,6 +141,7 @@ const currentPath = Astro.url.pathname;
           <a href="/date-time/age-calculator">Age Calculator</a>
           <a href="/health/calorie-calculator">Calorie Calculator</a>
         </div>
+        </> : null}
         <div class="footer-col">
           <h4>Company</h4>
           <a href="/about">About</a>

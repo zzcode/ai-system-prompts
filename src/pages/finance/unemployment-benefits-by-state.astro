@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { states, directory, federalGuide, dolSnapshot, checkedOn } from '../../data/unemployment-states.js';
+
+const title = 'U.S. Unemployment Benefits by State';
+const description = 'Find the official unemployment insurance program for any U.S. state or D.C. Compare verified weekly benefit limits and durations for selected states.';
+const directoryUrl = (code: string) => `${directory}?location=${code}`;
+const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+const confirmed = states.filter(state => state.weekly != null || state.weeks != null);
+---
+<BaseLayout {title} {description} lang="en-US" showAds={false}>
+  <div class="container lookup">
+    <nav aria-label="Breadcrumb" class="breadcrumb"><a href="/">Home</a><span class="sep">/</span><span>Unemployment benefits</span></nav>
+    <p class="kicker">U.S. ONLY · REGULAR UNEMPLOYMENT INSURANCE</p>
+    <h1>{title}</h1>
+    <p class="intro">Find the official filing information for the state where you worked. The table compares published limits for selected states; it does not estimate your eligibility, benefit amount, or how long you will receive payments.</p>
+
+    <section class="card panel" aria-labelledby="lookup-title">
+      <h2 id="lookup-title">Find your state’s unemployment program</h2>
+      <form action={directory} method="get" class="search">
+        <div><label for="unemployment-state">State where you worked</label>
+          <select id="unemployment-state" name="location" required>
+            <option value="" selected disabled>Select a state or D.C.</option>
+            {states.map(state => <option value={state.code}>{state.name}</option>)}
+          </select>
+        </div>
+        <button type="submit">Find official filing information</button>
+      </form>
+      <p>The link opens CareerOneStop, a U.S. Department of Labor–sponsored directory, with information on how to file. If you worked in multiple states, contact a state agency for help deciding where to file.</p>
+      <details>
+        <summary>Browse all 50 states and D.C.</summary>
+        <ul class="states">
+          {states.map(state => <li><a href={directoryUrl(state.code)}>{state.name}</a></li>)}
+        </ul>
+      </details>
+    </section>
+
+    <section class="card panel" aria-labelledby="compare-title">
+      <h2 id="compare-title">Compare verified benefit limits</h2>
+      <p>Data reviewed <time datetime={checkedOn}>November 23, 2026</time>. This is the review date, not the effective date. Only figures supported by the linked state agencies are shown. A missing figure does not mean zero.</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Verified state unemployment benefit limits">
+        <table>
+          <thead><tr><th scope="col">State</th><th scope="col">Maximum weekly amount (USD)</th><th scope="col">Maximum duration</th><th scope="col">State agency sources</th></tr></thead>
+          <tbody>{confirmed.map(state => <tr>
+            <th scope="row">{state.name}</th>
+            <td>{state.weekly == null ? 'Not verified' : usd.format(state.weekly)}</td>
+            <td>{state.weeks == null ? 'Not verified' : `${state.weeks} weeks`}</td>
+            <td><a href={state.source}>{state.name} benefit rules</a>{state.durationSource && <> · <a href={state.durationSource}>Duration source</a></>}{state.note && <small>{state.note}</small>}</td>
+          </tr>)}</tbody>
+        </table>
+      </div>
+      <p>Weekly limits generally describe base benefits before applicable deductions. Some states offer dependent allowances. The maximum duration is an upper limit, not a guarantee or the length of the benefit year. Do not multiply both maximums to estimate what you will receive.</p>
+    </section>
+
+    <section class="content-section" aria-labelledby="next-title">
+      <h2 id="next-title">What to check before you file</h2>
+      <ol>
+        <li>Confirm which state handles your claim, especially if you worked remotely or in multiple states.</li>
+        <li>Check the state’s filing and weekly certification instructions. Use the agency’s own site to submit personal information.</li>
+        <li>Review the monetary determination from your agency for the amount and duration that apply to you.</li>
+      </ol>
+      <p>For more information, see <a href={federalGuide}>USA.gov’s unemployment benefits guide</a> and the <a href={dolSnapshot}>U.S. Department of Labor’s state-law reference tables</a>. Federal tables are dated snapshots and may differ from newer state agency information.</p>
+    </section>
+  </div>
+</BaseLayout>
+<style>
+  .lookup { max-width: 1050px; padding-bottom: 36px; }
+  .breadcrumb { margin: 22px 0; }
+  .kicker { color: var(--primary-dark); font-size: .75rem; font-weight: 750; letter-spacing: .1em; }
+  h1 { margin: 6px 0 10px; font-size: clamp(1.85rem, 4.8vw, 2.8rem); line-height: 1.18; letter-spacing: -.03em; }
+  .intro { max-width: 68ch; color: var(--text-secondary); }
+  .panel { padding: clamp(16px, 3vw, 28px); margin: 22px 0; }
+  .panel h2 { margin-bottom: 10px; font-size: 1.35rem; }
+  .panel p { margin: 12px 0; color: var(--text-secondary); }
+  .search { display: flex; align-items: end; flex-wrap: wrap; gap: 12px; }
+  .search > div { flex: 1 0 min(100%, 240px); }
+  label { display: block; font-weight: 650; margin-bottom: 4px; }
+  select, button { min-height: 44px; padding: 8px 12px; border-radius: 8px; font: inherit; }
+  select { width: 100%; background: white; color: #172b29; border: 1px solid #77938d; }
+  button { color: white; background: var(--primary-dark); border: 1px solid transparent; font-weight: 700; cursor: pointer; }
+  summary { cursor: pointer; color: var(--primary-dark); font-weight: 650; min-height: 32px; }
+  .states { margin: 10px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(145px, 100%), 1fr)); gap: 8px; }
+  .states a { display: block; padding: 5px 0; }
+  .table-scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: .94rem; }
+  th, td { padding: 10px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid #d5e5e1; }
+  thead { background: #eff8f5; }
+  td small { display: block; margin-top: 3px; color: var(--text-secondary); }
+  @media (max-width: 550px) { button { width: 100%; } }
+</style>

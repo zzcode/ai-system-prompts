@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { fileURLToPath } from 'node:url';
 import readExcelFile from 'read-excel-file/node';
-import { parseCSV, rowsToJSON } from '../src/lib/spreadsheet-json.js';
+import { parseCSV, rowsToJSON, workbookToJSON, MAX_ROWS } from '../src/lib/spreadsheet-json.js';
 
 test('CSV preserves identifiers, commas, quotes and multiline values', () => {
   const rows = parseCSV('Code,Note\r\n0012,"A, B"\r\n0042,"line 1\nline ""2"""');
@@ -37,4 +37,18 @@ test('the actual XLSX parser reads multiple worksheets and retains typed values'
   assert.equal(sheets[0].sheet,'Inventory');
   assert.deepEqual(rowsToJSON(sheets[0].data).data,[{Code:'0012',Quantity:3,Enabled:true}]);
   assert.deepEqual(rowsToJSON(sheets[1].data).data,[]);
+  const result = workbookToJSON(sheets);
+  assert.deepEqual(Object.values(result.data),[[{Code:'0012',Quantity:3,Enabled:true}],[]]);
+  assert.deepEqual(Object.keys(result.data),sheets.map(({sheet}) => sheet));
+  assert.equal(result.rows,1);
+});
+test('workbook export preserves special worksheet names and respects the aggregate row limit', () => {
+  const workbook = workbookToJSON([{sheet:'__proto__',data:[['A','A'],[1,2]]},{sheet:'Empty',data:[]}]);
+  assert.equal(Object.getPrototypeOf(workbook.data),Object.prototype);
+  assert.deepEqual(workbook.data.__proto__,[{A:1,'A (2)':2}]);
+  assert.equal(workbook.renamed,1);
+  assert.deepEqual(workbookToJSON([{sheet:'Raw',data:[['0012',3]]}],false).data,{Raw:[['0012',3]]});
+  const fullSheet = Array.from({length:MAX_ROWS + 1},()=>['A']);
+  assert.equal(workbookToJSON([{sheet:'Full',data:fullSheet}]).rows,MAX_ROWS);
+  assert.throws(() => workbookToJSON([{sheet:'Full',data:fullSheet},{sheet:'Extra',data:[['A'],[1]]}]),/All worksheets together/);
 });

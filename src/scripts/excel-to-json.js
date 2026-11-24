@@ -1,4 +1,4 @@
-import { parseCSV, rowsToJSON, MAX_FILE_BYTES } from '../lib/spreadsheet-json.js';
+import { parseCSV, rowsToJSON, workbookToJSON, MAX_FILE_BYTES } from '../lib/spreadsheet-json.js';
 const $ = id => document.getElementById(id);
 let sheets = [], output = '', sequence = 0;
 const status = $('xj-status'), error = $('xj-error');
@@ -10,8 +10,18 @@ function render() {
   clearResult();
   try {
     if (!sheets.length) return;
-    const selected = Number($('xj-sheet').value || 0);
-    const result = rowsToJSON(sheets[selected].data, $('xj-headers').checked);
+    const selected = $('xj-sheet').value || '0';
+    const headers = $('xj-headers').checked;
+    if (selected === 'all') {
+      const result = workbookToJSON(sheets, headers);
+      output = JSON.stringify(result.data, null, 2);
+      $('xj-output').value = output;
+      $('xj-result').hidden = false;
+      status.textContent = `${sheets.length} worksheets, ${result.rows.toLocaleString('en-US')} data rows. Check the output before using it.`;
+      if (result.renamed) $('xj-header-note').textContent = `Blank or duplicate headers were renamed in ${result.renamed} worksheet(s).`;
+      return;
+    }
+    const result = rowsToJSON(sheets[Number(selected)].data, headers);
     output = JSON.stringify(result.data,null,2);
     $('xj-output').value = output; $('xj-result').hidden = false;
     status.textContent = `${result.data.length.toLocaleString('en-US')} data rows, ${result.columns} columns. Check the output before using it.`;
@@ -26,6 +36,11 @@ function setSheets(next) {
     const option = document.createElement('option'); option.value = String(index); option.textContent = sheet.sheet;
     $('xj-sheet').append(option);
   });
+  if (sheets.length > 1) {
+    const all = document.createElement('option');
+    all.value = 'all'; all.textContent = 'All worksheets';
+    $('xj-sheet').append(all);
+  }
   $('xj-sheet-field').hidden = sheets.length < 2;
   render();
 }

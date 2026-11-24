@@ -46,3 +46,19 @@ export function rowsToJSON(rows, useHeaders = true) {
   });
   return {data,keys,renamed,columns:width};
 }
+
+// Bound the combined output as well as each worksheet, including blank cells.
+export function workbookToJSON(sheets, useHeaders = true) {
+  let rows = 0, cells = 0, renamed = 0;
+  const entries = sheets.map(({sheet, data}) => {
+    const result = rowsToJSON(data, useHeaders);
+    rows += result.data.length;
+    cells += result.data.length * result.columns;
+    if (rows > MAX_ROWS || cells > MAX_ROWS * MAX_COLUMNS) {
+      throw new Error('All worksheets together must contain no more than 10,000 output rows. Select one worksheet instead.');
+    }
+    renamed += Number(result.renamed);
+    return [sheet, result.data];
+  });
+  return {data:Object.fromEntries(entries), rows, renamed};
+}

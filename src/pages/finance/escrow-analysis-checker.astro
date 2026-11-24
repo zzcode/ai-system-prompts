@@ -1,0 +1,311 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { MAX_ESCROW_DOLLARS } from '../../lib/escrow-analysis.js';
+
+const title = 'Escrow Analysis Calculator: Check Your Payment Increase';
+const description = 'Compare two U.S. mortgage escrow statements. Separate tax and insurance changes from temporary shortage payments, then check the difference against your bill.';
+const statementPeriods = [
+  { key: 'previous', label: 'Previous payment' },
+  { key: 'updated', label: 'New payment' },
+];
+const billFields = [
+  { key: 'tax', label: 'Property taxes' },
+  { key: 'insurance', label: 'Homeowners and other property insurance' },
+  { key: 'other', label: 'Other escrowed bills' },
+];
+const rows = [
+  { key: 'tax', label: 'Property taxes' },
+  { key: 'insurance', label: 'Property insurance' },
+  { key: 'other', label: 'Other escrowed bills' },
+  { key: 'rounding', label: 'Rounding adjustment' },
+  { key: 'base', label: 'Base escrow contribution' },
+  { key: 'shortage', label: 'Temporary shortage installment' },
+  { key: 'total', label: 'Estimated escrow payment' },
+];
+---
+
+<BaseLayout {title} {description} lang="en-US" showAds={false}>
+  <div class="container escrow-page">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep" aria-hidden="true">/</span><a href="/finance">Finance</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">Escrow Analysis Checker</span></nav>
+    <header class="escrow-hero">
+      <p class="eyebrow">U.S. mortgage escrow</p>
+      <h1>Escrow Analysis Calculator</h1>
+      <p>Compare two mortgage escrow statements to see how much of your payment increase comes from higher property taxes, insurance or a temporary shortage installment. Then check what the escrow portion could be after that installment ends.</p>
+    </header>
+
+    <section class="escrow-card" aria-labelledby="escrow-input-heading">
+      <h2 id="escrow-input-heading">Compare your escrow statements</h2>
+      <p id="bill-help">Use the projected annual bills behind each payment, not the amounts paid so far this year. Enter the full year’s total for each bill, with at least one amount on each side (enter 0 if none). Other blank bill amounts count as zero.</p>
+      <form id="escrow-form" autocomplete="off" aria-describedby="bill-help">
+        <div class="period-grid">
+          {statementPeriods.map(({ key, label }) => (
+            <fieldset class="period-fields">
+              <legend>{label}</legend>
+              <p class="field-kicker">Annual bills · USD</p>
+              {billFields.map(({ key: bill, label: billLabel }) => (
+                <div class="field">
+                  <label for={`${key}-${bill}`}>{billLabel}</label>
+                  <div class="input-affix has-prefix">
+                    <span class="prefix" aria-hidden="true">$</span>
+                    <input id={`${key}-${bill}`} type="number" min="0" max={MAX_ESCROW_DOLLARS} step="0.01" inputmode="decimal" />
+                  </div>
+                </div>
+              ))}
+              <div class="field">
+                <label for={`${key}-shortage`}>Monthly shortage installment</label>
+                <div class="input-affix has-prefix">
+                  <span class="prefix" aria-hidden="true">$</span>
+                  <input id={`${key}-shortage`} type="number" min="0" max={MAX_ESCROW_DOLLARS} step="0.01" inputmode="decimal" aria-describedby={`${key}-shortage-help`} />
+                </div>
+                <p id={`${key}-shortage-help`} class="hint">{key === 'previous' ? 'Leave blank if there is no temporary installment.' : 'Leave blank if there is no installment or to estimate it below.'}</p>
+              </div>
+            </fieldset>
+          ))}
+        </div>
+
+        <details id="escrow-options" class="escrow-options">
+          <summary>Optional: estimate the new installment or check your statement</summary>
+          <p id="plan-help">If the statement lists only a new shortage total and an equal monthly repayment schedule, enter both below. Use the actual new monthly installment above if listed; don’t enter both methods. Exclude any one-time payment.</p>
+          <div class="options-grid">
+            <div class="field">
+              <label for="shortage-amount">New shortage total</label>
+              <div class="input-affix has-prefix">
+                <span class="prefix" aria-hidden="true">$</span>
+                <input id="shortage-amount" type="number" min="0.01" max={MAX_ESCROW_DOLLARS} step="0.01" inputmode="decimal" aria-describedby="plan-help" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="shortage-months">New repayment term (months)</label>
+              <input id="shortage-months" type="number" min="1" max={MAX_ESCROW_DOLLARS} step="1" inputmode="numeric" aria-describedby="plan-help" />
+            </div>
+            <div class="field">
+              <label for="reported-change">Statement’s monthly escrow change</label>
+              <div class="input-affix has-prefix">
+                <span class="prefix" aria-hidden="true">$</span>
+                <input id="reported-change" type="number" min={-MAX_ESCROW_DOLLARS} max={MAX_ESCROW_DOLLARS} step="0.01" inputmode="decimal" aria-describedby="reported-help" />
+              </div>
+              <p id="reported-help" class="hint">New escrow portion minus old. Enter a negative amount for a decrease; exclude principal, interest and fees.</p>
+            </div>
+            <div class="field">
+              <label for="reported-cushion">New statement’s escrow cushion</label>
+              <div class="input-affix has-prefix">
+                <span class="prefix" aria-hidden="true">$</span>
+                <input id="reported-cushion" type="number" min="0" max={MAX_ESCROW_DOLLARS} step="0.01" inputmode="decimal" aria-describedby="cushion-help" />
+              </div>
+              <p id="cushion-help" class="hint">Enter the labeled reserve amount, not your current account balance or a monthly amount.</p>
+            </div>
+          </div>
+        </details>
+
+        <p id="escrow-error" class="escrow-error" role="alert" hidden></p>
+        <div class="escrow-actions">
+          <button id="escrow-submit" class="btn btn-primary" type="submit" disabled>Check escrow change</button>
+          <button id="escrow-example" class="btn btn-ghost" type="button" disabled>Load example</button>
+          <button class="btn btn-ghost" type="reset">Clear</button>
+        </div>
+        <p class="privacy-note">Calculations run in your browser. This form doesn’t send or save the amounts you enter. Enter dollar amounts only, not an account number or other personal details.</p>
+        <noscript><p>Enable JavaScript to use the calculator. The worked example below can also be checked by hand.</p></noscript>
+      </form>
+    </section>
+
+    <section id="escrow-results" class="escrow-card" aria-labelledby="escrow-results-heading" hidden>
+      <h2 id="escrow-results-heading" tabindex="-1">Estimated monthly escrow change</h2>
+      <dl class="payment-summary">
+        <div><dt>Overall change</dt><dd id="escrow-change">—</dd></div>
+        <div><dt>With new installment</dt><dd id="escrow-new-total">—</dd></div>
+        <div><dt>Without new installment</dt><dd id="escrow-after">—</dd></div>
+      </dl>
+      <p id="escrow-result-note"></p>
+      <table class="escrow-breakdown">
+        <caption>Monthly escrow breakdown (USD)</caption>
+        <thead><tr><th scope="col">Component</th><th scope="col">Previous</th><th scope="col">New</th><th scope="col">Change</th></tr></thead>
+        <tbody>
+          {rows.map(({ key, label }) => (
+            <tr data-breakdown={key} class:list={[{ subtotal: key === 'base' || key === 'total' }]}>
+              <th scope="row">{label}</th><td data-before>—</td><td data-after>—</td><td data-change>—</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="privacy-note">The base contribution is the sum of annual bills divided by 12, rounded to cents. Component rows are rounded individually, so a rounding adjustment may appear. A servicer’s figures can differ.</p>
+      <div id="escrow-reported-result" class="escrow-finding" hidden>
+        <h3>Compared with your statement</h3>
+        <p id="escrow-discrepancy"></p>
+      </div>
+      <div id="escrow-cushion-result" class="escrow-finding" hidden>
+        <h3>Escrow cushion check</h3>
+        <p id="escrow-cushion-comparison"></p>
+        <p>The general federal cushion limit for covered loans is one-sixth of estimated annual escrow disbursements. Applicable state law or loan terms may set a lower limit. This check is not a compliance determination. A cushion is a reserve balance, not a recurring monthly bill, so it is not added to the payment above.</p>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="escrow-example-heading">
+      <h2 id="escrow-example-heading">Worked example: an increase that’s partly temporary</h2>
+      <p>Suppose annual tax increases from $3,600 to $4,080 and annual insurance increases from $1,200 to $1,440. There are no other escrowed bills. The monthly base contribution rises from <strong>$400 to $460</strong>. The old bill already included a $15 monthly shortage installment. The new statement spreads a $600 shortage over 12 months, or $50 a month.</p>
+      <p>The estimated escrow portion goes from <strong>$415 to $510</strong>, a <strong>$95 increase</strong>: $40 more for taxes, $20 more for insurance and $35 more for the installment. If the $50 installment ends and nothing else changes, the estimate is <strong>$460</strong>, not the old $415. The example’s reported increase is $95, which matches the estimate.</p>
+    </section>
+
+    <section class="content-section" aria-labelledby="escrow-review-heading">
+      <h2 id="escrow-review-heading">What to check on your statement</h2>
+      <ol>
+        <li>Check the dates the old and new payments take effect. Compare the escrow portion only. Changes to principal and interest, mortgage insurance billed outside escrow, fees or past-due amounts can also move the total mortgage payment.</li>
+        <li>Match the projected tax and insurance amounts and disbursement dates to your actual bills. Add up split tax bills for the year, and check whether insurance was counted twice around a policy renewal.</li>
+        <li>Compare the starting balance and actual deposits and disbursements with the prior projection. Check the lowest projected balance, the stated cushion, how the servicer calculated the shortage and when any installment ends. This tool does not recreate the servicer’s month-by-month balance forecast.</li>
+        <li>If the math still doesn’t match, ask your mortgage servicer for the full escrow analysis and an itemized explanation or corrected statement. If taxes or insurance appear unpaid, contact the tax authority or insurer promptly as well.</li>
+      </ol>
+      <h3>What happens if I pay the shortage upfront?</h3>
+      <p>If your servicer offers an upfront payment and confirms it will remove the installment, compare <strong>With new installment</strong> and <strong>Without new installment</strong> above. Paying the shortage upfront doesn’t undo an increase in projected taxes or insurance. Ask the servicer to confirm the revised payment amount and its effective date before relying on the comparison.</p>
+      <h3>Shortage and deficiency are not the same</h3>
+      <p>A <strong>shortage</strong> is the gap between the account’s current balance and its target balance at the analysis date. A <strong>deficiency</strong> is the amount by which an actual balance is below zero. Use only the temporary shortage installment for this calculator; it doesn’t calculate repayment rules for a deficiency or a surplus credit.</p>
+      <p>Under Regulation X for covered loans, if a servicer requires repayment of a shortage in monthly installments, they must be equal payments spread over at least 12 months. A shortage smaller than one month’s escrow payment may instead be due within 30 days, or the servicer may leave the shortage in place. Deficiencies have separate rules, and loan documents can affect deficiency repayment when payments are not current.</p>
+      <h3>If you believe there is a servicing error</h3>
+      <p>Send your servicer a written notice of error using its designated address if it has one. It may not be the address where you send payments. Include your name, enough information for the servicer to identify the loan, the specific error, and the dates and amounts involved. Keep copies and proof of delivery. A discrepancy here does not prove an error, and a notice does not change what you owe or stop payments from coming due.</p>
+      <h3>Official references</h3>
+      <ul>
+        <li><a href="https://www.consumerfinance.gov/rules-policy/regulations/1024/17/">CFPB Regulation X, 12 CFR § 1024.17: Escrow accounts</a></li>
+        <li><a href="https://www.consumerfinance.gov/rules-policy/regulations/1024/35/">CFPB Regulation X, 12 CFR § 1024.35: Error resolution procedures</a></li>
+        <li><a href="https://www.consumerfinance.gov/compliance/compliance-resources/mortgage-resources/mortserv/mortgage-servicing-faqs/#escrow-accounts-deficiencies-shortages-and-surpluses">CFPB Mortgage Servicing FAQs: Deficiencies, shortages, and surpluses</a></li>
+        <li><a href="https://www.consumerfinance.gov/ask-cfpb/what-should-i-do-if-im-having-problems-with-my-escrow-or-impound-account-en-2082/">CFPB consumer FAQ: What to do if you have problems with an escrow account</a></li>
+      </ul>
+      <p class="privacy-note">For education and estimation, not legal or financial advice. For a principal and interest estimate, see the <a href="/finance/mortgage-calculator">Mortgage Calculator</a>.</p>
+    </section>
+  </div>
+
+  <script>
+    import { checkEscrowAnalysis } from '../../lib/escrow-analysis.js';
+
+    const get = (id: string) => document.getElementById(id)!;
+    const input = (id: string) => get(id) as HTMLInputElement;
+    const amount = (id: string) => input(id).value === '' ? undefined : input(id).valueAsNumber;
+    const text = (id: string, value: string) => { get(id).textContent = value; };
+    const form = get('escrow-form') as HTMLFormElement;
+    const options = get('escrow-options') as HTMLDetailsElement;
+    const results = get('escrow-results');
+    const error = get('escrow-error');
+    const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+    const usd = (cents: number) => money.format(cents / 100);
+    const delta = (cents: number) => cents > 0 ? `+${usd(cents)}` : usd(cents);
+    const period = (key: string) => ({ tax: amount(`${key}-tax`), insurance: amount(`${key}-insurance`), other: amount(`${key}-other`), shortage: amount(`${key}-shortage`) });
+
+    function render(moveFocus = false) {
+      try {
+        const previous = period('previous');
+        const updated = period('updated');
+        if ([previous, updated].some(side => [side.tax, side.insurance, side.other].every(value => value === undefined))) {
+          throw new Error('Enter at least one annual bill amount on each side. If there are no bills on one side, enter 0.');
+        }
+        const planAmount = amount('shortage-amount');
+        const months = amount('shortage-months');
+        const hasPlan = planAmount !== undefined || months !== undefined;
+        if (hasPlan && updated.shortage !== undefined) throw new Error('Use either the new monthly shortage installment or the shortage total and repayment term, not both.');
+        if (hasPlan && (planAmount === undefined || months === undefined)) throw new Error('Enter both the new shortage total and repayment term.');
+        const result = checkEscrowAnalysis({ previous, updated, shortagePlan: hasPlan ? { amount: planAmount, months } : undefined, reportedChange: amount('reported-change'), cushion: amount('reported-cushion') });
+        const { oldMonthly, newMonthly, change, discrepancy, cushion } = result;
+        text('escrow-change', delta(change.total));
+        text('escrow-new-total', usd(newMonthly.total));
+        text('escrow-after', usd(newMonthly.base));
+        text('escrow-result-note', newMonthly.shortage > 0
+          ? `After the ${usd(newMonthly.shortage)} monthly shortage installment ends, the escrow portion is estimated at ${usd(newMonthly.base)}, if bills and other escrow adjustments stay the same. This is not the full mortgage payment.`
+          : 'No new shortage installment is included. This estimate is for the escrow portion only, not the full mortgage payment.');
+
+        results.querySelectorAll<HTMLTableRowElement>('[data-breakdown]').forEach(row => {
+          const key = row.dataset.breakdown as keyof typeof newMonthly;
+          row.hidden = key === 'rounding' && oldMonthly[key] === 0 && newMonthly[key] === 0;
+          row.querySelector('[data-before]')!.textContent = usd(oldMonthly[key]);
+          row.querySelector('[data-after]')!.textContent = usd(newMonthly[key]);
+          row.querySelector('[data-change]')!.textContent = delta(change[key]);
+        });
+
+        get('escrow-reported-result').hidden = discrepancy === null;
+        if (discrepancy !== null) {
+          text('escrow-discrepancy', discrepancy === 0
+            ? 'Your statement’s monthly escrow change matches this estimate to the cent.'
+            : `Your statement’s monthly change is ${usd(Math.abs(discrepancy))} ${discrepancy > 0 ? 'higher' : 'lower'} than this estimate. Check rounding, effective dates and any other adjustments not included here.`);
+        }
+        get('escrow-cushion-result').hidden = cushion === null;
+        if (cushion) {
+          text('escrow-cushion-comparison', cushion.difference > 0
+            ? `The ${usd(cushion.entered)} entered is ${usd(cushion.difference)} above the general federal reference of ${usd(cushion.reference)}. Verify the cushion and annual disbursements with the servicer.`
+            : `The ${usd(cushion.entered)} entered does not exceed the general federal reference of ${usd(cushion.reference)} (rounded to cents).`);
+        }
+        error.hidden = true;
+        results.hidden = false;
+        if (moveFocus) get('escrow-results-heading').focus();
+      } catch (problem) {
+        results.hidden = true;
+        error.textContent = problem instanceof Error ? problem.message : 'Check the amounts and try again.';
+        error.hidden = false;
+      }
+    }
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      render(true);
+    });
+    form.addEventListener('invalid', event => {
+      if (event.target instanceof HTMLElement && options.contains(event.target)) options.open = true;
+      results.hidden = true;
+    }, true);
+    form.addEventListener('input', () => {
+      results.hidden = true;
+      error.hidden = true;
+    });
+    form.addEventListener('reset', () => {
+      options.open = false;
+      results.hidden = true;
+      error.hidden = true;
+    });
+    get('escrow-example').addEventListener('click', () => {
+      form.reset();
+      const example = { 'previous-tax': 3600, 'updated-tax': 4080, 'previous-insurance': 1200, 'updated-insurance': 1440, 'previous-shortage': 15, 'shortage-amount': 600, 'shortage-months': 12, 'reported-change': 95, 'reported-cushion': 850 };
+      for (const [id, value] of Object.entries(example)) input(id).value = String(value);
+      options.open = true;
+      render(true);
+    });
+    (get('escrow-submit') as HTMLButtonElement).disabled = false;
+    (get('escrow-example') as HTMLButtonElement).disabled = false;
+  </script>
+
+  <style>
+    .escrow-page { max-width: 980px; padding-bottom: var(--space-8, 2rem); }
+    .escrow-hero { margin: 2rem 0 1.5rem; }
+    .escrow-hero h1 { font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.08; margin-bottom: .7rem; }
+    .escrow-hero p:not(.eyebrow) { max-width: 67ch; color: var(--text-secondary); }
+    .eyebrow, .field-kicker { color: var(--primary-dark); font-weight: 700; font-size: .8rem; }
+    .escrow-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: clamp(1rem, 3vw, 1.75rem); margin: 0 0 1.25rem; }
+    .escrow-card h2 { font-size: 1.45rem; margin-bottom: .45rem; }
+    .escrow-card > p { color: var(--text-secondary); }
+    .period-grid, .options-grid, .payment-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    .period-grid { margin: 1rem 0; }
+    .period-fields { border: 1px solid var(--border); border-radius: 12px; min-width: 0; padding: .75rem 1rem 0; }
+    .period-fields legend { padding: 0 .25rem; font-weight: 700; }
+    .field-kicker { margin-bottom: .75rem; }
+    .escrow-options { border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1rem; }
+    .escrow-options summary { cursor: pointer; font-weight: 700; }
+    .escrow-options > p { margin: .65rem 0 1rem; color: var(--text-secondary); }
+    .options-grid .field { margin-bottom: .55rem; }
+    .escrow-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0; }
+    .privacy-note { color: var(--text-secondary); font-size: .9rem; }
+    .escrow-error { color: #a12019; margin-top: .8rem; }
+    .payment-summary { grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 1rem 0; }
+    .payment-summary > div { background: var(--success-bg); padding: .7rem .85rem; border-radius: 10px; overflow-wrap: anywhere; }
+    .payment-summary dt { font-size: .86rem; font-weight: 600; }
+    .payment-summary dd { color: var(--primary-dark); font-size: clamp(1.1rem, 3.3vw, 1.6rem); font-weight: 750; margin: 0; }
+    .escrow-breakdown { width: 100%; border-collapse: collapse; table-layout: fixed; margin: .75rem 0; font-variant-numeric: tabular-nums; }
+    .escrow-breakdown caption { text-align: left; font-weight: 700; padding: .4rem 0; }
+    .escrow-breakdown th, .escrow-breakdown td { border-bottom: 1px solid var(--border); padding: .45rem .25rem; text-align: right; overflow-wrap: anywhere; }
+    .escrow-breakdown th:first-child { text-align: left; width: 37%; }
+    .escrow-breakdown th[scope="row"] { font-weight: 500; }
+    .escrow-breakdown .subtotal { background: var(--success-bg); font-weight: 700; }
+    .escrow-breakdown .subtotal th { font-weight: 700; }
+    .escrow-finding { margin-top: 1rem; border-top: 1px solid var(--border); padding-top: .9rem; }
+    .escrow-finding h3 { font-size: 1rem; margin-bottom: .25rem; }
+    .escrow-finding p + p { margin-top: .35rem; }
+    @media (max-width: 600px) {
+      .period-grid, .options-grid { grid-template-columns: 1fr; }
+      .payment-summary { gap: .4rem; }
+      .payment-summary > div { padding: .5rem; }
+      .payment-summary dt, .escrow-breakdown { font-size: .8rem; }
+    }
+  </style>
+</BaseLayout>

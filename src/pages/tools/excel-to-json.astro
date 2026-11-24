@@ -13,7 +13,7 @@ const related = [
   {href:'/converters/unit-converter',icon:'⇄',title:'Unit Converter',desc:'Convert measurements'}
 ];
 ---
-<CalculatorLayout title="Excel to JSON Converter: XLSX & CSV, No Upload" h1="Excel to JSON Converter" description="Convert XLSX or CSV to JSON in your browser. Choose a worksheet, preserve text IDs and download JSON. Files stay on your device. No account or upload." subtitle="Choose a spreadsheet or paste CSV. Preview the JSON, then copy or download it. Your file stays on your device." category="Converters" categoryHref="/converters" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related} showAds={false}>
+<CalculatorLayout title="Excel to JSON Converter: XLSX & CSV, No Upload" h1="Excel to JSON Converter" description="Convert XLSX or CSV to JSON in your browser. Export one worksheet or all sheets, preview the result and download JSON. Files stay on your device. No account or upload." subtitle="Choose a spreadsheet or paste CSV. Preview the JSON, then copy or download it. Your file stays on your device." category="Converters" categoryHref="/converters" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related} showAds={false}>
   <div slot="calculator" class="xlsx-tool">
     <noscript><p>JavaScript is required to read files locally. No file is uploaded.</p></noscript>
     <div class="field"><label for="xj-file">Choose an XLSX or CSV file</label><input id="xj-file" type="file" accept=".xlsx,.csv" /><p class="hint">Up to 10 MB. Up to 10,000 data rows and 200 columns per sheet. Legacy .xls files must be saved as .xlsx first.</p></div>
@@ -34,8 +34,16 @@ const related = [
     </div>
   </div>
   <section class="content-section">
-    <h2>Convert an Excel sheet without uploading it</h2>
-    <p>Choose a local .xlsx workbook and select its worksheet. If the first row contains column names, leave the header option checked to produce an array of objects. Otherwise, turn it off to keep rows as arrays. Check the preview before copying or downloading.</p>
+    <h2>How to convert XLSX to JSON</h2>
+    <ol>
+      <li>Choose an XLSX file. If it has multiple sheets, select one worksheet or <strong>All worksheets</strong>.</li>
+      <li>Keep <strong>First row contains column names</strong> checked to turn rows into objects. Uncheck it for arrays of cells.</li>
+      <li>Check the preview, then copy the JSON or download it as a <code>.json</code> file.</li>
+    </ol>
+    <h2>What does the JSON look like?</h2>
+    <p>One sheet gives you a JSON array. All worksheets gives you a single object keyed by sheet name, with one array per sheet. An empty sheet becomes <code>[]</code>. The combined export supports up to 10,000 data rows.</p>
+    <pre>{'{\n  "Inventory": [{"Code": "0012", "Quantity": 3, "Enabled": true}],\n  "Empty": []\n}'}</pre>
+    <p><strong>Preserving ZIP codes or IDs?</strong> Store them as text in Excel before converting. A value stored as the number <code>12</code> and only displayed as <code>0012</code> by cell formatting will export as <code>12</code>.</p>
     <h2>CSV to JSON example</h2>
     <p>A CSV containing <code>Code,Quantity</code> followed by <code>0012,3</code> becomes <code>{'[{"Code":"0012","Quantity":"3"}]'}</code>. CSV cells stay strings, so the leading zeros in an identifier are not silently removed.</p>
     <h2>Check the result before importing it elsewhere</h2>

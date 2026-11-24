@@ -13,6 +13,8 @@ const staticPages = [
   { url: '/everyday', priority: '0.8', changefreq: 'weekly' },
   { url: '/construction', priority: '0.8', changefreq: 'weekly' },
   // Finance
+  { url: '/finance/escrow-analysis-checker', priority: '0.9', changefreq: 'monthly' },
+  { url: '/finance/unemployment-benefits-by-state', priority: '0.9', changefreq: 'monthly' },
   { url: '/finance/mortgage-calculator', priority: '0.9', changefreq: 'monthly' },
   { url: '/finance/loan-calculator', priority: '0.9', changefreq: 'monthly' },
   { url: '/finance/compound-interest-calculator', priority: '0.9', changefreq: 'monthly' },

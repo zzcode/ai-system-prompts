@@ -20,7 +20,7 @@ const related=[
 {href:"/finance/mortgage-calculator",icon:"🏠",title:"Mortgage Calculator",desc:"Home loan payments"}
 ];
 ---
-<CalculatorLayout title="Concrete Bag Calculator: Slab Yards & 40–80 lb Bags" h1="Concrete Calculator" description="Calculate concrete bags and cubic yards for a slab. Compare 40, 50, 60 and 80 lb bags, add waste and check 10x10 or 12x12 slab examples." subtitle="Calculate how much concrete you need for rectangular slabs and footings in cubic yards and bags, with an optional waste allowance." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related} showAds={false}>
+<CalculatorLayout title="Concrete Bag Calculator: Slab Yards & 40–80 lb Bags" h1="Concrete Bag Calculator" description="Calculate concrete bags and cubic yards for a slab. Compare 40–80 lb bags or enter the yield printed on your mix to get a whole-bag count." subtitle="Enter your slab dimensions and waste allowance. Compare common bag sizes, or use the yield on your concrete mix label to see how many bags to buy." category="Construction" categoryHref="/construction" appCategory="UtilitiesApplication" faqs={faqs} relatedTools={related} showAds={false}>
 <div slot="calculator">
 <Examples examples={[
 {label: '10 × 10 ft slab, 4 in deep', values: {'cc-length': 10, 'cc-width': 10, 'cc-depth': 4, 'cc-waste': 10}},
@@ -35,6 +35,7 @@ const related=[
 </div>
 <div class="field"><label for="cc-depth">Depth / Thickness</label><div class="input-affix has-suffix"><input type="number" id="cc-depth" value="4" step="any" /><span class="suffix">in</span></div></div>
 <div class="field"><label for="cc-waste">Extra allowance (%)</label><input type="number" id="cc-waste" value="10" min="0" max="100" step="any" /><div class="hint">Adjust for your project. Use 0 to see the exact geometric volume.</div></div>
+<div class="field"><label for="cc-yield">Custom yield per bag (optional)</label><div class="input-affix has-suffix"><input type="number" id="cc-yield" min="0" step="any" inputmode="decimal" placeholder="e.g. 0.50" aria-describedby="cc-yield-help" /><span class="suffix">ft³</span></div><p class="hint" id="cc-yield-help">Use the mixed volume printed on your bag, not the bag weight.</p><p class="hint" id="cc-custom-bags" role="status" hidden></p></div>
 <div class="field"><label for="cc-price">Price per cubic yard (optional)</label><div class="input-affix has-prefix"><span class="prefix">$</span><input type="number" id="cc-price" min="0" placeholder="Supplier quote" step="any" /></div></div>
 </div>
 <div class="result-panel">
@@ -44,13 +45,19 @@ const related=[
 </div>
 </div>
 <script>
-import { concreteEstimate } from '../../lib/materials.js';
+import { concreteEstimate, concreteBagCount } from '../../lib/materials.js';
 (function(){
-const ids=['cc-length','cc-width','cc-depth','cc-waste','cc-price'];
+const ids=['cc-length','cc-width','cc-depth','cc-waste','cc-price','cc-yield'];
+const customBags = document.getElementById('cc-custom-bags');
+const yieldInput = document.getElementById('cc-yield');
 function row(l,v){return '<div class="result-row"><span class="rr-label">'+l+'</span><span class="rr-value">'+v+'</span></div>';}
 function calc(){
 const values=ids.map(id=>document.getElementById(id).value.trim());
 const r=concreteEstimate(...values.slice(0,4).map(v=>v===''?NaN:Number(v)),values[4]===''?null:Number(values[4]));
+const hasYield = values[5] !== '' || yieldInput.validity.badInput;
+const bags = r && hasYield ? concreteBagCount(r.cubicFeet, Number(values[5])) : null;
+customBags.hidden = !r || !hasYield;
+customBags.textContent = customBags.hidden ? '' : bags === null ? 'Enter a positive, usable yield per bag.' : `${bags.toLocaleString('en-US')} bags at your custom yield (including allowance).`;
 if(!r){document.getElementById('cc-yards').textContent='—';document.getElementById('cc-sub').textContent='Enter positive dimensions and an allowance from 0 to 100%';document.getElementById('cc-rows').innerHTML='';return;}
 document.getElementById('cc-yards').textContent=r.yards.toFixed(2)+' yd³';
 document.getElementById('cc-sub').textContent=r.bags[80]+' bags (80 lb) or '+r.bags[60]+' bags (60 lb)';
@@ -62,7 +69,7 @@ ids.forEach(id=>document.getElementById(id).addEventListener('input',calc));calc
 <MaterialPlanLink kind="concrete" fields={["cc-length", "cc-width", "cc-depth", "cc-waste"]} />
 <section class="content-section">
 <h2>How to Calculate Concrete</h2>
-<div class="formula-box">Cubic Feet = Length(ft) × Width(ft) × Depth(in)/12<br>Cubic Yards = Cubic Feet ÷ 27<br>Bags = Cubic Feet ÷ 0.6 (per 80lb bag)</div>
+<div class="formula-box">Cubic Feet = Length(ft) × Width(ft) × Depth(in)/12<br>Cubic Yards = Cubic Feet ÷ 27<br>Bags = Cubic Feet Including Allowance ÷ Yield per Bag, rounded up</div>
 <h2>Example: a 10 × 10 slab at 4 inches</h2>
 <p>Convert depth to feet: 4 ÷ 12 = 0.3333 ft. Volume is 10 × 10 × 0.3333 = 33.33 ft³, or 1.235 yd³. Adding 10% gives 36.67 ft³, or 1.358 yd³. At 0.60 ft³ per 80 lb bag, round 36.67 ÷ 0.60 up to <strong>62 bags</strong>.</p>
 <p>The result includes the allowance you enter; do not add it again. For separate rectangular sections, calculate each section and add their volumes. Round bag counts only after combining volumes. This tool does not calculate round columns or subtract voids.</p>

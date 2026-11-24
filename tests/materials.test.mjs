@@ -1,6 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { tileEstimate, concreteEstimate, paintEstimate } from '../src/lib/materials.js';
+import { tileEstimate, concreteEstimate, concreteBagCount, paintEstimate } from '../src/lib/materials.js';
+test('custom concrete yield rounds up and handles invalid or unrepresentable bag counts',()=>{
+  const {cubicFeet} = concreteEstimate(10,10,4,10);
+  assert.equal(concreteBagCount(cubicFeet,0.50),74);
+  assert.equal(concreteBagCount(27,0.375),72);
+  assert.equal(concreteBagCount(0.001,0.60),1);
+  for(const yieldPerBag of [0,-1,NaN,Infinity,Number.MIN_VALUE]) assert.equal(concreteBagCount(cubicFeet,yieldPerBag),null);
+  assert.equal(concreteBagCount(0,0.6),null);
+});
 test('tile allowance is applied before rounding, pack size and zero price respected',()=>{
   const r=tileEstimate(10,10,12,24,10,8,30);
   assert.deepEqual([r.tiles,r.boxes,r.purchased,r.cost],[55,7,56,210]);

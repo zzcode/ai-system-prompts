@@ -10,6 +10,11 @@ export function tileEstimate(length, width, tileLength, tileWidth, waste, perBox
   if (!positive([area, tileArea, orderArea]) || ![tiles, boxes, purchased].every(Number.isSafeInteger) || (cost !== null && !Number.isFinite(cost))) return null;
   return {area, tileArea, orderArea, baseTiles: roundUp(area / tileArea), tiles, boxes, purchased, cost};
 }
+export function concreteBagCount(cubicFeet, yieldPerBag) {
+  if (!positive([cubicFeet, yieldPerBag])) return null;
+  const count = Math.max(1, roundUp(cubicFeet / yieldPerBag));
+  return Number.isSafeInteger(count) ? count : null;
+}
 export function concreteEstimate(length, width, depth, waste, price = null) {
   if (!positive([length, width, depth]) || !Number.isFinite(waste) || waste < 0 || waste > 100 || (price !== null && (!Number.isFinite(price) || price < 0))) return null;
   const base = length * width * depth / 12, cubicFeet = base * (1 + waste / 100), yards = cubicFeet / 27;

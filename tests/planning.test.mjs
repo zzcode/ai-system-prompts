@@ -1,5 +1,5 @@
 import test from 'node:test';
-import { tileEstimate, concreteEstimate, paintEstimate } from '../src/lib/materials.js';
+import { tileEstimate, concreteEstimate, concreteBagCount, paintEstimate } from '../src/lib/materials.js';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
@@ -38,8 +38,8 @@ function mount(file, values) {
   let script=source.match(/<script(?: is:inline)?>([\s\S]*?)<\/script>/)[1];
   script=script.replace(/import .*? from [^;]+;/g,'');
   const elements={};
-  for(const [,id] of source.matchAll(/id="([^"]+)"/g)) elements[id]={value:String(values[id]??''),textContent:'',innerHTML:'',style:{},handlers:{},addEventListener(e,fn){this.handlers[e]=fn;}};
-  vm.runInNewContext(script,{tileEstimate,concreteEstimate,paintEstimate,loanPayment,compoundBalance,calendarAge,document:{getElementById:id=>elements[id]}});
+  for(const [,id] of source.matchAll(/id="([^"]+)"/g)) elements[id]={value:String(values[id]??''),textContent:'',innerHTML:'',style:{},validity:{badInput:false},handlers:{},addEventListener(e,fn){this.handlers[e]=fn;}};
+  vm.runInNewContext(script,{tileEstimate,concreteEstimate,concreteBagCount,paintEstimate,loanPayment,compoundBalance,calendarAge,document:{getElementById:id=>elements[id]}});
   return elements;
 }
 test('loan UI clears stale results and accepts zero interest',()=>{
@@ -56,8 +56,17 @@ test('compound UI clears chart and table after invalid input',()=>{
 test('concrete UI includes allowance and clears invalid dimensions',()=>{
   const e=mount('construction/concrete-calculator.astro',{'cc-length':10,'cc-width':10,'cc-depth':4,'cc-waste':10,'cc-price':''});
   assert.equal(e['cc-yards'].textContent,'1.36 yd³');assert.ok(e['cc-sub'].textContent.startsWith('62 bags'));
+  assert.equal(e['cc-custom-bags'].hidden,true);
+  e['cc-yield'].value='0.50';e['cc-yield'].handlers.input();
+  assert.equal(e['cc-custom-bags'].hidden,false);
+  assert.match(e['cc-custom-bags'].textContent,/^74 bags/);
+  e['cc-yield'].value='0';e['cc-yield'].handlers.input();
+  assert.match(e['cc-custom-bags'].textContent,/Enter a positive/);
+  e['cc-yield'].value='0.50';e['cc-yield'].handlers.input();
   e['cc-waste'].value='0';e['cc-waste'].handlers.input();assert.equal(e['cc-yards'].textContent,'1.23 yd³');
+  assert.match(e['cc-custom-bags'].textContent,/^67 bags/);
   e['cc-length'].value='';e['cc-length'].handlers.input();assert.equal(e['cc-yards'].textContent,'—');assert.equal(e['cc-rows'].innerHTML,'');
+  assert.equal(e['cc-custom-bags'].hidden,true);
 });
 test('paint UI respects product coverage and rejects impossible openings',()=>{
   const e=mount('construction/paint-calculator.astro',{'pc-length':12,'pc-width':12,'pc-height':8,'pc-coats':2,'pc-doors':1,'pc-windows':2,'pc-coverage':350,'pc-door-area':20,'pc-window-area':15,'pc-ceiling':0});
