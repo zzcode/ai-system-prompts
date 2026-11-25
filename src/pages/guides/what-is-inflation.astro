@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'What Is Inflation and How Does It Affect My Money?';
+const description = 'Understand what inflation is, why it happens, how it erodes purchasing power, and how to calculate its real impact on your savings.';
+const canonical = 'https://www.kodatools.com/guides/what-is-inflation';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is inflation?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Inflation is the rate at which the general level of prices for goods and services rises, reducing the purchasing power of money. As prices go up, each dollar buys less than it did before.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'How does inflation affect my savings?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Inflation erodes the real value of cash. If your savings earn less than the inflation rate, you lose purchasing power over time. Money that sits in cash slowly buys less each year.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'How can I protect my money from inflation?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Investing in assets that historically outpace inflation, such as stocks, real estate, or inflation-protected bonds, can help. Keeping large amounts in low-interest cash leaves you exposed to erosion.'
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout {title} {description} {canonical} {schema} lang="en-US">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep" aria-hidden="true">/</span><a href="/finance">Finance</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">What Is Inflation?</span></nav>
+
+    <div class="page-head">
+      <h1>What Is Inflation and How Does It Affect My Money?</h1>
+      <p class="subtitle">The quiet force that makes your money worth less each year — and how to measure it.</p>
+    </div>
+
+    <section class="content-section">
+      <p>You've noticed it at the grocery store and the gas pump: the same amount of money buys less than it used to. That's <strong>inflation</strong> — the gradual rise in the general level of prices, and the corresponding decline in the purchasing power of your money.</p>
+
+      <h2>What inflation is</h2>
+      <p>Inflation is usually expressed as an annual percentage. If inflation is <strong>3%</strong>, an item that costs $100 today will cost about <strong>$103</strong> a year from now. That 3% may sound small, but it compounds — which is where the real impact lives.</p>
+
+      <h2>Why it matters more than it seems</h2>
+      <p>Because inflation compounds, small rates add up over time. At 3% inflation, prices roughly <strong>double every 24 years</strong>. At 4%, they double in about 18 years. This is why the cost of everyday goods feels dramatically higher than it did a generation ago.</p>
+      <p>Here's what $100 of purchasing power looks like over time at different inflation rates:</p>
+      <table class="ref-table">
+        <thead><tr><th>Inflation rate</th><th>$100 today in 10 years</th><th>In 20 years</th></tr></thead>
+        <tbody>
+          <tr><td>2%</td><td>~$82</td><td>~$67</td></tr>
+          <tr><td>3%</td><td>~$74</td><td>~$55</td></tr>
+          <tr><td>5%</td><td>~$61</td><td>~$38</td></tr>
+        </tbody>
+      </table>
+
+      <h2>What it means for your savings</h2>
+      <p>If your savings earn <strong>less than the inflation rate</strong>, you're losing purchasing power even though the dollar amount stays the same. A savings account paying 1% while inflation runs at 3% means your money is effectively shrinking by 2% a year in real terms.</p>
+      <p>This is why financial advisors caution against keeping too much money in cash over the long term — cash is safe in nominal terms, but it slowly loses value in real terms.</p>
+
+      <h2>How to protect your money</h2>
+      <ol>
+        <li><strong>Invest for the long term</strong> — assets like stocks and real estate have historically outpaced inflation over long periods.</li>
+        <li><strong>Consider inflation-protected investments</strong> — such as Treasury Inflation-Protected Securities (TIPS) or Series I savings bonds.</li>
+        <li><strong>Keep an emergency fund, not a fortune, in cash</strong> — cash has a job (immediate access), but excess cash above your emergency needs is exposed to erosion.</li>
+      </ol>
+
+      <p>To see exactly how inflation erodes a specific amount over time — or how much a past price would be worth today — use the inflation calculator below.</p>
+      <p><a href="/finance/inflation-calculator">Calculate the impact of inflation →</a></p>
+
+      <h2>Frequently asked questions</h2>
+      <h3>What causes inflation?</h3>
+      <p>Inflation is usually driven by rising demand, rising production costs, or an increase in the money supply. Most periods of inflation involve a combination of these forces.</p>
+      <h3>Is some inflation normal?</h3>
+      <p>Yes. Central banks like the Federal Reserve generally target a low, stable inflation rate (around 2%), which supports a healthy economy. The problems arise when inflation is too high or unpredictable.</p>
+      <h3>Does inflation affect debt?</h3>
+      <p>Interestingly, moderate inflation can benefit borrowers: you repay fixed-rate debt with money that's worth less than when you borrowed it. It hurts savers and people on fixed incomes the most.</p>
+
+      <p class="privacy-note">For education only, not financial advice.</p>
+    </section>
+  </div>
+</BaseLayout>

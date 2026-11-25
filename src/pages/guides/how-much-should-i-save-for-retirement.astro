@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'How Much Should I Save for Retirement?';
+const description = 'Estimate how much you need to retire comfortably using the 25x rule and the 4% rule, with a step-by-step example and key factors to adjust.';
+const canonical = 'https://www.kodatools.com/guides/how-much-should-i-save-for-retirement';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How much should I save for retirement?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A common guideline is to save roughly 25 times your annual spending in retirement, which supports withdrawing about 4% per year. The exact number depends on your income, spending, age, and expected returns.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the 4% rule?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The 4% rule says you can withdraw about 4% of your retirement savings in the first year, then adjust for inflation, with a high likelihood the money lasts 30 years. It\'s a starting point, not a guarantee.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'How much should I save each month for retirement?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A common target is to save 15% of gross income toward retirement, including any employer match. Starting early means you can save a smaller percentage thanks to compound growth.'
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout {title} {description} {canonical} {schema} lang="en-US">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep" aria-hidden="true">/</span><a href="/finance">Finance</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">How Much Should I Save for Retirement?</span></nav>
+
+    <div class="page-head">
+      <h1>How Much Should I Save for Retirement?</h1>
+      <p class="subtitle">A practical way to estimate your retirement number — and how much to set aside each month to reach it.</p>
+    </div>
+
+    <section class="content-section">
+      <p>"How much do I need to retire?" has no single answer — but there's a simple, widely used framework that gets you close. It's built on two rules of thumb that every saver should know.</p>
+
+      <h2>Rule 1: The 4% rule</h2>
+      <p>The <strong>4% rule</strong> says you can safely withdraw about <strong>4% of your retirement savings in the first year</strong>, then adjust that dollar amount for inflation each year, with a high likelihood your money lasts 30 years.</p>
+      <p>It's not a guarantee — market returns vary — but it's the most common starting point for planning.</p>
+
+      <h2>Rule 2: The 25x rule</h2>
+      <p>The 4% rule has a flip side: if 4% of your nest egg equals your annual spending, then your target is <strong>25 times your annual spending</strong>. That's your "retirement number."</p>
+      <p>So if you expect to spend <strong>$50,000 a year</strong> in retirement, your target is roughly 50,000 × 25 = <strong>$1.25 million</strong>.</p>
+
+      <h2>A worked example</h2>
+      <p>Say you earn $80,000 a year and expect to spend about $60,000 a year in retirement (a common assumption is 70–80% of pre-retirement income):</p>
+      <ul>
+        <li><strong>Annual retirement spending</strong>: $60,000</li>
+        <li><strong>Retirement target (25x)</strong>: $60,000 × 25 = <strong>$1.5 million</strong></li>
+        <li><strong>Expected Social Security or pension</strong>: subtract that from your target. If you'll get $25,000 a year, the shortfall is $35,000/year, so your target becomes $35,000 × 25 = <strong>$875,000</strong>.</li>
+      </ul>
+      <p>That second adjustment matters a lot — accounting for Social Security and any pension dramatically lowers what you need to save yourself.</p>
+
+      <h2>How much to save each month</h2>
+      <p>A common target is to save <strong>15% of your gross income</strong> toward retirement, including any employer match. If you start early, compound growth does heavy lifting; if you start late, you'll need a higher percentage.</p>
+      <p>For example, saving $500 a month at a 7% annual return for 30 years grows to roughly <strong>$600,000</strong>. Wait 10 years to start, and the same contribution over 20 years yields only about half that.</p>
+
+      <h2>Key factors that change your number</h2>
+      <ol>
+        <li><strong>Your age and time horizon</strong> — the earlier you start, the less you need to save each month.</li>
+        <li><strong>Expected spending</strong> — a leaner retirement needs less; an expensive lifestyle needs more.</li>
+        <li><strong>Other income</strong> — Social Security, pensions, and part-time work all reduce your required nest egg.</li>
+        <li><strong>Investment returns</strong> — higher long-term returns mean faster growth, but come with more risk.</li>
+      </ol>
+
+      <p>To see your own retirement projection — including how monthly contributions and returns grow over time — use the retirement calculator below.</p>
+      <p><a href="/finance/retirement-calculator">Project your retirement savings →</a></p>
+
+      <h2>Frequently asked questions</h2>
+      <h3>Is 15% of income really enough?</h3>
+      <p>For most people who start in their 20s or 30s, saving 15% (including employer match) is a solid guideline. If you start later or have a higher income lifestyle, you may need to save more.</p>
+      <h3>What if I start saving late?</h3>
+      <p>Starting late means you'll need to save a higher percentage or work a few extra years. It's never too late to begin, and catch-up contributions (available from age 50) can help.</p>
+      <h3>Does the 4% rule still work today?</h3>
+      <p>The 4% rule is a guideline, not a promise. Many planners suggest a slightly lower initial withdrawal (3–3.5%) for added safety, especially with long retirements.</p>
+
+      <p class="privacy-note">For education only, not financial advice. Investment returns are not guaranteed.</p>
+    </section>
+  </div>
+</BaseLayout>

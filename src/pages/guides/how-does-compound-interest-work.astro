@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'How Does Compound Interest Work?';
+const description = 'Learn how compound interest grows your money over time, why starting early matters, and how to calculate it with a real example.';
+const canonical = 'https://www.kodatools.com/guides/how-does-compound-interest-work';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How does compound interest work?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Compound interest pays you interest on both your original deposit and the interest you have already earned. Each period, your balance grows, and the next period\'s interest is calculated on the larger amount, causing your money to accelerate over time.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the difference between simple and compound interest?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Simple interest is calculated only on the original principal. Compound interest is calculated on the principal plus any accumulated interest, so your balance grows faster.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Does compound interest apply to debt too?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Credit cards and some loans compound interest, which is why carrying a balance can grow quickly. The same math that builds savings works against you when you owe money.'
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout {title} {description} {canonical} {schema} lang="en-US">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep" aria-hidden="true">/</span><a href="/finance">Finance</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">How Does Compound Interest Work?</span></nav>
+
+    <div class="page-head">
+      <h1>How Does Compound Interest Work?</h1>
+      <p class="subtitle">The single most important idea in personal finance — and why starting early beats starting big.</p>
+    </div>
+
+    <section class="content-section">
+      <p>Compound interest is often called the "eighth wonder of the world," and for good reason: it's the mechanism that turns small, consistent savings into substantial wealth over time. Here's how it works, in plain language.</p>
+
+      <h2>The core idea: interest on interest</h2>
+      <p>With <strong>simple interest</strong>, you earn interest only on your original deposit. With <strong>compound interest</strong>, you earn interest on your original deposit <em>plus</em> the interest you've already earned. Each period, your balance grows a little larger, and the next period's interest is calculated on that larger amount.</p>
+      <p>That feedback loop is what makes growth <em>accelerate</em> rather than stay linear. In the early years, the effect looks small. In the later years, it dominates.</p>
+
+      <h2>A worked example</h2>
+      <p>Suppose you invest <strong>$5,000</strong> at a <strong>7% annual return</strong>, compounded monthly, with no additional contributions:</p>
+      <table class="ref-table">
+        <thead><tr><th>Year</th><th>Balance (approx.)</th><th>Interest earned that year</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>$5,361</td><td>$361</td></tr>
+          <tr><td>10</td><td>$10,048</td><td>~$680</td></tr>
+          <tr><td>20</td><td>$20,193</td><td>~$1,330</td></tr>
+          <tr><td>30</td><td>$40,574</td><td>~$2,660</td></tr>
+        </tbody>
+      </table>
+      <p>Notice how the annual interest keeps growing even though you never added a dollar after the initial $5,000. By year 30, your money has roughly <strong>eight-folded</strong> — without a single additional deposit.</p>
+
+      <h2>The three levers that control your outcome</h2>
+      <h3>1. Rate of return</h3>
+      <p>A higher rate compounds faster. The difference between 5% and 8% may look small on paper, but over 30 years it can nearly double your final balance.</p>
+      <h3>2. Time</h3>
+      <p>Time is the most powerful lever, because it gives compounding more periods to work. This is why starting in your 20s beats starting in your 40s — even with a smaller amount.</p>
+      <h3>3. Frequency of compounding</h3>
+      <p>Interest can compound annually, monthly, daily, or even continuously. More frequent compounding produces slightly faster growth for the same annual rate.</p>
+
+      <h2>The dark side: compounding works against debt, too</h2>
+      <p>The same math applies to what you owe. Credit cards and some loans compound interest, which is why a carried balance can balloon. Understanding this cuts both ways: it's a reason to invest early <em>and</em> to pay down high-interest debt aggressively.</p>
+
+      <p>To see exactly how your own money could grow — including with regular monthly contributions — use the compound interest calculator below. It shows the full year-by-year breakdown.</p>
+      <p><a href="/finance/compound-interest-calculator">Calculate your compound interest →</a></p>
+
+      <h2>Frequently asked questions</h2>
+      <h3>What is the rule of 72?</h3>
+      <p>The rule of 72 is a quick way to estimate how long it takes money to double: divide 72 by your annual return. At 7%, money doubles roughly every 10 years (72 ÷ 7 ≈ 10).</p>
+      <h3>Does more frequent compounding make a big difference?</h3>
+      <p>For most everyday accounts, the difference between monthly and daily compounding is modest — often fractions of a percent per year. The rate and the time horizon matter far more.</p>
+      <h3>Is compound interest taxable?</h3>
+      <p>In a regular (taxable) account, interest and investment gains are generally taxable. Tax-advantaged accounts like IRAs and 401(k)s defer or eliminate that tax, which lets compounding work even faster.</p>
+
+      <p class="privacy-note">For education only, not financial advice. Actual returns vary and are not guaranteed.</p>
+    </section>
+  </div>
+</BaseLayout>

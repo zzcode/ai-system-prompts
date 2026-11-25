@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'How Much Car Can I Afford?';
+const description = 'Learn how to set a realistic car budget using the 20/4/10 rule, how down payment and loan term affect your payment, and a worked example.';
+const canonical = 'https://www.kodatools.com/guides/how-much-car-can-i-afford';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How much car can I afford?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A common guideline is the 20/4/10 rule: put at least 20% down, finance for no more than 4 years, and keep total car costs under 10% of your gross monthly income.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the 20/4/10 rule?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The 20/4/10 rule says to put 20% down, choose a loan term of 4 years or less, and keep your monthly payment plus insurance and fuel under 10% of gross income. It helps you avoid being "car poor."'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'How does the loan term affect my car payment?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A longer loan term lowers the monthly payment but increases total interest paid, and you risk owing more than the car is worth. A shorter term saves on interest and builds equity faster.'
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout {title} {description} {canonical} {schema} lang="en-US">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep" aria-hidden="true">/</span><a href="/finance">Finance</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">How Much Car Can I Afford?</span></nav>
+
+    <div class="page-head">
+      <h1>How Much Car Can I Afford?</h1>
+      <p class="subtitle">A practical budget for your next vehicle — without becoming "car poor."</p>
+    </div>
+
+    <section class="content-section">
+      <p>Cars are one of the biggest purchases most people make, and one of the easiest to overspend on. A common mistake is focusing only on the monthly payment and ignoring the total cost. A better approach is the <strong>20/4/10 rule</strong>.</p>
+
+      <h2>The 20/4/10 rule</h2>
+      <ul>
+        <li><strong>20% down</strong> — put at least 20% of the purchase price down to avoid being upside down on the loan.</li>
+        <li><strong>4-year term</strong> — finance for no more than 48 months to keep interest costs low.</li>
+        <li><strong>10% of income</strong> — keep your total monthly car cost (payment + insurance + fuel) under 10% of gross income.</li>
+      </ul>
+
+      <h2>A worked example</h2>
+      <p>Say you earn <strong>$70,000 a year</strong>. Your gross monthly income is $70,000 ÷ 12 = <strong>$5,833</strong>. Under the 10% rule, your total car budget is about <strong>$583/month</strong> — that includes the loan payment, insurance, and fuel, not just the loan.</p>
+      <p>If insurance and fuel run about $200/month combined, that leaves <strong>$383/month</strong> for the loan payment. At a 7% rate over 4 years, a $383 payment corresponds to roughly a <strong>$16,000 loan</strong> — add your 20% down payment on top of that for the total purchase price.</p>
+
+      <h2>Why the 4-year term matters</h2>
+      <p>Dealers love to offer 72- or 84-month loans because they lower the monthly payment — but you pay far more in interest, and you stay "underwater" (owing more than the car is worth) for years. A 4-year term keeps you in control.</p>
+      <table class="ref-table">
+        <thead><tr><th>Loan term</th><th>Monthly payment*</th><th>Total interest*</th></tr></thead>
+        <tbody>
+          <tr><td>4 years (48 mo)</td><td>$479</td><td>$3,000</td></tr>
+          <tr><td>6 years (72 mo)</td><td>$341</td><td>$4,550</td></tr>
+          <tr><td>7 years (84 mo)</td><td>$302</td><td>$5,360</td></tr>
+        </tbody>
+      </table>
+      <p class="privacy-note">*Example for a $20,000 loan at 7% APR. Actual figures vary.</p>
+      <p>The longer term looks cheaper per month, but costs you thousands more in interest and keeps you in debt longer.</p>
+
+      <h2>Don't forget the true cost of ownership</h2>
+      <p>The sticker price isn't the whole story. Factor in <strong>insurance, fuel, maintenance, registration, and depreciation</strong>. A cheaper car with high insurance or poor fuel economy can cost more overall than a slightly pricier, more efficient one.</p>
+
+      <p>To see the exact payment for any car price, down payment, rate, and term — and compare different loan lengths side by side — use the auto loan calculator below.</p>
+      <p><a href="/finance/auto-loan-calculator">Calculate your car payment →</a></p>
+
+      <h2>Frequently asked questions</h2>
+      <h3>Is leasing cheaper than buying?</h3>
+      <p>Leasing often has a lower monthly payment, but you're paying to use the car without building ownership. For most people planning to keep a car long-term, buying is cheaper over time.</p>
+      <h3>What's a good down payment on a car?</h3>
+      <p>Aim for at least 20% on a new car and as much as you can on a used car. A larger down payment means a smaller loan and less interest.</p>
+      <h3>Should I buy new or used?</h3>
+      <p>Used cars generally offer better value because they've already absorbed the steepest depreciation. A reliable 2–3 year old car is often the best financial choice.</p>
+
+      <p class="privacy-note">For education only, not financial advice.</p>
+    </section>
+  </div>
+</BaseLayout>

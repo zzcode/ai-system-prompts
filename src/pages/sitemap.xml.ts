@@ -78,6 +78,12 @@ const staticPages = [
   { url: '/guides/why-did-my-escrow-payment-go-up', priority: '0.8', changefreq: 'monthly' },
   { url: '/guides/how-much-house-can-i-afford', priority: '0.8', changefreq: 'monthly' },
   { url: '/guides/how-much-unemployment-will-i-get', priority: '0.8', changefreq: 'monthly' },
+  { url: '/guides/how-does-compound-interest-work', priority: '0.8', changefreq: 'monthly' },
+  { url: '/guides/how-long-to-pay-off-credit-card', priority: '0.8', changefreq: 'monthly' },
+  { url: '/guides/how-much-should-i-save-for-retirement', priority: '0.8', changefreq: 'monthly' },
+  { url: '/guides/how-much-car-can-i-afford', priority: '0.8', changefreq: 'monthly' },
+  { url: '/guides/what-is-inflation', priority: '0.8', changefreq: 'monthly' },
+  { url: '/guides/how-much-will-my-savings-grow', priority: '0.8', changefreq: 'monthly' },
   // Compliance
   { url: '/about', priority: '0.4', changefreq: 'yearly' },
   { url: '/contact', priority: '0.4', changefreq: 'yearly' },

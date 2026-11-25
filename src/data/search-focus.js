@@ -17,5 +17,11 @@ export const reviewedPages = {
   '/construction/paint-calculator': '2026-11-17',
   '/guides/why-did-my-escrow-payment-go-up': '2026-11-25',
   '/guides/how-much-house-can-i-afford': '2026-11-25',
-  '/guides/how-much-unemployment-will-i-get': '2026-11-25'
+  '/guides/how-much-unemployment-will-i-get': '2026-11-25',
+  '/guides/how-does-compound-interest-work': '2026-11-25',
+  '/guides/how-long-to-pay-off-credit-card': '2026-11-25',
+  '/guides/how-much-should-i-save-for-retirement': '2026-11-25',
+  '/guides/how-much-car-can-i-afford': '2026-11-25',
+  '/guides/what-is-inflation': '2026-11-25',
+  '/guides/how-much-will-my-savings-grow': '2026-11-25'
 };

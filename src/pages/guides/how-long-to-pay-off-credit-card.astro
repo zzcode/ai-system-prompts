@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'How Long Will It Take to Pay Off My Credit Card?';
+const description = 'Learn how minimum payments stretch out credit card debt, why extra payments matter so much, and how to estimate your payoff date.';
+const canonical = 'https://www.kodatools.com/guides/how-long-to-pay-off-credit-card';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How long will it take to pay off my credit card?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'It depends on your balance, interest rate, and monthly payment. Making only minimum payments can take a decade or more and cost thousands in interest. Paying more than the minimum dramatically shortens the payoff time.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Why does paying the minimum take so long?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Minimum payments are usually a small percentage of your balance, often just 1% to 3%, plus interest. Most of each payment goes to interest, so the principal shrinks very slowly.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'How can I pay off credit card debt faster?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Pay more than the minimum each month, stop new purchases, target your highest-interest card first (the avalanche method), and consider a 0% balance transfer if you qualify.'
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout {title} {description} {canonical} {schema} lang="en-US">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep" aria-hidden="true">/</span><a href="/finance">Finance</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">How Long to Pay Off My Credit Card?</span></nav>
+
+    <div class="page-head">
+      <h1>How Long Will It Take to Pay Off My Credit Card?</h1>
+      <p class="subtitle">Why minimum payments drag on for years — and how much faster you can be debt-free.</p>
+    </div>
+
+    <section class="content-section">
+      <p>If you carry a credit card balance, one of the most useful numbers you can know is your <strong>payoff date</strong> — how long it will actually take to get to zero. For most people, the answer is a shock: making only minimum payments can stretch a debt out for a decade or more.</p>
+
+      <h2>Why minimum payments take so long</h2>
+      <p>A minimum payment is typically just <strong>1% to 3% of your balance</strong>, plus interest and fees. Because most of each payment goes toward interest, the principal barely moves. The smaller your payment, the longer the balance lingers — and the more total interest you pay.</p>
+
+      <h2>A worked example</h2>
+      <p>Suppose you owe <strong>$5,000</strong> on a card with a <strong>20% APR</strong>:</p>
+      <table class="ref-table">
+        <thead><tr><th>Monthly payment</th><th>Time to payoff</th><th>Total interest</th></tr></thead>
+        <tbody>
+          <tr><td>Minimum (2%)</td><td>~20+ years</td><td>$6,000+</td></tr>
+          <tr><td>$150</td><td>~4 years</td><td>~$2,200</td></tr>
+          <tr><td>$300</td><td>~1.5 years</td><td>~$820</td></tr>
+        </tbody>
+      </table>
+      <p>The lesson is stark: <strong>doubling your payment doesn't just halve the time — it can cut it by 90%</strong> and save you thousands in interest. That's the power of attacking principal directly.</p>
+
+      <h2>The two proven payoff methods</h2>
+      <h3>The avalanche method</h3>
+      <p>Pay the minimum on everything, and put every extra dollar toward the card with the <strong>highest interest rate</strong>. This saves the most in total interest.</p>
+      <h3>The snowball method</h3>
+      <p>Pay the minimum on everything, and put extra toward the card with the <strong>smallest balance</strong> first. You clear debts quickly, which builds momentum and motivation.</p>
+      <p>Both work. The avalanche method is mathematically optimal; the snowball method is psychologically easier for many people. The best method is the one you'll actually stick with.</p>
+
+      <h2>Three ways to speed things up</h2>
+      <ol>
+        <li><strong>Stop new purchases</strong> — every new charge increases the balance you're fighting.</li>
+        <li><strong>Pay more than the minimum</strong> — even $25 extra a month meaningfully shortens the timeline.</li>
+        <li><strong>Consider a 0% balance transfer</strong> — if you qualify, moving debt to a 0% APR card can pause interest while you pay it down, though watch for transfer fees.</li>
+      </ol>
+
+      <p>To see your own exact payoff date — and how different monthly payments change it — use the credit card payoff calculator below.</p>
+      <p><a href="/finance/credit-card-payoff-calculator">Calculate your payoff date →</a></p>
+
+      <h2>Frequently asked questions</h2>
+      <h3>What counts as a "good" monthly payment?</h3>
+      <p>A good rule of thumb is to pay as much as your budget allows above the minimum. The more you can put toward principal, the faster and cheaper the payoff becomes.</p>
+      <h3>Does closing a card help?</h3>
+      <p>Usually not for payoff purposes. Closing a card can hurt your credit score by reducing your available credit. Focus on paying the balance down first.</p>
+      <h3>Will paying off a card hurt my credit score?</h3>
+      <p>No — paying down a balance generally <em>improves</em> your credit utilization, which can raise your score. The main caution is with closing accounts, not paying them off.</p>
+
+      <p class="privacy-note">For education only, not financial advice. Actual payoff times depend on your card's exact terms and fees.</p>
+    </section>
+  </div>
+</BaseLayout>

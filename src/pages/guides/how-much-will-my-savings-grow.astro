@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'How Much Will My Savings Grow?';
+const description = 'Learn how to project your savings growth using interest rate, monthly contributions, and time — with a worked example and key factors to consider.';
+const canonical = 'https://www.kodatools.com/guides/how-much-will-my-savings-grow';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How much will my savings grow?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Your savings growth depends on your initial deposit, interest rate, monthly contributions, and time. The longer you save and the higher the rate, the more your money compounds and grows.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'How much should I keep in savings?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A common guideline is to keep 3 to 6 months of living expenses in an emergency fund. This covers unexpected costs and keeps you from going into debt when surprises happen.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Where should I put my savings?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A high-yield savings account is a good home for your emergency fund — it\'s safe and pays more than a traditional account. Money you won\'t need for years can be invested for higher long-term growth.'
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout {title} {description} {canonical} {schema} lang="en-US">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep" aria-hidden="true">/</span><a href="/finance">Finance</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">How Much Will My Savings Grow?</span></nav>
+
+    <div class="page-head">
+      <h1>How Much Will My Savings Grow?</h1>
+      <p class="subtitle">A simple way to project your savings — and why consistent contributions beat waiting for the "perfect" time.</p>
+    </div>
+
+    <section class="content-section">
+      <p>Whether you're building an emergency fund or saving for a goal, one question always comes up: <em>how much will my savings actually grow?</em> The answer depends on just a few variables, and understanding them helps you save smarter.</p>
+
+      <h2>The four factors that determine growth</h2>
+      <ol>
+        <li><strong>Starting balance</strong> — what you begin with.</li>
+        <li><strong>Interest rate</strong> — what your money earns each year (APY).</li>
+        <li><strong>Monthly contributions</strong> — how much you add regularly.</li>
+        <li><strong>Time</strong> — how long you let it grow.</li>
+      </ol>
+
+      <h2>A worked example</h2>
+      <p>Say you start with <strong>$1,000</strong> and add <strong>$200 a month</strong> into a high-yield savings account earning <strong>4% APY</strong>:</p>
+      <table class="ref-table">
+        <thead><tr><th>After</th><th>Balance (approx.)</th></tr></thead>
+        <tbody>
+          <tr><td>1 year</td><td>~$3,480</td></tr>
+          <tr><td>5 years</td><td>~$14,270</td></tr>
+          <tr><td>10 years</td><td>~$29,420</td></tr>
+        </tbody>
+      </table>
+      <p>Notice that by year 10, your <em>contributions</em> total $25,000 ($1,000 + $200 × 120), but your balance is over $29,000 — the extra ~$4,400 is interest you earned. That's compounding at work, even at a modest savings rate.</p>
+
+      <h2>Consistency beats timing</h2>
+      <p>The single most important habit in saving is <strong>automating regular contributions</strong>. Consistent monthly deposits, even small ones, outperform trying to time a "good" moment to save a large lump sum — because regular contributions capture growth over time and keep you in the habit.</p>
+
+      <h2>How much should you aim to save?</h2>
+      <p>A widely recommended target is an <strong>emergency fund of 3 to 6 months of living expenses</strong>. This is your financial cushion for job loss, medical bills, or car repairs — and it's what prevents a surprise from turning into high-interest debt.</p>
+      <ul>
+        <li><strong>Stable income, low expenses</strong> → 3 months is often enough.</li>
+        <li><strong>Variable income or dependents</strong> → aim for 6 months or more.</li>
+      </ul>
+
+      <h2>Where to keep your savings</h2>
+      <p>For an emergency fund, a <strong>high-yield savings account</strong> is the sweet spot: it's safe (FDIC-insured), instantly accessible, and pays far more than a traditional savings account. For money you won't touch for years, investing may offer higher growth — but with more risk.</p>
+
+      <p>To see exactly how your own balance will grow — with your rate, contributions, and time horizon — use the savings calculator below.</p>
+      <p><a href="/finance/savings-calculator">Project your savings growth →</a></p>
+
+      <h2>Frequently asked questions</h2>
+      <h3>What's a good savings interest rate?</h3>
+      <p>High-yield savings accounts often pay several percentage points more than traditional accounts. Compare APY (annual percentage yield) across banks, as rates change over time.</p>
+      <h3>Should I save or pay off debt first?</h3>
+      <p>Build a small starter emergency fund (about $1,000) first, then prioritize paying off high-interest debt while continuing to save. High-interest debt usually costs more than savings earns.</p>
+      <h3>Is my savings account money safe?</h3>
+      <p>Bank savings accounts are typically insured by the FDIC up to $250,000 per depositor, per bank. This makes them one of the safest places to keep money.</p>
+
+      <p class="privacy-note">For education only, not financial advice. Interest rates and returns vary.</p>
+    </section>
+  </div>
+</BaseLayout>
