@@ -74,6 +74,10 @@ const staticPages = [
   { url: '/construction/concrete-calculator', priority: '0.9', changefreq: 'monthly' },
   { url: '/construction/paint-calculator', priority: '0.9', changefreq: 'monthly' },
   { url: '/construction/tile-calculator', priority: '0.9', changefreq: 'monthly' },
+  // Guides (long-tail informational content)
+  { url: '/guides/why-did-my-escrow-payment-go-up', priority: '0.8', changefreq: 'monthly' },
+  { url: '/guides/how-much-house-can-i-afford', priority: '0.8', changefreq: 'monthly' },
+  { url: '/guides/how-much-unemployment-will-i-get', priority: '0.8', changefreq: 'monthly' },
   // Compliance
   { url: '/about', priority: '0.4', changefreq: 'yearly' },
   { url: '/contact', priority: '0.4', changefreq: 'yearly' },

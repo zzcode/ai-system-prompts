@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'How Much Unemployment Will I Get?';
+const description = 'Understand how U.S. unemployment benefits are calculated, why the weekly amount varies by state, and how to find your state\u2019s official program and benefit limits.';
+const canonical = 'https://www.kodatools.com/guides/how-much-unemployment-will-i-get';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How much unemployment will I get?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Your weekly unemployment benefit depends on your state and your earnings during a recent base period. Each state sets its own formula, weekly maximum, and benefit duration, so the amount can differ significantly from one state to the next.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'How is unemployment calculated?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Most states base your benefit on wages earned during a one-year base period, typically the first four of the last five completed calendar quarters. Your weekly amount is usually a percentage of those wages, capped at the state\u2019s maximum.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the maximum unemployment benefit by state?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Weekly maximums vary widely by state. Some states cap benefits below $300 a week while others allow $800 or more, and maximum durations range from about 12 to 26 weeks depending on state law.'
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout {title} {description} {canonical} {schema} lang="en-US">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep" aria-hidden="true">/</span><a href="/finance">Finance</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">How Much Unemployment Will I Get?</span></nav>
+
+    <div class="page-head">
+      <h1>How Much Unemployment Will I Get?</h1>
+      <p class="subtitle">Why the weekly amount varies by state — and how to estimate yours.</p>
+    </div>
+
+    <section class="content-section">
+      <p>If you've recently lost a job, one of the first questions on your mind is: <em>how much unemployment will I get?</em> There's no single national answer, because unemployment insurance is run by each state, and every state sets its own formula, weekly maximum, and benefit duration. Here's how it works.</p>
+
+      <h2>Who sets the rules?</h2>
+      <p>Unemployment benefits are a federal–state partnership. The U.S. Department of Labor sets broad guidelines, but <strong>each state administers its own program</strong> — which means your weekly benefit amount, how long you can collect, and even how you apply all depend on the state where you worked.</p>
+      <p>That's also why the answer to "how much will I get" starts with <strong>your state</strong>, not a national average.</p>
+
+      <h2>How your weekly amount is calculated</h2>
+      <p>Most states follow a similar pattern, using your earnings during a <strong>base period</strong> — typically the first four of the last five completed calendar quarters before you filed. Your weekly benefit is then a percentage of those wages, capped at the state's weekly maximum.</p>
+      <p>A simplified version looks like this:</p>
+      <ul>
+        <li><strong>Base period wages</strong> — how much you earned in your qualifying quarters.</li>
+        <li><strong>Weekly benefit amount</strong> — usually around half of your average weekly wage, up to the state's cap.</li>
+        <li><strong>Maximum duration</strong> — most states offer up to 26 weeks, though some offer fewer.</li>
+      </ul>
+
+      <h2>Why the amount varies so much by state</h2>
+      <p>State maximums span a wide range. In some states, the weekly cap is below $300; in others, it's $800 or more. Benefit durations also differ, from roughly 12 weeks to 26 weeks. That means two people with identical wages can receive very different benefits simply because they worked in different states.</p>
+
+      <h2>What you'll need to file</h2>
+      <p>When you apply through your state's agency, be ready with:</p>
+      <ol>
+        <li>Your Social Security number and contact information.</li>
+        <li>Employment history for the last 18 months — employer names, addresses, and dates.</li>
+        <li>Your reason for separation (laid off, reduced hours, etc.).</li>
+        <li>Bank details for direct deposit, if your state offers it.</li>
+      </ol>
+      <p>File promptly after your last day of work — benefits generally aren't retroactive to before you apply, so waiting costs you weeks of payments.</p>
+
+      <h2>Find your state's official program</h2>
+      <p>The only reliable way to know your number is to check your state's official unemployment agency, which publishes its current weekly limits and duration. Our lookup tool gathers each state's official agency and compares verified benefit limits where available, so you can start in the right place.</p>
+      <p><a href="/finance/unemployment-benefits-by-state">Find your state's unemployment program →</a></p>
+
+      <h2>Frequently asked questions</h2>
+      <h3>How long can I collect unemployment?</h3>
+      <p>Most states offer up to 26 weeks, but some offer fewer. During periods of high unemployment, federal or state extended benefits may become available, but these are not guaranteed.</p>
+      <h3>Can I work part-time and still collect?</h3>
+      <p>Often yes. Many states allow partial benefits if you earn less than your weekly benefit amount, but your earnings will reduce the benefit. Report all income accurately.</p>
+      <h3>Is unemployment income taxable?</h3>
+      <p>Yes. Unemployment benefits are generally taxable at the federal level, and most states tax them too. You can choose to have taxes withheld when you file.</p>
+
+      <p class="privacy-note">For general education only. Benefit rules, amounts, and durations change and vary by state — always confirm with your state's official unemployment agency.</p>
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'How Much House Can I Afford?';
+const description = 'Estimate how much home you can afford based on income, debt, down payment, and interest rates. Includes the 28/36 rule and a step-by-step example.';
+const canonical = 'https://www.kodatools.com/guides/how-much-house-can-i-afford';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How much house can I afford?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A common guideline is to keep total monthly housing costs under 28% of your gross monthly income, and total monthly debt (including housing) under 36%. Your actual limit depends on your income, down payment, credit, interest rate, and existing debts.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the 28/36 rule?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The 28/36 rule says no more than 28% of gross monthly income should go to housing costs, and no more than 36% should go to all debt payments combined. Lenders use these ratios to judge how much you can borrow.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'How much should I save for a down payment?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A 20% down payment avoids private mortgage insurance on a conventional loan, but many first-time buyers put down 3% to 5%. A larger down payment lowers your loan amount, monthly payment, and total interest.'
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout {title} {description} {canonical} {schema} lang="en-US">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep" aria-hidden="true">/</span><a href="/finance">Finance</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">How Much House Can I Afford?</span></nav>
+
+    <div class="page-head">
+      <h1>How Much House Can I Afford?</h1>
+      <p class="subtitle">A practical way to estimate your home-buying budget using your income, debts, and down payment.</p>
+    </div>
+
+    <section class="content-section">
+      <p>"How much house can I afford?" is the first question every buyer asks — and the answer is more personal than any online headline suggests. It depends on your income, existing debts, down payment, credit score, and current interest rates. Here's how to figure out a realistic number.</p>
+
+      <h2>Start with the 28/36 rule</h2>
+      <p>Most lenders use two ratios to size a mortgage, known as the <strong>28/36 rule</strong>:</p>
+      <ul>
+        <li><strong>Front-end (28%)</strong> — your total monthly housing payment (principal, interest, taxes, insurance, and HOA) should stay under 28% of your gross monthly income.</li>
+        <li><strong>Back-end (36%)</strong> — your housing payment <em>plus</em> all other monthly debts (car loans, student loans, credit cards, personal loans) should stay under 36% of gross income.</li>
+      </ul>
+      <p>These aren't hard caps — some loan programs allow higher ratios — but they're a solid starting point and reflect what most conventional lenders prefer.</p>
+
+      <h2>A worked example</h2>
+      <p>Say you earn <strong>$80,000 a year</strong>. Your gross monthly income is $80,000 ÷ 12 = <strong>$6,667</strong>.</p>
+      <ul>
+        <li><strong>28% for housing</strong> = $6,667 × 0.28 = <strong>$1,867/month</strong>.</li>
+        <li><strong>36% for all debt</strong> = $6,667 × 0.36 = <strong>$2,400/month</strong>.</li>
+      </ul>
+      <p>If you already pay $400/month toward a car loan and student loans, that leaves $2,400 − $400 = <strong>$2,000/month</strong> for housing. The lower of the two housing figures ($1,867) is your target ceiling before taxes and insurance.</p>
+      <p>From a monthly payment, you can back into a home price using the interest rate and loan term. A $1,867 payment at 6.5% over 30 years corresponds to roughly a <strong>$300,000 loan</strong> — then add your down payment on top of that.</p>
+
+      <h2>The four factors that change everything</h2>
+      <h3>1. Interest rate</h3>
+      <p>A one-point rate change moves your payment by hundreds of dollars a month on a typical loan. Higher rates mean less house for the same monthly budget.</p>
+      <h3>2. Down payment</h3>
+      <p>A 20% down payment avoids private mortgage insurance (PMI) on a conventional loan, but many first-time buyers put down 3% to 5%. A larger down payment lowers your loan amount, monthly payment, and total interest paid.</p>
+      <h3>3. Existing debt</h3>
+      <p>Every dollar of existing monthly debt directly reduces what a lender will approve. Paying down a credit card or car loan before you apply can meaningfully raise your buying power.</p>
+      <h3>4. Property taxes, insurance, and HOA</h3>
+      <p>These are part of your monthly payment and vary widely by state and neighborhood. They can add hundreds of dollars a month on top of principal and interest.</p>
+
+      <h2>Beyond the ratios: what you can actually afford</h2>
+      <p>Lenders may approve you for more than you should comfortably spend. Consider your <em>take-home</em> pay (after taxes and retirement contributions), your other goals, and whether you'd still have breathing room after the mortgage. A house payment you can technically qualify for isn't the same as one you can comfortably afford.</p>
+
+      <p>To see your own numbers in seconds, use the mortgage calculator to estimate a monthly payment from any home price, down payment, and rate — then compare it against your 28% and 36% limits.</p>
+      <p><a href="/finance/mortgage-calculator">Estimate your mortgage payment →</a></p>
+
+      <h2>Frequently asked questions</h2>
+      <h3>What income do lenders use?</h3>
+      <p>Lenders generally use your <strong>gross</strong> (pre-tax) income, but they verify stability — usually two years of consistent earnings, especially for self-employed borrowers.</p>
+      <h3>Does my credit score affect how much I can afford?</h3>
+      <p>Yes. A higher score qualifies you for a lower interest rate, which means a larger loan for the same monthly payment. It can also reduce the down payment required.</p>
+      <h3>How does debt-to-income (DTI) ratio work?</h3>
+      <p>DTI is your total monthly debt payments divided by gross monthly income, expressed as a percentage. The 36% back-end limit is a DTI cap most conventional lenders aim for.</p>
+
+      <p class="privacy-note">For education and estimation, not financial advice. Estimates depend on the interest rate, term, taxes, and insurance you enter.</p>
+    </section>
+  </div>
+</BaseLayout>

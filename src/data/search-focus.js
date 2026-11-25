@@ -14,5 +14,8 @@ export const reviewedPages = {
   '/date-time/age-calculator': '2026-09-29',
   '/construction/concrete-calculator': '2026-11-24',
   '/construction/tile-calculator': '2026-11-17',
-  '/construction/paint-calculator': '2026-11-17'
+  '/construction/paint-calculator': '2026-11-17',
+  '/guides/why-did-my-escrow-payment-go-up': '2026-11-25',
+  '/guides/how-much-house-can-i-afford': '2026-11-25',
+  '/guides/how-much-unemployment-will-i-get': '2026-11-25'
 };

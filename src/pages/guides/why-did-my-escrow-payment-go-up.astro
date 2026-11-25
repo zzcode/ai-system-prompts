@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'Why Did My Escrow Payment Go Up?';
+const description = 'Learn why your mortgage escrow payment increased. We break down property taxes, insurance premiums, and temporary shortage installments, and show how to verify your statement.';
+const canonical = 'https://www.kodatools.com/guides/why-did-my-escrow-payment-go-up';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Why did my escrow payment go up?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Your escrow payment rises when your annual property taxes, homeowners insurance, or both increase, or when your account fell short the previous year and that shortage is now being repaid in monthly installments.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Will my escrow payment go back down?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The part of an increase that comes from a prior-year shortage is temporary and drops off once the shortfall is repaid, usually over 12 months. The part that comes from higher taxes or insurance premiums is permanent until those bills change.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I pay my escrow shortage upfront?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Most servicers let you pay a shortage in one lump sum, which removes that installment from your monthly payment. Paying the shortage does not undo an increase in projected taxes or insurance.'
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout {title} {description} {canonical} {schema} lang="en-US">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep" aria-hidden="true">/</span><a href="/finance">Finance</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">Why Did My Escrow Payment Go Up?</span></nav>
+
+    <div class="page-head">
+      <h1>Why Did My Escrow Payment Go Up?</h1>
+      <p class="subtitle">A line-by-line breakdown of what your escrow analysis is really telling you — and what's temporary versus permanent.</p>
+    </div>
+
+    <section class="content-section">
+      <p>If you own a home with a mortgage, you've probably opened your annual escrow analysis and asked the same question: <em>why did my escrow payment go up?</em> You're not alone — it's one of the most common (and most confusing) surprises for U.S. homeowners.</p>
+      <p>The short answer: your escrow payment rises when your <strong>property taxes</strong>, <strong>homeowners insurance</strong>, or both increase, or when your account came up short the previous year and that shortfall is now being repaid. But "short" rarely satisfies when you're staring at a $200-a-month jump. Here's exactly what's happening, line by line.</p>
+
+      <h2>What is an escrow payment?</h2>
+      <p>Your mortgage payment usually has two parts:</p>
+      <ol>
+        <li><strong>Principal + interest</strong> — what you borrowed, plus the cost of borrowing it. With a fixed-rate loan, this part rarely changes.</li>
+        <li><strong>Escrow</strong> — a separate pool your lender collects to pay your <strong>property taxes</strong> and <strong>homeowners insurance</strong> (and sometimes mortgage insurance and HOA dues) on your behalf.</li>
+      </ol>
+      <p>The lender estimates these annual costs, divides by 12, and adds that amount to your monthly payment. Every year they run an <strong>escrow analysis</strong> comparing the estimate against your actual bills. When the actual bills went up — or the estimate was too low — the difference shows up as a higher escrow payment.</p>
+
+      <h2>The 3 reasons your escrow payment increased</h2>
+      <h3>1. Your property taxes went up</h3>
+      <p>This is the most common cause. Local governments reassess home values and adjust tax rates, and both can push your annual bill higher. If your home's assessed value rose, or a voter-approved levy kicked in, your escrow payment reflects that.</p>
+      <h3>2. Your homeowners insurance premium rose</h3>
+      <p>Insurance costs have climbed steeply in recent years — driven by inflation in rebuilding costs, more frequent severe weather, and rising reinsurance costs. If your policy renewed at a higher premium, your escrow payment goes up to cover it.</p>
+      <h3>3. You had an escrow shortage last year</h3>
+      <p>This is the part most people miss. If your account came up <strong>short</strong> last year — meaning your lender paid out more for taxes and insurance than it collected from you — you now owe that difference back, <em>on top of</em> the higher ongoing cost. That shortage is typically spread over 12 months, so your payment can jump for two reasons at once.</p>
+
+      <h2>Why an increase can be "partly temporary"</h2>
+      <p>Here's a detail that saves people real money once they understand it:</p>
+      <ul>
+        <li>The <strong>recurring increase</strong> (higher taxes/insurance) is permanent — you'll keep paying it.</li>
+        <li>The <strong>shortage repayment</strong> is temporary — once you've paid back the shortfall, usually over 12 months, that portion drops off.</li>
+      </ul>
+      <p>That's why a payment that jumps by $150 this year might settle back to a $90 increase next year. The extra $60 was just the shortage being repaid.</p>
+
+      <h2>A worked example</h2>
+      <p>Suppose annual taxes increase from $3,600 to $4,320 and annual insurance from $1,200 to $1,440, with no other escrowed bills. Your monthly base contribution rises from $400 to $480.</p>
+      <p>Now add a <strong>$240 shortage</strong> from last year, spread over 12 months — that's $20 a month. Your actual new escrow payment is $480 + $20 = <strong>$500/month</strong>, a $100 jump. Next year, if costs hold steady and the shortage is repaid, it drops back to $480.</p>
+
+      <h2>How to verify your increase is correct</h2>
+      <p>Your escrow statement is the source of truth. When you review it, check three things:</p>
+      <ol>
+        <li><strong>Tax amount</strong> — does it match your county's current tax bill?</li>
+        <li><strong>Insurance amount</strong> — does it match your current policy premium?</li>
+        <li><strong>Shortage/deficiency</strong> — is there a listed shortfall being spread over 12 months, and is the math right?</li>
+      </ol>
+      <p>Lenders are regulated, but they do make mistakes. A mismatch between the statement and your actual bills is worth a phone call. If you suspect a servicing error, send a written notice of error to your servicer's designated address and keep proof of delivery.</p>
+
+      <p>Rather than doing the division by hand, use a tool built for exactly this — it compares your old and new statements, separates the permanent increase from the temporary shortage repayment, and flags what to verify.</p>
+      <p><a href="/finance/escrow-analysis-checker">Check your escrow statement now →</a></p>
+
+      <h2>Frequently asked questions</h2>
+      <h3>What's the difference between a shortage and a deficiency?</h3>
+      <p>A <strong>shortage</strong> is the gap between the account's current balance and its target balance at the analysis date — typically repaid over 12 months with no penalty. A <strong>deficiency</strong> is when an actual balance falls below zero, and it may need to be repaid faster or in a lump sum.</p>
+      <h3>Can I avoid escrow entirely?</h3>
+      <p>Sometimes. If your loan-to-value ratio is low enough (often below 80%) and your lender allows it, you may be able to waive escrow and pay taxes and insurance directly. You'll need to budget for those large bills yourself.</p>
+      <h3>Does my escrow payment go down when taxes or insurance drop?</h3>
+      <p>Yes. If your tax bill or insurance premium falls, the annual escrow analysis should lower your payment. Many people forget to check for <em>decreases</em> — worth watching for.</p>
+
+      <p class="privacy-note">For education and estimation, not legal or financial advice. For a principal and interest estimate, see the <a href="/finance/mortgage-calculator">Mortgage Calculator</a>.</p>
+    </section>
+  </div>
+</BaseLayout>
